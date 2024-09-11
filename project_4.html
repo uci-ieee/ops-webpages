@@ -118,50 +118,50 @@
 
 				<div class="d-flex flex-row justify-content-between mb-5">
 					<div class="">
-						<h4>Project 4</h4>
-						<h1 class="fw-bold">RGB LED Dimmer</h1>
+						<h4>Project 3</h4>
+						<h1 class="fw-bold">RGB LED Wizard</h1>
 					</div>
 					<div class="alert alert-light" role="alert">
 						<i class="bi bi-calendar-event me-1"></i>
-						Updated 2023.01.04 <br>
-						By Dylan Vu and Gavin Nguyen
+						Updated 2024.09.04 <br>
+						By Sahil Dhaktode
 					</div>
 				</div>
 
 				<h2 class="mb-3 fw-bold" id="pj-heading-overview">Overview</h2>
 				<p class="mb-5">
-					You will program an Arduino Nano to control a dimmable RGB light.
+					In this project, you will program an ESP32 to control a dimmable RGB light.
 					At each checkpoint, you will explore the core functions of microcontrollers:
 					digital input/output, pulse width modulation, and analog-to-digital conversion.
 				</p>
 
 				<h2 class="mb-3 fw-bold" id="pj-heading-concepts">Concepts</h2>
-				<h3 class="mb-3" id="pj-heading-arduino-nano">Arduino Nano</h3>
+				<h3 class="mb-3" id="pj-heading-arduino-nano">ESP32</h3>
 				<div class="mb-3">
 					<p>
-						The Arduino Nano is a board based on an ATmega microcontroller. The chip itself contains
-						the processor, RAM, and flash storage. These components execute the programs we write.
+						The ESP32-C3Fx4 is a board based on an ESP32 microcontroller. The chip itself contains the
+						processor, RAM, and flash storage. These components execute the programs we write, which
+						allows us to build and control cool projects with them!
 					</p>
 					<p>
-						The Arduino company designed several boards to make the ATmega chip hobbyist-friendly: they
-						added a USB port, voltage regulator, and onboard LEDs (among other things). In this family of
-						boards are the Arduino Uno, Arduino Nano, and many, <i>many</i> more.
+						The ESP32-C3Fx4 board is hobbyist-friendly and was developed by WeAct Studio:
+						they added a USB-C port, voltage regulator, and onboard LEDs (among other things).
 					</p>
 				</div>
 
 				<div class="mb-5">
-					<img class="pj-img-fluid-end" src="./assets/images/parts/ops_part_arduino_nano.png"  width="300">
+					<img class="pj-img-fluid-end" src="./assets/images/parts/ops_part_ESP32.jpg"  width="300">
 					<p>
-						We'll stick with the Arduino Nano for now, which is depicted here.
+						<strong>In OPS, we will refer to the ESP32-C3Fx4 board as an ESP32</strong> from now on for convenience.
+						The ESP32 board is depicted here (without its pin headers).
 					</p>
 					<p>
-						<strong>General Purpose Input/Output</strong> <strong>(GPIO)</strong>, power, and reset pins run
+						<strong>General Purpose Input/Output</strong> <strong>(GPIO)</strong>, power, and ground pins run
 						along the sides of the Nano.
 					</p>
 					<p>
-						In the lecture content, we discuss the different GPIO pin capabilities and their use cases. We
-						also
-						use the Arduino programming
+						In the lecture content, we discuss the different GPIO pin capabilities and their use cases.
+						To program the ESP32, we will use the Arduino programming
 						language (a C++ variant) to write and compile sketches. Learn more <a
 							href="https://ieee.ics.uci.edu/ops/lectures.html" target="_blank"
 							rel="noopener noreferrer">here</a>.
@@ -177,10 +177,8 @@
 
 				<h4 class="mb-3" style="display: inline;">Pinout</h4>
 				<p>
-					Thinking about using a pin but you don't know what it does? Refer to the Arduino Nano pinout
+					Thinking about using a pin but you don't know what it does? Refer to the ESP32 Board pinout
 					diagram.
-					The full datasheet
-					is linked in the <a href="#pj-heading-parts">Parts</a> section.
 				</p>
 				<p>
 					<span class="text-blue">~</span> represents pins that are PWM capable.
