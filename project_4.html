@@ -384,7 +384,7 @@
 							<td>1</td>
 						</tr>
 						<tr>
-							<td>LED, 3.2V</td>
+							<td>LED, 2V</td>
 							<td>1</td>
 						</tr>
 						<tr>
@@ -400,11 +400,11 @@
 						<tr>
 							<td>
 								<a class="pj-part pj-part-link"
-									data-bs-content="<img src='./assets/images/parts/ops_part_arduino_nano.png' height='150px' width='auto'>"
+									data-bs-content="<img src='./assets/images/parts/ops_part_esp32c3fxh4.jpg' height='150px' width='auto'>"
 									data-bs-trigger="hover focus" data-bs-toggle="popover" tabindex="0"
 									href="./assets/datasheets/ops_datasheet_arduino_nano.pdf" target="_blank"
 									rel="noopener noreferrer">
-									Arduino Nano
+									ESP32
 								</a>
 							</td>
 							<td>
@@ -412,23 +412,19 @@
 							</td>
 						</tr>
 						<tr>
-							<td>Resistor, 130Ω</td>
+							<td>Resistor, 220Ω</td>
 							<td>1</td>
 						</tr>
 						<tr>
-							<td>Resistor, 430Ω</td>
-							<td>2</td>
-						</tr>
-						<tr>
-							<td>Resistor, 470Ω</td>
-							<td>1</td>
+							<td>Resistor, 390Ω</td>
+							<td>3</td>
 						</tr>
 						<tr>
 							<td>
 								<a class="pj-part"
 									data-bs-content="<img src='./assets/images/project_4/ops_micro_usb.jpg' height='150px' width='auto'>"
 									data-bs-trigger="hover focus" data-bs-toggle="popover" tabindex="0">
-									Nano-compatible USB Cable
+									USB-A to USB-C Cable
 								</a>
 							</td>
 							<td>1</td>
@@ -495,7 +491,7 @@
 				<ol class="mb-5 list-group list-group-numbered">
 					<li class="list-group-item">
 						Build the circuit from <strong>Schematic A</strong> (LED Blinker) on your breadboard. You will
-						design a blinking LED using the Arduino Nano.
+						design a blinking LED using the ESP32.
 						<div class="alert alert-info mt-2" role="alert">
 							Use the pseudo code below to program an LED that blinks on and off.
 						</div>
@@ -510,7 +506,7 @@
 
 void setup() {
 	// Configure LED pin's behavior to OUTPUT
-	// Configure the Serial baud rate
+	// Configure the Serial baud rate to 1520
 }
 						
 void loop() {
@@ -521,7 +517,7 @@ void loop() {
 }</code></pre>
 					</li>
 					<li class="list-group-item">
-						Upload your sketch to the Arduino Nano, and verify that the program executes as expected; the
+						Upload your sketch to the ESP32, and verify that the program executes as expected; the
 						LED should cycle ON and OFF.
 					</li>
 				</ol>
@@ -547,7 +543,7 @@ void loop() {
 void setup() {
 	// Configure the LED pin's behavior to OUTPUT
 	// Configure the Potentiometer's pin behavior to INPUT
-	// Configure the Serial baud rate
+	// Configure the Serial baud rate to 1520
 }
 						
 void loop() {
@@ -556,7 +552,7 @@ void loop() {
 }</code></pre>
 					</li>
 					<li class="list-group-item">
-						Upload your sketch to the Arduino Nano, and verify that the circuit meets the design
+						Upload your sketch to the ESP32, and verify that the circuit meets the design
 						requirements.
 					</li>
 				</ol>
