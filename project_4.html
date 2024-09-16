@@ -150,7 +150,7 @@
 				</div>
 
 				<div class="mb-5">
-					<img class="pj-img-fluid-end" src="./assets/images/parts/ops_part_ESP32.jpg"  width="300">
+					<img class="pj-img-fluid-end" src=".\assets\images\parts\ops_part_esp32c3fxh4.jpg"  width="300">
 					<p>
 						<strong>In OPS, we will refer to the ESP32-C3Fx4 board as an ESP32</strong> from now on for convenience.
 						The ESP32 board is depicted here (without its pin headers).
@@ -181,9 +181,10 @@
 					diagram.
 				</p>
 				<p>
-					ADC represents pins that have an Analog-to-Digital Converter. All GPIO pins are PWM capable.
+					NC stands for No Connect, and these pins should be left unconnected.
+					~ represents pins that are PWM (Pulse Width Modulation) capable.
 				</p>
-        		<img class="pj-img-fluid mx-auto mb-5" src=".\assets\images\pinouts\ops_pinout_ESP32.png"   width="800">
+        		<img class="pj-img-fluid mx-auto mb-5" src=".\assets\images\pinouts\[2024-2025] OPS ESP32-C3 PINOUT.png"   width="800">
         
 				<h3 class="mb-3" id="pj-heading-potentiometer" style="display: inline;">Potentiometer</h3>
 				<p>
@@ -288,9 +289,9 @@
 					</p>
 				</div>
 
-				<h2 class="mb-3 fw-bold" id="pj-heading-software-installations">Software Installations</h2>
+				<h2 class="mb-3 fw-bold" id="pj-heading-software-installations">Software Setup</h2>
 				<p class="mb-5">
-					We will use the Arduino IDE to write code for our Arduino Nano board. The software includes a text
+					We will use the Arduino IDE to write code for our ESP32 board. The software includes a text
 					editor, compiler,
 					debugger, and library manager. While you may use any IDE of your choice, we highly recommend
 					installing
