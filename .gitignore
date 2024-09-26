@@ -129,6 +129,13 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-#CSS
-custom.css
-custom.css.map
+# scss compilation targets
+css/custom.css
+css/custom.css.map
+
+# cache-busted js files, the intention here is to ignore stuff like: js/collapsible.d3c8b399d90e9e13ef46d598f53a05ca.js
+# however, if we use actual js files like js/card.test.js, then it will be ignored. This is just here in case someone runs the cache-busting script on accident locally.
+js/*.*.js
+
+# ignore cache-busted css files
+css/*.*.css

@@ -7,10 +7,25 @@ document.write(`
     </a>
     <ul class="list-unstyled small">
         <li>
-            Website designed by the 2023-2024 Open Project Space Committee
+            Website designed by the 2024-2025 Open Project Space Committee
         </li>
         <li>
             CC BY-NC-SA 2023 Institute of Electrical and Electronics Engineers, UC Irvine Branch
+        </li>
+        <br>
+        <li>
+        <strong>Fair Use Act Disclaimer</strong>
+        <br>
+        This site is for educational purposes only.
+        <br><br>
+        <strong>Fair Use</strong>
+        <br>
+        Copyright Disclaimer under section 107 of the Copyright Act of 1976, allowance is made for “fair use” for purposes such as criticism, comment, news reporting, teaching, scholarship, education and research.
+        Fair use is a use permitted by copyright statute that might otherwise be infringing.
+        <br><br>
+        <strong>Fair Use Definition</strong>
+        <br>
+        Fair use is a doctrine in United States copyright law that allows limited use of copyrighted material without requiring permission from the rights holders, such as commentary, criticism, news reporting, research, teaching or scholarship. It provides for the legal, non-licensed citation or incorporation of copyrighted material in another author’s work under a four-factor balancing test.
         </li>
     </ul>
 
@@ -22,7 +37,7 @@ document.write(`
         Email | <a href="mailto:ieee@uci.edu">ieee@uci.edu<a>
     </li>
     <li>
-        Lead Instructor | Benjamen Bielecki
+        Lead Instructor | Gavin Nguyen
     </li>
 </ul>
 </div>

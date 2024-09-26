@@ -11,6 +11,7 @@
   "scripts": {
     "sass": "npx sass ./scss/custom.scss ./css/custom.css",
     "sass-watch": "npx sass --watch ./scss/custom.scss ./css/custom.css",
+    "cache-busting": "node ./scripts/hash.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "version": "1.0.0"

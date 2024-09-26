@@ -13,45 +13,24 @@ document.write(`
                         <a class="nav-link" aria-current="page" href="./index.html">Home</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="./faq.html">FAQ</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="./syllabus.html">Syllabus</a>
                     </li>
                     <li class="nav-item dropdown ">
-                        <a class="nav-link dropdown-toggle disabled" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Projects
                         </a>
                         <ul class="dropdown-menu" data-bs-theme="light" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Project 1: LED Circuit</a></li>
-                        <li><a class="dropdown-item" href="#">Project 2: 555 Piano</a></li>
-                        <li><a class="dropdown-item" href="#">Project 3: C++ Programming Exercises</a></li>
-                        <li><a class="dropdown-item" href="#">Project 4: RGB Dimmer</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Project 5: iPoduino v2</a></li>
-                        <li><a class="dropdown-item" href="./project_template.html">Project 6: Weather Station</a></li>
-                        <li><a class="dropdown-item" href="#">Project 7: 7-Segment Stopwatch</a></li>
-                        <li><a class="dropdown-item" href="#">Project 8: 555 Blinker PCB Design</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Capstone Project: RC Rover</a></li>
+                            <li><a class="dropdown-item"> Coming soon!</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item dropdown ">
-                        <a class="nav-link dropdown-toggle disabled" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Lectures
-                        </a>
-                        <ul class="dropdown-menu" data-bs-theme="light" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Project 1: LED Circuit</a></li>
-                        <li><a class="dropdown-item" href="#">Project 2: 555 Piano</a></li>
-                        <li><a class="dropdown-item" href="#">Capstone Project: RC Rover</a></li>
-                        </ul>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./lectures.html">Lectures</a>
                     </li>
-                    <li class="nav-item dropdown ">
-                        <a class="nav-link dropdown-toggle disabled" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Workshops
-                        </a>
-                        <ul class="dropdown-menu" data-bs-theme="light" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Project 1: LED Circuit</a></li>
-                            <li><a class="dropdown-item" href="#">Project 2: 555 Piano</a></li>
-                            <li><a class="dropdown-item" href="#">Capstone Project: RC Rover</a></li>
-                        </ul>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./workshops.html">Workshops</a>
                     </li>
                 </ul>
                 <a class="bi bi-facebook link-light me-4 fs-5" target="_blank" href="https://www.facebook.com/IEEE.UCI/"></a>
@@ -61,7 +40,7 @@ document.write(`
                 <a class="link-light me-4" target="_blank" href="https://ieee.ics.uci.edu">
                 <img src="./assets/images/ieee_logo.png" width="26px" alt="OPS Logo"></a>
                 <!-- Setup JS Script to auto-remove Application Button at end of season. Replace with -->
-                <a class="my-sm-0 my-2 btn btn-outline-info"
+                <a class="my-sm-0 my-2 btn btn-outline-info" hidden
                     target="_blank"
                     href="https://forms.gle/72Utb9mtvfvz5Cob9">
                     <i class="bi bi-pen me-1"></i>

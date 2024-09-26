@@ -85,3 +85,20 @@ When new SASS files are created, they need to be imported into `scss/custom.scss
 @import "./js/ops_header.scss";
 @import "./js/ops_footer.scss";
 ```
+
+### Cache Busting
+Cache Busting is done by dynamically creating copies of the JS files in the `js` directory with a hash in the name. For example, `ops_header.js` will become `ops_header.137e471e540f8f5fd304a5f32d713fab.js`.
+
+Here is the entire process, contained in `scripts/hash.js`:
+1. Copies of the js files are made with the new hash name generated
+2. Every HTML file that contains a reference to a .js file will be replaced with the hashed name. 
+
+This is done in the GitHub workflows, using the `npm run cache-busting`. As such,  **do not run this command while developing locally** as it generates unnecessary and duplicate files. If it's run on accident, do not commit. Fix all the modifications to all the js files, or if it proves to be too much, restore.
+
+Run `git status` to check all the untracked files. If the only untracked files are the hashed js files, then run `git clean -f` to delete all the hashed js file copies. This command deletes all the untracked files.
+
+Run `git restore [html files]` where you add all the html files.
+
+`git restore index.html lectures.html workshops.html syllabus.html` and so on...
+
+If this is committed, then **all the JS will be broken**...

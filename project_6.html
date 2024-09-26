@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-bs-theme="light">
+
+<head>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+    <!--Title-->
+    <title>Open Project Space</title>
+    <!--Favicon-->
+    <link rel="icon" href="./assets/images/ops_logo_favicon.png">
+    <!--Roboto Font CDN-->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto" rel="stylesheet">
+    <!--Beckman Font CDN-->
+    <link href="https://fonts.cdnfonts.com/css/beckman" rel="stylesheet">
+    <!-- Custom Stylesheet "custom.css" used for Bootstrap 5.3.0 css-->
+    <link rel="stylesheet" href="./css/custom.css" type="text/css">
+    <!-- Popper JS v2.11.8 (Bootstrap Dependency) CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <!-- Bootstrap JS v5.3.0 CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+        integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
+        crossorigin="anonymous"></script>
+    <!-- Bootstrap Icons CSS v1.10.0 CDN-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <!-- Highlight JS v11.7.0-->
+    <link rel="stylesheet" href="./css/highlight.js/default.min.css" type="text/css">
+    <link rel="stylesheet" href="./css/highlight.js/arduino-light.min.css" type="text/css">
+    <script src="./js/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+
+<body style="">
+	<!-- ======= Header ======= -->
+	<script src="./js/ops_header.js"></script>
+	<!-- End Header -->
+
+	<div class="container-xl pj-layout my-5">
+		<!-- ======= Sidebar ======= -->
+		<aside class="pj-sidebar ">
+			<nav id="project-toc" class="pj-toc d-flex flex-column px-2 pt-2 pb-4">
+				<ul class="nav flex-column">
+					<h5 class="mt-2 mb-2 mx-3">Contents</h5>
+					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-introduction">Overview</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-arduino-libraries">Installing Arduino Libraries</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-concepts">Concepts</a>
+
+						<ul class="nav">
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-dht11">DHT11 Sensor</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-lcd">LCD with I<sup>2</sup>C Backpack</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-nrf24l01">NRF24L01 Transceiver Module</a>
+							</li>
+						</ul>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-requirements">Requirements</a>
+						<ul class="nav">
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-transmitter-station">Transmitter Station</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-receiver-station">Receiver Station</a>
+							</li>
+						</ul>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-parts">Parts</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-schematics">Schematics</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-instructions">Instructions</a>
+						<ul class="nav">
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-checkpoint1">Checkpoint 1</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-checkpoint2">Checkpoint 2</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-checkpoint3">Checkpoint 3</a>
+							</li>
+						</ul>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-deliverables">Deliverables</a>
+					</li>
+				</ul>
+			</nav>
+		</aside>
+		<!-- End Sidebar -->
+
+		<main class="pj-main p-3" data-bs-spy="scroll" data-bs-target="#project-toc" data-bs-root-margin="0px 0px -40%"
+			data-bs-smooth-scroll="true" tabindex="0">
+			<div class="pj-content">
+			<div class="d-flex flex-row justify-content-between mb-5">
+				<div class="">
+					<h4>Project 6</h4>
+					<h1 class="fw-bold">Weather Station</h1>
+				</div>
+				<div class="alert alert-light" role="alert">
+					<i class="bi bi-calendar-event me-1"></i>
+					Updated 2024.01.25 <br>
+					By Benjamen Bielecki
+				</div>
+			</div>
+
+			<h2 class="mb-3 fw-bold" id="pj-heading-introduction">Overview</h2>
+			<p class="mb-5">
+				This next project is a culmination of all that you have learned in communication. You will transfer data
+				between two Arduino boards and
+				several embedded devices using 1-Wire, SPI, and I<sup>2</sup>C. The goal? Your system will be a full-fledged,
+				wireless weather station.
+				An outdoor Arduino unit, connected to temperature, humidity, and light sensors, will transmit its data
+				over radio to the indoor Arduino unit,
+				which will print this information on a display.
+			</p>
+
+			<h2 class="mb-3 fw-bold" id="pj-heading-arduino-libraries">Installing Arduino Libraries</h2>
+			<p class="mb-3">
+				Here is a quick recap on how you can install Arduino libraries in the
+				<a class="link-primary" href="https://www.arduino.cc/en/software" target="_blank"
+					rel="noopener noreferrer">Arduino IDE 2.0.0+</a>
+			</p>
+			<ol class="mb-4 list-group list-group-numbered">
+				<li class="list-group-item">
+					Download the library as a <strong>.zip</strong>
+				</li>
+				<li class="list-group-item">
+					In the Arduino IDE, go to <strong>Sketch → Include Library → Add .ZIP Library…</strong>
+				</li>
+				<li class="list-group-item">
+					Select the <strong>.zip</strong> of the library and click <strong>Open</strong>.
+				</li>
+			</ol>
+			<img class="img-fluid mb-4" src=".\assets\images\ops_arduino_ide_zip_library.png">
+
+			<p class="mb-4">
+				You're done! Just make sure to <code class="pj-code language-arduino">#include</code> the library header
+				file so that your
+				code compiles correctly.
+			</p>
+
+			<table class="table pj-download-table mb-5">
+				<tbody>
+					<tr>
+						<td>DHT Library</td>
+						<td>
+							<a class="btn btn-outline-success mx-3"
+								href="assets\libraries\DHT_sensor_library-1.4.4.zip"
+								role="button"><i class="bi bi-download"></i> Download</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Adafruit Unified Sensor Library</td>
+						<td>
+							<a class="btn btn-outline-success mx-3"
+								href="assets\libraries\Adafruit_Sensor.zip"
+								role="button"><i class="bi bi-download"></i> Download</a>
+						</td>
+					</tr>
+					<tr>
+						<td>LiquidCrystal I<sup>2</sup>C Library</td>
+						<td>
+							<a class="btn btn-outline-success mx-3"
+								href="assets\libraries\LiquidCrystal_I2C-1.1.2.zip"
+								role="button"><i class="bi bi-download"></i> Download</a>
+						</td>
+					</tr>
+
+					<tr>
+						<td>NRF24L01_W Library</td>
+						<td>
+							<a class="btn btn-outline-success mx-3"
+								href="assets\libraries\NRF24L01_W.zip"
+								role="button"><i class="bi bi-download"></i> Download</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<h2 class="mb-3 fw-bold" id="pj-heading-concepts">Concepts</h2>
+			<h3 class="mb-3" id="pj-heading-dht11">DHT11 Sensor</h3>
+
+			<p class="mb-5">
+				We will use the DHT11 sensor module to measure temperature and humidity. This component is rather
+				straightforward.
+				The DHT11 uses the <a class="link-primary"
+					href="https://docs.arduino.cc/learn/communication/one-wire">1-Wire® protocol</a> to communicate
+				with the Arduino board over a single data line. We simply need to accept the data at the Arduino and
+				display it.
+			</p>
+
+			<h4 class="mb-3 fw-light">DHT11 Pinout Diagram</h4>
+			<img class="pj-img-fluid-end" src="assets\images\project_6\ops_dht11_annotated.png" width="200">
+			<p class="mb-5">
+				To the right is the pinout of the DHT11.
+				<br><br>
+				The GND and <span class="text-red">VCC</span> pins power the radio module. Note that the <span
+					class="text-red">VCC</span> pin takes a voltage between 3.3 and <br>
+					5V, but to keep it simple,
+				<strong>connect it to the VCC pin</strong> of the Arduino board.
+				<br><br>
+				The third and final pin is <span class="text-green">S</span>. This line carries the communication
+				between the Arduino and the sensor. It should be connected to a digital pin of the Arduino board.
+			</p>
+
+			<h4 class="mb-3 fw-light">Using the DHT Library</h4>
+			<p class="mb-3">
+
+				Writing the code for the DHT11 is almost as easy as wiring it! You can download the DHT library
+				<a class="link-primary"
+					href="assets\libraries\DHT_sensor_library-1.4.4.zip">here</a>. 
+
+				You will also need to download the Adafruit USD Library 
+				<a class="link-primary"
+					href="assets\libraries\Adafruit_Sensor.zip">here</a>. 
+				Make sure to include the header files:
+			</p>
+			<p class="mb-3">
+				<code class="pj-code language-arduino">#include &lt;DHT.h&gt;</code> <br>
+				<code class="pj-code language-arduino">#include &lt;Adafruit_Sensor.h&gt;</code>
+			</p>
+			<p class="mb-3">
+				At the core of this library is the DHT class, which you will instantiate as an object and use to
+				read
+				data from the sensor.
+			</p>
+			<p class="mb-3">
+				Create an object as follows, declaring it in the global scope.
+			</p>
+			<p class="mb-3">
+				<code class="pj-code language-arduino">DHT weatherSensor(int pin, DHT11);</code>
+			</p>
+
+			<p class="mb-3">
+				Then, in the <code class="pj-code language-arduino">setup()</code> function definition, initiate DHT communication with the following:
+			</p>
+			<p class="mb-3">
+				<code class="pj-code language-arduino">weatherSensor.begin();</code>
+			</p>
+			<p class="mb-5">
+				To collect data from the sensor, call the <code
+					class="pj-code language-arduino">readHumidity()</code>
+				and <code class="pj-code language-arduino">readTemperature()</code> functions
+				from the DHT object. These functions return a float type which can be stored in a variable.
+			</p>
+
+			<h3 class="mb-3" id="pj-heading-lcd">LCD with I<sup>2</sup>C Backpack</h3>
+			<p class="mb-3">
+				The Liquid Crystal Display or LCD is a classic piece of technology for displaying characters from a microcontroller board. 
+				Our particular display has the dimensions 16x2, meaning it has 16 columns and 2 rows.
+				<br><br>
+				Traditionally, characters are transmitted from the board to the LCD in a parallel protocol, along with bits for other 
+				features like backlighting and positioning. Instead, we’ll use an I<sup>2</sup>C backpack, which translates an I<sup>2</sup>C signal to parallel. 
+				This reduces the mess of wiring over 10 pins to the Arduino to just four.
+				<br><br>
+			</p>
+			<h4 class="mb-3 fw-light">I<sup>2</sup>C Backpack Pinout Diagram </h4>
+			<p class="mb-3">
+				Below is a pinout of the I<sup>2</sup>C backpack attached to the LCD. Focus on the four pins labeled on the backpack. You should recognize two pins as the 
+				<span class="text-green">SDA</span> and <span class="text-blue">SCL</span> lines for I<sup>2</sup>C protocol.
+			</p>
+				<img class="img-fluid mb-4" src=".\assets\images\ops_i2c_backpack_lcd_annotated.png">
+			
+			<p class="mb-5">
+				It should also come as no surprise that the GND and <span class="text-orange">VCC</span> pins power the backpack and the LCD. Note that the <span class="text-orange">VCC</span> pin accepts 5V, 
+				so <strong> connect it to the 5V pin </strong> of the Arduino board.
+			</p>
+
+				
+
+			<h4 class="mb-3 fw-light">Wiring the Arudino to the I<sup>2</sup>C Backpack</h4>
+			<p class="mb-3">
+				The Arduino is designed to handle I<sup>2</sup>C communication through certain pins on the board,
+				which connect to the backpack as follows.
+			</p>
+
+			<table class="table pj-download-table mb-5">
+				<tr>
+					<th>I<sup>2</sup>C Backpack Pins</th>
+					<th>Arduino Nano Pins</th>
+				</tr>
+				<tr>
+					<td>GND</td>
+					<td>GND</td>
+				</tr>
+				<tr>
+					<td><span class="text-red">VCC</span></td>
+					<td>5V</td>
+				</tr>
+				<tr>
+					<td><span class="text-green">SDA</span></td>
+					<td>A4</td>
+				</tr>
+				<tr>
+					<td><span class="text-blue">SCL</span></td>
+					<td>A5</td>
+				</tr>
+			</table>
+			<p class="mb-5">
+				Having trouble seeing the text on your LCD? There is a potentiometer on the backpack that you can
+				turn to <strong>adjust the contrast </strong> of the LCD. You will need a Phillips screwdriver to do
+				so.
+			</p>
+
+			<h4 class="mb-3 fw-light" style="">Using the LiquidCrystal I<sup>2</sup>C Library</h4>
+			<p class="mb-3">
+
+				Download the library <a class="link-primary"
+					href="assets\libraries\LiquidCrystal_I2C-1.1.2.zip">here</a>.
+				Make sure to include the header file:
+			</p>
+			<p class="mb-3">
+				<code class="pj-code language-arduino">#include &lt;LiquidCrystal_I2C.h&gt;</code>
+			</p>
+			<p class="mb-3">
+				To display text, you will instantiate an object of the LiquidCrystal_I2C class, declaring it in the
+				global scope. Note in the constructor the <code class="pj-code language-arduino">address</code>
+				argument , which should be <code class="pj-code language-arduino">0x27</code>,
+				the default I2C address of the backpack. The remaining arguments should match the dimensions of the
+				LCD.
+			</p>
+			<p class="mb-3">
+				<code class="pj-code language-arduino">LiquidCrystal_I2C lcd(int address, int columns, int rows);</code>
+			</p>
+			<p class="mb-3">
+				You will call lcd’s <code class="pj-code language-arduino">init()</code> and <code
+					class="pj-code language-arduino">backlight()</code> functions just once to initialize the
+				display.
+				Place this code in your <code class="pj-code language-arduino">setup()</code> function.
+			</p>
+			<p class="mb-3">
+				<code class="pj-code language-arduino">lcd.init(); </code>
+				<br>
+				<code class="pj-code language-arduino">lcd.backlight(); </code>
+			</p>
+			<p class="mb-3">
+				Now, you can print to the LCD as though you are in a text editor. You’ll have to move a “cursor”
+				with the lcd’s <code class="pj-code language-arduino">cursor()</code> function.
+				Remember that the columns and rows are indexed starting from zero.
+			</p>
+			<p class="mb-3">
+				<code class="pj-code language-arduino">lcd.cursor(int column, int row); </code>
+			</p>
+
+			<p class="mb-3">
+				Print characters using one of lcd’s following overloaded <code
+					class="pj-code language-arduino">print()</code> function. Remember that a string can be
+				represented by a string literal like <code class="pj-code language-arduino">“Hello World”</code>.
+				Make sure to move the cursor as needed.
+			</p>
+			<p class="mb-3">
+				<code class="pj-code language-arduino">lcd.print(char[] string); </code>
+				<br>
+				<code class="pj-code language-arduino">lcd.print(int num);</code>
+				<br>
+				<code class="pj-code language-arduino">lcd.print(float num);</code>
+			</p>
+			<p class="mb-3">
+				You can clear the LCD with the following function.
+			</p>
+			<p class="mb-3">
+				<code class="pj-code language-arduino">lcd.clear();</code>
+				<br><br>
+				Let’s see all of the code in action!
+			</p>
+			<p class="alert alert-warning mt-2" role="alert">
+				Do not blindly copy-paste the sample code to your project deliverables. Read it, understand it, then adapt it to your own code.
+			</p>
+				<pre class="mb-5"><code class="pj-code language-arduino">#include &lt;LiquidCrystal_I2C.h&gt;
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+
+void setup()
+{
+	lcd.init(); // initialize the lcd
+	lcd.backlight();
+}
+
+void loop()
+{
+	lcd.clear();                 // clear display
+	lcd.setCursor(0, 0);         // move cursor to   (0, 0)
+	lcd.print("Hello");          // print message at (0, 0)
+	lcd.setCursor(2, 1);         // move cursor to   (2, 1)
+	lcd.print("World");          // print message at (2, 1)
+	delay(1000);                 // delay between each print to LCD
+}</code></pre>
+
+
+			<h3 class="mb-3" id="pj-heading-nrf24l01">NRF24L01 Transceiver Module</h3>
+			<p class="mb-3">
+				The NRF24 radio transceiver is a popular choice for wireless communication between microcontroller boards. We’ll use the NRF24L01 variation, 
+				which is a low-power, high-frequency radio module.
+			</p>
+			<p class="mb-5">
+				Here’s how we’ll transmit data: The Arduino board will transfer messages to and from the radio module using SPI protocol, and the radio module will handle the rest. 
+				It uses a radio protocol called <a class="link-primary" href= "https://devzone.nordicsemi.com/nordic/nordic-blog/b/blog/posts/intro-to-shockburstenhanced-shockburst">Enhanced ShockBurst™</a> (ESB) to transmit wirelessly to another NRF24. The beauty of it all is that we don’t need to know how ESB protocol works; 
+				we just need to get the data from the Arduino to the radio module.
+			</p>
+
+			<h4 class="mb-3 fw-light">Radio Frequency Bands and Channels</h4>
+			<p class="mb-3">
+				Remember that the NRF24 modules send information over radio waves, just like our mobile phones, satellites, and WiFi. But how do the <strong> radio waves </strong> emitted by a 
+				satellite not interfere with the radio waves of a WiFi router or iPhone? Let’s explain: Each signal belongs to a <strong>frequency band</strong> or range of contiguous frequencies specified 
+				by the International Telecommunication Union (ITU).
+			</p>
+
+			<img class="pj-img-fluid mx-auto mb-5" src="assets\images\ops_radio_frequency.png" width="1500">
+
+			<p class="mb-3">
+					FM radio is designated to a frequency band of 88-108 MHz, and WiFi exists in 2.4 GHz and 5 GHz bands. These bands are further divided into <strong>channels</strong>.
+					</p>
+
+			<p class="mb-3">
+				For example, FM radio has 100 channels, each with a different radio frequency within the larger frequency band. FM radio stations are assigned to unique channels, which is why you normally don’t hear 
+				Taylor Swift overlaid with the latest stock market report.
+				</p>
+			<p class="mb-3">
+				If multiple radio signals were to exist on the same frequency, a collision would occur. This is why the ITU takes special care to regulate the radio spectrum.
+					</p>				
+			<p class="mb-5">
+				The NRF24L01 operates on a 2.4 GHz frequency band, which it shares with WiFi. This band is subdivided into 125 channels from which we choose to emit a signal. 
+				<strong>You will have to manually select a channel</strong> for the two radio modules to operate on. Moreover, this channel will have to be different from any nearby pair of NRF24 modules to avoid collisions.
+					</p>	
+
+			<h4 class="mb-3" style="">NRF24L01 Pinout</h4>
+			<p class="mb-3">
+				Below, you’ll find a pinout of the NRF24L01. You should recognize some of the pins as the SPI protocol lines 
+				(i.e., <span class="text-yellow">CE/CS</span>, <span class="text-green">PICO</span>, <span class="text-purple">POCI</span>, <span class="text-blue">SCK</span>).
+			<p class="mb-3">
+				<img class="pj-img-fluid mx-auto mb-5" src="assets\images\ops_nrf24l01_annotated.png" width="600">
+			</p>
+			<p class="mb-3">	
+					The GND and <span class="text-red">VCC</span> pins power the radio module. <Strong> Make sure that <span class="text-red">VCC</span> is connected to a 3.3V</Strong> power source rather than 5V. Unlike other components we use, the NRF24 accepts only 3.3V power, 
+					which is an increasingly common voltage in modern digital circuits. Luckily, the module still tolerates 5V logic, meaning we can connect the other pins to the Arduino’s digital pins as we normally would.
+						</p>
+			<p class="mb-3">
+				The <span class="text-yellow">CSN</span> pin is the “Chip Select Not” pin, which disables SPI communication when <Strong>HIGH</Strong>. When we want the radio module to listen for SPI messages, the pin is set to <strong>LOW</strong>.  
+					</p>	
+			<p class="mb-5">
+				Last but not least is the <span class="text-gray">IRQ</span> pin for interrupts, which we will not use in this project. Make sure the <span class="text-gray">IRQ</span> pin is left disconnected.
+			</p>	
+
+			<h4 class="mb-3 fw-light" id="pj-heading-dht11">Wiring the Arduino to the Radio Module</h4>
+			<p class="mb-3">
+			Just like I<sup>2</sup>C, the Arduino is designed to handle SPI communication through certain pins on the board, which connect to the NRF24 as follows.
+				
+
+			<table class="table pj-download-table mb-5">
+				<tr>
+					<th>NRF24L01 Pins</th>
+					<th>Arduino Nano Pins</th>
+				</tr>
+				<tr>
+					<td>GND</td>
+					<td>GND</td>
+				</tr>
+				<tr>
+					<td><span class="text-red">VCC</span></td>
+					<td>3.3V</td>
+				</tr>
+				<tr>
+					<td><span class="text-yellow">CE/CS</span></td>
+					<td>D7</td>
+				</tr>
+				<tr>
+					<td><span class="text-orange">CSN</span></td>
+					<td>D8</td>
+				</tr>
+				<tr>
+					<td><span class="text-blue">SCK</span></td>
+					<td>D13</td>
+				</tr>
+				<tr>
+					<td><span class="text-green">PICO</span></td>
+					<td>D11</td>
+				</tr>
+				<tr>
+					<td><span class="text-purple">POCI</span></td>
+					<td>D12</td>
+				</tr>
+				<tr>
+					<td><span class="text-gray">IRQ</span></td>
+					<td>None</td>
+				</tr>
+
+
+			</table>
+
+			<h4 class="mb-3 fw-light" style="display: inline;">Using the NRF24L01_W Library</h4>
+			<p class="mb-3">
+				<br>
+				Once you wire the Arduino board to the radio module, it’s time to write code! Download the
+				library <a class="link-primary"
+					href="https://drive.google.com/file/d/1NOQYAHhi2zEvs3LF03NmtVruFnfNxvSp/view?usp=share_link">
+					here </a>.
+				Make sure to include the header file:
+			</p>
+			<p class="mb-3">
+				<code class="pj-code language-arduino">#include &lt;NRF24L01_W.h&gt;</code>
+			</p>
+			<p class="mb-3">
+				You will instantiate a global object of the NRF24L01_W class, which represents the radio
+				connected to the Arduino board.
+				The two arguments of the constructor are the <span class="text-yellow">CS</span> and <span
+					class="text-orange">CSN</span> pins of the board.
+			</p>
+			<p class="mb-3">
+				<code class="pj-code language-arduino">NRF24L01_W radio(int CS, int CSN); </code>
+			</p>
+			<p class="mb-3">
+				The next steps are to configure your newly created radio object. Place this code in your <code
+					class="pj-code language-arduino">setup()</code> function.
+			</p>
+			<p class="mb-3">
+				<code class="pj-code language-arduino">radio.begin();</code>
+			</p>
+			<p class="mb-3">
+				You will set the <code class="pj-code language-arduino">address</code> of your radio to a five
+				character string and pass it into the radio's <code
+					class="pj-code language-arduino">setReceiveAddress()</code> function.
+				For example, you could set the address to <code class="pj-code language-arduino">"B1440”</code>.
+				<strong>Make sure the address is unique</strong>.
+			</p>
+			<p class="mb-3">
+				<code class="pj-code language-arduino">radio.setReceiveAddress(char[] address);</code>
+			</p>
+			<p class="mb-3">
+				Now, enter the address of the radio to which you intend to transmit messages.
+			</p>
+			<p class="mb-3">
+				<code class="pj-code language-arduino">radio.setTransmitAddress(char[] address);</code>
+			</p>
+			<p class="mb-3">
+				You will also set the channel that your radios will operate on. <strong>Pick one at
+					random</strong> in the range of 0-124.
+				Make sure that both NRF24 modules are set to the <strong>same channel</strong>.
+			</p>
+			<p class="mb-3">
+				<code class="pj-code language-arduino">radio.setChannel(int channel);</code>
+			</p>
+			<p class="mb-3">
+				Let’s move on to the code that would appear in the <code
+					class="pj-code language-arduino">main()</code> loop. This is where radio messages will be
+				read and written (transmitted and received).
+				To facilitate the data transfer, you are provided with a special container <code
+					class="pj-code language-arduino">WeatherReport</code> with three member variables that are
+				initialized as follows.
+				Note that these variables are <code class="pj-code language-arduino">int</code> type.
+			</p>
+			<p class="mb-3">
+				<code class="pj-code language-arduino">WeatherReport report;</code>
+				<br>
+				<code class="pj-code language-arduino">report.temperature = 77;</code>
+				<br>
+				<code class="pj-code language-arduino">report.humidity = 89;</code>
+				<br>
+				<code class="pj-code language-arduino">report.light = 1;</code>
+			</p>
+			<p class="mb-3">
+				To send a report to the other radio, use the <code
+					class="pj-code language-arduino">write()</code> function, passing the
+				<code class="pj-code language-arduino">WeatherReport</code> container as an argument.
+			</p>
+			<p class="mb-3">
+				<code class="pj-code language-arduino">radio.write(WeatherReport report); </code>
+			</p>
+			<p class="mb-3">
+				You may check to see if the radio has incoming data with the following function, which returns
+				an <code class="pj-code language-arduino">int</code> greater than zero
+				<em>if</em> there is data available.
+			</p>
+			<p class="mb-3">
+				<code class="pj-code language-arduino">int payload = radio.available();</code>
+			</p>
+			<p class="mb-3">
+				To read incoming data, use the radio’s <code class="pj-code language-arduino">read()</code>
+				function, which returns a <code class="pj-code language-arduino">WeatherReport</code>
+			</p>
+			<p class="mb-3">
+				<code class="pj-code language-arduino">WeatherReport incomingReport = radio.read();</code>
+			</p>
+			<p class="mb-3">
+				Here’s an example of all the code put together.
+			</p>
+			<p class="alert alert-warning mt-2" role="alert">
+				Do not blindly copy-paste the sample code to your project deliverables. Read it, understand it, then adapt it to your own code.
+			</p>
+			<pre class="mb-5"><code class="pj-code language-arduino" style="white-space: pre-wrap; height:60vh;">#include &lt;NRF24L01_W.h&gt;
+<NRF24L01_W.h>
+NRF24L01_W radio(7, 8);
+
+void setup()
+{
+  Serial.begin(9600);                // Serial setup
+  radio.begin();                     // Initialize the radio
+  radio.setReceiveAddress("00001");  // Set this radio's address
+  radio.setTransmitAddress("00002"); // Address of the recipient
+  radio.setChannel(23);              // Set the channel
+}
+
+void loop()
+{
+  WeatherReport report;          // Initialize weather report
+  report.temperature = 34;
+  report.humidity = 70;
+  report.light = 0;
+
+  radio.write(report);
+
+  if (radio.available())
+  {
+    WeatherReport incomingReport = radio.read();  // Read incoming
+    Serial.print("Temperature: ");              // Print temperature
+    Serial.println(incomingReport.temperature);
+  }
+
+  delay(1000);
+}</code></pre>
+
+
+
+
+					<h2 class="mb-3 fw-bold" id="pj-heading-requirements">Requirements</h2>
+
+					<h3 class="mb-3" id="pj-heading-transmitter-station">Transmitter Station</h3>
+					<ul class="mb-5 list-group">
+						<li class="list-group-item">
+							You must build a transmitter that will read data from sensors and send it to the receiving
+							station.
+						</li>
+						<li class="list-group-item">
+							The transmitter must read and interpret data from a light sensor and DHT11 sensor
+							<strong>every 10 seconds</strong>.
+						</li>
+						<li class="list-group-item">
+							The sensor data must include the following:
+							<ul>
+								<li>Temperature</li>
+								<li>Humidity</li>
+								<li>Whether it is day or night</li>
+							</ul>
+						</li>
+						<li class="list-group-item">
+							The sensor data must be accurate.
+						</li>
+						<li class="list-group-item">
+							After the transmitter reads the sensor data, it must immediately send it using the NRF24L01
+							transceiver.
+						</li>
+						<li class="list-group-item">
+							The circuit must be built on a breadboard.
+						</li>
+					</ul>
+
+					<h3 class="mb-3" id="pj-heading-receiver-station">Receiver Station</h3>
+					<ul class="mb-5 list-group">
+						<li class="list-group-item">
+							You must build a receiver that will collect data sent from the transmitter and display it
+							onto an LCD.
+						</li>
+						<li class="list-group-item">
+							The receiver must update the LCD with the most recently received data over the NRF24L01
+							transceiver.
+						</li>
+						<li class="list-group-item">
+							The data received must be identical to the data sent over the NRF24L01 transceiver.
+						</li>
+						<li class="list-group-item">
+							The data must include the following:
+							<ul>
+								<li>Temperature</li>
+								<li>Humidity</li>
+								<li>Whether it is day or night</li>
+							</ul>
+						</li>
+						<li class="list-group-item">
+							The circuit must be built on a breadboard.
+						</li>
+					</ul>
+
+
+					<h2 class="mb-3 fw-bold" id="pj-heading-parts">Parts</h2>
+
+					<!-- ======= Part Table ======= -->
+					<table class="table pj-part-table mb-5">
+						<thead>
+							<tr>
+								<th scope="col">Part Name</th>
+								<th scope="col">Qty</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Breadboard</td>
+								<td>2</td>
+							</tr>
+							<tr>
+								<td>Battery (9V)</td>
+								<td>1</td>
+							</tr>
+							<tr>
+								<td>9V Snap Connector</td>
+								<td>1</td>
+							</tr>
+							<tr>
+								<td>Dupont Jumper Wire (Male-to-Female)</td>
+								<td>18</td>
+							</tr>
+							<tr>
+								<td>
+									<a class="pj-part"
+										data-bs-content="<img src='./assets/images/parts/ops_part_nrf24l01.png' height='150px' width='auto'>"
+										data-bs-trigger="hover focus" data-bs-toggle="popover" tabindex="0">
+										N4F24L01 Transceiver Module
+									</a>
+								</td>
+								<td>2</td>
+							</tr>
+							<tr>
+								<td>
+									<a class="pj-part"
+										data-bs-content="<img src='./assets/images/parts/ops_part_lcd_i2c_backpack.png' height='150px' width='auto'>"
+										data-bs-trigger="hover focus" data-bs-toggle="popover" tabindex="0">
+										LCD with I<sup>2</sup>C Backpack
+									</a>
+								</td>
+								<td>1</td>
+							</tr>
+							<tr>
+								<td>
+									<a class="pj-part"
+										data-bs-content="<img src='./assets/images/parts/ops_part_dht11.png' height='150px' width='auto'>"
+										data-bs-trigger="hover focus" data-bs-toggle="popover" tabindex="0">
+										DHT11
+									</a>
+								</td>
+								<td>1</td>
+							</tr>
+							<tr>
+								<td>
+									<a class="pj-part"
+										data-bs-content="<img src='./assets/images/parts/ops_part_arduino_nano.png' height='150px' width='auto'>"
+										data-bs-trigger="hover focus" data-bs-toggle="popover" tabindex="0">
+										Arduino Nano
+									</a>
+								</td>
+								<td>2</td>
+							</tr>
+							<tr>
+								<td>
+									<a class="pj-part"
+										data-bs-content="<img src='./assets/images/parts/ops_part_photoresistor.png' height='150px' width='auto'>"
+										data-bs-trigger="hover focus" data-bs-toggle="popover" tabindex="0">
+										Photoresistor
+									</a>
+								</td>
+								<td>1</td>
+							</tr>
+							<tr>
+								<td>Resistor (10kΩ)</td>
+								<td>1</td>
+							</tr>
+							<tr>
+								<td>Jumper Wire</td>
+								<td>?</td>
+							</tr>
+							<tr>
+								<td>Micro USB Cable</td>
+								<td>1</td>
+							</tr>
+						</tbody>
+					</table>
+					<!-- End Part Table -->
+
+					<h2 class="mb-3 fw-bold" id="pj-heading-schematics">Schematics</h2>
+					<div class="accordion mb-5" id="schemAccordian">
+						<div class="accordion-item">
+							<h2 class="accordion-header">
+								<button class="accordion-button" type="button" data-bs-toggle="collapse"
+									data-bs-target="#schemCollapse1" aria-expanded="true"
+									aria-controls="schemCollapse1">
+									Schematic A
+								</button>
+							</h2>
+							<!--Pin to page?-->
+							<div id="schemCollapse1" class="accordion-collapse collapse show"
+								data-bs-parent="#schemAccordian">
+								<div class="accordion-body text-center">
+									<img src='./assets/images/schematics/ops_schem_proj6_a.png' class="pj-img-fluid mx-auto" width="700">
+								</div>
+							</div>
+						</div>
+
+						<div class="accordion-item">
+							<h2 class="accordion-header">
+								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+									data-bs-target="#schemCollapse2" aria-expanded="true"
+									aria-controls="schemCollapse2">
+									Schematic B
+								</button>
+							</h2>
+							<!--Pin to page?-->
+							<div id="schemCollapse2" class="accordion-collapse collapse"
+								data-bs-parent="#schemAccordian">
+								<div class="accordion-body text-center">
+									<img src='./assets/images/schematics/ops_schem_proj6_b.png' class="pj-img-fluid mx-auto" width="650">
+								</div>
+							</div>
+						</div>
+
+						<div class="accordion-item">
+							<h2 class="accordion-header">
+								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+									data-bs-target="#schemCollapse3" aria-expanded="true"
+									aria-controls="schemCollapse3">
+									Schematic C
+								</button>
+							</h2>
+							<!--Pin to page?-->
+							<div id="schemCollapse3" class="accordion-collapse collapse"
+								data-bs-parent="#schemAccordian">
+								<div class="accordion-body text-center">
+									<img src='./assets/images/schematics/ops_schem_proj6_c.png' class="pj-img-fluid mx-auto" width="800">
+								</div>
+							</div>
+						</div>
+
+						<div class="accordion-item">
+							<h2 class="accordion-header">
+								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+									data-bs-target="#schemCollapse4" aria-expanded="true"
+									aria-controls="schemCollapse4">
+									Schematic D
+								</button>
+							</h2>
+							<!--Pin to page?-->
+							<div id="schemCollapse4" class="accordion-collapse collapse"
+								data-bs-parent="#schemAccordian">
+								<div class="accordion-body text-center">
+									<img src='./assets/images/schematics/ops_schem_proj6_d.png' class="pj-img-fluid mx-auto" width="800">
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<h2 class="mb-3 fw-bold" id="pj-heading-instructions">Instructions</h2>
+
+					<h4 class="mb-3 fw-light" id="pj-heading-checkpoint1" style="">Checkpoint 1</h4>
+					<p class="mb-3">
+						You will test the DHT11 and light sensor, outputting their data to the serial monitor.
+					</p>
+					<ol class="mb-5 list-group list-group-numbered">
+						<li class="list-group-item">
+							Build the circuit in <strong>Schematic A</strong> on one breadboard.
+						</li>
+						<li class="list-group-item">
+							Program the Arduino board to print the following information to the serial monitor
+							<strong>every 10
+								seconds</strong>:
+							<ul>
+								<li>Temperature</li>
+								<li>Humidity</li>
+								<li>Whether it is day or night</li>
+							</ul>
+						</li>
+						<li class="list-group-item">
+							Upload your sketch to the board, and verify that the system executes as expected.
+							You should see an output similar to the following on the serial monitor:
+							<pre class="mt-3"><code class="pj-code language-plaintext">Temp: 34C
+Humidity: 80%
+Time: Day
+
+Temp: 35C
+Humidity: 81%
+Time: Day
+
+Temp: 36C
+Humidity: 79%
+Time: Night</code></pre>
+
+							<div class="alert alert-warning" role="alert">
+								<strong>Don’t expect the same exact values</strong>; any value within reason is
+								acceptable.
+								The formatting doesn’t have to be exactly the same either.
+							</div>
+						</li>
+					</ol>
+
+					<h4 class="mb-3 fw-light" id="pj-heading-checkpoint2">Checkpoint 2</h4>
+					<p class="mb-3">
+						You will now test the I<sup>2</sup>C Backpack and LCD and print fake weather data to the
+						display.
+					</p>
+					<ol class="mb-5 list-group list-group-numbered">
+						<li class="list-group-item">
+							Build the circuit in <strong>Schematic B</strong> on another breadboard.
+							<div class="alert alert-warning mt-2" role="alert">
+								<strong>Do not disassemble the circuit </strong>from Checkpoint 1.
+							</div>
+							<div class="alert alert-info" role="alert">
+								Connect the LCD to the breadboard using the dupont jumper.
+							</div>
+						</li>
+						<li class="list-group-item">
+							Program the Arduino board to print the following information to the serial monitor
+							<strong>every 10
+								seconds</strong>:
+							<ul>
+								<li>Temperature</li>
+								<li>Humidity</li>
+								<li>Whether it is day or night</li>
+							</ul>
+						</li>
+						<li class="list-group-item">
+							Upload your sketch to the board, and verify that the system executes as expected.
+							You should see an output similar to the following on the LCD:
+							<img class="pj-img-fluid mx-auto mb-5 d-block" src=".\assets\images\ops_img_proj6_1.png" width="400">
+							<div class="alert alert-info" role="alert">
+								Remember that these are fake values, so they don’t need to be the same on your LCD.
+								The formatting does not have to look identical.
+							</div>
+						</li>
+					</ol>
+
+					<h3 class="mb-3" id="pj-heading-checkpoint3">Checkpoint 3</h3>
+					<p class="mb-3">
+						As the final checkpoint, you will assemble the weather station network, building both the
+						transmitter and receiver stations.
+					</p>
+					<ol class="mb-5 list-group list-group-numbered">
+						<li class="list-group-item">
+							You will design the weather station or transmitter, which will send weather reports to the
+							receiver board with the LCD.
+							Build the circuit in <strong>Schematic C</strong>, which extends Schematic A (Checkpoint 1).
+							<div class="alert alert-warning mt-2" role="alert">
+								<strong>Do not disassemble anything. </strong>Just add to the existing breadboard.
+							</div>
+							<div class="alert alert-info" role="alert">
+								<ul>
+									<li>Connect the NRF24 radios to the breadboard using the dupont jumper wire.</li>
+									<li>This circuit will be powered by the 9V battery. <strong>No USB power is
+											required.</strong></li>
+								</ul>
+							</div>
+						</li>
+						<li class="list-group-item">
+							Program the transmitter Arduino board to send a
+							<code class="pj-code language-arduino">WeatherReport</code> container over radio
+							<strong>every 10
+								seconds</strong>.
+						</li>
+						<li class="list-group-item">
+							You will design the receiver board, which will display the weather report on the LCD. Build
+							the circuit in <strong>Schematic D</strong>,
+							which extends Schematic B (Checkpoint 2).
+							<div class="alert alert-warning mt-2" role="alert">
+								<strong>Do not disassemble anything. </strong>Just add to the existing breadboard.
+							</div>
+						</li>
+						<li class="list-group-item">
+							Program the receiver Arduino board to display a
+							<code class="pj-code language-arduino">WeatherReport</code>on the LCD upon receiving one.
+							<div class="alert alert-info mt-2" role="alert">
+								You may set a delay since you only expect a report to be sent every 10 seconds.
+							</div>
+						</li>
+						<li class="list-group-item">
+							Upload your transmitter and receiver sketches to the respective board, and verify that the
+							system
+							executes as expected.
+							<div class="alert alert-info mt-2" role="alert">
+								Every 10 seconds, the transmitting weather station will send a new weather report to the
+								receiver.
+							</div>
+							<div class="alert alert-info mt-2" role="alert">
+								The receiver will display any newly received weather reports on its LCD, which should
+								look like the
+								following (but not necessarily identical):
+							</div>
+							<img class="pj-img-fluid mx-auto mb-5 d-block" src=".\assets\images\ops_img_proj6_1.png" width="400">
+						</li>
+					</ol>
+
+
+					<h2 class="mb-3 fw-bold" id="pj-heading-deliverables">Deliverables</h2>
+					<p class="mb-3">
+						Students enrolled in the course must submit the following deliverables to the corresponding
+						Canvas
+						course assignment:
+						<br>
+						<br>
+						Place the following files in a single folder:
+					</p>
+					<ul class="mb-4 list-group">
+						<li class="list-group-item">
+							<i class="bi bi-check2-square me-2"></i>
+							Photo of the weather station/transmitter Arduino board
+							<div class="alert alert-info mt-2" role="alert">
+								This photo should include the DHT11, light sensor, NRF24 transceiver, and one Arduino
+								correctly wired together.
+							</div>
+						</li>
+						<li class="list-group-item">
+							<i class="bi bi-check2-square me-2"></i>
+							Photo of the receiver Arduino board
+							<div class="alert alert-info mt-2" role="alert">
+								This photo should include the NRF24 transceiver, LCD, and one Arduino correctly wired
+								together.
+							</div>
+							<div class="alert alert-info mt-2" role="alert">
+								The LCD should clearly display the temperature, humidity, and time of day (day or
+								night).
+							</div>
+						</li>
+						<li class="list-group-item">
+							<i class="bi bi-check2-square me-2"></i>
+							Transmitter Arduino sketch file
+							<div class="alert alert-info mt-2" role="alert">
+								This file should include all of the code you have written for the Arduino Nano acting as
+								the
+								transmitter. Name it “<code
+									class="pj-code language-plaintext">ops_project6_transmitter.ino</code>”.
+							</div>
+						</li>
+						<li class="list-group-item">
+							<i class="bi bi-check2-square me-2"></i>
+							Receiver Arduino sketch file
+							<div class="alert alert-info mt-2" role="alert">
+								This file should include all of the code you have written for the Arduino Nano acting as
+								the
+								receiver. Name it “<code
+									class="pj-code language-plaintext">ops_project6_receiver.ino</code>”.
+							</div>
+						</li>
+					</ul>
+				</li>
+				
+			<p class="mb-3">
+				<strong>Compress</strong> the folder to a <strong>zip</strong> file and rename the file using the format 
+				“<strong>ops_project6_lastname_firstname.zip</strong>” Then, submit the <strong>zip</strong> file to the Project 6 Canvas assignment.
+			</p>
+		</div>
+		</main>
+	</div>
+	<!-- ======= Footer ======= -->
+	<script src="./js/ops_footer.js"></script>
+	<!-- End Footer -->
+</body>
+
+</html>

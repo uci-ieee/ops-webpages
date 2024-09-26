@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-bs-theme="light">
+
+<head>
+	<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+	<!--Title-->
+	<title>Open Project Space</title>
+	<!--Favicon-->
+	<link rel="icon" href="./assets/images/ops_logo_favicon.png">
+	<!--Roboto Font CDN-->
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto" rel="stylesheet">
+	<!--Beckman Font CDN-->
+	<link href="https://fonts.cdnfonts.com/css/beckman" rel="stylesheet">
+	<!-- Custom Stylesheet "custom.css" used for Bootstrap 5.3.0 css-->
+	<link rel="stylesheet" href="./css/custom.css" type="text/css">
+	<!-- Popper JS v2.11.8 (Bootstrap Dependency) CDN -->
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+		integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+		crossorigin="anonymous"></script>
+	<!-- Bootstrap JS v5.3.0 CDN -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+		integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
+		crossorigin="anonymous"></script>
+	<!-- Bootstrap Icons CSS v1.10.0 CDN-->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+	<!-- Highlight JS v11.7.0-->
+	<link rel="stylesheet" href="./css/highlight.js/default.min.css" type="text/css">
+	<link rel="stylesheet" href="./css/highlight.js/arduino-light.min.css" type="text/css">
+	<script src="./js/highlight.min.js"></script>
+	<script>hljs.highlightAll();</script>
+</head>
+
+<body style="">
+	<!-- ======= Header ======= -->
+	<script src="./js/ops_header.js"></script>
+	<!-- End Header -->
+
+	<div class="container-xl pj-layout my-5">
+		<!-- ======= Sidebar ======= -->
+		<aside class="pj-sidebar ">
+			<nav id="project-toc" class="pj-toc d-flex flex-column px-2 pt-2 pb-4">
+				<ul class="nav flex-column">
+					<h5 class="mt-2 mb-2 mx-3">Contents</h5>
+					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-introduction">Introduction</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-arduino-libraries">Arduino Libraries</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-installing-kicad">Installing KiCAD 7.0</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-concepts">Concepts</a>
+						<ul class="nav">
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-analog-joystick">Analog Joystick</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-l293d-quadruple-half-h-driver">L293D Quadruple
+									Half-H Driver</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-nrf24l01">NRF24L01 Transceiver Module</a>
+							</li>
+						</ul>
+					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-arduino-nano-pinout">Arduino Nano Pinout</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-requirements">Requirements</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-parts">Parts</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-schematics">Schematics</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-procedure">Instructions</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-deliverables">Deliverables</a>
+					</li>
+				</ul>
+			</nav>
+		</aside>
+		<!-- End Sidebar -->
+
+		<main class="pj-main p-3" data-bs-spy="scroll" data-bs-target="#project-toc" data-bs-root-margin="0px 0px -40%"
+			data-bs-smooth-scroll="true" tabindex="0">
+			<div class="pj-content">
+				<div class="d-flex flex-row justify-content-between mb-5">
+					<div class="">
+						<h4>Capstone Project</h4>
+						<h1 class="fw-bold">RC Rover</h1>
+					</div>
+					<div class="alert alert-light" role="alert">
+						<i class="bi bi-calendar-event me-1"></i>
+						Updated 2024.04.12 <br>
+						By Benjamen Bielecki
+					</div>
+
+				</div>
+				<img class="img-fluid mb-4" src=".\assets\images\capstone\ops_capstone_rover_preview.png" width="400">
+				<h2 class="mb-3 fw-bold" id="pj-heading-introduction">Introduction</h2>
+				<p class="mb-5">
+					In this final project, you will create a remote-controlled rover. First, you will design a PCB
+					layout for the
+					remote control and send the CAD files for manufacturing. Then, you will assemble and program the
+					rover.
+					The last step is to solder the components to your custom PCB upon its arrival. The Capstone will
+					require
+					knowledge of everything taught up until this point. From circuit design to soldering, you will have
+					free reign
+					in building this project. It will only need to meet the base requirements; the rest is up to you.
+				</p>
+
+				<h2 class="mb-3 fw-bold" id="pj-heading-arduino-libraries">Installing Arduino Libraries</h2>
+				<p class="mb-3">
+					Here is a quick recap on how you can install Arduino libraries in the
+					<a class="link-primary" href="https://www.arduino.cc/en/software" target="_blank"
+						rel="noopener noreferrer">Arduino IDE 2.0.0+</a>
+				</p>
+				<ol class="mb-4 list-group list-group-numbered">
+					<li class="list-group-item">
+						Download the library as a <strong>.zip</strong>
+					</li>
+					<li class="list-group-item">
+						In the Arduino IDE, go to <strong>Sketch → Include Library → Add .ZIP Library…</strong>
+					</li>
+					<li class="list-group-item">
+						Select the <strong>.zip</strong> of the library and click <strong>Open</strong>.
+					</li>
+				</ol>
+				<img class="img-fluid mb-4" src=".\assets\images\ops_arduino_ide_zip_library.png">
+
+				<p class="mb-4">
+					You're done! Just make sure to <code class="pj-code language-arduino">#include</code> the library
+					header
+					file so that your
+					code compiles.
+				</p>
+
+				<table class="table pj-download-table mb-5">
+					<tbody>
+						<tr>
+							<td>NRF24L01_W Library</td>
+							<td>
+								<a class="btn btn-outline-success mx-3" href="assets\libraries\NRF24L01_W.zip"
+									role="button"><i class="bi bi-download"></i> Download</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<h2 class="mb-3 fw-bold" id="pj-heading-installing-kicad">Installing KiCad 7.0</h2>
+				<p class="mb-3">
+					To complete this project, you will download the PCB design software KiCad (version 7.0.11).
+				</p>
+
+				<table class="table pj-download-table mb-5">
+					<tbody>
+						<tr>
+							<td>Windows</td>
+							<td>
+								<a class="btn btn-outline-success mx-3"
+									href="https://downloads.kicad.org/kicad/windows/explore/stable/download/kicad-7.0.11-x86_64.exe"
+									role="button"><i class="bi bi-download"></i> Download</a>
+							</td>
+						</tr>
+						<tr>
+							<td>Mac</td>
+							<td>
+								<a class="btn btn-outline-success mx-3"
+									href="https://downloads.kicad.org/kicad/macos/explore/stable/download/kicad-unified-universal-7.0.11.dmg"
+									role="button"><i class="bi bi-download"></i> Download</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<ol class="list-group list-group-numbered mb-5">
+					<li class="list-group-item">
+						Download the installer from the link appropriate to your OS.
+					</li>
+					<li class="list-group-item">
+						Launch the installer. Click Next.
+						<div>
+							<img class="img-fluid my-4"
+								src=".\assets\images\project_8/ops_project_8_kicad_installer1.png">
+						</div>
+					</li>
+					<li class="list-group-item">
+						When the <strong>Choose Components</strong> dialog appears, make sure all but the “Help files”
+						components are selected. Then, click <strong>Next</strong>.
+						<div>
+							<img class="img-fluid my-4"
+								src=".\assets\images\project_8/ops_project_8_kicad_installer2.png">
+						</div>
+					</li>
+					<li class="list-group-item">
+						Select the <strong>Install Location</strong>. The default setting is usually acceptable. Then,
+						click <strong>Install</strong>.
+						<div>
+							<img class="img-fluid my-4"
+								src=".\assets\images\project_8/ops_project_8_kicad_installer3.png">
+						</div>
+					</li>
+					<li class="list-group-item">
+						The installation is complete! The fun starts now.
+					</li>
+				</ol>
+
+				<h2 class="mb-3 fw-bold" id="pj-heading-concepts">Concepts</h2>
+				<h3 class="mb-3 fw-bold" id="pj-heading-analog-joystick">Analog Joystick</h3>
+				<p class="mb-3">
+					The remote control will accept input via an <i>analog</i> joystick. The component outputs analog
+					signals that
+					the Arduino board will read and process. Much like a console controller, the joystick has two axes,
+					horizontal and vertical. The degree to which the joystick has pivoted along these axes determines
+					the
+					output of its data lines.
+
+				</p>
+				<img class="img-fluid my-3 me-lg-5 me-3 float-start" style="max-width: 400px;"
+					src="assets/images/capstone/ops_joystick_pinout.png">
+				<h4 class="mb-3 fw-light">Joystick Pinout</h4>
+				<p class="mb-5">
+					To the left is the pinout of the joystick. The GND and <span class="text-red">+5V</span> pins power
+					the radio module.
+					Make sure they are connected appropriately to the Arduino board.
+					<br><br>
+					The next two pins are <span class="text-blue">VX</span> and <span class="text-pink">VY</span>, which
+					carry analog signals for
+					the horizontal and vertical position of the joystick, respectively. These pins must be connected to
+					analog pins on the Arduino
+					board.
+					<br><br>
+					The last pin is <span class="text-green">SW</span>. The joystick may act as a button/<i>switch</i>,
+					the digital signal of which
+					is carried by <span class="text-green">SW</span>. This pin should be connected to a digital pin on
+					the Arduino.
+					<br><br>
+				</p>
+				<h4 class="mb-3 fw-light">Wiring the Joystick to the Arduino</h4>
+				<p class="mb-5">
+					The following connections are recommended, so the PCB design procedure is easier to follow. In the
+					end, you can wire the joystick
+					however you like as long as the PCB layout reflects your design choices.
+				</p>
+				<table class="table pj-download-table mb-5">
+					<tr>
+						<th>Joystick Pins</th>
+						<th>Arduino Nano Pins</th>
+					</tr>
+					<tr>
+						<td>GND</td>
+						<td>GND</td>
+					</tr>
+					<tr>
+						<td><span class="text-red">+5V</span></td>
+						<td>5V</td>
+					</tr>
+					<tr>
+						<td><span class="text-blue">VX</span></td>
+						<td>A0</td>
+					</tr>
+					<tr>
+						<td><span class="text-pink">VY</span></td>
+						<td>A1</td>
+					</tr>
+					<tr>
+						<td><span class="text-green">SW</span></td>
+						<td>D2</td>
+					</tr>
+				</table>
+
+				<h4 class="mb-3 fw-light">Pull-Up Resistors</h4>
+				<p class="mb-5">
+					Suppose you use a digital input pin on the Arduino board, but it’s not connected to anything. Is the
+					state of the pin HIGH or LOW?
+					For it to be HIGH, the pin would need to be connected to the VCC power source. For the state to be
+					LOW, the pin would need to be
+					connected to GND. When the state is indeterminate like this, the pin is said to have a <b>floating
+						signal</b>, which we should avoid.
+					<br><br>
+					The solution is what we call a <b>pull-up resistor</b>. The input pin is connected to a high-value
+					resistor R1 whose other terminal
+					is attached to VCC (as depicted below).
+					<br><br>
+					The intent is to set the input pin to the HIGH voltage. We often use a 10kΩ resistor to do so
+					because it drives the current down low
+					(recall V=IR). Now, the input pin has an effective resistance in the range of 100 MΩ. That’s right:
+					mega-ohms.
+				</p>
+				<div class="mb-5">
+					<img class="pj-img-fluid-end" src="./assets/images/project_5/ops_project_5_pull_up_explanation.png"
+						width="350">
+					<p class="mb-3">
+						The resistance of the pull-up resistor R1 and effective resistance of the input pin divide the
+						voltage VCC such that the voltage
+						at the input pin is equal to VCC (HIGH).
+					</p>
+					<p class="mb-3">
+						Now, let’s introduce the button: one terminal attached to the input pin and the other GND.
+					</p>
+					<p class="mb-3">
+						When the button is pressed, the voltage at the input pin is shorted to GND (LOW).
+					</p>
+				</div>
+				<p class="mb-3">
+					With this circuit, the input pin will either be VCC or GND (HIGH or LOW).
+					<br><br>
+					When you use a button or, in our case, the <span class="text-green">SW</span> pin of the joystick,
+					you should use a pull-up resistor.
+					Instead of building an external circuit, you can use an <b>internal pull-up resistor</b> in the
+					Arduino board. You may do so by setting
+					the pin mode as follows:
+				</p>
+				<p class="mb-3">
+					<code class="pj-code language-arduino">pinMode(pin, INPUT_PULLUP);</code>
+				</p>
+				<p class="mb-5">
+					There are also <b>pull-down resistors</b>, which we will not discuss here.
+				</p>
+
+				<h2 class="mb-3 fw-bold" id="pj-heading-l293d-quadruple-half-h-driver">L293D Quadruple Half-H Driver
+				</h2>
+				<p class="mb-3">
+					We will use an L293D chip to drive the two DC motors of the rover. To power a DC motor, all we need is to apply a voltage, 
+					but to change the direction the motor spins, we must do a little bit more. We apply the opposite voltage to change the 
+					direction of current passing through the motor. This changes the direction the motor spins as well…
+				</p>
+				<p class="mb-5">
+					The L293D IC makes it possible to drive two motors bidirectionally, and it does so by controlling the direction of current flow through each motor.
+				</p>
+
+				<h4 class="mb-3 fw-light">Reading the Big Scary Manual</h4>
+				<p class="mb-3">
+					This time around, we will not thoroughly discuss the driver’s operation. You will have to read
+					the datasheet, and figure it out yourself.
+					<br><br>
+					<a class="link-primary" href="assets/datasheets/ops_datasheet_l293d_quadruple_half-h_driver.pdf"
+						target="_blank" rel="noopener noreferrer">L293D Quadruple Half-H Driver Datasheet.pdf</a>
+					<br><br>
+					Skim through the datasheet to familiarize yourself with the documentation. Some items you may
+					recognize but the vast majority you may not.
+					This is okay!
+					<br><br>
+					<b>Pay close attention to pages 3, 7, and 11-12.</b> These pages will help you the most in
+					understanding the functions of the IC.
+					<br><br>
+					As you read, here are some things to note:
+				</p>
+				<ol class="mb-5 list-group list-group-numbered">
+					<li class="list-group-item">
+						The documentation refers to both the L293 and L293D, only the latter of which we will use.
+						This version of the chip contains flyback diodes.
+					</li>
+					<li class="list-group-item">
+						Of the several system examples, we will use the <b>Bidirectional DC Motor Control</b>.
+					</li>
+					<li class="list-group-item">
+						The term “<b>logic</b>” refers to the binary HIGH and LOW output of the Arduino digital
+						pins.
+					</li>
+				</ol>
+
+				<h4 class="mb-3 fw-light">L293D Pinout</h4>
+				<p class="mb-3">
+					Below you will find a pinout of the chip. Initially, it will seem overwhelming, but it will make
+					more sense as you navigate the datasheet.
+				</p>
+				<img class="pj-img-fluid mx-auto mb-4" src="./assets/images/capstone/ops_L293D_pinout.png"
+					width="500">
+				<p class="mb-3">
+					Ensure that the Arduino board and L293D share a <b>ground connection</b>.
+					<br><br>
+					As you will learn in the datasheet, <span class="text-indigo">1EN</span> and <span
+						class="text-pink">2EN</span> are enable pins, which you will
+					need to set to HIGH to control the driver channels. Note that if you apply a PWM signal to these
+					pins, you can control the speed of their respective
+					channels.
+				</p>
+
+				<div class="alert alert-warning mb-5" role="alert">
+					<b>The motors need to be powered directly by the 9V battery</b>, which is capable of supplying more power than the Arduino
+					board. 
+				</div>
+
+				<h3 class="mb-3 fw-bold" id="pj-heading-nrf24l01">NRF24L01 Transceiver Module</h3>
+				<p class="mb-3">
+					The NRF24 radio transceiver is a popular choice for wireless communication between microcontroller
+					boards. We’ll use the NRF24L01 variation,
+					which is a low-power, high-frequency radio module.
+				</p>
+				<p class="mb-5">
+					Here’s how we’ll transmit data: The Arduino board will transfer messages to and from the radio
+					module using SPI protocol, and the radio module will handle the rest.
+					It uses a radio protocol called <a class="link-primary"
+						href="https://devzone.nordicsemi.com/nordic/nordic-blog/b/blog/posts/intro-to-shockburstenhanced-shockburst">Enhanced
+						ShockBurst™</a> (ESB) to transmit wirelessly to another NRF24. The beauty of it all is that we
+					don’t need to know how ESB protocol works;
+					we just need to get the data from the Arduino to the radio module.
+				</p>
+
+				<h4 class="mb-3 fw-light">Radio Frequency Bands and Channels</h4>
+				<p class="mb-3">
+					Remember that the NRF24 modules send information over radio waves, just like our mobile phones,
+					satellites, and WiFi. But how do the <strong> radio waves </strong> emitted by a
+					satellite not interfere with the radio waves of a WiFi router or iPhone? Let’s explain: Each signal
+					belongs to a <strong>frequency band</strong> or range of contiguous frequencies specified
+					by the International Telecommunication Union (ITU).
+				</p>
+
+				<img class="pj-img-fluid mx-auto mb-5" src="assets\images\ops_radio_frequency.png" width="1500">
+
+				<p class="mb-3">
+					FM radio is designated to a frequency band of 88-108 MHz, and WiFi exists in 2.4 GHz and 5 GHz
+					bands. These bands are further divided into <strong>channels</strong>.
+				</p>
+
+				<p class="mb-3">
+					For example, FM radio has 100 channels, each with a different radio frequency within the larger
+					frequency band. FM radio stations are assigned to unique channels, which is why you normally don’t
+					hear
+					Taylor Swift overlaid with the latest stock market report.
+				</p>
+				<p class="mb-3">
+					If multiple radio signals were to exist on the same frequency, a collision would occur. This is why
+					the ITU takes special care to regulate the radio spectrum.
+				</p>
+				<p class="mb-5">
+					The NRF24L01 operates on a 2.4 GHz frequency band, which it shares with WiFi. This band is
+					subdivided into 125 channels from which we choose to emit a signal.
+					<strong>You will have to manually select a channel</strong> for the two radio modules to operate on.
+					Moreover, this channel will have to be different from any nearby pair of NRF24 modules to avoid
+					collisions.
+				</p>
+
+				<h4 class="mb-3" style="">NRF24L01 Pinout</h4>
+				<p class="mb-3">
+					Below, you’ll find a pinout of the NRF24L01. You should recognize some of the pins as the SPI
+					protocol lines
+					(i.e., <span class="text-yellow">CE/CS</span>, <span class="text-green">PICO</span>, <span
+						class="text-purple">POCI</span>, <span class="text-blue">SCK</span>).
+				<p class="mb-3">
+					<img class="pj-img-fluid mx-auto mb-5" src="assets\images\ops_nrf24l01_annotated.png" width="600">
+				</p>
+				<p class="mb-3">
+					The GND and <span class="text-red">VCC</span> pins power the radio module. <Strong> Make sure that
+						<span class="text-red">VCC</span> is connected to a 3.3V</Strong> power source rather than 5V.
+					Unlike other components we use, the NRF24 accepts only 3.3V power,
+					which is an increasingly common voltage in modern digital circuits. Luckily, the module still
+					tolerates 5V logic, meaning we can connect the other pins to the Arduino’s digital pins as we
+					normally would.
+				</p>
+				<p class="mb-3">
+					The <span class="text-yellow">CSN</span> pin is the “Chip Select Not” pin, which disables SPI
+					communication when <Strong>HIGH</Strong>. When we want the radio module to listen for SPI messages,
+					the pin is set to <strong>LOW</strong>.
+				</p>
+				<p class="mb-5">
+					Last but not least is the <span class="text-gray">IRQ</span> pin for interrupts, which we will not
+					use in this project. Make sure the <span class="text-gray">IRQ</span> pin is left disconnected.
+				</p>
+
+				<h4 class="mb-3 fw-light" id="pj-heading-dht11">Wiring the Arduino to the Radio Module</h4>
+				<p class="mb-3">
+					Just like I<sup>2</sup>C, the Arduino is designed to handle SPI communication through certain pins
+					on the board, which connect to the NRF24 as follows.
+
+
+				<table class="table pj-download-table mb-5">
+					<tr>
+						<th>NRF24L01 Pins</th>
+						<th>Arduino Nano Pins</th>
+					</tr>
+					<tr>
+						<td>GND</td>
+						<td>GND</td>
+					</tr>
+					<tr>
+						<td><span class="text-red">VCC</span></td>
+						<td>3.3V</td>
+					</tr>
+					<tr>
+						<td><span class="text-yellow">CE/CS</span></td>
+						<td>D7</td>
+					</tr>
+					<tr>
+						<td><span class="text-orange">CSN</span></td>
+						<td>D8</td>
+					</tr>
+					<tr>
+						<td><span class="text-blue">SCK</span></td>
+						<td>D13</td>
+					</tr>
+					<tr>
+						<td><span class="text-green">PICO</span></td>
+						<td>D11</td>
+					</tr>
+					<tr>
+						<td><span class="text-purple">POCI</span></td>
+						<td>D12</td>
+					</tr>
+					<tr>
+						<td><span class="text-gray">IRQ</span></td>
+						<td>None</td>
+					</tr>
+
+
+				</table>
+
+				<h4 class="mb-3 fw-light" style="display: inline;">Using the NRF24L01_W Library</h4>
+				<p class="mb-3">
+					<br>
+					Once you wire the Arduino board to the radio module, it’s time to write code! Download the
+					library <a class="link-primary" href="assets/libraries/NRF24L01_W.zip" download>
+						here</a>.
+					Make sure to include the header file:
+				</p>
+				<p class="mb-3">
+					<code class="pj-code language-arduino">#include &lt;NRF24L01_W.h&gt;</code>
+				</p>
+				<p class="mb-3">
+					You will instantiate a global object of the NRF24L01_W class, which represents the radio
+					connected to the Arduino board.
+					The two arguments of the constructor are the <span class="text-yellow">CS</span> and <span
+						class="text-orange">CSN</span> pins of the board.
+				</p>
+				<p class="mb-3">
+					<code class="pj-code language-arduino">NRF24L01_W radio(int CS, int CSN); </code>
+				</p>
+				<p class="mb-3">
+					The next steps are to configure your newly created radio object. Place this code in your <code
+						class="pj-code language-arduino">setup()</code> function.
+				</p>
+				<p class="mb-3">
+					<code class="pj-code language-arduino">radio.begin();</code>
+				</p>
+				<p class="mb-3">
+					You will set the <code class="pj-code language-arduino">address</code> of your radio to a five
+					character string and pass it into the radio's <code
+						class="pj-code language-arduino">setReceiveAddress()</code> function.
+					For example, you could set the address to <code class="pj-code language-arduino">"B1440”</code>.
+					<strong>Make sure the address is unique</strong>.
+				</p>
+				<p class="mb-3">
+					<code class="pj-code language-arduino">radio.setReceiveAddress(char[] address);</code>
+				</p>
+				<p class="mb-3">
+					Now, enter the address of the radio to which you intend to transmit messages.
+				</p>
+				<p class="mb-3">
+					<code class="pj-code language-arduino">radio.setTransmitAddress(char[] address);</code>
+				</p>
+				<p class="mb-3">
+					You will also set the channel that your radios will operate on. <strong>Pick one at
+						random</strong> in the range of 0-124.
+					Make sure that both NRF24 modules are set to the <strong>same channel</strong>.
+				</p>
+				<p class="mb-3">
+					<code class="pj-code language-arduino">radio.setChannel(int channel);</code>
+				</p>
+				<p class="mb-3">
+					Let’s move on to the code that would appear in the <code
+						class="pj-code language-arduino">main()</code> loop. This is where radio messages will be
+					read and written (transmitted and received).
+					To facilitate the data transfer, you are provided with a special container <code
+						class="pj-code language-arduino">RemoteData</code> with three member variables that are
+					initialized as follows.
+					These are the <code class="pj-code language-arduino">uint8_t</code> (unsigned 8-bit int) type.
+				</p>
+				<p class="mb-3">
+					<code class="pj-code language-arduino">RemoteData data;</code>
+					<br>
+					<code class="pj-code language-arduino">data.vx = 77;</code>
+					<br>
+					<code class="pj-code language-arduino">data.vy = 89;</code>
+					<br>
+					<code class="pj-code language-arduino">data.sw = 1;</code>
+				</p>
+				<p class="mb-3">
+					To send a report to the other radio, use the <code class="pj-code language-arduino">write()</code>
+					function, passing the
+					<code class="pj-code language-arduino">RemoteData</code> container as an argument.
+				</p>
+				<p class="mb-3">
+					<code class="pj-code language-arduino">radio.write(RemoteData data); </code>
+				</p>
+				<p class="mb-3">
+					You may check to see if the radio has incoming data with the following function, which returns
+					an <code class="pj-code language-arduino">int</code> greater than zero
+					<em>if</em> there is data available.
+				</p>
+				<p class="mb-3">
+					<code class="pj-code language-arduino">int payload = radio.available();</code>
+				</p>
+				<p class="mb-3">
+					To read incoming data, use the radio’s <code class="pj-code language-arduino">read()</code>
+					function, which returns a <code class="pj-code language-arduino">RemoteData</code>
+				</p>
+				<p class="mb-5">
+					<code class="pj-code language-arduino">RemoteData data = radio.read();</code>
+				</p>
+
+				<h2 class="mb-3 fw-bold" id="pj-heading-arduino-nano-pinout">Arduino Nano Pinout</h2>
+				<p class="mb-1">
+					Thinking about using a pin but you don't know what it does? Refer to the Arduino Nano pinout
+					diagram, or scroll further to find the full datasheet.
+				</p>
+				<p>
+					<span class="text-blue">~</span> represents pins that are PWM capable.
+				</p>
+				<img class="pj-img-fluid mx-auto mb-5" src=".\assets\images\pinouts\ops-pinout-arduino-nano.png"
+					width="800">
+
+				<h2 class="mb-3 fw-bold" id="pj-heading-requirements">Requirements</h2>
+				<p class="mb-3">
+					In order to receive full marks on your project submission, make sure it meets the following
+					requirements. Beyond this, you can do whatever you like.
+				</p>
+				<ul class="mb-5 list-group">
+					<li class="list-group-item">
+						You must build a rover and a remote control.
+					</li>
+					<li class="list-group-item">
+						The rover must be controlled wirelessly via the remote control.
+					</li>
+					<li class="list-group-item">
+						The remote control should use a joystick for user input.
+					</li>
+					<li class="list-group-item">
+						A user should be able to intuitively use the joystick to control the rover. This means that
+						pivoting the joystick left should move the rover left, not backward.
+					</li>
+					<li class="list-group-item">
+						You must design a PCB for the remote control.
+						<ul>
+							<li>The PCB must adhere to the provided manufacturer constraints.</li>
+							<li>The PCB must be less than <strong>100x100mm</strong> in size.</li>
+						</ul>
+					</li>
+					<li class="list-group-item">
+						The rover must be able to move forward, backward, left, and right in response to commands
+						sent by the remote.
+					</li>
+					<li class="list-group-item">
+						Lastly, the rover must be stable and reliable. There should be no spontaneous movement, no wireless
+						connection issues, and absolutely no sparks.
+					</li>
+				</ul>
+
+				<h2 class="mb-3 fw-bold" id="pj-heading-parts">Parts</h2>
+				<!-- ======= Part Table ======= -->
+				<table class="table pj-part-table mb-5">
+					<thead>
+						<tr>
+							<th scope="col">Part Name</th>
+							<th scope="col">Qty</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Breadboard</td>
+							<td>1</td>
+						</tr>
+						<tr>
+							<td>9V Battery</td>
+							<td>1</td>
+						</tr>
+						<tr>
+							<td>JST PH2.0 Female Connector</td>
+							<td>1</td>
+						</tr>
+						<tr>
+							<td>JST PH2.0 Snap 9V Battery Male Connector</td>
+							<td>1</td>
+						</tr>
+						<tr>
+							<td>Dupont Jumper Wire (Male-to-Female)</td>
+							<td>7</td>
+						</tr>
+						<tr>
+							<td>
+								<a class="pj-part"
+									data-bs-content="<img src='./assets/images/parts/ops_part_nrf24l01.png' height='150px' width='auto'>"
+									data-bs-trigger="hover focus" data-bs-toggle="popover" tabindex="0">
+									N4F24L01 Transceiver Module
+								</a>
+							</td>
+							<td>2</td>
+						</tr>
+						<tr>
+							<td>Gearbox Motor</td>
+							<td>2</td>
+						</tr>
+						<tr>
+							<td>Wheel</td>
+							<td>2</td>
+						</tr>
+						<tr>
+							<td>Ball Caster</td>
+							<td>1</td>
+						</tr>
+						<tr>
+							<td>Metal Ball</td>
+							<td>1</td>
+						</tr>
+						<tr>
+							<td>Long Screw</td>
+							<td>2</td>
+						</tr>
+						<tr>
+							<td>Hex Nut</td>
+							<td>2</td>
+						</tr>
+						<tr>
+							<td>Ball Caster Chassis Grip</td>
+							<td>1</td>
+						</tr>
+						<tr>
+							<td>4”x4” Wood Plate (Chassis)</td>
+							<td>1</td>
+						</tr>
+						<tr>
+							<td>9V Battery Holder</td>
+							<td>1</td>
+						</tr>
+						<tr>
+							<td>L293D Quadruple Half-H Driver IC</td>
+							<td>1</td>
+						</tr>
+						<tr>
+							<td>Diode</td>
+							<td>1</td>
+						</tr>
+						<tr>
+							<td>Mini USB Cable</td>
+							<td>1</td>
+						</tr>
+						<tr>
+							<td>Analog Joystick</td>
+							<td>1</td>
+						</tr>
+						<tr>
+							<td>1x5 Pin Female Header(Bent)</td>
+							<td>1</td>
+						</tr>
+						<tr>
+							<td>2x4 Pin Female Header</td>
+							<td>1</td>
+						</tr>
+						<tr>
+							<td>1x15 Pin Female Header</td>
+							<td>2</td>
+						</tr>
+						<tr>
+							<td>Jumper Wire</td>
+							<td>?</td>
+						</tr>
+						<tr>
+							<td>Positive Attitude</td>
+							<td>1</td>
+						</tr>
+
+					</tbody>
+				</table>
+				<!-- End Part Table -->
+
+				<h2 class="mb-3 fw-bold" id="pj-heading-schematics">Schematics</h2>
+				<div class="accordion mb-5" id="schemAccordian">
+					<div class="accordion-item">
+						<h2 class="accordion-header">
+							<button class="accordion-button" type="button" data-bs-toggle="collapse"
+								data-bs-target="#schemCollapse1" aria-expanded="true" aria-controls="schemCollapse1">
+								Schematic A
+							</button>
+						</h2>
+						<!--Pin to page?-->
+						<div id="schemCollapse1" class="accordion-collapse collapse show"
+							data-bs-parent="#schemAccordian">
+							<div class="accordion-body text-center">
+								<img src='./assets/images/schematics/ops_schem_capstone.png'
+									class="pj-img-fluid mx-auto" width="700">
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<h2 class="mb-3 fw-bold" id="pj-heading-procedure">Instructions</h2>
+				<h4 class="mb-3 fw-light">PCB Design</h4>
+
+				<ol class="mb-5 list-group list-group-numbered">
+					<li class="list-group-item">
+						Open KiCad 7.0 and create a new project.
+						<ul>
+							<li>
+								Name the project file using the following format:
+								“<b>capstone_firstname_lastname.kicad_pro</b>”.
+							</li>
+						</ul>
+					</li>
+					<li class="list-group-item">
+						Create <b>Schematic A</b> in the project’s schematic editor.
+						<ul>
+							<li>You must use the symbols and corresponding footprints listed below:</li>
+							<ul>
+								<li>
+									Symbol: <b>Arduino_Nano_v3.x</b> <br>
+									Footprint Library: <b>Module</b> <br>
+									Footprint: <b>Arduino_Nano</b>
+								</li>
+								<li>
+									Symbol: <b>Conn_01x05_Socket</b> <br>
+									Footprint Library: <b>Connector_PinSocket_2.54mm</b> <br>
+									Footprint: <b>PinSocket_1x05_P2.54mm_Vertical</b> <br>
+								</li>
+								<li>
+									Symbol: <b>NRF24L01_Breakout</b> <br>
+									Footprint Library: <b>RF_Module</b> <br>
+									Footprint: <b>nRF24L01_Breakout</b> <br>
+								</li>
+							</ul>
+							<li>
+								Note that we do not use a symbol for the joystick. Instead, we use a 1x5 socket header.
+								You must observe the physical pinout of the joystick and make sure it matches the pin
+								wiring of the header in your KiCad schematic.
+							</li>
+						</ul>
+					</li>
+					<li class="list-group-item">
+						Before proceeding to the next step, make sure that you have done the following:
+						<ul>
+							<li>
+								Run the <b>Annotate Schematic</b> tool. <img class="img-fluid ms-1"
+									src=".\assets\images\project_8\ops_project_8_kicad_button_reference_designators.png">
+							</li>
+							<li>
+								Run the <b>Electrical Rules Checker (ERC)</b> tool. <img class="img-fluid ms-1"
+									src=".\assets\images\project_8\ops_project_8_kicad_button_electronic_rules_checker.png">
+							</li>
+							<ul>
+								<li>
+									There should be no violations except for <b>Error: Input Power pin not driven by
+										any Output Power pins.</b>
+								</li>
+							</ul>
+							<li>
+								Make sure every symbol is assigned to the correct footprint.
+							</li>
+						</ul>
+					</li>
+					<li class="list-group-item">
+						Download this <a class="link-primary" href="assets/pcb/jlcpcb_design_rules.zip" download>file</a>. You will use it to import the manufacturer’s PCB constraints to your project.
+					</li>
+					<li class="list-group-item">
+						Unzip the downloaded file "<b>jlcpcb_design_rules.zip</b>" and place its contents ("<b>capstone_firstname_lastname.kicad_dru</b>") in your KiCad project folder.
+					</li>
+					<li class="list-group-item">
+						Rename "<b>capstone_firstname_lastname.kicad_dru</b>" to the name of your KiCad project.
+					</li>
+					<li class="list-group-item">
+						In the PCB Editor, click <b>Update PCB</b> or press <b>F8</b>. <img class="img-fluid ms-1"
+							src=".\assets\images\project_8\ops_project_8_kicad_button_update_pcb.png">
+					</li>
+					<li class="list-group-item">
+						Complete the layout and traces for your PCB design.
+					</li>
+					<li class="list-group-item">
+						Before submitting your design, make sure you have done the following:
+						<ul>
+							<li>
+								Place the 01x05 female header (for the joystick) along the edge of your PCB.
+								The joystick needs to be attached off the edge of the board.
+							</li>
+							<li>
+								Run <b>Design Rules Checker (DRC)</b> tool. <img class="img-fluid ms-1"
+									src=".\assets\images\project_8\ops_project_8_kicad_button_electronic_rules_checker.png">
+								<ul>
+									<li>
+										There should be no violations.
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+					<li class="list-group-item">
+						Submit your PCB design based on the instructions in the Deliverables section.
+					</li>
+				</ol>
+
+				<h4 class="mb-3 fw-light">PCB Assembly</h4>
+				<ol class="mb-5 list-group list-group-numbered">
+					<li class="list-group-item">
+						Place the headers on your newly manufactured PCB. Remember that you are not soldering the
+						actual
+						components to the board, just the headers.
+					</li>
+					<li class="list-group-item">
+						Solder the headers to the PCB.
+					</li>
+					<li class="list-group-item">
+						Place the components on the headers. Viola! You are done.
+					</li>
+				</ol>
+
+
+				<h4 class="mb-3 fw-light">Rover Assembly</h4>
+				<p class="mb-3">
+					You may customize the rover however you like, but it does need to work. Just in case, we offer
+					instructions on how to build it.
+				</p>
+				<ol class="mb-1 list-group list-group-numbered">
+					<li class="list-group-item">
+						Collect the listed components, all of which are displayed below:
+						<ul>
+							<li>
+								Breadboard
+							</li>
+							<li>
+								9V Battery Holder
+							</li>
+							<li>
+								9V Battery
+							</li>
+							<li>
+								9V Battery Snap Connector with Dupont Terminals <b>or</b> JST Female Snap Connector
+								with Male JST Header
+							</li>
+							<li>
+								Ball Caster Components (You may have a pre-assembled ball caster components in your
+								kit…
+								In which case, ignore the following.)
+								<ul>
+									<li>
+										Ball Caster Chassis Grip
+									</li>
+									<li>
+										Ball Caster
+									</li>
+									<li>
+										Metal Ball
+									</li>
+									<li>
+										Long Screws (2)
+									</li>
+									<li>
+										Hex Nuts (2)
+									</li>
+									<li>
+										Wheels (2)
+									</li>
+								</ul>
+							</li>
+							<li>
+								4”x4” Wood Plate (Chassis)
+							</li>
+							<li>
+								Gearbox Motors (2)
+							</li>
+						</ul>
+						<img class="pj-img-fluid mx-auto mb-0"
+							src=".\assets\images\capstone\ops_capstone_rover_components.png" width="800">
+					</li>
+					<li class="list-group-item">
+						Adhere the 9V battery holder to one face of the wood plate. Center the battery holder along
+						the edge of the plate.
+						Make sure the open side of the battery holder is on the edge of the wood plate.
+						<br><br>
+						<span class="text-red"><b>Hot Tip</b>: Use a glue gun</span>
+						<img class="pj-img-fluid mx-auto mb-0"
+							src=".\assets\images\capstone\ops_capstone_holder_glued.png" width="550">
+					</li>
+					<li class="list-group-item">
+						Adhere the two gearbox motors to the wood plate so that they sit on either side of the
+						battery holder.
+						<img class="pj-img-fluid mx-auto mb-0"
+							src=".\assets\images\capstone\ops_capstone_motors_glued.png" width="600">
+					</li>
+					<li class="list-group-item">
+						<b>If you have pre-assembled ball caster components, ignore this step</b>: Using the long
+						screws and hex nuts, fasten
+						the black ball caster to the chassis grip. To do so…
+						<ul>
+							<li>
+								Place the hex nuts in the hexagonal hole inside the clip.
+							</li>
+							<li>
+								Feed the screws through the caster’s holes and the holes at the bottom of the grip.
+							</li>
+							<li>
+								Tighten the screws until the hex nuts “catch” them and the ball caster is tightly
+								bound.
+							</li>
+						</ul>
+						<img class="pj-img-fluid mx-auto mb-0"
+							src=".\assets\images\capstone\ops_capstone_chassis_grip_parts.png" width="550">
+						<div style="text-align: center;">
+							<img class="pj-img-fluid mx-auto mb-0"
+								src=".\assets\images\capstone\ops_capstone_chassis_grip_1.png" width="150"
+								style="display: inline;">
+							<img class="pj-img-fluid mx-auto mb-5"
+								src=".\assets\images\capstone\ops_capstone_chassis_grip_2.png" width="175"
+								style="display: inline;">
+						</div>
+					</li>
+					<li class="list-group-item">
+						Clip the chassis grip to the edge of the plate opposite to the battery holder. Center align
+						the chassis grip
+						along the edge as well.
+						<img class="pj-img-fluid mx-auto mb-5"
+							src=".\assets\images\capstone\ops_capstone_chassis_grip_attached.png" width="600">
+					</li>
+					<li class="list-group-item">
+						Attach the wheels to the gearbox motors, the metal ball to the caster, and the 9V battery to
+						the battery holder.
+						Note that the battery slides into the holder as shown below.<br>
+						<img class="pj-img-fluid mx-auto mb-5"
+							src=".\assets\images\capstone\ops_capstone_battery_holder_and_rover.png" width="800">
+					</li>
+					<li class="list-group-item">
+						Attach the wheels to the gearbox motors, the metal ball to the caster, and the 9V battery to
+						the battery holder.
+						Note that the battery slides into the holder as shown below.<br>
+						<img class="pj-img-fluid mx-auto mb-5"
+							src=".\assets\images\capstone\ops_capstone_breadboard_and_rover.png" width="800">
+					</li>
+					<li class="list-group-item">
+						The final step is to place and wire the electrical components on the breadboard. Remember
+						that there is no
+						schematic. You have to design the circuit yourself.
+						<br><br>
+						Try drawing up your own schematic on <a class="link-primary"
+							href="https://www.tinkercad.com/circuits">Tinkercad</a>
+						first. You can use all the same components and even simulate your circuit with code!
+						<br><br>
+						If you get stuck, <b>ask questions</b>.
+						<img class="pj-img-fluid mx-auto mb-0"
+							src=".\assets\images\capstone\ops_capstone_rover_done.png" width="800">
+					</li>
+					<br>
+				</ol>
+
+				<h4 class="mb-3 fw-light">Programming</h4>
+				<p class="mb-5">
+					How you write the code is all up to you. Just make sure there are two files, one for the rover
+					and one for the remote control.
+					<br><br>
+					<b>Install the newest version</b> of the NRF24L01_W library as well.
+					<br><br>
+					As a final suggestion, look back at your old project submissions and reuse applicable code.
+				</p>
+
+
+				<h2 class="mb-3 fw-bold" id="pj-heading-deliverables">Deliverables</h2>
+				<h4 class="mb-3 fw-light">PCB Design</h4>
+				<p class="mb-3">
+					Compress the KiCad project folder as a <b>.zip</b>. It must contain the following:
+				</p>
+				<ul class="mb-4 list-group">
+					<li class="list-group-item">
+						<i class="bi bi-check2-square me-2"></i>
+						<b>KiCad Project File</b> (.kicad_pro)
+					</li>
+					<li class="list-group-item">
+						<i class="bi bi-check2-square me-2"></i>
+						<b>KiCad PCB File</b> (.kicad_pcb)
+					</li>
+					<li class="list-group-item">
+						<i class="bi bi-check2-square me-2"></i>
+						<b>KiCad Schematic File</b> (.kicad_sch)
+					</li>
+				</ul>
+				<p class="mb-5">
+					Then, submit the <b>.zip</b> file to the Capstone PCB Design Canvas assignment. Make sure that the
+					file name follows the format:
+					“<b>capstone_firstname_lastname.zip</b>”
+				</p>
+
+				<h4 class="mb-3 fw-light">Final Submission</h4>
+				<p class="mb-3">
+					Place the following files in a single folder:
+				</p>
+				<ul class="mb-4 list-group">
+					<li class="list-group-item">
+						<i class="bi bi-check2-square me-2"></i>
+						<b>Video of your rover and the remote control</b>
+						<div class="alert alert-info mt-2" role="alert">
+							The video should include a demonstration of the rover moving forward, backward, left,
+							and right. Make sure to show the remote as well.
+						</div>
+					</li>
+					<li class="list-group-item">
+						<i class="bi bi-check2-square me-2"></i>
+						<b>Rover Arduino sketch file</b>
+						<div class="alert alert-info mt-2" role="alert">
+							This file should include all of the code you have written for the rover. Name it
+							“<b>capstone_rover.ino</b>”.
+						</div>
+					</li>
+					<li class="list-group-item">
+						<i class="bi bi-check2-square me-2"></i>
+						<b>Remote Control Arduino sketch file</b>
+						<div class="alert alert-info mt-2" role="alert">
+							This file should include all of the code you have written for the remote control. Name
+							it “<b>capstone_remote.ino</b>”.
+						</div>
+					</li>
+				</ul>
+				<p class="mb-5">
+					<b>Compress</b> the folder to a <b>zip</b> file and rename the file using the format:  <b>“capstone_final_firstname_lastname.zip”.</b>
+					Then, submit the <b>.zip</b> file to the Capstone Final Submission Canvas assignment.
+				</p>
+			</div>
+		</main>
+	</div>
+	<!-- ======= Footer ======= -->
+	<script src="./js/ops_footer.js"></script>
+	<!-- End Footer -->
+</body>
+
+</html>

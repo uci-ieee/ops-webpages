@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-bs-theme="light">
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'GA_MEASUREMENT_ID');
+    </script>
+
+<head>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+    <!--Title-->
+    <title>Open Project Space</title>
+    <!--Favicon-->
+    <link rel="icon" href="./assets/images/ops_logo_favicon.png">
+    <!--Roboto Font CDN-->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto"
+        rel="stylesheet">
+    <!--Beckman Font CDN-->
+    <link href="https://fonts.cdnfonts.com/css/beckman" rel="stylesheet">
+    <!-- Custom Stylesheet "custom.css" used for Bootstrap 5.3.0 css-->
+    <link rel="stylesheet" href="./css/custom.css" type="text/css">
+    <!-- Popper JS v2.11.8 (Bootstrap Dependency) CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <!-- Bootstrap JS v5.3.0 CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+        integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
+        crossorigin="anonymous"></script>
+    <!-- Bootstrap Icons CSS v1.10.0 CDN-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <!-- Highlight JS v11.7.0-->
+    <link rel="stylesheet" href="./css/highlight.js/default.min.css" type="text/css">
+    <link rel="stylesheet" href="./css/highlight.js/arduino-light.min.css" type="text/css">
+    <script src="./js/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+
+<body style="">
+	<!-- ======= Header ======= -->
+	<script src="./js/ops_header.js"></script>
+	<!-- End Header -->
+
+	<div class="container-xl pj-layout my-5">
+		<!-- ======= Sidebar ======= -->
+		<aside class="pj-sidebar ">
+			<nav id="project-toc" class="pj-toc d-flex flex-column px-2 pt-2 pb-4">
+				<ul class="nav flex-column">
+					<h5 class="mt-2 mb-2 mx-3">Contents</h5>
+					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-introduction">Overview</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-concepts">Concepts</a>
+						<ul class="nav">
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-uart">UART</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-pull-up-resistors">Pull-Up Resistors</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-dfplayer">DFPLayer Mini MP3 Player</a>
+							</li>
+						</ul>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-arduino-libraries">Installing Arduino Libraries</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-arduino-nano-pinout">Arduino Nano Pinout</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-requirements">Requirements</a>
+						<ul class="nav">
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-uart-echo">UART Echo</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-external-pull-up">External Pull-Up Resistor Circuit</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-internal-pull-up">Internal Pull-Up Resistor Circuit</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-ipoduino">iPoduino</a>
+							</li>
+						</ul>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-parts">Parts</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-schematics">Schematics</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-instructions">Instructions</a>
+						<ul class="nav">
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-checkpoint1">Checkpoint 1</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-checkpoint2">Checkpoint 2</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-checkpoint3">Checkpoint 3</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-checkpoint4">Checkpoint 4</a>
+							</li>
+						</ul>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-deliverables">Deliverables</a>
+					</li>
+				</ul>
+			</nav>
+		</aside>
+		<!-- End Sidebar -->
+
+		<main class="pj-main p-3" data-bs-spy="scroll" data-bs-target="#project-toc" data-bs-root-margin="0px 0px -40%"
+			data-bs-smooth-scroll="true" tabindex="0">
+			<div class="pj-content">
+
+			<div class="d-flex flex-sm-row flex-column justify-content-between mb-5">
+				<div class="mb-sm-0 mb-2">
+					<h4>Project 5</h4>
+					<h1 class="fw-bold">iPoduino v2.0</h1>
+				</div>
+				<div class="alert alert-light" role="alert">
+					<i class="bi bi-calendar-event me-1"></i>
+					Updated 2024.01.12 <br>
+					By Benjamen Bielecki
+				</div>
+			</div>
+
+
+			<h2 class="mb-3 fw-bold" id="pj-heading-introduction">Overview</h2>
+			<p class="mb-3">
+				Microcontrollers often communicate with other devices, like sensors, actuators, or maybe... an MP3 player module. In this project, will
+                explore how embedded systems transmit and receive data through the UART communication protocol.
+			</p>
+            <p class="mb-5">
+                Small checkpoints will prepare you for the final task: You will create an MP3 player with a "Play/Pause" toggle button and a "Skip/Next Song" button,
+                using the DFPlayer Mini module. Songs are -loaded onto a microSD card which you will insert into the module. The system will output mono sound through
+                a small speaker.
+            </p>
+
+
+			<h2 class="mb-3 fw-bold" id="pj-heading-concepts">Concepts</h2>
+            <h3 class="mb-3" id="pj-heading-uart">UART</h3>
+			<p class="mb-3">
+				Embedded within the Arduino Nano is a device called the <strong>Universal Asynchronous Receiver-Transmitter (UART)</strong>. It may communicate with another UART by
+                transmitting or receiving messages known as <strong>packets</strong>. This is done in <strong>serial</strong>, meaning packets are sent one bit of data at a time. UARTs also communicate
+                <strong>asynchronously</strong>, so there is no clock to time when packets are transmitted or received.
+			</p>
+			<img class="pj-img-fluid mx-auto mb-5" src="./assets/images/project_5/ops_project_5_uart_explanation.png" width = "500">
+
+
+			<h4 class="mb-3 fw-light">Serial Communication with Arduino</h4>
+			<p class="mb-3">
+				We can use the UART in our Arduino Nano to transmit data to another UART device. To do so, we will enlist the help of the
+				<a class="link-primary"
+						href="https://www.arduino.cc/reference/en/language/functions/communication/serial/" target="_blank"
+						rel="noopener noreferrer">Serial Library</a>, which is already installed in the Arduino IDE.
+			</p>
+			<p class="mb-5">
+				The data within each packet sent with	 UART is <strong>one byte</strong> in size, meaning if the data contained an <code class="pj-code language-arduino">int</code>, its value could only be in the range <code class="pj-code language-arduino">-128 to 127</code> (signed) or <code class="pj-code language-arduino">0 to 255</code> (unsigned). We’ll see how this comes into play later.
+			</p>
+			<p class="mb-3">
+				Every UART can both transmit and receive packets, which is referred to as <strong>duplex communication</strong>. They communicate over their <strong>TX</strong> and <strong>RX</strong> pins; recall that the TX pin on one device connects to the RX pin on the other.
+			</p>	
+			<p class="mb-5">
+				Remember how we set the baud rate of our Nano using <code class="pj-code language-arduino">Serial.begin(9600)</code>? When a UART receives a transmission, it reads each bit at the speed of the <strong>baud rate</strong> (measured in bits per second). Both the transmitting and receiving UART <strong>must have the same baud rate</strong> for proper communication.
+			</p>
+			<p class="mb-3">
+				There are three core functions of the Serial library:
+			</p>	
+			<ol class="mb-5 list-group list-group-numbered">
+				<li class="list-group-item"><code class="pj-code language-arduino">Serial.write(val)</code> sends data from the Arduino board to another UART device. You will use it to transmit one byte at a time, meaning the int value passed as an argument must be in the range <code class="pj-code language-arduino">-128 to 127</code> (signed) or <code class="pj-code language-arduino">0 to 255</code> (unsigned).</li>
+				<li class="list-group-item">When the Arduino <i>receives</i> data, we need to check its <strong>receive buffer</strong>, a “mailbox” or an array of recently received bytes. <code class="pj-code language-arduino">Serial.available()</code> will return an <code class="pj-code language-arduino">int</code>, the number of bytes currently in the UART buffer. If the number is zero, nothing has been received.</li>
+				<li class="list-group-item">If the UART buffer <i>does</i> have data in it, you will read the byte at the front of the buffer using <code class="pj-code language-arduino">Serial.read()</code>, which returns an <code class="pj-code language-arduino">int</code>.</li>
+			</ol>
+
+
+			<h4 class="mb-3 fw-light">Universal Serial Bus (USB) on the Arduino</h4>
+			<p class="mb-3">
+				USB is a serial communication protocol used widely by modern computers. It defines the standards by which devices transmit data over USB cables. When you plug the Arduino Nano into your computer, upload a sketch, and execute a program with <code class="pj-code language-arduino">Serial.print()</code>, data transmits between the Nano and your computer using the USB protocol. 
+			</p>
+			<p class="mb-3">
+				Hidden behind the scenes is the UART. Data is transmitted between the computer and Arduino Nano through a chip that converts USB signals to UART signals. Those converted signals are then transmitted to and from the UART within the Nano’s microcontroller.
+			</p>
+			<div style= "text-align: center;" class="mb-3">
+				<img class="img-fluid my-3 me-5"
+					src="./assets/images/project_5/ops_project_5_usb_uart_diagram.png" width = "500">
+			</div>
+			<p class="mb-5">
+				With this in mind, remember that <strong>the Arduino’s USB port is hardwired to the TX and RX pins</strong> of the board. <strong></strong>Do not upload a sketch to an Arduino while the board is connected via the TX/RX pins to another Arduino. Do not attempt to use <code class="pj-code language-arduino">Serial.print()</code> under these conditions either.
+			</p>
+
+
+			<h4 class="mb-3 fw-light">Software Serial</h4>
+			<p class="mb-3">
+				The SoftwareSerial library enables UART communication over other digital pins of the Arduino board. Why do we need it? Suppose you connect the Arduino over USB to your PC and use the Serial Monitor. At the same, you want the Arduino to connect to another UART device. The Arduino Nano only has one physical UART, so we use Software Serial to emulate a second UART connection over separate digital pins.
+			</p>
+			<pre class="mt-3" style="white-space: pre-wrap;"><code class="pj-code language-arduino">#include &lt;SoftwareSerial.h&gt;
+const int rxPin = 2;
+const int txPin = 3;
+SoftwareSerial mySerial(rxPin, txPin);
+</code></pre>
+			<p class="mb-3">
+				The code above creates an object of the SoftwareSerial class that manages a new UART connection over the digital pins passed to the constructor. Then, you just use the pins like you would normally!
+			</p>
+			<p class="mb-5">
+				There are several limitations of SoftwareSerial: It cannot transmit and receive data at the same time. If multiple software serial ports are used, only one can receive data at a time. Lastly, not all digital pins support SoftwareSerial.
+				Find out more <a class="link-primary"
+				href="https://docs.arduino.cc/learn/built-in-libraries/software-serial" target="_blank"
+				rel="noopener noreferrer">here</a>.
+			</p>
+
+
+			<h3 class="mb-3" id="pj-heading-pull-up-resistors">Pull-Up Resistors</h3>
+			<p class="mb-3">
+				Suppose you use a digital input pin on the Arduino board, but it’s not connected to anything. Is the state of the pin HIGH or LOW? For it to be HIGH, the pin would need to be connected to the VCC power source. For the state to be LOW, the pin would need to be connected to GND. When the state is indeterminate like this, the pin is said to have a <strong>floating signal</strong>, which we should avoid.
+			</p>
+			<p class="mb-3">
+				The solution is what we call a <strong>pull-up resistor</strong>. The input pin is connected to a high-value resistor R1 whose other terminal is attached to VCC (as depicted below). 
+			</p>
+			<div class="mb-5">
+				<img class="pj-img-fluid-end" src="./assets/images/project_5/ops_project_5_pull_up_explanation.png" width = "350">
+				<p class="mb-3">
+					The intent is to set the input pin to the HIGH voltage. We often use a 10kΩ resistor to do so. Now, the input pin has an effective resistance in the range of 100 MΩ. That’s right: mega-ohms.
+				</p>
+				<p class="mb-3">
+					The resistance of the pull-up resistor R1 and effective resistance of the input pin divide the voltage VCC such that the voltage at the input pin is equal to VCC (HIGH).
+				</p>
+				<p class="mb-3">
+					Now, let’s introduce the button: one terminal attached to the input pin and the other GND.
+				</p>
+				<p class="mb-3">
+					When the button is pressed, the voltage at the input pin is shorted to GND (LOW).
+				</p>
+				<p class="mb-3">
+					With this circuit, the input pin will either be VCC or GND (HIGH or LOW). Let’s see how it would look on a breadboard:
+				</p>
+				<img class="pj-img-fluid mx-auto mb-3" src="./assets/images/project_5/ops23_project5_breadboardA.png" width = "500">
+				<p>
+					In the layout above, the pushbutton is connected to an external pullup resistor. Its state (HIGH or LOW) is read from pin D2 of the Arduino Nano.
+				</p>
+			</div>
+
+
+			<h4 class="mb-3 fw-light" id="pj-heading-concepts">Internal Pull-Up Resistors</h4>
+			<p class="mb-3">
+				When you use a button, you should combine it with a pull-up resistor.  Instead of building an external circuit, you can use an <strong>internal pull-up resistor</strong> in the Arduino board. You may do so by setting the pin mode as follows:
+			</p>
+			<p class="mb-3">
+				<code class="pj-code language-arduino">pinMode(pin, INPUT_PULLUP);</code>
+			</p>
+			<div style= "text-align: center;" class="mb-3">
+				<img class="img-fluid my-3 me-5"
+					src="./assets/images/project_5/ops23_project5_breadboardB.png" width = "500">
+			</div>
+			<p class="mb-5">
+				The layout above is for a pushbutton that uses the Arduino Nano’s internal pullup resistor.
+			</p>
+
+
+			<h3 class="mb-3" id="pj-heading-dfplayer">DFPLayer Mini MP3 Player</h3>
+			<p class="mb-3">
+				The Arduino Nano has too little memory to load and play audio files. Instead, we use a separate device to store and manage the audio media: The DFPlayer Mini is a small MP3 module that connects to an Arduino board (or other microcontrollers) over UART. 
+			</p>
+			<div class="mb-5">
+				<img class="pj-img-fluid mx-auto mb-3" src="./assets/images/project_5/ops23_project5_dfplayermini.png" width = "150">
+				<p class="mb-3">
+					Though it supports a variety of control modes, we will use the module's serial mode. In serial mode, we need only connect the module's TX/RX, Power, Ground, and speaker pins. Using UART, the Arduino will send commands to the DFPlayer Mini to playback songs, pause, change volume, etc. This is facilitated by a custom Arduino library.
+				</p>
+				<p class="mb-3">
+					Explore more about the DFplayer Mini at its <a class="link-primary"
+					href="https://wiki.dfrobot.com/DFPlayer_Mini_SKU_DFR0299" target="_blank"
+					rel="noopener noreferrer">wiki page</a>.
+				</p>
+			</div>
+
+
+			<h4 class="mb-3 fw-light">Datasheet and Pinout Diagram</h4>
+			<p class="mb-3">
+				As an exercise of technical documentation literacy, we will not provide the pinout diagram. Instead, you can access the datasheet <a class="link-primary"
+				href="assets/datasheets/ops_datasheet_FN-M16P.pdf" target="_blank"
+				rel="noopener noreferrer">here</a>. 
+			</p>
+			<p class="mb-3">
+				Remember that you are looking for the following in the datasheet’s pinout diagram: <strong>TX</strong>, <strong>RX</strong>, <strong>Power</strong> (VCC), <strong>Ground</strong> (GND), <strong>Speaker +</strong>, and <strong>Speaker -</strong>. (Hint: Look at Section 2 of the datasheet).
+			</p>
+			<p class="mb-5">
+				Read Section 1.2, 1.4 for information about the supported file types, file naming conventions, and folder (a.k.a. directory) structure for the MicroSD card.
+			</p>
+			<h4 class="mb-3 fw-light">Using the DFPLayer Mini with Arduino</h4>
+			<p class="mb-3">
+				You can download the DFPlayer Mini library v1.0.5 
+				<a class="link-primary"href="assets\libraries\DFRobotDFPlayerMini-1.0.5.zip">here</a>. 
+				We recommend this version as newer ones have produced errors in our testing.
+				It can be used in your code with the following include:
+			</p>
+			<p class="mb-3">
+				<code class="pj-code language-arduino"> #include &lt;DFRobotDFPlayerMini.h&gt;</code>
+			</p>
+			<p class="mb-3">
+				Below is sample code that demonstrates the module in serial mode. The program plays a audio file named “0001.mp3” for five seconds, then pauses it for five seconds, then resumes.
+				Then, in the loop, it cycles through songs every 5 seconds. Use this as a <strong>reference for the commands to send to the MP3 module</strong>.
+			</p>
+			<p class="alert alert-warning mt-2" role="alert">
+				Do not blindly copy-paste the sample code to your project deliverables. Read it, understand it, then adapt it to your own code.
+			</p>
+			<pre class="mb-5" style="white-space: pre-wrap; height:60vh;"><code class="pj-code language-arduino">#include &lt;SoftwareSerial.h&gt;
+#include &lt;DFRobotDFPlayerMini.h&gt;
+				
+// Use pins 2 and 3 with SoftwareSerial to communicate with DFPlayer Mini 
+// and leave RX and TX open to the connected computer for debugging
+const int PIN_MP3_TX = 2; // Connects to module's RX
+const int PIN_MP3_RX = 3; // Connects to module's TX
+				
+// Create the player object which will serve as an interface for our DFPlayer commands
+DFRobotDFPlayerMini player;
+				
+void setup() {
+	// Initialize the pins for SoftwareSerial. No pinMode calls needed.
+	SoftwareSerial softwareSerial(PIN_MP3_RX, PIN_MP3_TX);
+				
+	// Initialize USB serial port for debugging
+	Serial.begin(9600);
+				
+	// Initialize software serial port for DFPlayer Mini
+	softwareSerial.begin(9600);
+				
+	// Start communication with DFPlayer Mini using player.begin  
+	// player.begin returns true if the connection was a success
+	// and false if it failed
+	if (!player.begin(softwareSerial))  {
+		Serial.println("Connecting to DFPlayer Mini failed!");
+	}
+
+	// Set the player volume to maximum (0 to 30).
+	player.volume(30);
+
+	// Play the "0001.mp3" file in the "mp3" folder on the microSD card.
+	player.play(1);
+
+	// Delay the next command by 5 seconds.
+	delay(5000);
+
+	// Pause the playback.
+	player.pause();
+
+	// Delay the next command by 2 seconds.
+	delay(2000);
+
+	// Resume the playback from pause.
+	player.start();
+
+	// Here are some useful debugging functions
+	// Sometimes they don't return valid values. In that case, ignore them.
+	Serial.println(player.readFileCounts()); // Returns number of files in microSD 
+	Serial.println(player.readCurrentFileNumber()); // Returns current file number being played
+}
+
+// Change songs every 5 seconds.
+void loop() {
+	// Delay the next command by 5 seconds.
+	delay(5000);
+
+	// Skip to the next song.
+	player.next();
+}
+	</code></pre>
+
+
+			<h2 class="mb-3 fw-bold" id="pj-heading-arduino-libraries">Installing Arduino Libraries</h2>
+			<p class="mb-3">
+				Here is a quick recap on how you can install Arduino libraries in the
+				<a class="link-primary" href="https://www.arduino.cc/en/software" target="_blank"
+					rel="noopener noreferrer">Arduino IDE 2.0.0+</a>
+			</p>
+			<ol class="mb-4 list-group list-group-numbered">
+				<li class="list-group-item">
+					Download the library as a <strong>.zip</strong>
+				</li>
+				<li class="list-group-item">
+					In the Arduino IDE, go to <strong>Sketch → Include Library → Add .ZIP Library…</strong>
+				</li>
+				<li class="list-group-item">
+					Select the <strong>.zip</strong> of the library and click <strong>Open</strong>.
+				</li>
+			</ol>
+			<img class="pj-img-fluid mx-auto mb-5" src=".\assets\images\ops_arduino_ide_zip_library.png" width = "500">
+			<p class="mb-3">
+				You're done! Just make sure to <code class="pj-code language-arduino">#include</code> the library header file so that your
+				code compiles.
+			</p>
+			<table class="table pj-download-table mb-5">
+				<tbody>
+					<tr>
+						<td>DFRobot DFPlayerMini</td>
+						<td>
+							<a class="btn btn-outline-success mx-3"
+								href="assets\libraries\DFRobotDFPlayerMini-1.0.5.zip"
+								role="button"><i class="bi bi-download"></i> Download</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>			
+
+
+			<h2 class="mb-3 fw-bold" id="pj-heading-arduino-nano-pinout">Arduino Nano Pinout</h2>
+			<p class="mb-3">
+				Thinking about using a pin but you don’t know what it does? Refer to the Arduino Nano pinout diagram, or scroll further to find the full datasheet.
+				<br><span class="text-blue">~</span> represents pins that are PWM capable.
+			</p>
+			<img class="pj-img-fluid mx-auto mb-5" src=".\assets\images\pinouts\ops-pinout-arduino-nano.png"   width="800">
+
+
+			<h2 class="mb-3 fw-bolder" id="pj-heading-requirements">Requirements</h2>
+			<h3 class="mb-3" id="pj-heading-uart-echo">UART Echo</h3>
+			<ul class="mb-5 list-group">
+				<li class="list-group-item">You must write a program in which the Arduino board “echoes” back any small unsigned integer (0-255) sent to it over UART.</li>
+				<li class="list-group-item">When the user enters an integer (0-255) into the Arduino IDE Serial Monitor from their computer, the value is sent to the Arduino board. The board must send the same value back to the computer.</li>
+				<li class="list-group-item">The Arduino will only “echo” back a value sent to it once. It should not resend the value multiple times.</li>
+				<li class="list-group-item">The program must run in an infinite loop.</li>
+			</ul>
+
+
+			<h3 class="mb-3" id="pj-heading-external-pull-up">External Pull-Up Resistor Circuit</h3>
+			<ul class="mb-5 list-group">
+				<li class="list-group-item">Using the Arduino board, you must build a digital LED circuit which is activated by a pushbutton connected to an external pull-up resistor.</li>
+				<li class="list-group-item">When the pushbutton is pressed, the built-in LED (pin D13) on the Arduino board should turn ON.</li>
+				<li class="list-group-item">The build-in LED must turn OFF with the pushbutton is released.</li>
+				<li class="list-group-item">The LED must be brightly lit when turned ON.</li>
+				<li class="list-group-item">The LED must be completely dark when turned OFF.</li>
+				<li class="list-group-item">The circuit must be built on a breadboard.</li>
+			</ul>
+
+
+			<h3 class="mb-3" id="pj-heading-internal-pull-up">Internal Pull-Up Resistor Circuit</h3>
+			<ul class="mb-5 list-group">
+				<li class="list-group-item">Using the Arduino board, you must build a digital LED circuit which is activated by a pushbutton connected to an internal pull-up resistor. </li>
+				<li class="list-group-item">When the pushbutton is pressed, the built-in LED (pin D13) on the Arduino board should turn ON.</li>
+				<li class="list-group-item">The build-in LED must turn OFF with the pushbutton is released.</li>
+				<li class="list-group-item">The circuit must NOT use an external pull–up resistor.</li>
+				<li class="list-group-item">The LED must be brightly lit when turned ON.</li>
+				<li class="list-group-item">The LED must be completely dark when turned OFF.</li>
+				<li class="list-group-item">The circuit must be built on a breadboard.</li>
+			</ul>
+
+
+			<h3 class="mb-3" id="pj-heading-ipoduino">iPoduino</h3>
+			<ul class="mb-5 list-group">
+				<li class="list-group-item">You must build a MP3 Player with speaker sound using the DFPlayerMini module.</li>
+				<li class="list-group-item">The player must be pre-loaded with 3 songs.</li>
+				<li class="list-group-item">Each song must be at least 30 seconds in duration.</li>
+				<li class="list-group-item">The player must have two buttons.</li>
+				<li class="list-group-item">
+					<p>
+						One of the player’s buttons must toggle the music between “Play” mode and “Pause” mode.
+						<ul>
+							<li>In “Play” mode, the player must playback a song. It should resume the song that was previously paused if the “Skip/Next Song” button was not pressed.</li>
+							<li>In “Pause” mode, no song should be played.</li>
+						</ul>
+					</p>
+				</li>
+				<li class="list-group-item">
+					<p>
+						The second button should be the “Skip/Next Song” button, which interrupts the current song and plays a new song.
+						<ul>
+							<li>Each press of this button must cycle through all songs loaded on the MicroSD card.</li>
+							<li>If the player was in “Pause” mode when the “Skip/Next Song” button is pressed, the player must immediately enter “Play” mode.</li>
+						</ul>
+					</p>
+				</li>
+				<li class="list-group-item">The speaker must be silent when no song is played. No static or white noise.</li>
+				<li class="list-group-item">The speaker must clearly output music when a song is played.</li>
+				<li class="list-group-item">The circuit must be built on a breadboard.</li>
+			</ul>
+
+
+			<h2 class="mb-3 fw-bold" id="pj-heading-parts">Parts</h2>
+			<!-- ======= Part Table ======= -->
+			<table class="table pj-part-table mb-5">
+				<thead>
+					<tr>
+						<th scope="col">Part Name</th>
+						<th scope="col">Qty</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							Jumper Wire
+						</td>
+						<td>?</td>
+					</tr>
+					<tr>
+						<td>Breadboard</td>
+						<td>1</td>
+					</tr>
+					<tr>
+						<td>
+							<a class="pj-part pj-part-link"
+								data-bs-content="<img src='./assets/images/parts/ops_part_arduino_nano.png' height='150px' width='auto'>"
+								data-bs-trigger="hover focus" data-bs-toggle="popover" tabindex="0"
+								href="./assets/datasheets/ops_datasheet_arduino_nano.pdf" target="_blank"
+								rel="noopener noreferrer">
+								Arduino Nano
+							</a>
+						</td>
+						<td>1</td>
+					</tr>
+					<tr>
+						<td>
+							<a class="pj-part"
+								data-bs-content="<img src='./assets/images/project_5/ops_project_5_microsd.jpg' height='150px' width='auto'>"
+								data-bs-trigger="hover focus" data-bs-toggle="popover" tabindex="0">
+								MicroSD Card
+							</a>
+						</td>
+						<td>1</td>
+					</tr>
+					<tr>
+						<td>
+							Pushbutton Switch
+						</td>
+						<td>2</td>
+					</tr>
+					<tr>
+						<td>
+							<a class="pj-part"
+							data-bs-content="<img src='./assets/images/project_5/ops_project5_speakers.jpg' height='150px' width='auto'>"
+							data-bs-trigger="hover focus" data-bs-toggle="popover" tabindex="0">
+							Speaker, 0.5W, 8Ω
+							</a>
+						</td>
+						<td>1</td>
+					</tr>
+					<tr>
+						<td>
+							Resistor, 1kΩ
+						</td>
+						<td>1</td>
+					</tr>
+					<tr>
+						<td>
+							Resistor, 10kΩ
+						</td>
+						<td>1</td>
+					</tr>
+					<tr>
+						<td>
+							<a class="pj-part pj-part-link"
+								data-bs-content="<img src='./assets/images/project_5/ops_project_5_mini_mp3.webp' height='150px' width='auto'>"
+								data-bs-trigger="hover focus" data-bs-toggle="popover" tabindex="0"
+								href="./assets/datasheets/ops_datasheet_FN-M16P.pdf" target="_blank"
+								rel="noopener noreferrer">
+								DFPlayer Mini Module
+							</a>
+						</td>
+						<td>1</td>
+					</tr>
+					<tr>
+						<td>Mini USB Cable</td>
+						<td>1</td>
+					</tr>
+				</tbody>
+			</table>
+			<!-- End Part Table -->
+
+
+			<h2 class="mb-3 fw-bold" id="pj-heading-schematics">Schematics</h2>
+			<div class="accordion mb-5" id="schemAccordian">
+				<div class="accordion-item">
+					<h2 class="accordion-header">
+						<button class="accordion-button" type="button" data-bs-toggle="collapse"
+							data-bs-target="#schemCollapse1" aria-expanded="true" aria-controls="schemCollapse1">
+							Schematic A (External Pull-Up Resistor Circuit)
+						</button>
+					</h2>
+					<!--Pin to page?-->
+					<div id="schemCollapse1" class="accordion-collapse collapse show"
+						data-bs-parent="#schemAccordian">
+						<div class="accordion-body text-center">
+							<img class="pj-img-fluid mx-auto" src='assets/images/project_5/ops23_project5_schemA.png' width="400px">
+						</div>
+					</div>
+				</div>
+				<div class="accordion-item">
+					<h2 class="accordion-header">
+						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+							data-bs-target="#schemCollapse2" aria-expanded="true" aria-controls="schemCollapse2">
+							Schematic B (Internal Pull-Up Resistor Circuit)
+						</button>
+					</h2>
+					<!--Pin to page?-->
+					<div id="schemCollapse2" class="accordion-collapse collapse" data-bs-parent="#schemAccordian">
+						<div class="accordion-body text-center">
+							<img class="pj-img-fluid mx-auto" src='assets/images/project_5/ops23_project5_schemB.png' width="400px">
+						</div>
+					</div>
+				</div>
+				<div class="accordion-item">
+					<h2 class="accordion-header">
+						<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+							data-bs-target="#schemCollapse3" aria-expanded="true" aria-controls="schemCollapse3">
+							Schematic C (iPoduino v2)
+						</button>
+					</h2>
+					<!--Pin to page?-->
+					<div id="schemCollapse3" class="accordion-collapse collapse" data-bs-parent="#schemAccordian">
+						<div class="accordion-body text-center">
+							<img class="pj-img-fluid mx-auto" src='assets/images/project_5/ops_23_project5_schemC.png'>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<h2 class="mb-3 fw-bold" id="pj-heading-instructions">Instructions</h2>
+			<h3 class="mb-3" id="pj-heading-checkpoint1">Checkpoint 1</h3>
+			<ol class="mb-5 list-group list-group-numbered">
+				<li class="list-group-item">
+					Connect the Arduino Nano to your computer and open the Arduino IDE. You will write a small program that echos small byte-sized values between the Nano and your computer.
+					<div class="alert alert-info mt-2" role="alert">
+						Reference the UART Concepts section for writing this program.
+						<div>
+				</li>
+				<li class="list-group-item">
+					Upload your sketch to the Arduino Nano, and verify that the program executes as expected. Open the Arduino IDE Serial Monitor, enter small integer values, and observe the communication between the computer and the Nano.
+				</li>
+			</ol>
+
+
+			<h3 class="mb-3" id="pj-heading-checkpoint2">Checkpoint 2</h3>
+			<ol class="mb-4 list-group list-group-numbered">
+				<li class="list-group-item">
+					Build the circuit from <strong>Schematic A</strong> (External Pull-Up Resistor Circuit) on your breadboard. You will design a digital LED circuit with an external pull-up resistor and pushbutton.
+					<div class="alert alert-info mt-2" role="alert">
+						Use the built-in LED connected to the Arduino Nano’s D13 pin.
+					<div>
+				</li>
+				<li class="list-group-item">
+					Upload your sketch to the Arduino Nano, and verify that the program executes as expected.
+				</li>
+			</ol>
+
+
+			<h3 class="mb-3" id="pj-heading-checkpoint3">Checkpoint 3</h3>
+			<ol class="mb-4 list-group list-group-numbered">
+				<li class="list-group-item">
+					Build the circuit from <strong>Schematic B</strong> (Internal Pull-Up Resistor Circuit) on your breadboard. You will design a digital LED circuit with an internal pull-up resistor and pushbutton.
+					<div class="alert alert-info mt-2" role="alert">
+						Use the built-in LED connected to the Arduino Nano’s D13 pin.
+					</div>
+					<div class="alert alert-info mt-2" role="alert">
+						Set the digital pin mode to INPUT_PULLUP.
+					</div>
+				</li>
+				<li class="list-group-item">
+					Upload your sketch to the Arduino Nano, and verify that the program executes as expected.
+				</li>
+			</ol>
+
+
+			<h3 class="mb-3" id="pj-heading-checkpoint4">Checkpoint 4</h3>
+			<ol class="mb-5 list-group list-group-numbered">
+				<li class="list-group-item">
+					Build the circuit from Schematic C (iPoduino) on your breadboard. Use the sample code provided in the Concepts sections to guide your Arduino program.
+					<div class="alert alert-info mt-2" role="alert">
+						Carefully implement the code so that each button triggers an action <i>only</i> when first pressed. Ask for help if you get stuck.
+					</div>
+					If you get stuck on breadboard layout, open the hint below:
+					<div>
+						<script src="./js/collapsible.js" title="Click to Reveal Hint 1"
+							content='Our team used the following layout for the main components. No jumper wires are shown. Take advantage of all available strips, even the unused ones in between button leads. 						<div class="accordion-body text-center">
+								<img src="./assets/images/project_5/ops23_project5_breadboardMain.png" class="pj-img-fluid mx-auto" width="400px">'></script>
+					</div>
+				</li>
+				<li class="list-group-item">
+					Upload your sketch to the Arduino Nano, and verify that the circuit meets the design requirements.
+				</li>
+			</ol>
+
+			
+			<h2 class="mb-3 fw-bold" id="pj-heading-deliverables">Deliverables (Enrolled Students Only)</h2>
+			<p class="mb-3">
+				Students enrolled in the course must submit the deliverables below to the corresponding Canvas course assignment.
+			</p>
+			<p class="mb-3">
+				Place the following files in a single folder:
+			</p>
+			<ul class="mb-4 list-group">
+				<li class="list-group-item">
+					<i class="bi bi-check2-square me-2"></i>
+					iPoduino sketch file
+					<div class="alert alert-info mt-2" role="alert">
+						This file should include all of the code you have written for the final checkpoint.
+					</div>
+				</li>
+				<li class="list-group-item">
+					<i class="bi bi-check2-square me-2"></i>
+					Video of the iPoduino (Schematic C) on a breadboard
+					<div class="alert alert-info mt-2" role="alert">
+						In the video, cycle through the three minimum songs. Toggle the “Play/Pause” button for at least one song.
+					</div>
+				</li>	
+			</ul>
+			<p class="mb-3">
+				<strong>Compress</strong> the folder to a <strong>zip</strong> file and rename the file using the
+				format
+				“<strong>ops_project5_lastname_firstname.zip</strong>” Then, submit the <strong>zip</strong> file to
+				the Project 5 Canvas
+				assignment.
+			</p>
+			
+		</main>
+	</div>
+	<!-- ======= Footer ======= -->
+	<script src="./js/ops_footer.js"></script>
+	<!-- End Footer -->
+</body>
+
+</html>

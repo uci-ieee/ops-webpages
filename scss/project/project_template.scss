@@ -30,44 +30,39 @@
     border-style: solid;
     border-width: 1px;
     border-radius: 10px;
-
-    //justify-self: left;
 }
 
 
 .pj-layout .pj-main {
     grid-area: main;
     justify-self: stretch;
-    //overflow: hidden !important;
-
     display: grid;
 }
 
 // For readability
 .pj-main p {
-    font-size: 1.2rem;
     line-height: 1.8;
 }
 
 .syllabus-section-info p {
-    font-size: 1.2rem;
     line-height: 1.8;
 }
 
 .pj-main code {
-    font-size: 1.2rem;
     line-height: 1.8;
     background-color: $gray-100;
 }
 
+.pj-main img.img-lg {
+    max-width: 700px;
+}
+
 .pj-main ul,
-ol {
-    font-size: 1.2rem;
+.pj-main ol {
     line-height: 1.8;
 }
 
 .pj-main li li {
-    font-size: 1.2rem;
     line-height: 2.5;
     margin-left: 1.3rem;
 }
@@ -98,6 +93,12 @@ ol {
     border-bottom-style: dotted;
 }
 
+/* used to add color and pointer to text in the parts section, often used to link to datasheets */
+.pj-part-link {
+    color: $primary;
+    cursor: pointer;
+}
+
 .pj-part-table {
     padding: 0px 20px 20px 20px;
     border-collapse: separate;
@@ -113,12 +114,6 @@ ol {
     max-width: 800px;
     height: auto;
     overflow: scroll;
-}
-
-.pj-img {
-    float: left;
-    width: 100%;
-    max-width: 800px;
 }
 
 .pj-code {
@@ -140,19 +135,95 @@ pre code.pj-code {
     max-width: 450px;
 }
 
+li .nav-item {
+    width: 100%;
+}
+
 #project-toc li li {
     margin-left: 1.3rem;
 }
 
+.pj-img-fluid {
+    display: block;
+
+    /* Make it effectively the same as .img-fluid from Bootstrap */
+    max-width: 100%;
+    height: auto;
+}
+
+.pj-img-fluid-start {
+    @extend .pj-img-fluid;
+    float: left;
+    margin: 1rem 2rem 1rem 0rem;
+
+
+}
+
+.pj-img-fluid-end {
+    @extend .pj-img-fluid;
+
+    float: right;
+    margin: 1rem 0rem 1rem 2rem;
+}
+
+
+
+/* For responsive, mobile screens (Bootstrap: lg) */
 @media (max-width: 992px) {
     .pj-layout {
-            display: grid;
-            grid-template-areas: 'main';
-            grid-template-columns: 4fr;
-            gap: 2rem;
-        }
-    
+        display: grid;
+        grid-template-areas: 'main';
+        grid-template-columns: 4fr;
+        gap: 2rem;
+    }
+
     .pj-sidebar {
         display: none;
+    }
+
+    .pj-main {
+        // overflow: hidden;
+        width: 100%;
+        display: block;
+    }
+
+    /* this is used to have larger images not overflow and get clipped on mobile screens */
+    .pj-main img.img-lg {
+        max-width: 100%;
+    }
+
+    /* overwrite the bootstrap class to switch from flex-row to flex-column */
+    .flex-row {
+        flex-direction: column !important;
+        flex-wrap: nowrap;
+    }
+
+    .max-height-override {
+        max-height: 100% !important;
+    }
+}
+
+/* For responsive, mobile screens (Bootstrap: md) */
+@media (max-width: 768px) {
+
+    /* Forces p elements below left or right floated elements (usually images) */
+    .pj-main p {
+        clear: both;
+    }
+
+    .pj-img-fluid {
+        display: block;
+        margin: 1rem 0 1rem 0;
+    }
+
+    .pj-img-fluid-start {
+        @extend .pj-img-fluid;
+        float: left;
+
+    }
+
+    .pj-img-fluid-end {
+        @extend .pj-img-fluid;
+        float: left;
     }
 }
