@@ -116,14 +116,14 @@
 					</div>
 					<div class="alert alert-light" role="alert">
 						<i class="bi bi-calendar-event me-1"></i>
-						Updated 2024.02.15 <br>
-						By Benjamen Bielecki
+						Updated 2024.08.04 <br>
+						By Sahil Dhaktode
 					</div>
 				</div>
 
 				<h2 class="mb-3 fw-bold" id="pj-heading-introduction">Overview</h2>
 				<p class="mb-5">
-					Now that you have created a basic circuit and soldered on a protoboard,
+					Now that you have created a basic circuit and soldered it on a perfboard,
 					let's explore integrated circuits! You will build two circuits using a
 					555 Timer IC: (1) a blinking LED circuit, (2) a three-key electronic piano.
 				</p>
@@ -157,7 +157,7 @@
 					capacitor in series with the piezo buzzer
 					filters out the low frequencies to produce clean sound.
 					<br><br>
-					We will also use a capacitor to configure the NE555P IC. The time it takes for the capacitor to
+					We will also use a capacitor in project 2 to configure the NE555P IC. The time it takes for the capacitor to
 					charge and
 					discharge determines the delay of the IC.
 					<br><br>
@@ -171,7 +171,9 @@
 					You can determine the capacitance of a ceramic capacitor from its 3-digit markings. As shown on the
 					right, the first two digits
 					are multiplied by 10 raised to the power of the third digit. The product is the value of the
-					capacitor measured in picofarads.
+					capacitor measured in picofarads, or 10<sup>-12</sup>F. For an
+					example, the capacitor on the right labeled 103 would have a capacitance of 10x10<sup>-3</sup>pF,
+					which can be converted to 0.01uF or 10nF.
 				</p>
 
 				<h4 class="mb-3 fw-light" id="pj-heading-symbol" style="display: inline;">Symbol</h4>
@@ -215,7 +217,7 @@
 						src="./assets/images/project_2/ops_symbol_pushbutton.png">
 					Though pushbuttons have four legs, their schematic symbol reduces the complexity to two terminals
 					(as depicted in the figure).
-					We can think of legs 1 as one terminal and the legs 2 as the opposite terminal.
+					We can think of legs 1 as one terminal and legs 2 as the opposite terminal.
 				</p>
 
 
@@ -223,14 +225,13 @@
 				<p class="mb-5">
 					<img class="img-fluid my-3 me-lg-5 me-3 float-end" style="max-width: 300px;"
 						src="./assets/images/project_2/ops_piezo.webp">
-					A <strong>piezoelectric buzzer</strong> is a component used to emit sound.
+					A <strong>piezoelectric buzzer</strong> is a component used to produce sound.
 					<br><br>
 					Piezo buzzers come in two varieties: active and passive.
-					<strong>Active</strong> buzzers have a built-in oscillator with a set frequency that cannot be
-					changed.
-					<strong>Passive</strong> buzzers do not; they have to be fed an oscillating signal.
+					<strong>Active</strong> buzzers have a built-in oscillator with a set frequency, meaning that they can only produce a single-tone sound.
+					<strong>Passive</strong> buzzers do not but can produce different notes based on the frequency of the oscillating signal that it is fed.
 					<br><br>
-					We will use a passive piezo buzzer.
+					We will use a passive piezo buzzer to play different notes on the 555 Piano.
 				</p>
 
 				<h4 class="mb-3 fw-light" id="pj-buzzer_symbol" style="display: inline;">Symbol</h4>
@@ -247,7 +248,7 @@
 				<p class="mb-3">
 					The <strong>555 Timer</strong> is one of the most popular integrated circuits for hobby projects. It
 					has multiple use cases,
-					but we will operate the timer in <strong>astable mode</strong>.
+					but we will operate the timer in <strong>astable mode</strong>.                                
 					In this mode, it outputs an <strong>oscillating digital waveform</strong> (see the image below),
 					which we will feed to the piezo buzzer.
 					<br>
@@ -268,7 +269,7 @@
 				</p>
 
 				<p class="mb-5">
-					The <strong>pinout diagram</strong> identifies each contact or pin of the IC. Usually, a datasheet
+					The <strong>pinout diagram</strong> identifies each contact or pin of the IC. Usually, a <strong>datasheet</strong>
 					will
 					include a pinout and a table that matches each pin with a description. The pinout may
 					change depending on the IC’s packaging, which the datasheet will indicate. For this
@@ -276,7 +277,8 @@
 					<br>
 					Note that the organization of the pinout differs from the schematics below. The true location of the
 					ICs pins is shown by the
-					pinout, not the schematic. Use the notch on a DIP-style IC to find its correct orientation.
+					pinout, not the schematic. Use the notch (the U-shaped indentation) on the top of the DIP-style IC to find its correct orientation: 
+					the pin directly left to the notch will always be pin 1.
 					<br><br>
 				</p>
 
@@ -292,11 +294,11 @@
 				<p class="mb-3">
 					<img class="img-fluid my-3 me-lg-5 me-3 float-end m-lg-3" style="max-width: 400px;"
 						src="assets/images/project_2/ops_proj2_pcb.png">
-					Breadboards and protoboards are great for prototyping simple circuits. However, when electronics are
+					Breadboards and perfboards are great for prototyping simple circuits. However, when electronics are
 					more complex or are ready for production, we typically use <strong>printed circuit boards </strong>
-					or <strong>PCBs</strong>. Nearly every device, from a digital alarm clock to a laptop computer, uses
+					or <strong>PCBs</strong>. Nearly every device, from a digital alarm clock to a laptop or computer, uses
 					a PCB. It is a board designed
-					with CAD software, that connects individual components.
+					with ECAD software, that connects individual components.
 					<br><br>
 					The benefits of PCBs over prototyping boards are numerous: They're more compact, more reliable, and
 					enable
@@ -307,13 +309,13 @@
 
 
 				<p class="mb-3">
-					For this project, you will solder the 555 Piano to a PCB we designed in a software called
+					For this project, you will solder the 555 Piano to a PCB we designed in an ECAD software called
 					KiCAD (as seen below). If you are not enrolled in the course, you may alternatively use a perfboard.
 				</p>
 				<img class="img-fluid my-3 me-lg-5 me-3 img-lg" src="assets/images/project_2/ops_kicad_example.png">
 
 				<p class="mb-5">
-					Soldering to a PCB is much like soldering to a protoboard, and you may even find it easier.
+					Soldering to a PCB is much like soldering to a perfboard, and you may even find it easier.
 					For more soldering tips visit our workshop material <a class="link-primary"
 						href="https://ieee.ics.uci.edu/ops/workshops.html" target="_blank"
 						rel="noopener noreferrer">here</a>.
@@ -452,7 +454,7 @@
 									data-bs-trigger="hover focus" data-bs-toggle="popover" tabindex="0"
 									href="./assets/datasheets/ops_all_leds_datasheet.pdf" target="_blank"
 									rel="noopener noreferrer">
-									LED, 3.2V
+									LED, 2V
 								</a>
 							</td>
 							<td>1</td>
@@ -579,7 +581,7 @@
 					<li class="list-group-item">
 						Enrolled Students: Solder the circuit components from Schematic B to the provided PCB.
 						<p>
-							&nbsp;&nbsp;&nbsp;&nbsp;If you do not have a PCB, you may use a protoboard/perfboard
+							&nbsp;&nbsp;&nbsp;&nbsp;If you do not have a PCB, you may use a perfboard
 							instead.
 						</p>
 						<div class="alert alert-warning mt-2" role="alert">
