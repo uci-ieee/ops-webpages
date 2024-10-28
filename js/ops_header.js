@@ -12,18 +12,21 @@ document.write(`
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="./index.html">Home</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./faq.html">FAQ</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./syllabus.html">Syllabus</a>
+                    <li class="nav-item dropdown ">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            About
+                        </a>
+                        <ul class="dropdown-menu" data-bs-theme="light" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="./faq.html"> FAQ Page</a></li>
+                            <li><a class="dropdown-item" href="./syllabus.html"> Syllabus</a></li>
+                        </ul>
                     </li>
                     <li class="nav-item dropdown ">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Projects
                         </a>
                         <ul class="dropdown-menu" data-bs-theme="light" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item"> Coming soon!</a></li>
+                            <li><a class="dropdown-item" href="./project_1.html">Project 1</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">

@@ -107,8 +107,8 @@
 				</div>
 				<div class="alert alert-light" role="alert">
 					<i class="bi bi-calendar-event me-1"></i>
-					Updated 2024.01.04 <br>
-					By Gavin Nguyen and Dylan Vu
+					Updated 2024.10.07 <br>
+					By Zicong Yu 
 				</div>
 			</div>
 
@@ -136,7 +136,7 @@
 			<div class = "mb-5">
 				<img class="pj-img-fluid-end" src="./assets/images/project_1/ops_breadboard_half.jpg" width ="300">
 				<p class="mb-2">
-					You will use a <strong>breadboard</strong> to prototype your circuits. Inside the breadboard are
+					You will use a <strong>breadboard</strong> to prototype and connect your circuits. Inside the breadboard are
 					conductive metal strips.
 				</p>
 				<p class="mb-2">
@@ -169,7 +169,7 @@
 				<img class="pj-img-fluid-end" src="./assets/images/project_1/ops_ohms_law.png" width = "200">
 				<p class="display-5 mb-2" >V = IR</p>
 				<p class="mb-2">
-					Ohm’s Law relates the <strong>voltage (V)</strong>, <strong>current (I)</strong>, and <strong>resistance (R)</strong> in a circuit.
+					Ohm's Law is fundamental to understanding and working with electrical circuits. It relates the <strong>voltage (V)</strong>, <strong>current (I)</strong>, and <strong>resistance (R)</strong> in a circuit.
 				</p>
 				<p class="mb-2">
 					Take the figure here as an example: Suppose we hold the voltage at a constant value. As the resistance increases,
@@ -177,7 +177,7 @@
 				</p>
 				<p class="">
 					We will use the formula to calculate a safe resistor value for our circuit. If our chosen resistance is too low,
-					we risk inducing a high current that our components are unable to withstand. However, a resistance too high limits
+					we risk inducing a high current that our LED is unable to withstand. However, a resistance too high limits
 					the current so that our LED is insufficiently powered.
 				</p>
 			</div>
@@ -185,7 +185,7 @@
 
 			<h3 class="mb-3" id="pj-heading-concepts-resistor">Resistor</h3>
 			<p class = "mb-5">
-				A <strong>resistor</strong> is a component that restricts the current flow. It has no polarity, meaning that its
+				A <strong>resistor</strong> is a component that restricts the current flow. It has no <strong>polarity</strong>, meaning that its
 				orientation in a circuit has no effect on the circuit. The resistance, the ability of a resistor to limit current flow,
 				is measured in Ohms (Ω).
 			</p>
@@ -225,8 +225,7 @@
 					to the <span class="text-gray">cathode</span> terminal.
 				</p>
 				<p class="">
-					The LED also has a constant <strong>voltage drop</strong> between its terminals within normal operating conditions.
-					The voltage is noted in the LED’s datasheet.
+					LEDs provided in the OPS kits have a constant <strong>voltage drop</strong> of 2V between its terminals within normal operating conditions.
 				</p>
 			</div>
 
@@ -246,7 +245,7 @@
 
 			<h3 class="mb-3" id="pj-heading-concepts-soldering">Soldering</h3>
 			<p class="mb-5">
-				Woah woah woah! Soldering is a bit more complicated than a two paragraph discussion. 
+				Whoa whoa whoa! Soldering is a bit more complicated than a two paragraph discussion. 
 				Head over to the workshop material <a href="./workshops.html" target="_blank" rel="noopener noreferrer">here</a> to learn more.
 			</p>			
 
@@ -309,12 +308,12 @@
 					</tr>
 					<tr>
 						<td>
-							<a class="pj-part pj-part-link"
+							<a class="pj-part"
 								data-bs-content="<img src='./assets/images/parts/ops_part_green_led.jpg' height='150px' width='auto'>"
-								data-bs-trigger="hover focus" data-bs-toggle="popover" tabindex="0" href="./assets/datasheets/ops_all_leds_datasheet.pdf" target="_blank" rel="noopener noreferrer">
-									LED, 3.2V
+								data-bs-trigger="hover focus" data-bs-toggle="popover" tabindex="0">
+									LED, 2V
 							</a>
-						</td>
+						</td>	
 						<td>1</td>
 					</tr>
 					<tr>
@@ -343,18 +342,13 @@
 			</table>
 			<!-- End Part Table -->
 
-			<h2 class="mb-2 fw-bold" id="pj-heading-schematics">Schematics</h2>
+			<h2 class="mb-4 fw-bold" id="pj-heading-schematics">Schematics</h2>
 				<img class="pj-img-fluid-left mb-5" src="./assets/images/project_1/ops_schem_proj1.png" width="300">
 			<h2 class="mb-3 fw-bold" id="pj-heading-instructions">Instructions</h2>
 			<h3 class="mb-3" id="pj-heading-checkpoint1">Checkpoint 1</h3>
 			<ol class="mb-5 list-group list-group-numbered">
 				<li class="list-group-item">
-					We need to find an acceptable value for the resistor! Using the provided
-					<a href="./assets/datasheets/ops_all_leds_datasheet.pdf" target="_blank" rel="noopener noreferrer">datasheet</a>,
-					find the <strong>forward voltage</strong> of the LED and the <strong>continuous forward current</strong> through the LED.
-				</li>
-				<li class="list-group-item">
-					Determine the voltage across the resistor by subtracting the forward voltage of the LED from the battery’s voltage.
+					We need to find an acceptable value for the resistor! Given that the <strong>forward voltage</strong> of the LED is <strong>2V</strong>, determine the <strong>voltage</strong> across the resistor by subtracting the forward voltage of the LED from the battery’s voltage.
 					<div class="alert alert-info mt-2" role="alert">
 						<div>
 							V<sub>Resistor</sub> = V<sub>Battery</sub> - V<sub>LED</sub>
@@ -365,9 +359,9 @@
 					</div>
 				</li>
 				<li class="list-group-item">
-					Calculate the resistor value by plugging its voltage and the current into Ohm’s Law, solving for <strong>R</strong>.
+					Now that you have found the voltage across the resistor, calculate the resistor value of this circuit by plugging its voltage and the current (the <strong>continuous forward current</strong> through the LED is 20mA (or 2x10-2A)) into Ohm’s Law, solving for <strong>R</strong>.
 					<div>
-						<script src="./js/collapsible.js" title="Click to Reveal Answer" content="An appropriate resistor value is <strong>290Ω</strong> for a circuit with a 9V battery, 3.2V LED, and 20mA current."></script>
+						<script src="./js/collapsible.js" title="Click to Reveal Answer" content="An appropriate resistor value is <strong>350Ω</strong> for a circuit with a 9V battery, 2V LED, and 20mA current."></script>
 					</div>
 				</li>
 			</ol>
@@ -391,7 +385,7 @@
 					Once you have successfully prototyped the circuit on your breadboard, build the same circuit on the perfboard. Solder
 					with care!
 					<div class="alert alert-warning mt-2" role="alert">
-						<strong>Do not solder the 9V snap connector</strong> to the protoboard. Instead, solder the female 1x2 header to the board. The snap connector will be inserted into the
+						<strong>Do not solder the 9V snap connector</strong> to the perfboard. Instead, solder the female 1x2 header to the board. The snap connector will be inserted into the
 						header’s pins.
 					</div>
 				</li>
