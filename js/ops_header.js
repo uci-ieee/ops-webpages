@@ -26,7 +26,8 @@ document.write(`
                             Projects
                         </a>
                         <ul class="dropdown-menu" data-bs-theme="light" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="./project_1.html">Project 1</a></li>
+                            <li><a class="dropdown-item" href="./project_1.html"> Project 1: LED There Be Light</a></li>
+                            <li><a class="dropdown-item" href="./project_2.html">Project 2: 555 Piano</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
