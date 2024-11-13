@@ -73,61 +73,31 @@
 					</div>
 
 				</div>
-				<img class="img-fluid mb-4" src=".\assets\images\capstone\ops_capstone_rover_preview.png" width="400">
-				<h2 class="mb-3 fw-bold" id="pj-heading-introduction">Introduction</h2>
+				<img class="img-fluid my-1 me-lg-5 me-5 float-end" style="max-width: 400px;"
+					src="assets/images/parts/ops_part_esp32c3fxh4.jpg">
+				<h2 class="mb-3 fw-bold" id="pj-heading-overview">ESP32 Overview</h2>
 				<p class="mb-5">
-					In this final project, you will create a remote-controlled rover. First, you will design a PCB
-					layout for the
-					remote control and send the CAD files for manufacturing. Then, you will assemble and program the
-					rover.
-					The last step is to solder the components to your custom PCB upon its arrival. The Capstone will
-					require
-					knowledge of everything taught up until this point. From circuit design to soldering, you will have
-					free reign
-					in building this project. It will only need to meet the base requirements; the rest is up to you.
-				</p>
+					The ESP32-C3Fx4 is a board based on an ESP32 microcontroller. It is Wi-Fi and Bluetooth capable, and supports I2C, SPI, and UART communication protocols.
+                    These features allow us to build and control cool projects with them! 
+                    <br><br>
+                    In OPS, <strong>we will now refer to the ESP32-C3Fx4 board as an ESP32</strong> for convenience.
+                    The ESP32 board is depicted here (without its pin headers).
+                    <br><br>
+                    General Purpose Input/Output (GPIO), power, and ground pins run along the sides of the ESP32.
+                    <br><br>
+                    To program the ESP32, we will use the Arduino programming language (a C++ variant) to write and compile sketches.
+                    When you need to read up on Arduino code, refer to the 
+                    <a href="https://docs.arduino.cc/language-reference/" target="_blank">Arduino Language Reference</a>.
+                </p>
 
-				<h2 class="mb-3 fw-bold" id="pj-heading-arduino-libraries">Installing Arduino Libraries</h2>
-				<p class="mb-3">
-					Here is a quick recap on how you can install Arduino libraries in the
-					<a class="link-primary" href="https://www.arduino.cc/en/software" target="_blank"
-						rel="noopener noreferrer">Arduino IDE 2.0.0+</a>
-				</p>
-				<ol class="mb-4 list-group list-group-numbered">
-					<li class="list-group-item">
-						Download the library as a <strong>.zip</strong>
-					</li>
-					<li class="list-group-item">
-						In the Arduino IDE, go to <strong>Sketch → Include Library → Add .ZIP Library…</strong>
-					</li>
-					<li class="list-group-item">
-						Select the <strong>.zip</strong> of the library and click <strong>Open</strong>.
-					</li>
-				</ol>
-				<img class="img-fluid mb-4" src=".\assets\images\ops_arduino_ide_zip_library.png">
+				<h2 class="mb-3 fw-bold" id="pj-heading-setup">Setting up ESP32 in Arduino IDE</h2>
+				<p class="mb-5">
+					To set up Arduino IDE for programming with the ESP32, please follow the steps in the video below:
+                </p>
 
-				<p class="mb-4">
-					You're done! Just make sure to <code class="pj-code language-arduino">#include</code> the library
-					header
-					file so that your
-					code compiles.
-				</p>
-
-				<table class="table pj-download-table mb-5">
-					<tbody>
-						<tr>
-							<td>NRF24L01_W Library</td>
-							<td>
-								<a class="btn btn-outline-success mx-3" href="assets\libraries\NRF24L01_W.zip"
-									role="button"><i class="bi bi-download"></i> Download</a>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-
-				<h2 class="mb-3 fw-bold" id="pj-heading-installing-kicad">Installing KiCad 7.0</h2>
-				<p class="mb-3">
-					To complete this project, you will download the PCB design software KiCad (version 7.0.11).
+				<h2 class="mb-3 fw-bold" id="pj-heading-programming">Programming the ESP32 with Arduino IDE</h2>
+				<p class="mb-5">
+					The ESP32 Board must be selected in Arduino IDE. Follow these steps in the video below every time you program with the ESP32:
 				</p>
 
 				<table class="table pj-download-table mb-5">
