@@ -43,16 +43,19 @@
 				<ul class="nav flex-column">
 					<h5 class="mt-2 mb-2 mx-3">Contents</h5>
 					<li class="nav-item">
-						<a class="nav-link" href="#pj-heading-introduction">ESP32 Overview</a>
+						<a class="nav-link" href="#pj-heading-overview">ESP32 Overview</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#pj-heading-arduino-libraries">Setup</a>
+						<a class="nav-link" href="#pj-heading-setup">Setup</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#pj-heading-installing-kicad">Programming</a>
+						<a class="nav-link" href="#pj-heading-programming">Programming</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#pj-heading-arduino-nano-pinout">ESP32 Pinout Diagram</a>
+						<a class="nav-link" href="#pj-heading-pinout">ESP32 Pinout Diagram</a>
+					</li>
+                    <li class="nav-item">
+						<a class="nav-link" href="#pj-heading-example-code">ESP32 Program Example</a>
 					</li>
 				</ul>
 			</nav>
@@ -97,8 +100,61 @@
 
 				<h2 class="mb-3 fw-bold" id="pj-heading-programming">Programming the ESP32 with Arduino IDE</h2>
 				<p class="mb-5">
-					The ESP32 Board must be selected in Arduino IDE. Follow these steps in the video below every time you program with the ESP32:
+					The ESP32 Board must be selected in Arduino IDE. Follow the steps in the video below every time you program with the ESP32:
+                    <br><br>
+                    To program the ESP32, you will need to enter its BOOT mode. You can do so by following the instructions below:
+                    <img class="pj-img-fluid mx-auto mb-4" src="./assets/images/project_3/esp32_boot_en.png"
+					width="500">
+                    <ol class="mb-5 list-group list-group-numbered">
+                        <li class="list-group-item">
+                            Hold down the BOOT button (labeled on the ESP32) for 2 seconds
+                        </li>
+                        <li class="list-group-item">
+                            While holding down the BOOT button, press and hold down the EN button (labeled on the ESP32) for 2 seconds
+                        </li>
+                        <li class="list-group-item">
+                            Let go of the EN button while still holding the BOOT button for 2 seconds, then let go of the BOOT button
+                        </li>
+                        <li class="list-group-item">
+                            You will now be able to program the ESP32. Upload your code onto the ESP32, and after it has finished 
+                            programming, press the EN button once again to run the program on your microcontroller.
+                        </li>
+                    </ol>
 				</p>
+
+                <h2 class="mb-3 fw-bold" id="pj-heading-pinout">ESP32 Pinout Diagram</h2>
+				<p class="mb-5">
+                    <img class="pj-img-fluid mx-auto mb-4" src="./assets/images/pinouts/[2024-2025] OPS ESP32-C3 PINOUT.png"
+					width="900">
+					Refer to the ESP32 Pinout diagram above when choosing which pins to use for your projects.
+                    <br><br>
+                    NC stands for No Connect, and these pins should be left unconnected. GPIO (General Purpose Input/Output) 
+                    with a ~ symbol represents pins that are PWM (Pulse Width Modulation) capable.
+                </p>
+
+                <h2 class="mb-3 fw-bold" id="pj-heading-example-code">ESP32 Program Example</h2>
+				<p class="mb-1">
+					Want to practice the ESP32 programming procedure? 
+                    We can do so by flashing this code onto our ESP32, which blinks the built-in LED connected 
+                    to pin 8 on and off in a loop (See video for steps on how to upload code):
+                    <pre class="mb-5" style="white-space: pre-wrap; height:60vh;">
+                        <code class="pj-code language-arduino">
+int LED = 8; //Defines an integer variable named LED and sets its value to 8.
+void setup() {
+// put your setup code here, to run once:
+    pinMode(LED, OUTPUT); //This line configures the pin connected to the LED (in this case, pin 8) to be an output.
+}
+
+void loop() {
+// put your main code here, to run repeatedly:
+    delay(1000); //makes the program pause for 1000 milliseconds = 1 second
+    digitalWrite(LED, HIGH); //Sets the LED pin (pin 8) to HIGH, meaning it sends power to the LED, turning it on.
+    delay(1000); //makes the program pause for 1000 milliseconds = 1 second
+    digitalWrite(LED, LOW); //This line sets the LED pin to LOW, turning off the LED by cutting off power to it.
+}
+                        </code>
+                    </pre>
+                </p>
 
 				<table class="table pj-download-table mb-5">
 					<tbody>
