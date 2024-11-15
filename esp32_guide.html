@@ -46,16 +46,16 @@
 						<a class="nav-link" href="#pj-heading-overview">ESP32 Overview</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#pj-heading-setup">Setup</a>
+						<a class="nav-link" href="#pj-heading-installing-arduino-ide">Installing Arduino IDE</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#pj-heading-programming">Programming</a>
+						<a class="nav-link" href="#pj-heading-setup">ESP32 Setup in Arduino IDE</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-programming">Programming the ESP32</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="#pj-heading-pinout">ESP32 Pinout Diagram</a>
-					</li>
-                    <li class="nav-item">
-						<a class="nav-link" href="#pj-heading-example-code">ESP32 Program Example</a>
 					</li>
 				</ul>
 			</nav>
@@ -65,23 +65,28 @@
 		<main class="pj-main p-3" data-bs-spy="scroll" data-bs-target="#project-toc" data-bs-root-margin="0px 0px -40%"
 			data-bs-smooth-scroll="true" tabindex="0">
 			<div class="pj-content">
-				<div class="d-flex flex-row justify-content-between mb-5">
+				<div class="d-flex flex-row justify-content-between mb-4">
 					<div class="">
-						<h1 class="fw-bold">ESP32 Guide</h1>
+						<h1 class="fw-bold mb-3">ESP32 Guide</h1>
+						<div style="max-width: 700px; overflow-wrap: break-word;">
+							<p>
+								Whether you are starting out or have been frequently programming the ESP32, this ESP32 Guide will be an important resource for steps on how to setup Arduino IDE and program your ESP32 board.
+							</p>
+						</div>
 					</div>
 					<div class="alert alert-light" role="alert">
 						<i class="bi bi-calendar-event me-1"></i>
-						Updated 2024.04.12 <br>
-						By Sahil Dhaktode
+						Updated 2024.11.13 <br>
+						By Sahil Dhaktode &<br>
+						Gavin Nguyen
 					</div>
-
 				</div>
 				<img class="img-fluid my-1 me-lg-5 me-5 float-end" style="max-width: 400px;"
 					src="assets/images/parts/ops_part_esp32c3fxh4.jpg">
 				<h2 class="mb-3  fw-bold" id="pj-heading-overview">ESP32 Overview</h2>
 				<p class="mb-5">
-					The ESP32-C3Fx4 is a board based on an ESP32 microcontroller. It is Wi-Fi and Bluetooth capable, and supports I2C, SPI, and UART communication protocols.
-                    These features allow us to build and control cool projects with them! 
+					The ESP32-C3Fx4 is a board in the OPS project kits that is based on an ESP32 microcontroller.
+                    The ESP32 board has features such as Wi-Fi and Bluetooth capabilities that allow us to build and control cool projects with it! 
                     <br><br>
                     In OPS, <strong>we will now refer to the ESP32-C3Fx4 board as an ESP32</strong> for convenience.
                     The ESP32 board is depicted here (without its pin headers).
@@ -93,69 +98,122 @@
                     <a href="https://docs.arduino.cc/language-reference/" target="_blank">Arduino Language Reference</a>.
                 </p>
 
-				<h2 class="mb-3 fw-bold" id="pj-heading-setup">Setting up ESP32 in Arduino IDE</h2>
+				<h2 class="mb-3 fw-bold" id="pj-heading-installing-arduino-ide">Installing Arduino IDE</h2>
 				<p class="mb-5">
-					To set up Arduino IDE for programming with the ESP32, please follow the steps in the video below:
-                </p>
-
-				<h2 class="mb-3 fw-bold" id="pj-heading-programming">Programming the ESP32 with Arduino IDE</h2>
-				<p class="mb-5">
-					The ESP32 Board must be selected in Arduino IDE. Follow the steps in the video below every time you program with the ESP32:
-                    <br><br>
-                    To program the ESP32, you will need to enter its BOOT mode. You can do so by following the instructions below:
-                    <img class="pj-img-fluid mx-auto mb-4" src="./assets/images/project_3/esp32_boot_en.png"
-					width="500">
-                    <ol class="mb-5 list-group list-group-numbered">
-                        <li class="list-group-item">
-                            Hold down the BOOT button (labeled on the ESP32) for 2 seconds
-                        </li>
-                        <li class="list-group-item">
-                            While holding down the BOOT button, press and hold down the EN button (labeled on the ESP32) for 2 seconds
-                        </li>
-                        <li class="list-group-item">
-                            Let go of the EN button while still holding the BOOT button for 2 seconds, then let go of the BOOT button
-                        </li>
-                        <li class="list-group-item">
-                            You will now be able to program the ESP32. Upload your code onto the ESP32, and after it has finished 
-                            programming, press the EN button once again to run the program on your microcontroller.
-                        </li>
-                    </ol>
+					We will use the Arduino IDE to write code for our ESP32 board. The software includes a text
+					editor, compiler,
+					debugger, and library manager.
 				</p>
 
-                <h2 class="mb-3 fw-bold" id="pj-heading-pinout">ESP32 Pinout Diagram</h2>
+				<p>
+					Visit this <a href="https://www.arduino.cc/en/software" target="_blank"
+						rel="noopener noreferrer">link</a> to download the installer for Arduino IDE 2.0.0+ . Make sure
+					to
+					select the installer appropriate for
+					your system.
+				</p>
+				<img class="pj-img-fluid mx-auto mb-3" src=".\assets\images\project_4\ops_install_ide.png" width="700">
+				<p>
+					Open the installer and follow its instructions. Easy peasy!
+				</p>
 				<p class="mb-5">
-                    <img class="pj-img-fluid mx-auto mb-4" src="./assets/images/pinouts/[2024-2025] OPS ESP32-C3 PINOUT.png"
-					width="900">
-					Refer to the ESP32 Pinout diagram above when choosing which pins to use for your projects.
-                    <br><br>
-                    NC stands for No Connect, and these pins should be left unconnected. GPIO (General Purpose Input/Output) 
-                    with a ~ symbol represents pins that are PWM (Pulse Width Modulation) capable.
+					If you want to know more about using the Arduino IDE, check out lecture 3 <a href="./lectures.html" target="_blank" rel="noopener noreferrer">here</a>.
+				</p>
+				
+				<h2 class="mb-3 fw-bold" id="pj-heading-setup">Setting up ESP32 in Arduino IDE</h2>
+				<p class="mb-3">
+					Once you've installed Arduino IDE, additional steps will be required to properly setup the Arduino IDE envrionment to program ESP32 boards.
+					Follow these steps under "Part 1: Setup" in the video below:
+				</p>
+				<div class="text-center mb-5">
+				<iframe width="700" height="400"
+					src="https://www.youtube.com/embed/hUNUdYLLhbw" allowfullscreen>
+				</iframe>
+				</div>
+				<p class="mb-5">
+					Link to paste into Additional Board Manager URL: https://dl.espressif.com/dl/package_esp32_index.json
                 </p>
-
-                <h2 class="mb-3 fw-bold" id="pj-heading-example-code">ESP32 Program Example</h2>
+				
+				<h2 class="mb-3 fw-bold" id="pj-heading-programming">Programming the ESP32 with Arduino IDE</h2>
+				<p class="mb-5">				
+					Before continuing with the guide, watch "Part 2: Programming" in the video to get an understanding of the programming process:
+					<div class="text-center mb-5">
+						<iframe width="700" height="400"
+							src="https://www.youtube.com/embed/hUNUdYLLhbw?start=51" allowfullscreen>
+						</iframe>
+					</div>
+				</p>	
+				<h3 class="mb-3 fw-light" id="pj-heading-programming">Guided Steps from the Video</h3>
+				<p class="mb-5">
+					Once you've setup the Arduino IDE environment in "Part 1: Setup", you may plug in your ESP32 into the device that has Arduino IDE installed
+					with a USB-A to USB-C cable from your OPS kit.
+					The correct ESP32 Board (<strong>WeAct Studio ESP32C3</strong>) must be selected in Arduino IDE. Once you're done with that, you may now start programming in Arduino IDE!
+				</p>
 				<p class="mb-1">
-					Want to practice the ESP32 programming procedure? 
-                    We can do so by flashing this code onto our ESP32, which blinks the built-in LED connected 
-                    to pin 8 on and off in a loop (See video for steps on how to upload code):
-                    <pre class="mb-5" style="white-space: pre-wrap; height:60vh;">
+                    For now, to get you familiarized with the programming process in Arduino IDE, we have provided an example code below that you can copy and paste into your Arduino IDE sketch.
+					This program blinks the built-in LED connected to pin 8 of the ESP32 on for 1 second and off for 1 second in a continuous loop:<br>
+					<div class="alert alert-warning mt-2" role="alert">
+						Note: Read the comments in the code denoted by the // and make sure you understand the code before copy and pasting.
+					</div>
+                    <pre class="mb-3" style="white-space: pre-wrap; height:38vh;">
                         <code class="pj-code language-arduino">
-int LED = 8; //Defines an integer variable named LED and sets its value to 8.
+const int LED = 8; //Defines a global integer variable named LED and sets its value to 8.
 void setup() {
 // put your setup code here, to run once:
-    pinMode(LED, OUTPUT); //This line configures the pin connected to the LED (in this case, pin 8) to be an output.
+    pinMode(LED, OUTPUT); //This function configures the pin connected to the built-in LED (in this case, pin 8) to be send an output signal.
 }
 
 void loop() {
 // put your main code here, to run repeatedly:
-    delay(1000); //makes the program pause for 1000 milliseconds = 1 second
     digitalWrite(LED, HIGH); //Sets the LED pin (pin 8) to HIGH, meaning it sends power to the LED, turning it on.
     delay(1000); //makes the program pause for 1000 milliseconds = 1 second
     digitalWrite(LED, LOW); //This line sets the LED pin to LOW, turning off the LED by cutting off power to it.
+    delay(1000); //makes the program pause for 1000 milliseconds = 1 second
 }
                         </code>
                     </pre>
                 </p>
+				<p class="mb-3">
+					When you're finished programming and ready to upload your code to the ESP32, you will need to enter its BOOT mode. You can do so by following the instructions below:
+                    <img class="pj-img-fluid mx-auto mb-4" src="./assets/images/project_3/esp32_boot_en.png"
+					width="400">
+                    <ol class="mb-5 list-group list-group-numbered">
+                        <li class="list-group-item">
+                            Hold down the BOOT button (labeled on the ESP32) for 2 seconds.
+                        </li>
+                        <li class="list-group-item">
+                            While holding down the BOOT button, press and hold down the EN button (labeled on the ESP32) for 2 seconds.
+                        </li>
+                        <li class="list-group-item">
+                            Let go of the EN button while still holding the BOOT button for 2 seconds, then let go of the BOOT button.
+                        </li>
+                        <li class="list-group-item">
+                            You will now be able to upload your code to the ESP32 with Arduino IDE by clicking the arrow button on the top left corner. After it has finished 
+                            programming, press the EN button once again to run the program on your microcontroller.
+							<img class="pj-img-fluid mx-auto mb-4" src="./assets/images/esp32_guide/ops_esp32_guide_upload.png"
+							width="600">
+                        </li>
+                    </ol>
+				</p>			
 
+
+
+                <h2 class="mb-3 fw-bold" id="pj-heading-pinout">ESP32 Pinout Diagram</h2>
+				<p class="mb-3">
+                    <img class="pj-img-fluid mx-auto mb-4" src="./assets/images/pinouts/[2024-2025] OPS ESP32-C3 PINOUT.png"
+					width="900">
+					When trying to figure out what pin to use for your specific application/project, refer to the ESP32 Pinout diagram.
+                    <br><br>
+					
+                    NC stands for <strong>No Connect</strong>, and these pins should be left unconnected at all times.
+					<br>GPIO stands for a General Purpose Input/Output pin and can be used to send or read signals.
+                    <br>The ~ symbol represents pins that are PWM (Pulse Width Modulation) capable.
+					<div class="alert alert-info mt-2" role="alert">
+						Info: All GPIO pins are PWM capable.
+					</div>
+                </p>
+			</main>
+		</div>
 	<!-- ======= Footer ======= -->
 	<script src="./js/ops_footer.js"></script>
 	<!-- End Footer -->
