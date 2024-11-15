@@ -100,7 +100,7 @@
 
 				<h2 class="mb-3 fw-bold" id="pj-heading-installing-arduino-ide">Installing Arduino IDE</h2>
 				<p class="mb-5">
-					We will use the Arduino IDE to write code for our ESP32 board. The software includes a text
+					We will use the Arduino IDE as an environment to write code for our ESP32 board. The software includes a text
 					editor, compiler,
 					debugger, and library manager.
 				</p>
@@ -203,11 +203,12 @@ void loop() {
                     <img class="pj-img-fluid mx-auto mb-4" src="./assets/images/pinouts/[2024-2025] OPS ESP32-C3 PINOUT.png"
 					width="900">
 					When trying to figure out what pin to use for your specific application/project, refer to the ESP32 Pinout diagram.
-                    <br><br>
-					
-                    NC stands for <strong>No Connect</strong>, and these pins should be left unconnected at all times.
-					<br>GPIO stands for a General Purpose Input/Output pin and can be used to send or read signals.
-                    <br>The ~ symbol represents pins that are PWM (Pulse Width Modulation) capable.
+                    <br>
+					<ul>
+						<li>NC stands for <strong>No Connect</strong>, and these pins should be left unconnected at all times.</li>
+						<li>GPIO stands for a General Purpose Input/Output pin and can be used to send or read signals.</li>
+						<li>The ~ symbol represents pins that are PWM (Pulse Width Modulation) capable.</li>
+					</ul>
 					<div class="alert alert-info mt-2" role="alert">
 						Info: All GPIO pins are PWM capable.
 					</div>
