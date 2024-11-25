@@ -47,10 +47,7 @@
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="#pj-heading-concepts">Concepts</a>
-						<ul class="nav">
-							<li class="nav-item">
-								<a class="nav-link" href="#pj-heading-esp32">ESP32</a>
-							</li>
+						<ul class="nav">							
 							<li class="nav-item">
 								<a class="nav-link" href="#pj-heading-esp32-guide">ESP32 Guide</a>
 							</li>
@@ -58,11 +55,14 @@
 								<a class="nav-link" href="#pj-heading-pinout">Pinout</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="#pj-heading-rgb-led">RGB LED</a>
+								<a class="nav-link" href="#pj-heading-photoresistor">Photoresistor</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="#pj-heading-potentiometer">Potentiometer</a>
+								<a class="nav-link" href="#pj-heading-servo">Servo</a>
 							</li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#pj-heading-potentiometer">Potentiometer</a>
+                            </li>
 						</ul>
 					</li>
 					<li class="nav-item">
@@ -144,7 +144,7 @@
 					diagram.
 				</p>
 
-        		<img class="pj-img-fluid mx-auto mb-5" src=".\assets\images\pinouts\[2024-2025] OPS ESP32-C3 PINOUT.png"   width="800">
+                <img class="pj-img-fluid mx-auto mb-5" src=".\assets\images\pinouts\[2024-2025] OPS ESP32-C3 PINOUT.png"   width="800">
 				<p class="mb-3">
 				<ul>
 					<li><strong>NC</strong> stands for <strong>No Connect</strong>, and these pins should be left unconnected at all times.</li>
@@ -158,85 +158,38 @@
 				</p>
 
 
-				<h3 class="mb-3" id="pj-heading-rgb-led">Photoresistor</h3>
-				<div class="mb-5">
-
-					<p>
-						A photoresistor is a type of resistor that changes its resistance based
-                        on the amount of light it is exposed to. This is possible because it is 
-                        made of a semiconductor material that becomes more electrically conductive 
-                        as it absorbs electromagnetic radiation such as visible light. It offers a 
-                        simple and effective way to measure light levels and use that data in various projects.
-
-					</p>
-					<img class="pj-img-fluid-end"
-					src="./assets/images/parts/ops_part_led_rgb_cathode_annotated.png" width="130">
-					<p class="mb-5">
-						This RGB LED has four pins: One is the common cathode, and the other three are the red, green,
-						and
-						blue LED anodes.
-					</p>
-					<h3 class="mb-3 fw-light" style="display: inline;">Using it in Arduino IDE</h3>
-					<br><br>
-					<p>
-						In the world of digital electronics, color is often represented in the 8-bit RGB color model.
-						Every
-						visible color is
-						identified by an encoding of the three base colors: red, green, and blue. In our Arduino code,
-						we
-						will set the
-						intensity of each base color to a value in the range <code
-							class="pj-code language-arduino">0-255</code>.
-					</p>
-					<p>
-						Try the <a href="https://g.co/kgs/34wKLk" target="_blank" rel="noopener noreferrer">RGB Color
-							Picker</a>. Adjust the slider at the bottom of the application. Notice how the three values
-						in
-						the RGB field change as you select different colors.
-					</p>
-					<p>
-						Recall that LEDs are current driven: we control the intensity of each RGB LED color by
-						increasing/decreasing the current passing through its pin. With the ESP32 board, we set the
-						voltage, which changes current flow (recall
-						Ohm's Law).
-					</p>
-					<p>
-						Here's the rub: <code class="pj-code language-arduino">digitalWrite()</code> can only set a
-						pin's
-						voltage to 0 or 3.3V (the supply voltage). If we want to dim an LED, we need a new function that
-						can
-						output voltages between 0 and 3.3.
-					</p>
-					<p>
-						We will use a <strong>pulse width modulation</strong> or <strong>PWM</strong> signal - a digital
-						waveform mimicking
-						analog voltage signals. With PWM
-						waves, we can generate analog voltages like 1.3V or 2.1V. In Arduino, we accomplish this using
-						<code class="pj-code language-arduino">analogWrite()</code>.
-					</p>
-				</div>
-
-
-				<h3 class="mb-3" id="pj-heading-potentiometer">Potentiometer</h3>
+				<h3 class="mb-3" id="pj-heading-photoresistor">Photoresistor</h3>
 				<p>
-					A <strong>potentiometer</strong> is a three-terminal <i>variable</i> resistor. We will use it
-					as a
-					<strong>voltage divider</strong>,
-					a circuit which accepts a supply voltage and outputs a voltage which is a fraction of the supply
-					voltage. The voltage of
-					the potentiometer's output pin ranges between the VCC and GND pin voltages, depending on the dial's
-					position.
+					A <strong>photoresistor</strong> is a type of resistor that changes its resistance based on the amount 
+					of light it is exposed to. This is possible because it is made of a semiconductor material 
+					that becomes more electrically conductive as it absorbs electromagnetic radiation such as 
+					visible light. It offers a simple and effective way to measure light levels and use that data in various projects.
 				</p>
-				<img class="pj-img-fluid mx-auto mb-5" src=".\assets\images\parts\ops_parts_potentiometer_annotated.png" width="500">
-
-				<h4 class="mb-3 fw-light">How it Works</h4>
+				<img class="pj-img-fluid mx-auto mb-5" 
+					src="assets/images/project_4_new/ops_project_4_photoresistor.png" width=450>
+				<h3 class="mb-3" id="pj-heading-servo">Servo</h3>
 				<p>
-					We just referred to the potentiometer as a kind of resistor. Why? Internally, a resistive strip
-					connects
-					its VCC and GND pins, and a rotating wiper connects
-					the output pin to the strip. The greater the distance along the strip between the wiper and the VCC
-					pin,
-					the greater the resistance between the wiper and VCC.
+					A <strong>servo motor</strong> is a type of motor that converts electrical energy into mechanical energy 
+                    to achieve precise control. As seen in the image below, various arms can be attached to 
+                    the splined gear on the top of the motor for different functions. In this project, you 
+                    will be controlling the position of the servo with a photoresistor to make a sundial.
+				</p>
+				<p>
+					The micro servo we will be using has a rating of “9g”. This represents the torque of the motor, 
+					or how much force it can apply. In the case of the servo above, it can generate 9 grams of force 
+					when 1 centimeter away from the shaft/center of the motor. The force is proportional to the distance,
+					so the motor can support a torque of 4.5 g when 2 cm away from the shaft, 3 g when 3 cm away, and so on.
+				</p>
+				<img class="pj-img-fluid mx-auto mb-5" 
+					src="assets/images/project_4_new/ops_project_4_servo.png"  width="500">
+				<p>
+					As shown in the image above, the servo motor has three different wires; the 
+					<span style="color:rgb(226,86,57);">power (red)</span>, 
+					<span style="color: rgb(139,83,62);">ground (brown)</span>, and 
+					<span style="color: rgb(223,134,56);">pulse-width modulation (orange)</span> wires. 
+					The power and ground wires are used to supply the servo motor with power, while 
+					the pulse-width modulation (PWM) wire is used to feed a varying PWM signal that 
+					determines the servo's position.
 				</p>
 				<img class="pj-img-fluid mx-auto mb-5"
 					src=".\assets/images/project_4/ops_potentiometer_internal_annotated.png"  width="500">
