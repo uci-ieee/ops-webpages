@@ -66,6 +66,9 @@
 						</ul>
 					</li>
 					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-software-installations">Software Installations</a>
+					</li>
+					<li class="nav-item">
 						<a class="nav-link" href="#pj-heading-requirements">Requirements</a>
 						<ul class="nav">
 							<li class="nav-item">
@@ -191,6 +194,51 @@
 					the pulse-width modulation (PWM) wire is used to feed a varying PWM signal that 
 					determines the servo's position.
 				</p>
+				<p>A demo of using out provided servo are found below</p>
+				<ul>
+					<li>
+						<code class="pj-code language-arduino">Servo your_servo_name</code>  
+						is used to initialize the physical servo object in your code. Keep in mind that 
+						you can name your servo to whatever you’d like.
+					</li>
+					<li>
+						<code class="pj-code language-arduino">your_servo_name.attach(int servoPin, minUs, maxUs)</code> 
+						attaches the servo object to a pin with min max values to set the axis of rotation
+					</li>
+					<li>
+						<code class="pj-code language-arduino">servo.write()</code> 
+						can be used to set the servo to any angle between 
+						<code class="pj-code language-arduino">0-180</code>
+					</li>
+				</ul>
+				
+				
+				
+				
+
+
+
+				<h3 class="mb-3" id="pj-heading-potentiometer">Potentiometer</h3>
+				<p>
+					A <strong>potentiometer</strong> is a three-terminal <i>variable</i> resistor. We will use it
+					as a
+					<strong>voltage divider</strong>,
+					a circuit which accepts a supply voltage and outputs a voltage which is a fraction of the supply
+					voltage. The voltage of
+					the potentiometer's output pin ranges between the VCC and GND pin voltages, depending on the dial's
+					position.
+				</p>
+				<img class="pj-img-fluid mx-auto mb-5" src=".\assets\images\parts\ops_parts_potentiometer_annotated.png" width="500">
+
+				<h4 class="mb-3 fw-light">How it Works</h4>
+				<p>
+					We just referred to the potentiometer as a kind of resistor. Why? Internally, a resistive strip
+					connects
+					its VCC and GND pins, and a rotating wiper connects
+					the output pin to the strip. The greater the distance along the strip between the wiper and the VCC
+					pin,
+					the greater the resistance between the wiper and VCC.
+				</p>
 				<img class="pj-img-fluid mx-auto mb-5"
 					src=".\assets/images/project_4/ops_potentiometer_internal_annotated.png"  width="500">
 				<p class="mb-5">
@@ -198,6 +246,7 @@
 					it is
 					turned clockwise (toward GND).
 				</p>
+
 
 
 				<h3 class="mb-3 fw-light">Using it with ESP32</h3>
@@ -211,6 +260,9 @@
 					a
 					discrete integer in the range <code class="pj-code language-arduino">0-1023</code>.
 				</p>
+				<h2 class="mb-3 fw-bold" id="pj-heading-software-installations">Software Installations</h2>
+
+
 
 
 
