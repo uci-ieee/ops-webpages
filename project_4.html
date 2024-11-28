@@ -72,7 +72,7 @@
 						<a class="nav-link" href="#pj-heading-requirements">Requirements</a>
 						<ul class="nav">
 							<li class="nav-item">
-								<a class="nav-link" href="#pj-heading-poten-control-servo">Potentiometer Controlled Servo</a>
+								<a class="nav-link" href="#pj-heading-poten-control-servo">Potentiometer-Controlled Servo</a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="#pj-heading-sundial">Sundial</a>
@@ -93,9 +93,6 @@
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="#pj-heading-checkpoint2">Checkpoint 2</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="#pj-heading-checkpoint3">Checkpoint 3</a>
 							</li>
 						</ul>
 					</li>
@@ -302,7 +299,7 @@ void loop() {
 
 
 				<h2 class="mb-3 fw-bolder" id="pj-heading-requirements">Requirements</h2>
-				<h3 class="mb-3" id="pj-heading-poten-control-servo">Potentiometer Controlled Servo</h3>
+				<h3 class="mb-3" id="pj-heading-poten-control-servo">Potentiometer-Controlled Servo</h3>
 				<ul class="mb-5 list-group">
 					<li class="list-group-item">You must build a circuit with a potentiometer that can control a servo.</li>
 					<li class="list-group-item">The user must be able to adjust the servo’s angle to any angle between 0-180° when turning a singular potentiometer dial.</li>
@@ -346,10 +343,6 @@ void loop() {
 									Potentiometer, 10kΩ
 								</a>
 							</td>
-							<td>1</td>
-						</tr>
-						<tr>
-							<td>Yellow LED, 2V</td>
 							<td>1</td>
 						</tr>
 						<tr>
@@ -397,7 +390,7 @@ void loop() {
 						<h2 class="accordion-header">
 							<button class="accordion-button" type="button" data-bs-toggle="collapse"
 								data-bs-target="#schemCollapse1" aria-expanded="true" aria-controls="schemCollapse1">
-								Schematic A (Potentiometer Controlled Servo)
+								Schematic A (Potentiometer-Controlled Servo)
 							</button>
 						</h2>
 						<!--Pin to page?-->
@@ -432,43 +425,56 @@ void loop() {
 				<h3 class="mb-3" id="pj-heading-checkpoint1">Checkpoint 1</h3>
 				<ol class="mb-5 list-group list-group-numbered">
 					<li class="list-group-item">
-						Build the circuit from <strong>Schematic A</strong> (LED Blinker) on your breadboard. You will
-						design a blinking LED using the ESP32.
+						Build the circuit from <strong>Schematic A</strong> (Potentiometer-Controlled Servo) on your breadboard. 
+						Attach the one-sided arm attachment to the servo.
 						<div class="alert alert-info mt-2" role="alert">
-							Use the pseudo code below to program an LED that blinks on and off.
+							Use the pseudo code below to program a potentiometer to control a servo.
 						</div>
 						<div class="alert alert-info mt-2" role="alert">
 							These functions may be helpful: <code
 								class="pj-code language-arduino">Serial.begin()</code>,
 							<code class="pj-code language-arduino">pinMode()</code>, <code
-								class="pj-code language-arduino">digitalWrite()</code>, <code
-								class="pj-code language-arduino">delay()</code>
-						</div>
-						<pre class="mt-3" style="white-space: pre-wrap;"><code class="pj-code language-arduino">// Assign variable to pin number for LED
+								class="pj-code language-arduino">analogRead()</code>,
+							and the servo fuctions above</div>
+						<pre class="mt-3" style="white-space: pre-wrap;"><code class="pj-code language-arduino">#include &lt;ESP32Servo.h&gt;
 
+// Assign variable to pin number for Potentiometer
+// Assign variable to pin number of Servo’s PWM pin
+// Initialize servo object with your servo name
+								
 void setup() {
-	// Configure LED pin's behavior to OUTPUT
+	// Configure the Potentiometer's pin behavior to INPUT
+	// Attach object of your servo name to the physical servo
 	// Configure the Serial baud rate to 115200
 }
-						
+								
 void loop() {
-	// Set LED pin to HIGH
-	// Delay
-	// Set LED pin to LOW
-	// Delay
-}</code></pre>
+	// Read potentiometer pin value
+	// Set and map servo angle to the potentiometer pin value
+}	
+</code></pre>
 					</li>
 					<li class="list-group-item">
-						Upload your sketch to the ESP32, and verify that the program executes as expected; the
-						LED should cycle ON and OFF.
+						Upload your sketch to the ESP32, and verify that the program executes as expected; 
+						the potentiometer should control the angle of the servo from 0°-180°.
+
 					</li>
 				</ol>
 
 				<h3 class="mb-3" id="pj-heading-checkpoint2">Checkpoint 2</h3>
 				<ol class="mb-5 list-group list-group-numbered">
 					<li class="list-group-item">
-						Build the circuit from <strong>Schematic B</strong> (LED Dimmer) on your breadboard. Your goal
-						is to make the LED grow brighter as you twist the potentiometer clockwise.
+						Build the circuit from <strong>Schematic B (Sundial)</strong> on your breadboard. Your goal is to control 
+						the servo’s angle based on the brightness that the photoresistor detects, and display the 
+						brightness of the room on the Sundial cutout.
+					</li>
+					<li class="list-group-item">
+						Cut out the rectangle in the middle of the Sundial cutout with scissors and insert the head of the 
+						servo through the rectangle. Use the one-sided arm attachment of the servo to display the brightness.
+						<img class="pj-img-fluid mx-auto mb-5"
+						src="assets/images/project_4_new/ops_project_4_sundial.png" width="300">
+					</li>
+					<li class="list-group-item">
 						<div class="alert alert-info" role="alert">
 							Use the <strong>pseudo code below</strong> to program the circuit.
 						</div>
@@ -477,37 +483,31 @@ void loop() {
 								class="pj-code language-arduino">Serial.begin()</code>,
 							<code class="pj-code language-arduino">pinMode()</code>,
 							<code class="pj-code language-arduino">analogRead()</code>, <code
-								class="pj-code language-arduino">analogWrite()</code>
+								class="pj-code language-arduino">analogWrite()</code>,
+								and the servo fuctions above
 						</div>
-						<pre class="mt-3" style="white-space: pre-wrap;"><code class="pj-code language-arduino">// Assign variable to pin number for LED
-// Assign variable to pin number for Potentiometer
-
+						<pre class="mt-3" style="white-space: pre-wrap;"><code class="pj-code language-arduino">#include &lt;ESP32Servo.h>&gt;
+							
+// Assign variable to pin number for Photoresistor
+// Assign variable to pin number of Servo’s PWM pin
+// Initialize servo object with your servo name
+							
 void setup() {
-	// Configure the LED pin's behavior to OUTPUT
-	// Configure the Potentiometer's pin behavior to INPUT
+	// Configure the Photoresistor's pin behavior to INPUT
+	// Attach object of your servo name to the physical servo
 	// Configure the Serial baud rate to 115200
 }
-						
+							
 void loop() {
-	// Read potentiometer pin value
-	// Set LED pin to the potentiometer pin value					
-}</code></pre>
+	// Read photoresistor pin value
+	// Set and map the servo angle to the photoresistor pin value
+}
+</code></pre>
 					</li>
 					<li class="list-group-item">
-						Upload your sketch to the ESP32, and verify that the circuit meets the design
-						requirements.
-					</li>
-				</ol>
-
-				<h3 class="mb-3" id="pj-heading-checkpoint3">Checkpoint 3</h3>
-				<ol class="mb-5 list-group list-group-numbered">
-					<li class="list-group-item">
-						Build the circuit from <strong>Schematic C</strong> (RGB LED Dimmer) on your breadboard. No
-						pseudo code this time! You are on your own.
-					</li>
-					<li class="list-group-item">
-						Upload your sketch to the ESP32, and verify that the circuit meets the design
-						requirements.
+						Upload your sketch to the ESP32, and verify that the program executes as expected; 
+						the photoresistor should control the angle of the servo from 0°-180° and display the 
+						brightness of the room through the cutout.
 					</li>
 				</ol>
 
@@ -525,14 +525,21 @@ void loop() {
 				<ul class="mb-4 list-group">
 					<li class="list-group-item">
 						<i class="bi bi-check2-square me-2"></i>
-						Video of the RGB LED Dimmer (Schematic C) on a breadboard
+						Video of the Potentiometer-Controlled Servo (Schematic A) on a breadboard
 						<div class="alert alert-info mt-2" role="alert">
-							In the video, use the potentiometers to create the colors yellow, green, and cyan.
+							In the video, showcase the 0-180° movement of the servo using a potentiometer.
 						</div>
-						<strong>Compress</strong> the folder to a <strong>zip</strong> file and rename the file using
-						the format “<strong>ops_project#_lastname_firstname.zip</strong>” Then, submit the
-						<strong>zip</strong> file to the Project 3 Canvas assignment.
+					<li class="list-group-item">
+						<i class="bi bi-check2-square me-2"></i>
+						Video of the Sundial (Schematic B) on a breadboard.
+						<div class="alert alert-info mt-2" role="alert">
+							In the video, showcase the 0–180° movement of the servo based on the light level sensed by the photoresistor.</div>
+					</li>
 				</ul>
+				<p><strong>Compress</strong> the folder to a <strong>zip</strong> file and rename the file using
+					the format “<strong>ops_project#_lastname_firstname.zip</strong>” Then, submit the
+					<strong>zip</strong> file to the Project 3 Canvas assignment.
+				</p>
 			</div>
 		</main>
 	</div>
