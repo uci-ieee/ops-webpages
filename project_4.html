@@ -72,13 +72,10 @@
 						<a class="nav-link" href="#pj-heading-requirements">Requirements</a>
 						<ul class="nav">
 							<li class="nav-item">
-								<a class="nav-link" href="#pj-heading-blinker">LED Blinker</a>
+								<a class="nav-link" href="#pj-heading-poten-control-servo">Potentiometer Controlled Servo</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="#pj-heading-dimmer">LED Dimmer</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="#pj-heading-rgb-dimmer">RGB LED Wizard</a>
+								<a class="nav-link" href="#pj-heading-sundial">Sundial</a>
 							</li>
 						</ul>
 					</li>
@@ -208,81 +205,6 @@
 					the pulse-width modulation (PWM) wire is used to feed a varying PWM signal that 
 					determines the servo's position.
 				</p>
-				<p>
-					A demo of using our provided servo are found below:
-				</p>
-				<ul>
-					<li>
-						<code class="pj-code language-arduino" your_servo_name>Servo your_servo_name</code>
-						is used to initialize the physical servo object in your code. 
-						Keep in mind that you can name your servo to whatever you’d like.
-					</li>
-					<li>
-						<code class="pj-code language-arduino" your_servo_name>your_servo_name.attach(int servoPin, minUs, maxUs)</code>
-						attaches the servo object to a pin with min max values to set the axis of rotation
-					</li>
-					<li>
-						<code class="pj-code language-arduino" your_servo_name>servo.write()</code>can be used to set the servo to any angle between <code class="pj-code language-arduino" your_servo_name>0-180</code>
-					</li>
-				</ul>
-				<p class="mb-3">
-					The SoftwareSerial library enables UART communication over other digital pins of the Arduino board. Why do we need it? Suppose you connect the Arduino over USB to your PC and use the Serial Monitor. At the same, you want the Arduino to connect to another UART device. The Arduino Nano only has one physical UART, so we use Software Serial to emulate a second UART connection over separate digital pins.
-				</p>
-				<pre class="mt-3" style="white-space: pre-wrap;"><code class="pj-code language-arduino">#include &lt;ESP32Servo.h&gt;
-
-// initializing a servo object to assign to the physical servo
-Servo myServo;
-						
-// minimum and maximum bounds of servo
-// found values for our servo for most accurate angles
-int minUs = 600;
-int maxUs = 2800;
-						
-// Servo pin, connect the PWM pin of the Servo to the pin number here
-int servoPin = 7;
-void setup() {
-	// not really needed here for this example
-	Serial.begin(115200);
-	
-	// attaching object servo1 with a pin and min max values
-	myServo.attach(servoPin, minUs, maxUs);
-}
-						
-void loop() {
-	// writes a 0 degree angle to the servo
-	servo1.write(0);
-	delay(1000);
-
-	// writes a 90 degree angle to the servo
-	servo1.write(90);
-	delay(1000);
-
-	// writes a 180 degree angle to the servo
-	servo1.write(180);
-	delay(1000);
-}												  
-				</code></pre>
-				<h3 class="mb-3" id="pj-heading-potentiometer">Potentiometer</h3>
-				<p>
-					A <strong>potentiometer</strong> is a three-terminal <i>variable</i> resistor. We will use it
-					as a
-					<strong>voltage divider</strong>,
-					a circuit which accepts a supply voltage and outputs a voltage which is a fraction of the supply
-					voltage. The voltage of
-					the potentiometer's output pin ranges between the VCC and GND pin voltages, depending on the dial's
-					position.
-				</p>
-				<img class="pj-img-fluid mx-auto mb-5" src=".\assets\images\parts\ops_parts_potentiometer_annotated.png" width="500">
-
-				<h4 class="mb-3 fw-light">How it Works</h4>
-				<p>
-					We just referred to the potentiometer as a kind of resistor. Why? Internally, a resistive strip
-					connects
-					its VCC and GND pins, and a rotating wiper connects
-					the output pin to the strip. The greater the distance along the strip between the wiper and the VCC
-					pin,
-					the greater the resistance between the wiper and VCC.
-				</p>
 				<img class="pj-img-fluid mx-auto mb-5"
 					src=".\assets/images/project_4/ops_potentiometer_internal_annotated.png"  width="500">
 				<p class="mb-5">
@@ -304,61 +226,24 @@ void loop() {
 					discrete integer in the range <code class="pj-code language-arduino">0-1023</code>.
 				</p>
 
-				<h2 class="mb-3 fw-bold" id="pj-heading-software-installations">Software Installations</h2>
-				<h3>Servo Library</h3>
-				<p class="mb-5">
-					To download the servo library, click on the Library manager icon on the 
-					left panel of Arduino IDE, and type in “ESP32Servo.” The first result 
-					made by Kevin Harrington, John K. Bennett is the library we will be using 
-					to control the servo. Download the latest version of the arduino library and 
-					then you should be able to use the library’s already developed functions.
-				</p>
-				<img class="pj-img-fluid-end" 
-				src="assets/images/project_4_new/ops_project_4_libraries.png" width="200">
-
-
-
-
-
 
 
 				<h2 class="mb-3 fw-bolder" id="pj-heading-requirements">Requirements</h2>
-				<h3 class="mb-3" id="pj-heading-blinker">LED Blinker</h3>
+				<h3 class="mb-3" id="pj-heading-poten-control-servo">Potentiometer Controlled Servo</h3>
 				<ul class="mb-5 list-group">
-					<li class="list-group-item">You must build a blinking LED circuit.</li>
-					<li class="list-group-item">The LED in the circuit must blink once per second.</li>
-					<li class="list-group-item">The LED must be brightly lit when turned ON.</li>
-					<li class="list-group-item">The LED must be completely dark when turned OFF.</li>
+					<li class="list-group-item">You must build a circuit with a potentiometer that can control a servo.</li>
+					<li class="list-group-item">The user must be able to adjust the servo’s angle to any angle between 0-180° when turning a singular potentiometer dial.</li>
+					<li class="list-group-item">When turning a potentiometer clockwise, the servo should approach 180°.</li>
+					<li class="list-group-item">When turning a potentiometer counter-clockwise,  the servo should approach 0°.</li>
 					<li class="list-group-item">The circuit must be built on a breadboard.</li>
 				</ul>
-				<h3 class="mb-3" id="pj-heading-dimmer">LED Dimmer</h3>
+				<h3 class="mb-3" id="pj-heading-sundial">Sundial</h3>
 				<ul class="mb-5 list-group">
-					<li class="list-group-item">You must build a circuit with a dimmable LED.</li>
-					<li class="list-group-item">The user must be able to adjust the LED's brightness from 0% to 100%
-						when
-						turning the potentiometer
-						dial.</li>
-					<li class="list-group-item">When turning the potentiometer clockwise, the LED should brighten.</li>
-					<li class="list-group-item">When turning the potentiometer counter-clockwise, the LED should dim.
-					</li>
-					<li class="list-group-item">The circuit must be built on a breadboard.</li>
-				</ul>
-				<h3 class="mb-3" id="pj-heading-rgb-dimmer">RGB LED Wizard</h3>
-				<ul class="mb-5 list-group">
-					<li class="list-group-item">You must build a circuit with a dimmable RGB LED.</li>
-					<li class="list-group-item">The user must be able to adjust the RGB LED to any color when turning
-						the
-						three potentiometer dials.
-					</li>
-					<li class="list-group-item">Each potentiometer should control the light intensity of one of the
-						three
-						LED colors (red, green,
-						and blue).</li>
-					<li class="list-group-item">When turning a potentiometer clockwise, its respective LED color should
-						brighten.</li>
-					<li class="list-group-item">When turning a potentiometer counter-clockwise, its respective LED color
-						should dim.</li>
-					<li class="list-group-item">The circuit must be built on a breadboard.</li>
+					<li class="list-group-item">You must build a circuit with a photoresistor-controlled servo.</li>
+					<li class="list-group-item">The servo’s angle must adjust between 0-180° when the brightness of a room changes.</li>
+					<li class="list-group-item">When the brightness of a room gets darker, the servo should approach 0°.</li>
+					<li class="list-group-item">When the brightness of a room gets brighter, the servo should approach 180°.</li>
+					<li class="list-group-item">The circuit must be built on a breadboard, and the servo should be attached onto the sundial cutout provided in the OPS kit.</li>
 				</ul>
 
 				<h2 class="mb-3 fw-bold" id="pj-heading-parts">Parts</h2>
@@ -391,15 +276,15 @@ void loop() {
 							<td>1</td>
 						</tr>
 						<tr>
-							<td>LED, 2V</td>
+							<td>Yellow LED, 2V</td>
 							<td>1</td>
 						</tr>
 						<tr>
 							<td>
 								<a class="pj-part"
-									data-bs-content="<img src='./assets/images/project_4/ops_rgb_led.jpg' height='150px' width='auto'>"
+									data-bs-content="<img src='assets/images/project_4_new/ops_project_4_servo.png' height='150px' width='auto'>"
 									data-bs-trigger="hover focus" data-bs-toggle="popover" tabindex="0">
-									LED, RGB, Common Cathode
+									Mirco Servo
 								</a>
 							</td>
 							<td>1</td>
@@ -417,12 +302,12 @@ void loop() {
 							</td>
 						</tr>
 						<tr>
-							<td>Resistor, 220Ω</td>
-							<td>1</td>
+							<td>Resistor, 4.7KΩ</td>
+							<td>3</td>
 						</tr>
 						<tr>
-							<td>Resistor, 390Ω</td>
-							<td>3</td>
+							<td>Sundial Diagram</td>
+							<td>1</td>
 						</tr>
 						<tr>
 							<td>USB-A to USB-C Cable</td>
@@ -439,14 +324,14 @@ void loop() {
 						<h2 class="accordion-header">
 							<button class="accordion-button" type="button" data-bs-toggle="collapse"
 								data-bs-target="#schemCollapse1" aria-expanded="true" aria-controls="schemCollapse1">
-								Schematic A (LED Blinker)
+								Schematic A (Potentiometer Controlled Servo)
 							</button>
 						</h2>
 						<!--Pin to page?-->
 						<div id="schemCollapse1" class="accordion-collapse collapse show"
 							data-bs-parent="#schemAccordian">
 							<div class="accordion-body text-center">
-								<img src='./assets/images/project_4/ops_p3_sa.svg' class="pj-schem"
+								<img src='assets/images/project_4_new/ops_project_4_schematic_A.svg' class="pj-schem"
 									style="max-height: 300px; max-width: 300px;">
 							</div>
 						</div>
@@ -456,33 +341,18 @@ void loop() {
 						<h2 class="accordion-header">
 							<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
 								data-bs-target="#schemCollapse2" aria-expanded="true" aria-controls="schemCollapse2">
-								Schematic B (LED Dimmer)
+								Schematic B (Sundial)
 							</button>
 						</h2>
 						<!--Pin to page?-->
 						<div id="schemCollapse2" class="accordion-collapse collapse" data-bs-parent="#schemAccordian">
 							<div class="accordion-body text-center">
-								<img src='./assets/images/project_4/ops_p3_sb.svg' class="pj-schem"
+								<img src='assets/images/project_4_new/ops_project_4_schematic_B.svg' class="pj-schem"
 									style="max-height: 400px; max-width: 400px;">
 							</div>
 						</div>
 					</div>
 
-					<div class="accordion-item">
-						<h2 class="accordion-header">
-							<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-								data-bs-target="#schemCollapse3" aria-expanded="true" aria-controls="schemCollapse3">
-								Schematic C (RGB LED Dimmer)
-							</button>
-						</h2>
-						<!--Pin to page?-->
-						<div id="schemCollapse3" class="accordion-collapse collapse" data-bs-parent="#schemAccordian">
-							<div class="accordion-body text-center">
-								<img src='./assets/images/project_4/ops_p3_sc.svg' class="pj-schem"
-									style="max-height: 500px; max-width: 500px;">
-							</div>
-						</div>
-					</div>
 
 				</div>
 				<h2 class="mb-3 fw-bold" id="pj-heading-instructions">Instructions</h2>
