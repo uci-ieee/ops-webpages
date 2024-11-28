@@ -66,6 +66,9 @@
 						</ul>
 					</li>
 					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-software-installations">Software Installations</a>
+					</li>
+					<li class="nav-item">
 						<a class="nav-link" href="#pj-heading-requirements">Requirements</a>
 						<ul class="nav">
 							<li class="nav-item">
@@ -167,6 +170,20 @@
 				</p>
 				<img class="pj-img-fluid mx-auto mb-5" 
 					src="assets/images/project_4_new/ops_project_4_photoresistor.png" width=450>
+
+				<h3 class="mb-3 fw-light">Using it with ESP32</h3>
+				<p>
+					Like a normal resistor, the photoresistor has no polarity and can be 
+					connected both ways. We can connect the photoresistor in series with a 
+					normal resistor to create a <strong>voltage divider</strong> at the node between the photoresistor 
+					and the normal resistor. The voltage would vary based on the light level, and by 
+					connecting that node to one of the ESP32’s <strong>analog-to-digital converters (ADC)</strong> with a 
+					jumper wire, we can translate the analog signal into a discrete integer value in the 
+					range of <code class="pj-code language-arduino">0-1023</code> using <code class="pj-code language-arduino">analogRead()</code>.
+				</p>
+				<img class="pj-img-fluid mx-auto mb-5"
+					src="assets/images/project_4_new/ops_project_4_voltage_divider.png" width="550">
+
 				<h3 class="mb-3" id="pj-heading-servo">Servo</h3>
 				<p>
 					A <strong>servo motor</strong> is a type of motor that converts electrical energy into mechanical energy 
@@ -181,7 +198,7 @@
 					so the motor can support a torque of 4.5 g when 2 cm away from the shaft, 3 g when 3 cm away, and so on.
 				</p>
 				<img class="pj-img-fluid mx-auto mb-5" 
-					src="assets/images/project_4_new/ops_project_4_servo.png"  width="500">
+					src="assets/images/project_4_new/ops_project_4_servo.png"  width="450">
 				<p>
 					As shown in the image above, the servo motor has three different wires; the 
 					<span style="color:rgb(226,86,57);">power (red)</span>, 
@@ -190,6 +207,81 @@
 					The power and ground wires are used to supply the servo motor with power, while 
 					the pulse-width modulation (PWM) wire is used to feed a varying PWM signal that 
 					determines the servo's position.
+				</p>
+				<p>
+					A demo of using our provided servo are found below:
+				</p>
+				<ul>
+					<li>
+						<code class="pj-code language-arduino" your_servo_name>Servo your_servo_name</code>
+						is used to initialize the physical servo object in your code. 
+						Keep in mind that you can name your servo to whatever you’d like.
+					</li>
+					<li>
+						<code class="pj-code language-arduino" your_servo_name>your_servo_name.attach(int servoPin, minUs, maxUs)</code>
+						attaches the servo object to a pin with min max values to set the axis of rotation
+					</li>
+					<li>
+						<code class="pj-code language-arduino" your_servo_name>servo.write()</code>can be used to set the servo to any angle between <code class="pj-code language-arduino" your_servo_name>0-180</code>
+					</li>
+				</ul>
+				<p class="mb-3">
+					The SoftwareSerial library enables UART communication over other digital pins of the Arduino board. Why do we need it? Suppose you connect the Arduino over USB to your PC and use the Serial Monitor. At the same, you want the Arduino to connect to another UART device. The Arduino Nano only has one physical UART, so we use Software Serial to emulate a second UART connection over separate digital pins.
+				</p>
+				<pre class="mt-3" style="white-space: pre-wrap;"><code class="pj-code language-arduino">#include &lt;ESP32Servo.h&gt;
+
+// initializing a servo object to assign to the physical servo
+Servo myServo;
+						
+// minimum and maximum bounds of servo
+// found values for our servo for most accurate angles
+int minUs = 600;
+int maxUs = 2800;
+						
+// Servo pin, connect the PWM pin of the Servo to the pin number here
+int servoPin = 7;
+void setup() {
+	// not really needed here for this example
+	Serial.begin(115200);
+	
+	// attaching object servo1 with a pin and min max values
+	myServo.attach(servoPin, minUs, maxUs);
+}
+						
+void loop() {
+	// writes a 0 degree angle to the servo
+	servo1.write(0);
+	delay(1000);
+
+	// writes a 90 degree angle to the servo
+	servo1.write(90);
+	delay(1000);
+
+	// writes a 180 degree angle to the servo
+	servo1.write(180);
+	delay(1000);
+}												  
+				</code></pre>
+				<h3 class="mb-3" id="pj-heading-potentiometer">Potentiometer</h3>
+				<p>
+					A <strong>potentiometer</strong> is a three-terminal <i>variable</i> resistor. We will use it
+					as a
+					<strong>voltage divider</strong>,
+					a circuit which accepts a supply voltage and outputs a voltage which is a fraction of the supply
+					voltage. The voltage of
+					the potentiometer's output pin ranges between the VCC and GND pin voltages, depending on the dial's
+					position.
+				</p>
+				<img class="pj-img-fluid mx-auto mb-5" src=".\assets\images\parts\ops_parts_potentiometer_annotated.png" width="500">
+
+				<h4 class="mb-3 fw-light">How it Works</h4>
+				<p>
+					We just referred to the potentiometer as a kind of resistor. Why? Internally, a resistive strip
+					connects
+					its VCC and GND pins, and a rotating wiper connects
+					the output pin to the strip. The greater the distance along the strip between the wiper and the VCC
+					pin,
+					the greater the resistance between the wiper and VCC.
 				</p>
 				<img class="pj-img-fluid mx-auto mb-5"
 					src=".\assets/images/project_4/ops_potentiometer_internal_annotated.png"  width="500">
@@ -211,6 +303,22 @@
 					a
 					discrete integer in the range <code class="pj-code language-arduino">0-1023</code>.
 				</p>
+
+				<h2 class="mb-3 fw-bold" id="pj-heading-software-installations">Software Installations</h2>
+				<h3>Servo Library</h3>
+				<p class="mb-5">
+					To download the servo library, click on the Library manager icon on the 
+					left panel of Arduino IDE, and type in “ESP32Servo.” The first result 
+					made by Kevin Harrington, John K. Bennett is the library we will be using 
+					to control the servo. Download the latest version of the arduino library and 
+					then you should be able to use the library’s already developed functions.
+				</p>
+				<img class="pj-img-fluid-end" 
+				src="assets/images/project_4_new/ops_project_4_libraries.png" width="200">
+
+
+
+
 
 
 
