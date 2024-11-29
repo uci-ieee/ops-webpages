@@ -111,11 +111,11 @@
 				<div class="d-flex flex-row justify-content-between mb-5">
 					<div class="">
 						<h4>Project 4</h4>
-						<h1 class="fw-bold">Sun Dial</h1>
+						<h1 class="fw-bold">Sundial</h1>
 					</div>
 					<div class="alert alert-light" role="alert">
 						<i class="bi bi-calendar-event me-1"></i>
-						Updated TBD <br>
+						Updated 11/28/2024 <br>
 						By Zicong Yu
 					</div>
 				</div>
@@ -163,7 +163,25 @@
 					visible light. It offers a simple and effective way to measure light levels and use that data in various projects.
 				</p>
 				<img class="pj-img-fluid mx-auto mb-5" 
-					src="assets/images/project_4_new/ops_project_4_photoresistor.png" width=450>
+					src="./assets/images/project_4_new/ops_project_4_photoresistor.png" width=450>
+				
+				
+				<h3 class="mb-3 fw-light">Using it with ESP32</h3>
+				<div class="mb-3">
+				<p class>
+					Like a normal resistor, the photoresistor has no polarity and can be connected both ways. We can connect the photoresistor in series
+					with a normal resistor to create a <strong>voltage divider</strong> at the node between the photoresistor and the normal resistor. The voltage would vary based on the light level,
+					and by connecting that node to one of the ESP32’s <strong>analog-to-digital converters (ADC)</strong> with a jumper wire,
+					we can translate the analog signal into a discrete integer value in the range of <code class="pj-code language-arduino">0-4095</code> using <code class="pj-code language-arduino">analogRead()</code>.
+				</p>
+				<img class="pj-img-fluid mx-auto mb-5" 
+				src="./assets/images/project_4_new/ops_project__4_photoresistor_schem.png" width=550>
+				</div>
+
+
+
+
+
 				<h3 class="mb-3" id="pj-heading-servo">Servo</h3>
 				<p>
 					A <strong>servo motor</strong> is a type of motor that converts electrical energy into mechanical energy 
@@ -181,14 +199,14 @@
 					src="assets/images/project_4_new/ops_project_4_servo.png"  width="500">
 				<p>
 					As shown in the image above, the servo motor has three different wires; the 
-					<span style="color:rgb(226,86,57);">power (red)</span>, 
+					<span class="text-red">power (red)</span>, 
 					<span style="color: rgb(139,83,62);">ground (brown)</span>, and 
 					<span style="color: rgb(223,134,56);">pulse-width modulation (orange)</span> wires. 
-					The power and ground wires are used to supply the servo motor with power, while 
+					The <span class="text-red">power</span> and <span style="color: rgb(139,83,62);">ground</span> wires are used to supply the servo motor with power, while 
 					the pulse-width modulation (PWM) wire is used to feed a varying PWM signal that 
 					determines the servo's position.
 				</p>
-				<p>A demo of using out provided servo are found below</p>
+				<p>A demo of using out provided servo is found below:</p>
 				<ul>
 					<li>
 						<code class="pj-code language-arduino">Servo your_servo_name</code>  
@@ -196,49 +214,42 @@
 						you can name your servo to whatever you’d like.
 					</li>
 					<li>
-						<code class="pj-code language-arduino">your_servo_name.attach(int servoPin, minUs, maxUs)</code> 
+						<code class="pj-code language-arduino">your_servo_name.attach(int servoPin)</code> 
 						attaches the servo object to a pin with min max values to set the axis of rotation
 					</li>
 					<li>
-						<code class="pj-code language-arduino">servo.write()</code> 
+						<code class="pj-code language-arduino">your_servo_name.write()</code> 
 						can be used to set the servo to any angle between 
 						<code class="pj-code language-arduino">0-180</code>
 					</li>
 				</ul>
 				<pre class="mb-5" style="white-space: pre-wrap; height:60vh;"><code class="pj-code language-arduino">#include &lt;ESP32Servo.h&gt;
 
-// initializing a servo object to assign to the physical servo
+// Assign variable to pin number of Servo’s PWM pin
+int servoPin = 10;
+
+
+// Initialize servo object with name myServo
 Servo myServo;
 
-// minimum and maximum bounds of servo
-// found values for our servo for most accurate angles
-int minUs = 600;
-int maxUs = 2800;
 
-// Servo pin, connect the PWM pin of the Servo to the pin number here
-int servoPin = 7;
-
-void setup() {
-	// not really needed here for this example
-	Serial.begin(115200);
-
-	// attaching object servo1 with a pin and min max values
-	myServo.attach(servoPin, minUs, maxUs);
+void setup() { 
+	// Attach object myServo to the physical servo
+	myServo.attach(servoPin);
 }
 
+
 void loop() {
-	// writes a 0 degree angle to the servo
-	servo1.write(0);
+	// Writes a 0 degree angle to the servo
+	myServo.write(0);
 	delay(1000);
-
-	// writes a 90 degree angle to the servo
-	servo1.write(90);
+	// Writes a 90 degree angle to the servo
+	myServo.write(90);
 	delay(1000);
-
-	// writes a 180 degree angle to the servo
-	servo1.write(180);
+	// Writes a 180 degree angle to the servo
+	myServo.write(180);
 	delay(1000);
-}				  
+}		
 				</pre></code>
 				
 				
@@ -281,7 +292,7 @@ void loop() {
 					digital signal. Using
 					<code class="pj-code language-arduino">analogRead()</code>, we interpret the pin's analog voltage as
 					a
-					discrete integer in the range <code class="pj-code language-arduino">0-1023</code>.
+					discrete integer in the range <code class="pj-code language-arduino">0-4095</code>.
 				</p>
 
 				<img class="pj-img-fluid-end"
@@ -303,8 +314,8 @@ void loop() {
 				<ul class="mb-5 list-group">
 					<li class="list-group-item">You must build a circuit with a potentiometer that can control a servo.</li>
 					<li class="list-group-item">The user must be able to adjust the servo’s angle to any angle between 0-180° when turning a singular potentiometer dial.</li>
-					<li class="list-group-item">When turning a potentiometer clockwise, the servo should approach 180°.</li>
-					<li class="list-group-item">When turning a potentiometer counter-clockwise,  the servo should approach 0°.</li>
+					<li class="list-group-item">When turning a potentiometer in one way, the servo should approach 180°.</li>
+					<li class="list-group-item">When turning a potentiometer the other way,  the servo should approach 0°.</li>
 					<li class="list-group-item">The circuit must be built on a breadboard.</li>
 				</ul>
 				<h3 class="mb-3" id="pj-heading-sundial">Sundial</h3>
@@ -313,7 +324,7 @@ void loop() {
 					<li class="list-group-item">The servo’s angle must adjust between 0-180° when the brightness of a room changes.</li>
 					<li class="list-group-item">When the brightness of a room gets darker, the servo should approach 0°.</li>
 					<li class="list-group-item">When the brightness of a room gets brighter, the servo should approach 180°.</li>
-					<li class="list-group-item">The circuit must be built on a breadboard, and the servo should be attached onto the sundial cutout provided in the OPS kit.</li>
+					<li class="list-group-item">The circuit must be built on a breadboard, and the servo should be attached onto the sundial cutout provided in the OPS kit to display the brightness of the room.</li>
 				</ul>
 
 				<h2 class="mb-3 fw-bold" id="pj-heading-parts">Parts</h2>
@@ -369,10 +380,16 @@ void loop() {
 						</tr>
 						<tr>
 							<td>Resistor, 4.7KΩ</td>
-							<td>3</td>
+							<td>1</td>
 						</tr>
 						<tr>
-							<td>Sundial Diagram</td>
+							<td>
+								<a class="pj-part"
+								data-bs-content="<img src='./assets/images/project_4_new/ops_project_4_sundial.png' height='100px' width='auto'>"
+								data-bs-trigger="hover focus" data-bs-toggle="popover" tabindex="0">
+								Sundial Diagram
+								</a>
+							</td>
 							<td>1</td>
 						</tr>
 						<tr>
@@ -435,7 +452,7 @@ void loop() {
 								class="pj-code language-arduino">Serial.begin()</code>,
 							<code class="pj-code language-arduino">pinMode()</code>, <code
 								class="pj-code language-arduino">analogRead()</code>,
-							and the servo fuctions above</div>
+							and the servo fuctions above.</div>
 						<pre class="mt-3" style="white-space: pre-wrap;"><code class="pj-code language-arduino">#include &lt;ESP32Servo.h&gt;
 
 // Assign variable to pin number for Potentiometer
@@ -484,7 +501,7 @@ void loop() {
 							<code class="pj-code language-arduino">pinMode()</code>,
 							<code class="pj-code language-arduino">analogRead()</code>, <code
 								class="pj-code language-arduino">analogWrite()</code>,
-								and the servo fuctions above
+								and the servo fuctions above.
 						</div>
 						<pre class="mt-3" style="white-space: pre-wrap;"><code class="pj-code language-arduino">#include &lt;ESP32Servo.h>&gt;
 							
@@ -538,7 +555,7 @@ void loop() {
 				</ul>
 				<p><strong>Compress</strong> the folder to a <strong>zip</strong> file and rename the file using
 					the format “<strong>ops_project#_lastname_firstname.zip</strong>” Then, submit the
-					<strong>zip</strong> file to the Project 3 Canvas assignment.
+					<strong>zip</strong> file to the Project 4 Canvas assignment.
 				</p>
 			</div>
 		</main>

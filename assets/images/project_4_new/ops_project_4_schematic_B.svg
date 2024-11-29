@@ -13,8 +13,8 @@
 	<line x1="300" y1="240" x2="390" y2="240" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
 	<line x1="300" y1="170" x2="390" y2="170" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
 	<line x1="300" y1="230" x2="340" y2="230" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
-	<line x1="340" y1="120" x2="340" y2="230" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
-	<line x1="300" y1="120" x2="340" y2="120" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
+	<line x1="340" y1="100" x2="340" y2="230" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
+	<line x1="300" y1="100" x2="340" y2="100" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
 	<line x1="150" y1="230" x2="180" y2="230" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
 	<line x1="150" y1="140" x2="150" y2="230" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
 	<line x1="100" y1="140" x2="100" y2="160" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
@@ -42,7 +42,7 @@
 	<line x1="180" y1="230" x2="190" y2="230" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
 	<text x="194" y="230" style="font-family:Arial;font-size:11px;text-anchor:start" dominant-baseline="middle" transform="rotate(0, 194, 230)">5V</text>
 	<line x1="290" y1="230" x2="300" y2="230" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
-	<text x="286" y="230" style="font-family:Arial;font-size:11px;text-anchor:end" dominant-baseline="middle" transform="rotate(0, 286, 230)">Servo</text>
+	<text x="286" y="230" style="font-family:Arial;font-size:11px;text-anchor:end" dominant-baseline="middle" transform="rotate(0, 286, 230)">PWM</text>
 	<line x1="290" y1="240" x2="300" y2="240" style="stroke:rgb(0, 0, 0);stroke-linecap:square;stroke-width:2" />
 	<text x="286" y="240" style="font-family:Arial;font-size:11px;text-anchor:end" dominant-baseline="middle" transform="rotate(0, 286, 240)">GND</text>
 	<text x="240" y="40" style="font-family:Arial;font-size:11px;text-anchor:middle" dominant-baseline="middle" transform="rotate(0, 240, 40)">ESP32_C3_Mini</text>
