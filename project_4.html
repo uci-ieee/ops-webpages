@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-bs-theme="light">
+
+<head>
+	<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+	<!--Title-->
+	<title>Open Project Space</title>
+	<!--Favicon-->
+	<link rel="icon" href="./assets/images/ops_logo_favicon.png">
+	<!--Roboto Font CDN-->
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto" rel="stylesheet">
+	<!--Beckman Font CDN-->
+	<link href="https://fonts.cdnfonts.com/css/beckman" rel="stylesheet">
+	<!-- Custom Stylesheet "custom.css" used for Bootstrap 5.3.0 css-->
+	<link rel="stylesheet" href="./css/custom.css" type="text/css">
+	<!-- Popper JS v2.11.8 (Bootstrap Dependency) CDN -->
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+		integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+		crossorigin="anonymous"></script>
+	<!-- Bootstrap JS v5.3.0 CDN -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+		integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
+		crossorigin="anonymous"></script>
+	<!-- Bootstrap Icons CSS v1.10.0 CDN-->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+	<!-- Highlight JS v11.7.0-->
+	<link rel="stylesheet" href="./css/highlight.js/default.min.css" type="text/css">
+	<link rel="stylesheet" href="./css/highlight.js/arduino-light.min.css" type="text/css">
+	<script src="./js/highlight.min.js"></script>
+	<script>hljs.highlightAll();</script>
+</head>
+
+<body style="">
+	<!-- ======= Header ======= -->
+	<script src="./js/ops_header.js"></script>
+	<!-- End Header -->
+
+	<div class="container-xl pj-layout my-5">
+		<!-- ======= Sidebar ======= -->
+		<aside class="pj-sidebar ">
+			<nav id="project-toc" class="pj-toc d-flex flex-column px-2 pt-2 pb-4">
+				<ul class="nav flex-column">
+					<h5 class="mt-2 mb-2 mx-3">Contents</h5>
+					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-overview">Overview</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-concepts">Concepts</a>
+						<ul class="nav">							
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-esp32-guide">ESP32 Guide</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-pinout">Pinout</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-photoresistor">Photoresistor</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-servo">Servo</a>
+							</li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#pj-heading-potentiometer">Potentiometer</a>
+                            </li>
+						</ul>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-software-installations">Software Installations</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-requirements">Requirements</a>
+						<ul class="nav">
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-poten-control-servo">Potentiometer-Controlled Servo</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-sundial">Sundial</a>
+							</li>
+						</ul>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-parts">Parts</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-schematics">Schematics</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-instructions">Instructions</a>
+						<ul class="nav">
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-checkpoint1">Checkpoint 1</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-checkpoint2">Checkpoint 2</a>
+							</li>
+						</ul>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-deliverables">Deliverables</a>
+					</li>
+				</ul>
+			</nav>
+		</aside>
+		<!-- End Sidebar -->
+
+		<main class="pj-main p-3" data-bs-spy="scroll" data-bs-target="#project-toc" data-bs-root-margin="0px 0px -40%"
+			data-bs-smooth-scroll="true" tabindex="0">
+			<div class="pj-content">
+
+				<div class="d-flex flex-row justify-content-between mb-5">
+					<div class="">
+						<h4>Project 4</h4>
+						<h1 class="fw-bold">Sundial</h1>
+					</div>
+					<div class="alert alert-light" role="alert">
+						<i class="bi bi-calendar-event me-1"></i>
+						Updated 11/28/2024 <br>
+						By Zicong Yu
+					</div>
+				</div>
+
+				<h2 class="mb-3 fw-bold" id="pj-heading-overview">Overview</h2>
+				<p class="mb-5">
+					You will program an ESP32 to control a servo with various sensors and inputs. 
+                    At each checkpoint, you will explore the core functions of servos and photoresistors. 
+                    You will also get more practice with microcontrollers (digital input/output, pulse width 
+                    modulation, and analog-to-digital conversion) and potentiometers.
+				<h2 class="mb-3 fw-bold" id="pj-heading-concepts">Concepts</h2>
+                <h3 class="mb-3" id="pj-heading-esp32-guide" >ESP32 Guide </h3>
+				<div class="mb-3">
+					<p>
+						It is crucial that you have followed the steps in our ESP32 Guide 
+                        to set up and learn how to program the ESP32. Visit the ESP32 Guide 
+                        <a href= "esp32_guide.html">here</a>  or by clicking "ESP32 Guide" on the top navigation bar.
+					</p>
+				</div>	
+				<h3 class="mb-3" id="pj-heading-pinout" >Pinout</h3>
+				<p>
+					Thinking about using a pin but you don't know what it does? Refer to the ESP32 Board pinout
+					diagram.
+				</p>
+
+                <img class="pj-img-fluid mx-auto mb-5" src=".\assets\images\pinouts\[2024-2025] OPS ESP32-C3 PINOUT.png"   width="800">
+				<p class="mb-3">
+				<ul>
+					<li><strong>NC</strong> stands for <strong>No Connect</strong>, and these pins should be left unconnected at all times.</li>
+					<li><strong>GPIO</strong> stands for a <strong>General Purpose Input/Output pin</strong> and can be used to send or read signals.</li>
+                    <li><strong>ADC</strong> stands for <strong>analog-to-digital converter</strong> and it reads the input voltage and makes a digital number to represent that amount of voltage.</li>
+					<li>The <strong>~</strong> symbol represents pins that are <strong>PWM (Pulse Width Modulation)</strong> capable.</li>
+				</ul>
+				<div class="alert alert-info mt-2 mb-5" role="alert">
+					Info: All GPIO pins are PWM capable.
+				</div>
+				</p>
+
+
+				<h3 class="mb-3" id="pj-heading-photoresistor">Photoresistor</h3>
+				<p>
+					A <strong>photoresistor</strong> is a type of resistor that changes its resistance based on the amount 
+					of light it is exposed to. This is possible because it is made of a semiconductor material 
+					that becomes more electrically conductive as it absorbs electromagnetic radiation such as 
+					visible light. It offers a simple and effective way to measure light levels and use that data in various projects.
+				</p>
+				<img class="pj-img-fluid mx-auto mb-5" 
+					src="./assets/images/project_4_new/ops_project_4_photoresistor.png" width=450>
+				
+				
+				<h3 class="mb-3 fw-light">Using it with ESP32</h3>
+				<div class="mb-3">
+				<p class>
+					Like a normal resistor, the photoresistor has no polarity and can be connected both ways. We can connect the photoresistor in series
+					with a normal resistor to create a <strong>voltage divider</strong> at the node between the photoresistor and the normal resistor. The voltage would vary based on the light level,
+					and by connecting that node to one of the ESP32’s <strong>analog-to-digital converters (ADC)</strong> with a jumper wire,
+					we can translate the analog signal into a discrete integer value in the range of <code class="pj-code language-arduino">0-4095</code> using <code class="pj-code language-arduino">analogRead()</code>.
+				</p>
+				<img class="pj-img-fluid mx-auto mb-5" 
+				src="./assets/images/project_4_new/ops_project__4_photoresistor_schem.png" width=550>
+				</div>
+
+
+
+
+
+				<h3 class="mb-3" id="pj-heading-servo">Servo</h3>
+				<p>
+					A <strong>servo motor</strong> is a type of motor that converts electrical energy into mechanical energy 
+                    to achieve precise control. As seen in the image below, various arms can be attached to 
+                    the splined gear on the top of the motor for different functions. In this project, you 
+                    will be controlling the position of the servo with a photoresistor to make a sundial.
+				</p>
+				<p>
+					The micro servo we will be using has a rating of “9g”. This represents the torque of the motor, 
+					or how much force it can apply. In the case of the servo above, it can generate 9 grams of force 
+					when 1 centimeter away from the shaft/center of the motor. The force is proportional to the distance,
+					so the motor can support a torque of 4.5 g when 2 cm away from the shaft, 3 g when 3 cm away, and so on.
+				</p>
+				<img class="pj-img-fluid mx-auto mb-5" 
+					src="assets/images/project_4_new/ops_project_4_servo.png"  width="500">
+				<p>
+					As shown in the image above, the servo motor has three different wires; the 
+					<span class="text-red">power (red)</span>, 
+					<span style="color: rgb(139,83,62);">ground (brown)</span>, and 
+					<span style="color: rgb(223,134,56);">pulse-width modulation (orange)</span> wires. 
+					The <span class="text-red">power</span> and <span style="color: rgb(139,83,62);">ground</span> wires are used to supply the servo motor with power, while 
+					the pulse-width modulation (PWM) wire is used to feed a varying PWM signal that 
+					determines the servo's position.
+				</p>
+				<p>A demo of using out provided servo is found below:</p>
+				<ul>
+					<li>
+						<code class="pj-code language-arduino">Servo your_servo_name</code>  
+						is used to initialize the physical servo object in your code. Keep in mind that 
+						you can name your servo to whatever you’d like.
+					</li>
+					<li>
+						<code class="pj-code language-arduino">your_servo_name.attach(int servoPin)</code> 
+						attaches the servo object to a pin with min max values to set the axis of rotation
+					</li>
+					<li>
+						<code class="pj-code language-arduino">your_servo_name.write()</code> 
+						can be used to set the servo to any angle between 
+						<code class="pj-code language-arduino">0-180</code>
+					</li>
+				</ul>
+				<pre class="mb-5" style="white-space: pre-wrap; height:60vh;"><code class="pj-code language-arduino">#include &lt;ESP32Servo.h&gt;
+
+// Assign variable to pin number of Servo’s PWM pin
+int servoPin = 10;
+
+
+// Initialize servo object with name myServo
+Servo myServo;
+
+
+void setup() { 
+	// Attach object myServo to the physical servo
+	myServo.attach(servoPin);
+}
+
+
+void loop() {
+	// Writes a 0 degree angle to the servo
+	myServo.write(0);
+	delay(1000);
+	// Writes a 90 degree angle to the servo
+	myServo.write(90);
+	delay(1000);
+	// Writes a 180 degree angle to the servo
+	myServo.write(180);
+	delay(1000);
+}		
+				</pre></code>
+				
+				
+				<h3 class="mb-3" id="pj-heading-potentiometer">Potentiometer</h3>
+				<p>
+					A <strong>potentiometer</strong> is a three-terminal <i>variable</i> resistor. We will use it
+					as a
+					<strong>voltage divider</strong>,
+					a circuit which accepts a supply voltage and outputs a voltage which is a fraction of the supply
+					voltage. The voltage of
+					the potentiometer's output pin ranges between the VCC and GND pin voltages, depending on the dial's
+					position.
+				</p>
+				<img class="pj-img-fluid mx-auto mb-5" src=".\assets\images\parts\ops_parts_potentiometer_annotated.png" width="500">
+
+				<h4 class="mb-3 fw-light">How it Works</h4>
+				<p>
+					We just referred to the potentiometer as a kind of resistor. Why? Internally, a resistive strip
+					connects
+					its VCC and GND pins, and a rotating wiper connects
+					the output pin to the strip. The greater the distance along the strip between the wiper and the VCC
+					pin,
+					the greater the resistance between the wiper and VCC.
+				</p>
+				<img class="pj-img-fluid mx-auto mb-5"
+					src=".\assets/images/project_4/ops_potentiometer_internal_annotated.png"  width="500">
+				<p class="mb-5">
+					In this voltage divider configuration, the wiper reduces the voltage at the output pin the further
+					it is
+					turned clockwise (toward GND).
+				</p>
+
+
+				<h3 class="mb-3 fw-light">Using it with ESP32</h3>
+				<p class="mb-5">
+					We can connect the potentiometer's output pin to one of the ESP32's ADC pins (see its pinout
+					above).
+					The ADC pin is wired to the <strong>analog-to-digital converter (ADC)</strong>
+					inside the ESP32-C3 chip. The ADC is hardware that translates the analog signal to a discrete
+					digital signal. Using
+					<code class="pj-code language-arduino">analogRead()</code>, we interpret the pin's analog voltage as
+					a
+					discrete integer in the range <code class="pj-code language-arduino">0-4095</code>.
+				</p>
+
+				<img class="pj-img-fluid-end"
+					src="assets/images/project_4_new/ops_project_4_libraries.png" width="225">
+				<h2 class="mb-3 fw-bold" id="pj-heading-software-installations">Software Installations</h2>
+				<h3 class="mb-3">Servo Library</h3>
+				<p>
+					To download the servo library, click on the Library manager icon on 
+					the left panel of Arduino IDE, and type in “ESP32Servo.” The first 
+					result made by Kevin Harrington, John K. Bennett is the library we will 
+					be using to control the servo. Download the latest version of the arduino 
+					library and then you should be able to use the library’s already developed functions.
+				</p>
+				<br><br><br><br><br>
+
+
+				<h2 class="mb-3 fw-bolder" id="pj-heading-requirements">Requirements</h2>
+				<h3 class="mb-3" id="pj-heading-poten-control-servo">Potentiometer-Controlled Servo</h3>
+				<ul class="mb-5 list-group">
+					<li class="list-group-item">You must build a circuit with a potentiometer that can control a servo.</li>
+					<li class="list-group-item">The user must be able to adjust the servo’s angle to any angle between 0-180° when turning a singular potentiometer dial.</li>
+					<li class="list-group-item">When turning a potentiometer in one way, the servo should approach 180°.</li>
+					<li class="list-group-item">When turning a potentiometer the other way,  the servo should approach 0°.</li>
+					<li class="list-group-item">The circuit must be built on a breadboard.</li>
+				</ul>
+				<h3 class="mb-3" id="pj-heading-sundial">Sundial</h3>
+				<ul class="mb-5 list-group">
+					<li class="list-group-item">You must build a circuit with a photoresistor-controlled servo.</li>
+					<li class="list-group-item">The servo’s angle must adjust between 0-180° when the brightness of a room changes.</li>
+					<li class="list-group-item">When the brightness of a room gets darker, the servo should approach 0°.</li>
+					<li class="list-group-item">When the brightness of a room gets brighter, the servo should approach 180°.</li>
+					<li class="list-group-item">The circuit must be built on a breadboard, and the servo should be attached onto the sundial cutout provided in the OPS kit to display the brightness of the room.</li>
+				</ul>
+
+				<h2 class="mb-3 fw-bold" id="pj-heading-parts">Parts</h2>
+
+				<!-- ======= Part Table ======= -->
+				<table class="table pj-part-table mb-5">
+					<thead>
+						<tr>
+							<th scope="col">Part Name</th>
+							<th scope="col">Qty</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Jumper Wire</td>
+							<td>X?</td>
+						</tr>
+						<tr>
+							<td>Breadboard</td>
+							<td>1</td>
+						</tr>
+						<tr>
+							<td>
+								<a class="pj-part"
+									data-bs-content="<img src='./assets/images/project_4/ops_blue_pot.jpg' height='150px' width='auto'>"
+									data-bs-trigger="hover focus" data-bs-toggle="popover" tabindex="0">
+									Potentiometer, 10kΩ
+								</a>
+							</td>
+							<td>1</td>
+						</tr>
+						<tr>
+							<td>
+								<a class="pj-part"
+									data-bs-content="<img src='assets/images/project_4_new/ops_project_4_servo.png' height='150px' width='auto'>"
+									data-bs-trigger="hover focus" data-bs-toggle="popover" tabindex="0">
+									Mirco Servo
+								</a>
+							</td>
+							<td>1</td>
+						</tr>
+						<tr>
+							<td>
+								<a class="pj-part"
+									data-bs-content="<img src='./assets/images/parts/ops_part_esp32c3fxh4.jpg' height='150px' width='auto'>"
+									data-bs-trigger="hover focus" data-bs-toggle="popover" tabindex="0">
+									ESP32
+								</a>
+							</td>
+							<td>
+								1
+							</td>
+						</tr>
+						<tr>
+							<td>Resistor, 4.7KΩ</td>
+							<td>1</td>
+						</tr>
+						<tr>
+							<td>
+								<a class="pj-part"
+								data-bs-content="<img src='./assets/images/project_4_new/ops_project_4_sundial.png' height='100px' width='auto'>"
+								data-bs-trigger="hover focus" data-bs-toggle="popover" tabindex="0">
+								Sundial Diagram
+								</a>
+							</td>
+							<td>1</td>
+						</tr>
+						<tr>
+							<td>USB-A to USB-C Cable</td>
+							<td>1</td>
+						</tr>
+					</tbody>
+				</table>
+				<!-- End Part Table -->
+
+
+				<h2 class="mb-3 fw-bold" id="pj-heading-schematics">Schematics</h2>
+				<div class="accordion mb-5" id="schemAccordian">
+					<div class="accordion-item">
+						<h2 class="accordion-header">
+							<button class="accordion-button" type="button" data-bs-toggle="collapse"
+								data-bs-target="#schemCollapse1" aria-expanded="true" aria-controls="schemCollapse1">
+								Schematic A (Potentiometer-Controlled Servo)
+							</button>
+						</h2>
+						<!--Pin to page?-->
+						<div id="schemCollapse1" class="accordion-collapse collapse show"
+							data-bs-parent="#schemAccordian">
+							<div class="accordion-body text-center">
+								<img src='assets/images/project_4_new/ops_project_4_schematic_A.svg' class="pj-schem"
+									style="max-height: 300px; max-width: 300px;">
+							</div>
+						</div>
+					</div>
+
+					<div class="accordion-item">
+						<h2 class="accordion-header">
+							<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+								data-bs-target="#schemCollapse2" aria-expanded="true" aria-controls="schemCollapse2">
+								Schematic B (Sundial)
+							</button>
+						</h2>
+						<!--Pin to page?-->
+						<div id="schemCollapse2" class="accordion-collapse collapse" data-bs-parent="#schemAccordian">
+							<div class="accordion-body text-center">
+								<img src='assets/images/project_4_new/ops_project_4_schematic_B.svg' class="pj-schem"
+									style="max-height: 400px; max-width: 400px;">
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+				<h2 class="mb-3 fw-bold" id="pj-heading-instructions">Instructions</h2>
+				<h3 class="mb-3" id="pj-heading-checkpoint1">Checkpoint 1</h3>
+				<ol class="mb-5 list-group list-group-numbered">
+					<li class="list-group-item">
+						Build the circuit from <strong>Schematic A</strong> (Potentiometer-Controlled Servo) on your breadboard. 
+						Attach the one-sided arm attachment to the servo.
+						<div class="alert alert-info mt-2" role="alert">
+							Use the pseudo code below to program a potentiometer to control a servo.
+						</div>
+						<div class="alert alert-info mt-2" role="alert">
+							These functions may be helpful: <code
+								class="pj-code language-arduino">Serial.begin()</code>,
+							<code class="pj-code language-arduino">pinMode()</code>, <code
+								class="pj-code language-arduino">analogRead()</code>,
+							and the servo fuctions above.</div>
+						<pre class="mt-3" style="white-space: pre-wrap;"><code class="pj-code language-arduino">#include &lt;ESP32Servo.h&gt;
+
+// Assign variable to pin number for Potentiometer
+// Assign variable to pin number of Servo’s PWM pin
+// Initialize servo object with your servo name
+								
+void setup() {
+	// Configure the Potentiometer's pin behavior to INPUT
+	// Attach object of your servo name to the physical servo
+	// Configure the Serial baud rate to 115200
+}
+								
+void loop() {
+	// Read potentiometer pin value
+	// Set and map servo angle to the potentiometer pin value
+}	
+</code></pre>
+					</li>
+					<li class="list-group-item">
+						Upload your sketch to the ESP32, and verify that the program executes as expected; 
+						the potentiometer should control the angle of the servo from 0°-180°.
+
+					</li>
+				</ol>
+
+				<h3 class="mb-3" id="pj-heading-checkpoint2">Checkpoint 2</h3>
+				<ol class="mb-5 list-group list-group-numbered">
+					<li class="list-group-item">
+						Build the circuit from <strong>Schematic B (Sundial)</strong> on your breadboard. Your goal is to control 
+						the servo’s angle based on the brightness that the photoresistor detects, and display the 
+						brightness of the room on the Sundial cutout.
+					</li>
+					<li class="list-group-item">
+						Cut out the rectangle in the middle of the Sundial cutout with scissors and insert the head of the 
+						servo through the rectangle. Use the one-sided arm attachment of the servo to display the brightness.
+						<img class="pj-img-fluid mx-auto mb-5"
+						src="assets/images/project_4_new/ops_project_4_sundial.png" width="300">
+					</li>
+					<li class="list-group-item">
+						<div class="alert alert-info" role="alert">
+							Use the <strong>pseudo code below</strong> to program the circuit.
+						</div>
+						<div class="alert alert-info" role="alert">
+							These functions may be helpful: <code
+								class="pj-code language-arduino">Serial.begin()</code>,
+							<code class="pj-code language-arduino">pinMode()</code>,
+							<code class="pj-code language-arduino">analogRead()</code>, <code
+								class="pj-code language-arduino">analogWrite()</code>,
+								and the servo fuctions above.
+						</div>
+						<pre class="mt-3" style="white-space: pre-wrap;"><code class="pj-code language-arduino">#include &lt;ESP32Servo.h>&gt;
+							
+// Assign variable to pin number for Photoresistor
+// Assign variable to pin number of Servo’s PWM pin
+// Initialize servo object with your servo name
+							
+void setup() {
+	// Configure the Photoresistor's pin behavior to INPUT
+	// Attach object of your servo name to the physical servo
+	// Configure the Serial baud rate to 115200
+}
+							
+void loop() {
+	// Read photoresistor pin value
+	// Set and map the servo angle to the photoresistor pin value
+}
+</code></pre>
+					</li>
+					<li class="list-group-item">
+						Upload your sketch to the ESP32, and verify that the program executes as expected; 
+						the photoresistor should control the angle of the servo from 0°-180° and display the 
+						brightness of the room through the cutout.
+					</li>
+				</ol>
+
+				<h2 class="mb-3 fw-bold" id="pj-heading-deliverables">Deliverables <span class="fw-light">(Enrolled
+						Students
+						Only)</span></h2>
+				<p>
+					Students enrolled in the course must submit the following deliverables to the corresponding Canvas
+					course assignment.
+				</p>
+				<p>
+					Place the following files in a single folder:
+				</p>
+
+				<ul class="mb-4 list-group">
+					<li class="list-group-item">
+						<i class="bi bi-check2-square me-2"></i>
+						Video of the Potentiometer-Controlled Servo (Schematic A) on a breadboard
+						<div class="alert alert-info mt-2" role="alert">
+							In the video, showcase the 0-180° movement of the servo using a potentiometer.
+						</div>
+					<li class="list-group-item">
+						<i class="bi bi-check2-square me-2"></i>
+						Video of the Sundial (Schematic B) on a breadboard.
+						<div class="alert alert-info mt-2" role="alert">
+							In the video, showcase the 0–180° movement of the servo based on the light level sensed by the photoresistor.</div>
+					</li>
+				</ul>
+				<p><strong>Compress</strong> the folder to a <strong>zip</strong> file and rename the file using
+					the format “<strong>ops_project#_lastname_firstname.zip</strong>” Then, submit the
+					<strong>zip</strong> file to the Project 4 Canvas assignment.
+				</p>
+			</div>
+		</main>
+	</div>
+	<!-- ======= Footer ======= -->
+	<script src="./js/ops_footer.js"></script>
+	<!-- End Footer -->
+</body>
+
+</html>
