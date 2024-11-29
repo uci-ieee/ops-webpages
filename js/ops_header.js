@@ -29,6 +29,7 @@ document.write(`
                             <li><a class="dropdown-item" href="./project_1.html"> Project 1: LED There Be Light</a></li>
                             <li><a class="dropdown-item" href="./project_2.html">Project 2: 555 Piano</a></li>
                             <li><a class="dropdown-item" href="./project_3.html">Project 3: RGB LED Wizard</a></li>
+                            <li><a class="dropdown-item" href="./project_4.html">Project 4: Sundial</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
