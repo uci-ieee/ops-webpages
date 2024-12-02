@@ -163,6 +163,7 @@ body {
 /*--------------------------------------------------------------
 # officers
 --------------------------------------------------------------*/
+
 .officers .member {
     text-align: center;
     padding-top: 20px;
@@ -206,10 +207,13 @@ body {
 .officers .member .social a {
     color: #7e9486;
     transition: 0.3s;
+    text-decoration: none;
 }
 
 .officers .member .social a:hover {
     color: #00629b;
+    text-decoration: none;
+    font-size: 16.5px;
 }
 
 .officers .member .social i {
