@@ -19,6 +19,7 @@ document.write(`
                         <ul class="dropdown-menu" data-bs-theme="light" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="./faq.html"> FAQ Page</a></li>
                             <li><a class="dropdown-item" href="./syllabus.html"> Syllabus</a></li>
+                            <li><a class="dropdown-item" href="./officers.html"> Officers</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown ">
