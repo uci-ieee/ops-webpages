@@ -135,7 +135,7 @@
 				</div>
 				<div class="alert alert-light" role="alert">
 					<i class="bi bi-calendar-event me-1"></i>
-					Updated 2025.01.10 <br>
+					Updated 2024.01.10 <br>
 					By Zicong Yu
 				</div>
 			</div>
@@ -168,7 +168,7 @@
 				We can use the UART in our ESP32 to transmit data to another UART device. To do so, we will enlist the help of the
 				<a class="link-primary"
 						href="https://www.arduino.cc/reference/en/language/functions/communication/serial/" target="_blank"
-						rel="noopener noreferrer">Serial Library</a>, which is already installed in the Arduino IDE and includes functions you are already familiar with (ex. Serial.begin(115200), Serial.print(val), etc).
+						rel="noopener noreferrer">Serial Library</a>, which is already installed in the Arduino IDE and includes functions you are already familiar with (ex. <code class="pj-code language-arduino">Serial.begin(115200)</code>, <code class="pj-code language-arduino">Serial.print(val)</code>, etc).
 			</p>
 			<p class="mb-5">
 				The data within each packet sent with	 UART is <strong>one byte</strong> in size, meaning if the data contained an <code class="pj-code language-arduino">int</code>, its value could only be in the range <code class="pj-code language-arduino">-128 to 127</code> (signed) or <code class="pj-code language-arduino">0 to 255</code> (unsigned). We’ll see how this comes into play later.
@@ -201,7 +201,7 @@
 					src="assets/images/project_5/ops_project_5_ESP32_diagram.png" width = "500">
 			</div>
 			<p class="mb-5">
-				With this in mind, remember that <strong>the ESP32's USB port is hardwired to the TX and RX pins</strong> of the board. <strong></strong>Do not upload a sketch to an ESP32 while the board is connected via the TX/RX pins to another ESP32. Do not attempt to use <code class="pj-code language-arduino">Serial.print()</code> under these conditions either.
+				With this in mind, remember that <strong>the ESP32's USB port is hardwired to the TX and RX pins</strong> of the board. <strong>Do not upload a sketch to an ESP32 while the board is connected via the TX/RX pins to another ESP32.</strong> Do not attempt to use <code class="pj-code language-arduino">Serial.print()</code> under these conditions either.
 			</p>
 
 
@@ -209,16 +209,16 @@
 			<p class="mb-3">
 				The <b>HardwareSerial library</b> enables UART communication over the predefined <b>RX</b> and <b>TX</b> other pins of the ESP32 board. Why do we need it? Hardware Serial provides a built-in UART connection through the ESP32 and creates a <b>fast</b>, <b>reliable</b> (meaning error correction and buffering), and <b>efficient</b>. This lightens the load on the microcontroller CPU allowing more processing power for other tasks. HardwareSerial’s reliability is important for sensors that want accurate information. ESP32’s UART is able to be <b>full-duplex</b> meaning that it can send and receive at the same time using its <b>TX</b> and <b>RX</b> pins respectively.
 			</p>
-			<pre class="mt-3" style="white-space: pre-wrap;"><code class="pj-code language-arduino">#include &lHardwareSerial.h&gt;
+			<pre class="mt-3" style="white-space: pre-wrap;"><code class="pj-code language-arduino">#include &ltHardwareSerial.h&gt;
 const int rxPin = 20;
 const int txPin = 21;
-HardwareSerial mySerial(rxPin, txPin);
+HardwareSerial mySerial1(rxPin, txPin);
 </code></pre>
 			<p class="mb-3">
-				The code above creates an <b>object</b> of the HardwareSerial class that manages a new UART connection over <b>TX</b> and <b>RX</b> pins passed to the constructor. Then, you just use the pins like you would normally!
+				The code above creates an <b>object</b> of the <b>HardwareSerial class</b> that manages a new UART connection over <b>TX</b> and <b>RX</b> pins passed to the constructor. Then, you just use the pins like you would normally!
 			</p>
 			<p class="mb-5">
-				There are several limitations of HardwareSerial: not all microcontrollers support <b>multiple RX</b> and <b>TX</b> pins, which makes multiple simultaneous serial connections not possible. Additionally, not all <b>digital pins</b> may support HardwareSerial. If you're curious, you find out more
+				There are several limitations of HardwareSerial: not all microcontrollers support multiple <b>RX</b> and <b>TX</b> pins, which makes multiple simultaneous serial connections not possible. Additionally, not all digital pins may support HardwareSerial. If you're curious, you find out more
 				Find out more <a class="link-primary"
 				href="https://github.com/espressif/arduino-esp32/blob/master/cores/esp32/HardwareSerial.h" target="_blank"
 				rel="noopener noreferrer">here</a>.
@@ -291,7 +291,7 @@ HardwareSerial mySerial(rxPin, txPin);
 
 			<h4 class="mb-3 fw-light">Datasheet and Pinout Diagram</h4>
 			<p class="mb-3">
-				As an exercise of technical documentation literacy, we will not provide the pinout diagram. Instead, you can access the datasheet <a class="link-primary"
+				As an optional exercise of technical documentation literacy, we will not provide the pinout diagram. Instead, you can access the datasheet <a class="link-primary"
 				href="https://ieee.ics.uci.edu/ops/assets/datasheets/ops_datasheet_FN-M16P.pdf" target="_blank"
 				rel="noopener noreferrer">here</a>. 
 			</p>
@@ -323,7 +323,6 @@ HardwareSerial mySerial(rxPin, txPin);
 				
 
 // Use pins 20 and 21 with HardwareSerial to communicate with DFPlayer Mini
-// and leave RX and TX open to the connected computer for debugging
 const int PIN_MP3_TX = 20; // Connects to module's RX
 const int PIN_MP3_RX = 21; // Connects to module's TX
 
@@ -346,7 +345,7 @@ void setup() {
 	// Start communication with DFPlayer Mini using player.begin
   	// player.begin returns true if the connection was a success
   	// and false if it failed
-	if (!player.begin(MySerial)){
+	if (!player.begin(MySerial1)){
     	Serial.println("Connecting to DFPlayer Mini failed!");
 	}
 
@@ -650,7 +649,7 @@ void loop() {
 			</ol>
 
 
-			<h3 class="mb-3" id="pj-heading-checkpoint1">Checkpoint 1</h3>
+			<h3 class="mb-3" id="pj-heading-checkpoint1">Checkpoint 2</h3>
 			<ol class="mb-4 list-group list-group-numbered">
 				<li class="list-group-item">
 					Build the circuit from <strong>Schematic A</strong> (External Pull-Up Resistor Circuit) on your breadboard. You will design a digital LED circuit with an external pull-up resistor and pushbutton.
@@ -661,7 +660,7 @@ void loop() {
 			</ol>
 
 
-			<h3 class="mb-3" id="pj-heading-checkpoint2">Checkpoint 2</h3>
+			<h3 class="mb-3" id="pj-heading-checkpoint2">Checkpoint 3</h3>
 			<ol class="mb-4 list-group list-group-numbered">
 				<li class="list-group-item">
 					Build the circuit from <strong>Schematic B</strong> (Internal Pull-Up Resistor Circuit) on your breadboard. You will design a digital LED circuit with an internal pull-up resistor and pushbutton.
@@ -675,7 +674,7 @@ void loop() {
 			</ol>
 
 
-			<h3 class="mb-3" id="pj-heading-checkpoint3">Checkpoint 3</h3>
+			<h3 class="mb-3" id="pj-heading-checkpoint3">Checkpoint 4</h3>
 			<ol class="mb-5 list-group list-group-numbered">
 				<li class="list-group-item">
 					Build the circuit from Schematic C (iPoduino) on your breadboard. Use the sample code provided in the Concepts sections to guide your ESP32 program.
