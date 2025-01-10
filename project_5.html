@@ -135,8 +135,8 @@
 				</div>
 				<div class="alert alert-light" role="alert">
 					<i class="bi bi-calendar-event me-1"></i>
-					Updated 2024.01.12 <br>
-					By Benjamen Bielecki
+					Updated 2025.01.10 <br>
+					By Zicong Yu
 				</div>
 			</div>
 
@@ -198,7 +198,7 @@
 			</p>
 			<div style= "text-align: center;" class="mb-3">
 				<img class="img-fluid my-3 me-5"
-					src="./assets/images/project_5/ops_project_5_usb_uart_diagram.png" width = "500">
+					src="assets/images/project_5/ops_project_5_ESP32_diagram.png" width = "500">
 			</div>
 			<p class="mb-5">
 				With this in mind, remember that <strong>the ESP32's USB port is hardwired to the TX and RX pins</strong> of the board. <strong></strong>Do not upload a sketch to an ESP32 while the board is connected via the TX/RX pins to another ESP32. Do not attempt to use <code class="pj-code language-arduino">Serial.print()</code> under these conditions either.
@@ -207,7 +207,7 @@
 
 			<h4 class="mb-3 fw-light">Hardware Serial</h4>
 			<p class="mb-3">
-				The HardwareSerial library enables UART communication over the predefined RX and TX other pins of the ESP32 board. Why do we need it? Hardware Serial provides a built-in UART connection through the ESP32 and creates a fast, reliable (meaning error correction and buffering), and efficient. This lightens the load on the microcontroller CPU allowing more processing power for other tasks. HardwareSerial’s reliability is important for sensors that want accurate information. ESP32’s UART is able to be full-duplex meaning that it can send and receive at the same time using its TX and RX pins respectively.
+				The <b>HardwareSerial library</b> enables UART communication over the predefined <b>RX</b> and <b>TX</b> other pins of the ESP32 board. Why do we need it? Hardware Serial provides a built-in UART connection through the ESP32 and creates a <b>fast</b>, <b>reliable</b> (meaning error correction and buffering), and <b>efficient</b>. This lightens the load on the microcontroller CPU allowing more processing power for other tasks. HardwareSerial’s reliability is important for sensors that want accurate information. ESP32’s UART is able to be <b>full-duplex</b> meaning that it can send and receive at the same time using its <b>TX</b> and <b>RX</b> pins respectively.
 			</p>
 			<pre class="mt-3" style="white-space: pre-wrap;"><code class="pj-code language-arduino">#include &lHardwareSerial.h&gt;
 const int rxPin = 20;
@@ -215,10 +215,10 @@ const int txPin = 21;
 HardwareSerial mySerial(rxPin, txPin);
 </code></pre>
 			<p class="mb-3">
-				The code above creates an object of the HardwareSerial class that manages a new UART connection over TX and RX pins passed to the constructor. Then, you just use the pins like you would normally!
+				The code above creates an <b>object</b> of the HardwareSerial class that manages a new UART connection over <b>TX</b> and <b>RX</b> pins passed to the constructor. Then, you just use the pins like you would normally!
 			</p>
 			<p class="mb-5">
-				There are several limitations of HardwareSerial: not all microcontrollers support multiple RX and TX pins, which makes multiple simultaneous serial connections not possible. Additionally, not all digital pins may support HardwareSerial. If you're curious, you find out more
+				There are several limitations of HardwareSerial: not all microcontrollers support <b>multiple RX</b> and <b>TX</b> pins, which makes multiple simultaneous serial connections not possible. Additionally, not all <b>digital pins</b> may support HardwareSerial. If you're curious, you find out more
 				Find out more <a class="link-primary"
 				href="https://github.com/espressif/arduino-esp32/blob/master/cores/esp32/HardwareSerial.h" target="_blank"
 				rel="noopener noreferrer">here</a>.
@@ -249,7 +249,7 @@ HardwareSerial mySerial(rxPin, txPin);
 				<p class="mb-3">
 					With this circuit, the input pin will either be VCC or GND (HIGH or LOW). Let’s see how it would look on a breadboard:
 				</p>
-				<img class="pj-img-fluid mx-auto mb-3" src="assets/images/project_5/ops_project_5_internal_pullup.png" width = "500">
+				<img class="pj-img-fluid mx-auto mb-3" src="assets/images/project_5/ops_project_5_pull_up.png" width = "500">
 				<p>
 					In the layout above, the pushbutton is connected to an external pullup resistor. Its state (HIGH or LOW) is read from pin 10 of the ESP32.
 				</p>
