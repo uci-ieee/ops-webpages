@@ -12301,4 +12301,64 @@ body {
   color: #fff !important;
 }
 
+/*--------------------------------------------------------------
+# officers
+--------------------------------------------------------------*/
+.officers .member {
+  text-align: center;
+  padding-top: 20px;
+  margin-bottom: 20px;
+  background: #fff;
+  border: 1px solid #eef0ef;
+  flex-grow: 1;
+}
+
+.officers .member img {
+  margin: -1px -1px 30px -1px;
+}
+
+.officers .member .member-content {
+  padding: 0 20px 30px 20px;
+}
+
+.officers .member h4, .officers .member .h4 {
+  font-weight: 700;
+  margin-bottom: 2px;
+  font-size: 18px;
+}
+
+.officers .member span {
+  font-style: italic;
+  display: block;
+  font-size: 13px;
+}
+
+.officers .member p {
+  padding-top: 10px;
+  font-size: 14px;
+  font-style: italic;
+  color: #aaaaaa;
+}
+
+.officers .member .social {
+  margin-top: 15px;
+}
+
+.officers .member .social a {
+  color: #7e9486;
+  transition: 0.3s;
+  text-decoration: none;
+}
+
+.officers .member .social a:hover {
+  color: #00629b;
+  text-decoration: none;
+  font-size: 16.5px;
+}
+
+.officers .member .social i {
+  font-size: 18px;
+  margin: 0 2px;
+}
+
 /*# sourceMappingURL=custom.css.map */

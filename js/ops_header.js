@@ -31,6 +31,7 @@ document.write(`
                             <li><a class="dropdown-item" href="./project_2.html">Project 2: 555 Piano</a></li>
                             <li><a class="dropdown-item" href="./project_3.html">Project 3: RGB LED Wizard</a></li>
                             <li><a class="dropdown-item" href="./project_4.html">Project 4: Sundial</a></li>
+                            <li><a class="dropdown-item" href="./project_5.html">Project 5: iPoduino v2.0</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
