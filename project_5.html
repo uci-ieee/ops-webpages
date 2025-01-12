@@ -103,9 +103,6 @@
 						<a class="nav-link" href="#pj-heading-instructions">Instructions</a>
 						<ul class="nav">
 							<li class="nav-item">
-								<a class="nav-link" href="#pj-heading-checkpoint1-optional">Checkpoint 1 (Optional)</a>
-							</li>
-							<li class="nav-item">
 								<a class="nav-link" href="#pj-heading-checkpoint1">Checkpoint 1</a>
 							</li>
 							<li class="nav-item">
@@ -113,6 +110,9 @@
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="#pj-heading-checkpoint3">Checkpoint 3</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-checkpoint4">Checkpoint 4</a>
 							</li>
 						</ul>
 					</li>
@@ -338,14 +338,14 @@ void setup() {
 	Serial.begin(115200);
 				
 	// Initialize the pins for HardwareSerial. No pinMode calls needed.
-	MySerial.begin(9600, PIN_MP3_RX, PIN_MP3_TX); // RX=20, TX=21
+	mySerial1.begin(9600, PIN_MP3_RX, PIN_MP3_TX); // RX=20, TX=21
 
 	delay(1000); //DO NOT REMOVE THIS DELAY. It is needed to properly initialize HardwareSerial.
 
 	// Start communication with DFPlayer Mini using player.begin
   	// player.begin returns true if the connection was a success
   	// and false if it failed
-	if (!player.begin(MySerial1)){
+	if (!player.begin(mySerial1)){
     	Serial.println("Connecting to DFPlayer Mini failed!");
 	}
 
@@ -635,7 +635,7 @@ void loop() {
 
 
 			<h2 class="mb-3 fw-bold" id="pj-heading-instructions">Instructions</h2>
-			<h3 class="mb-3" id="pj-heading-checkpoint1-optional">Checkpoint 1 (Optional)</h3>
+			<h3 class="mb-3" id="pj-heading-checkpoint1">Checkpoint 1 (Optional)</h3>
 			<ol class="mb-5 list-group list-group-numbered">
 				<li class="list-group-item">
 					Connect the ESP32 to your computer and open the Arduino IDE. You will write a small program that echos small byte-sized values between the Nano and your computer.
@@ -649,7 +649,7 @@ void loop() {
 			</ol>
 
 
-			<h3 class="mb-3" id="pj-heading-checkpoint1">Checkpoint 2</h3>
+			<h3 class="mb-3" id="pj-heading-checkpoint2">Checkpoint 2</h3>
 			<ol class="mb-4 list-group list-group-numbered">
 				<li class="list-group-item">
 					Build the circuit from <strong>Schematic A</strong> (External Pull-Up Resistor Circuit) on your breadboard. You will design a digital LED circuit with an external pull-up resistor and pushbutton.
@@ -660,7 +660,7 @@ void loop() {
 			</ol>
 
 
-			<h3 class="mb-3" id="pj-heading-checkpoint2">Checkpoint 3</h3>
+			<h3 class="mb-3" id="pj-heading-checkpoint3">Checkpoint 3</h3>
 			<ol class="mb-4 list-group list-group-numbered">
 				<li class="list-group-item">
 					Build the circuit from <strong>Schematic B</strong> (Internal Pull-Up Resistor Circuit) on your breadboard. You will design a digital LED circuit with an internal pull-up resistor and pushbutton.
@@ -674,7 +674,7 @@ void loop() {
 			</ol>
 
 
-			<h3 class="mb-3" id="pj-heading-checkpoint3">Checkpoint 4</h3>
+			<h3 class="mb-3" id="pj-heading-checkpoint4">Checkpoint 4</h3>
 			<ol class="mb-5 list-group list-group-numbered">
 				<li class="list-group-item">
 					Build the circuit from Schematic C (iPoduino) on your breadboard. Use the sample code provided in the Concepts sections to guide your ESP32 program.
