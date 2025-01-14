@@ -212,7 +212,7 @@
 			<pre class="mt-3" style="white-space: pre-wrap;"><code class="pj-code language-arduino">#include &ltHardwareSerial.h&gt;
 const int rxPin = 20;
 const int txPin = 21;
-HardwareSerial mySerial1(rxPin, txPin);
+HardwareSerial mySerial1(1);
 </code></pre>
 			<p class="mb-3">
 				The code above creates an <b>object</b> of the <b>HardwareSerial class</b> that manages a new UART connection over <b>TX</b> and <b>RX</b> pins passed to the constructor. Then, you just use the pins like you would normally!
@@ -323,8 +323,8 @@ HardwareSerial mySerial1(rxPin, txPin);
 				
 
 // Use pins 20 and 21 with HardwareSerial to communicate with DFPlayer Mini
-const int PIN_MP3_TX = 20; // Connects to module's RX
-const int PIN_MP3_RX = 21; // Connects to module's TX
+const int PIN_MP3_TX = 21; // Connects to module's RX
+const int PIN_MP3_RX = 20; // Connects to module's TX
 
 
 // Define serial port objects
