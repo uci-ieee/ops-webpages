@@ -323,8 +323,8 @@ HardwareSerial mySerial1(1);
 				
 
 // Use pins 20 and 21 with HardwareSerial to communicate with DFPlayer Mini
-const int PIN_MP3_TX = 21; // Connects to module's RX
-const int PIN_MP3_RX = 20; // Connects to module's TX
+const int PIN_MP3_RX = 20; // Connects to module's RX
+const int PIN_MP3_TX = 21; // Connects to module's TX
 
 
 // Define serial port objects
@@ -338,7 +338,7 @@ void setup() {
 	Serial.begin(115200);
 				
 	// Initialize the pins for HardwareSerial. No pinMode calls needed.
-	mySerial1.begin(9600, PIN_MP3_RX, PIN_MP3_TX); // RX=20, TX=21
+	mySerial1.begin(9600, SERIAL_8N1, PIN_MP3_RX, PIN_MP3_TX); // RX=20, TX=21
 
 	delay(1000); //DO NOT REMOVE THIS DELAY. It is needed to properly initialize HardwareSerial.
 
