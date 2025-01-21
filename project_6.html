@@ -112,15 +112,15 @@
 				</div>
 				<div class="alert alert-light" role="alert">
 					<i class="bi bi-calendar-event me-1"></i>
-					Updated 2024.01.25 <br>
-					By Benjamen Bielecki
+					Updated 2025.01.21 <br>
+					By Sahil Dhaktode
 				</div>
 			</div>
 
 			<h2 class="mb-3 fw-bold" id="pj-heading-introduction">Overview</h2>
 			<p class="mb-5">
 				This next project is a culmination of all that you have learned in communication. You will transfer data
-				between two Arduino boards and
+				between two ESP32 boards and
 				several embedded devices using 1-Wire, SPI, and I<sup>2</sup>C. The goal? Your system will be a full-fledged,
 				wireless weather station.
 				An outdoor Arduino unit, connected to temperature, humidity, and light sensors, will transmit its data
@@ -192,21 +192,21 @@
 			</table>
 
 			<h2 class="mb-3 fw-bold" id="pj-heading-concepts">Concepts</h2>
-			<h3 class="mb-3" id="pj-heading-dht11">DHT11 Sensor</h3>
+			<h3 class="mb-3" id="pj-heading-dht11">AHT20 Sensor</h3>
 
 			<p class="mb-5">
-				We will use the DHT11 sensor module to measure temperature and humidity. This component is rather
+				We will use the AHT20 sensor module to measure temperature and humidity. This component is rather
 				straightforward.
-				The DHT11 uses the <a class="link-primary"
-					href="https://docs.arduino.cc/learn/communication/one-wire">1-Wire® protocol</a> to communicate
-				with the Arduino board over a single data line. We simply need to accept the data at the Arduino and
+				The AHT20 uses the <a class="link-primary"
+					href="https://docs.arduino.cc/learn/communication/wire/">Inter-Integrated Circuit (I²C)® protocol</a> to communicate
+				with the ESP32 board over a single data line and clock line. We simply need to accept the data at the ESP32 and
 				display it.
 			</p>
 
-			<h4 class="mb-3 fw-light">DHT11 Pinout Diagram</h4>
+			<h4 class="mb-3 fw-light">AHT20 Pinout</h4>
 			<img class="pj-img-fluid-end" src="assets\images\project_6\ops_dht11_annotated.png" width="200">
 			<p class="mb-5">
-				To the right is the pinout of the DHT11.
+				To the right is the pinout of the AHT20.
 				<br><br>
 				The GND and <span class="text-red">VCC</span> pins power the radio module. Note that the <span
 					class="text-red">VCC</span> pin takes a voltage between 3.3 and <br>
