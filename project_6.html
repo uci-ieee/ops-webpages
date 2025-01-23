@@ -123,8 +123,8 @@
 				between two ESP32 boards and
 				several embedded devices using 1-Wire, SPI, and I<sup>2</sup>C. The goal? Your system will be a full-fledged,
 				wireless weather station.
-				An outdoor Arduino unit, connected to temperature, humidity, and light sensors, will transmit its data
-				over radio to the indoor Arduino unit,
+				An outdoor ESP32 unit, connected to temperature, humidity, and light sensors, will transmit its data
+				over radio to the indoor ESP32 unit,
 				which will print this information on a display.
 			</p>
 
@@ -648,8 +648,17 @@ void loop()
 }</code></pre>
 
 
-
-
+					<h2 class="mb-3 fw-bold" id="pj-heading-requirements">ESP32 Pinout</h2>
+					<p class="mb-3">
+						Thinking about using a pin but you don’t know what it does? 
+						Refer to the ESP32 pinout diagram. The full datasheet is linked in the Parts [Webpage Link] section.
+					</p>
+					<p class="mb-3">
+						~ represents pins that are PWM capable.
+					</p>
+					<p class="mb-3">
+						<img class="pj-img-fluid mx-auto mb-5" src="assets\images\pinouts\[2024-2025] OPS ESP32-C3 PINOUT.png" width="900">
+					</p>
 					<h2 class="mb-3 fw-bold" id="pj-heading-requirements">Requirements</h2>
 
 					<h3 class="mb-3" id="pj-heading-transmitter-station">Transmitter Station</h3>
@@ -659,7 +668,7 @@ void loop()
 							station.
 						</li>
 						<li class="list-group-item">
-							The transmitter must read and interpret data from a light sensor and DHT11 sensor
+							The transmitter must read and interpret data from a light sensor and AHT20 sensor
 							<strong>every 10 seconds</strong>.
 						</li>
 						<li class="list-group-item">
@@ -674,7 +683,7 @@ void loop()
 							The sensor data must be accurate.
 						</li>
 						<li class="list-group-item">
-							After the transmitter reads the sensor data, it must immediately send it using the NRF24L01
+							After the transmitter reads the sensor data, it must immediately send it using the ESP32's WiFi module
 							transceiver.
 						</li>
 						<li class="list-group-item">
@@ -689,11 +698,10 @@ void loop()
 							onto an LCD.
 						</li>
 						<li class="list-group-item">
-							The receiver must update the LCD with the most recently received data over the NRF24L01
-							transceiver.
+							The receiver must update the LCD with the most recently received data over the ESP32’s Wifi Module.
 						</li>
 						<li class="list-group-item">
-							The data received must be identical to the data sent over the NRF24L01 transceiver.
+							The data received must be identical to the data sent over the ESP32’s Wifi Module.
 						</li>
 						<li class="list-group-item">
 							The data must include the following:
@@ -733,20 +741,6 @@ void loop()
 								<td>1</td>
 							</tr>
 							<tr>
-								<td>Dupont Jumper Wire (Male-to-Female)</td>
-								<td>18</td>
-							</tr>
-							<tr>
-								<td>
-									<a class="pj-part"
-										data-bs-content="<img src='./assets/images/parts/ops_part_nrf24l01.png' height='150px' width='auto'>"
-										data-bs-trigger="hover focus" data-bs-toggle="popover" tabindex="0">
-										N4F24L01 Transceiver Module
-									</a>
-								</td>
-								<td>2</td>
-							</tr>
-							<tr>
 								<td>
 									<a class="pj-part"
 										data-bs-content="<img src='./assets/images/parts/ops_part_lcd_i2c_backpack.png' height='150px' width='auto'>"
@@ -761,7 +755,7 @@ void loop()
 									<a class="pj-part"
 										data-bs-content="<img src='./assets/images/parts/ops_part_dht11.png' height='150px' width='auto'>"
 										data-bs-trigger="hover focus" data-bs-toggle="popover" tabindex="0">
-										DHT11
+										AHT20
 									</a>
 								</td>
 								<td>1</td>
@@ -769,9 +763,9 @@ void loop()
 							<tr>
 								<td>
 									<a class="pj-part"
-										data-bs-content="<img src='./assets/images/parts/ops_part_arduino_nano.png' height='150px' width='auto'>"
+										data-bs-content="<img src='assets\images\parts\ops_part_esp32c3fxh4.jpg' height='150px' width='auto'>"
 										data-bs-trigger="hover focus" data-bs-toggle="popover" tabindex="0">
-										Arduino Nano
+										ESP32
 									</a>
 								</td>
 								<td>2</td>
@@ -787,7 +781,7 @@ void loop()
 								<td>1</td>
 							</tr>
 							<tr>
-								<td>Resistor (10kΩ)</td>
+								<td>Resistor (4.7kΩ)</td>
 								<td>1</td>
 							</tr>
 							<tr>
