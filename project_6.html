@@ -208,54 +208,71 @@
 			<p class="mb-5">
 				To the right is the pinout of the AHT20.
 				<br><br>
-				The GND and <span class="text-red">VCC</span> pins power the radio module. Note that the <span
+				The GND and <span class="text-red">VCC</span> pins power the sensor module. Note that the <span
 					class="text-red">VCC</span> pin takes a voltage between 3.3 and <br>
 					5V, but to keep it simple,
-				<strong>connect it to the VCC pin</strong> of the Arduino board.
+				<strong>connect it to the VCC pin</strong> of the ESP32 board.
 				<br><br>
-				The third and final pin is <span class="text-green">S</span>. This line carries the communication
-				between the Arduino and the sensor. It should be connected to a digital pin of the Arduino board.
+				<span style="color: rgb(58, 202, 58);">SDA</span> is the serial data pin corresponding to the <strong>data line</strong>. 
+				<span style="color: rgb(43, 154, 209);">SCL</span> is the serial clock pin corresponding to the clock line.
+				At the rising clock edge of the <strong>clock line</strong>, a bit of data is sent to and/or from the controller (ESP32) and a peripheral 
+				(AHT20 sensor) on the data line. These pins should be <strong>connected to digital pins</strong> on the ESP32 to facilitate I²C communication.
 			</p>
 
-			<h4 class="mb-3 fw-light">Using the DHT Library</h4>
+			<h4 class="mb-3 fw-light">Using the AHT20 Library</h4>
 			<p class="mb-3">
 
-				Writing the code for the DHT11 is almost as easy as wiring it! You can download the DHT library
+				Writing the code for the AHT20 is almost as easy as wiring it! You can download the library
 				<a class="link-primary"
-					href="assets\libraries\DHT_sensor_library-1.4.4.zip">here</a>. 
-
-				You will also need to download the Adafruit USD Library 
-				<a class="link-primary"
-					href="assets\libraries\Adafruit_Sensor.zip">here</a>. 
+					href="assets\libraries\DHT_sensor_library-1.4.4.zip">here</a>.  
 				Make sure to include the header files:
 			</p>
 			<p class="mb-3">
-				<code class="pj-code language-arduino">#include &lt;DHT.h&gt;</code> <br>
-				<code class="pj-code language-arduino">#include &lt;Adafruit_Sensor.h&gt;</code>
+				<code class="pj-code language-arduino">#include &lt;Adafruit_AHTX0.h&gt;</code> <br>
 			</p>
 			<p class="mb-3">
-				At the core of this library is the DHT class, which you will instantiate as an object and use to
+				At the core of this library is the AHT class, which you will instantiate as an object and use to
 				read
 				data from the sensor.
 			</p>
 			<p class="mb-3">
-				Create an object as follows, declaring it in the global scope.
+				Create an object as follows, declaring it in the global scope. <br> <code class="pj-code language-arduino">Adafruit_AHTX0 aht;</code>
 			</p>
 			<p class="mb-3">
-				<code class="pj-code language-arduino">DHT weatherSensor(int pin, DHT11);</code>
-			</p>
-
-			<p class="mb-3">
-				Then, in the <code class="pj-code language-arduino">setup()</code> function definition, initiate DHT communication with the following:
+				A structure is a data type that groups multiple variables into a single unit.
+				Create a structure called struct_message that holds the variables temperature and humidity as seen below.
 			</p>
 			<p class="mb-3">
-				<code class="pj-code language-arduino">weatherSensor.begin();</code>
+				<pre class="mb-3"><code class="pj-code language-arduino">
+typedef struct struct_message {
+	float temperature;
+	float humidity;
+} struct_message;
+				</code></pre>
 			</p>
-			<p class="mb-5">
-				To collect data from the sensor, call the <code
-					class="pj-code language-arduino">readHumidity()</code>
-				and <code class="pj-code language-arduino">readTemperature()</code> functions
-				from the DHT object. These functions return a float type which can be stored in a variable.
+			<p class="mb-3">
+				Then, initialize a struct_message object called myData as follows.<br>
+				<code class="pj-code language-arduino">struct_message myData;</code>
+			</p>
+			<p class="mb-3">
+				Initialize two sensors_event_t objects called humidity and temp. sensors_event_t is a structure defined in the Adafruit Library. <code
+					class="pj-code language-arduino">sensors_event_t humidity, temp;</code>
+			</p>
+			<p class="mb-5">	
+				To collect data from the sensor, call the
+				<code class="pj-code language-arduino">getEvent()</code> function from the aht object as follows. <br>
+				<code class="pj-code language-arduino">aht.getEvent(&humidity, &temp);</code>
+			</p>
+			<p class="mb-3">
+				By calling <code class="pj-code language-arduino">getEvent()</code>, humidity and temp are updated with the latest sensor values.
+				Then as follows, assign these values as floats to our humidity and temperature variables defined in myData.
+			</p>
+			<p class="mb-3">
+				<code class="pj-code language-arduino">myData.humidity = humidity.relative_humidity;</code> <br>
+				<code class="pj-code language-arduino">myData.temperature = temp.temperature;</code>
+			</p>
+			<p class="mb-3">
+				Temperature is Celsius by default. At this point, you can print the values to the serial monitor or use it however else you please.
 			</p>
 
 			<h3 class="mb-3" id="pj-heading-lcd">LCD with I<sup>2</sup>C Backpack</h3>
@@ -265,7 +282,7 @@
 				<br><br>
 				Traditionally, characters are transmitted from the board to the LCD in a parallel protocol, along with bits for other 
 				features like backlighting and positioning. Instead, we’ll use an I<sup>2</sup>C backpack, which translates an I<sup>2</sup>C signal to parallel. 
-				This reduces the mess of wiring over 10 pins to the Arduino to just four.
+				This reduces the mess of wiring over 10 pins to the ESP32 to just four.
 				<br><br>
 			</p>
 			<h4 class="mb-3 fw-light">I<sup>2</sup>C Backpack Pinout Diagram </h4>
@@ -277,21 +294,21 @@
 			
 			<p class="mb-5">
 				It should also come as no surprise that the GND and <span class="text-orange">VCC</span> pins power the backpack and the LCD. Note that the <span class="text-orange">VCC</span> pin accepts 5V, 
-				so <strong> connect it to the 5V pin </strong> of the Arduino board.
+				so <strong> connect it to the 5V pin </strong> of the ESP32 board.
 			</p>
 
 				
 
-			<h4 class="mb-3 fw-light">Wiring the Arudino to the I<sup>2</sup>C Backpack</h4>
+			<h4 class="mb-3 fw-light">Wiring the ESP32 to the I<sup>2</sup>C Backpack</h4>
 			<p class="mb-3">
-				The Arduino is designed to handle I<sup>2</sup>C communication through certain pins on the board,
+				The ESP32 is designed to handle I<sup>2</sup>C communication through certain pins on the board,
 				which connect to the backpack as follows.
 			</p>
 
 			<table class="table pj-download-table mb-5">
 				<tr>
 					<th>I<sup>2</sup>C Backpack Pins</th>
-					<th>Arduino Nano Pins</th>
+					<th>ESP32 Pins</th>
 				</tr>
 				<tr>
 					<td>GND</td>
@@ -311,9 +328,8 @@
 				</tr>
 			</table>
 			<p class="mb-5">
-				Having trouble seeing the text on your LCD? There is a potentiometer on the backpack that you can
-				turn to <strong>adjust the contrast </strong> of the LCD. You will need a Phillips screwdriver to do
-				so.
+				Having trouble seeing the text on your LCD? Use a Phillips screwdriver to turn
+				the potentiometer on the backpack. This will adjust the contrast of the LCD.
 			</p>
 
 			<h4 class="mb-3 fw-light" style="">Using the LiquidCrystal I<sup>2</sup>C Library</h4>
@@ -861,14 +877,14 @@ void loop()
 
 					<h4 class="mb-3 fw-light" id="pj-heading-checkpoint1" style="">Checkpoint 1</h4>
 					<p class="mb-3">
-						You will test the DHT11 and light sensor, outputting their data to the serial monitor.
+						You will test the AHT20 and light sensor, outputting their data to the serial monitor.
 					</p>
 					<ol class="mb-5 list-group list-group-numbered">
 						<li class="list-group-item">
 							Build the circuit in <strong>Schematic A</strong> on one breadboard.
 						</li>
 						<li class="list-group-item">
-							Program the Arduino board to print the following information to the serial monitor
+							Program the ESP32 board to print the following information to the serial monitor
 							<strong>every 10
 								seconds</strong>:
 							<ul>
@@ -916,7 +932,7 @@ Time: Night</code></pre>
 							</div>
 						</li>
 						<li class="list-group-item">
-							Program the Arduino board to print the following information to the serial monitor
+							Program the ESP32 board to print the following information to the serial monitor
 							<strong>every 10
 								seconds</strong>:
 							<ul>
@@ -951,15 +967,14 @@ Time: Night</code></pre>
 							</div>
 							<div class="alert alert-info" role="alert">
 								<ul>
-									<li>Connect the NRF24 radios to the breadboard using the dupont jumper wire.</li>
 									<li>This circuit will be powered by the 9V battery. <strong>No USB power is
 											required.</strong></li>
 								</ul>
 							</div>
 						</li>
 						<li class="list-group-item">
-							Program the transmitter Arduino board to send a
-							<code class="pj-code language-arduino">WeatherReport</code> container over radio
+							Program the transmitter ESP32 board to send a
+							<code class="pj-code language-arduino">WeatherReport</code> container over ESP32's Wi-Fi Module
 							<strong>every 10
 								seconds</strong>.
 						</li>
@@ -972,7 +987,7 @@ Time: Night</code></pre>
 							</div>
 						</li>
 						<li class="list-group-item">
-							Program the receiver Arduino board to display a
+							Program the receiver ESP32 board to display a
 							<code class="pj-code language-arduino">WeatherReport</code>on the LCD upon receiving one.
 							<div class="alert alert-info mt-2" role="alert">
 								You may set a delay since you only expect a report to be sent every 10 seconds.
@@ -1008,15 +1023,15 @@ Time: Night</code></pre>
 					<ul class="mb-4 list-group">
 						<li class="list-group-item">
 							<i class="bi bi-check2-square me-2"></i>
-							Photo of the weather station/transmitter Arduino board
+							Photo of the weather station/transmitter ESP32 board
 							<div class="alert alert-info mt-2" role="alert">
-								This photo should include the DHT11, light sensor, NRF24 transceiver, and one Arduino
+								This photo should include the AHT20, light sensor, and one ESP32
 								correctly wired together.
 							</div>
 						</li>
 						<li class="list-group-item">
 							<i class="bi bi-check2-square me-2"></i>
-							Photo of the receiver Arduino board
+							Photo of the receiver ESP32 board
 							<div class="alert alert-info mt-2" role="alert">
 								This photo should include the NRF24 transceiver, LCD, and one Arduino correctly wired
 								together.
@@ -1028,9 +1043,9 @@ Time: Night</code></pre>
 						</li>
 						<li class="list-group-item">
 							<i class="bi bi-check2-square me-2"></i>
-							Transmitter Arduino sketch file
+							Transmitter Arduino IDE sketch file
 							<div class="alert alert-info mt-2" role="alert">
-								This file should include all of the code you have written for the Arduino Nano acting as
+								This file should include all of the code you have written for the ESP32 acting as
 								the
 								transmitter. Name it “<code
 									class="pj-code language-plaintext">ops_project6_transmitter.ino</code>”.
@@ -1038,9 +1053,9 @@ Time: Night</code></pre>
 						</li>
 						<li class="list-group-item">
 							<i class="bi bi-check2-square me-2"></i>
-							Receiver Arduino sketch file
+							Receiver Arduino IDE sketch file
 							<div class="alert alert-info mt-2" role="alert">
-								This file should include all of the code you have written for the Arduino Nano acting as
+								This file should include all of the code you have written for the ESP32 acting as
 								the
 								receiver. Name it “<code
 									class="pj-code language-plaintext">ops_project6_receiver.ino</code>”.
