@@ -113,7 +113,7 @@
 				<div class="alert alert-light" role="alert">
 					<i class="bi bi-calendar-event me-1"></i>
 					Updated 2025.01.21 <br>
-					By Sahil Dhaktode
+					By Sahil and Zicong
 				</div>
 			</div>
 
@@ -121,7 +121,7 @@
 			<p class="mb-5">
 				This next project is a culmination of all that you have learned in communication. You will transfer data
 				between two ESP32 boards and
-				several embedded devices using 1-Wire, SPI, and I<sup>2</sup>C. The goal? Your system will be a full-fledged,
+				several embedded devices using Wifi and I<sup>2</sup>C. The goal? Your system will be a full-fledged,
 				wireless weather station.
 				An outdoor ESP32 unit, connected to temperature, humidity, and light sensors, will transmit its data
 				over radio to the indoor ESP32 unit,
@@ -159,15 +159,7 @@
 						<td>AHT20 Library</td>
 						<td>
 							<a class="btn btn-outline-success mx-3"
-								href="assets\libraries\DHT_sensor_library-1.4.4.zip"
-								role="button"><i class="bi bi-download"></i> Download</a>
-						</td>
-					</tr>
-					<tr>
-						<td>Adafruit Unified Sensor Library</td>
-						<td>
-							<a class="btn btn-outline-success mx-3"
-								href="assets\libraries\Adafruit_Sensor.zip"
+								href="assets/libraries/Adafruit_AHTX0.zip"
 								role="button"><i class="bi bi-download"></i> Download</a>
 						</td>
 					</tr>
@@ -179,7 +171,14 @@
 								role="button"><i class="bi bi-download"></i> Download</a>
 						</td>
 					</tr>
-
+					<tr>
+						<td>WifiConfig Library</td>
+						<td>
+							<a class="btn btn-outline-success mx-3"
+								href="assets/libraries/WiFiConfig.zip"
+								role="button"><i class="bi bi-download"></i> Download</a>
+						</td>
+					</tr>
 					
 				</tbody>
 			</table>
@@ -190,9 +189,9 @@
 			<p class="mb-5">
 				We will use the AHT20 sensor module to measure temperature and humidity. This component is rather
 				straightforward.
-				The AHT20 uses the <a class="link-primary"
-					href="https://docs.arduino.cc/learn/communication/wire/">Inter-Integrated Circuit (I²C)® protocol</a> to communicate
-				with the ESP32 board over a single data line and clock line. We simply need to accept the data at the ESP32 and
+				The AHT20 uses the <a class="link-primary" href="https://docs.arduino.cc/learn/communication/wire/" target="_blank"
+				rel="noopener noreferrer">Inter-Integrated Circuit (I²C)® protocol</a>
+				to communicate with the ESP32 board over a single data line and clock line. We simply need to accept the data at the ESP32 and
 				display it.
 			</p>
 
@@ -202,8 +201,7 @@
 				To the right is the pinout of the AHT20.
 				<br><br>
 				The GND and <span class="text-red">VCC</span> pins power the sensor module. Note that the <span
-					class="text-red">VCC</span> pin takes a voltage between 3.3 and <br>
-					5V, but to keep it simple,
+					class="text-red">VCC</span> pin takes a voltage between 3.3 and 5V, but to keep it simple,
 				<strong>connect it to the VCC pin</strong> of the ESP32 board.
 				<br><br>
 				<span style="color: rgb(58, 202, 58);">SDA</span> is the serial data pin corresponding to the <strong>data line</strong>. 
@@ -217,7 +215,7 @@
 
 				Writing the code for the AHT20 is almost as easy as wiring it! You can download the library
 				<a class="link-primary"
-					href="assets\libraries\DHT_sensor_library-1.4.4.zip">here</a>.  
+					href="assets/libraries/Adafruit_AHTX0.zip">here</a>.  
 				Make sure to include the header files:
 			</p>
 			<p class="mb-3">
