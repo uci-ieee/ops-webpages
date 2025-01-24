@@ -53,16 +53,20 @@
 
 						<ul class="nav">
 							<li class="nav-item">
-								<a class="nav-link" href="#pj-heading-dht11">DHT11 Sensor</a>
+								<a class="nav-link" href="#pj-heading-aht20">AHT20 Sensor</a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="#pj-heading-lcd">LCD with I<sup>2</sup>C Backpack</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="#pj-heading-nrf24l01">NRF24L01 Transceiver Module</a>
+								<a class="nav-link" href="#pj-heading-wifi">WiFi</a>
 							</li>
 						</ul>
 					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-esp32pinout">ESP32 Pinout</a>
+					</li>
+
 					<li class="nav-item">
 						<a class="nav-link" href="#pj-heading-requirements">Requirements</a>
 						<ul class="nav">
@@ -112,19 +116,19 @@
 				</div>
 				<div class="alert alert-light" role="alert">
 					<i class="bi bi-calendar-event me-1"></i>
-					Updated 2024.01.25 <br>
-					By Benjamen Bielecki
+					Updated 2025.01.21 <br>
+					By Sahil and Zicong
 				</div>
 			</div>
 
 			<h2 class="mb-3 fw-bold" id="pj-heading-introduction">Overview</h2>
 			<p class="mb-5">
 				This next project is a culmination of all that you have learned in communication. You will transfer data
-				between two Arduino boards and
-				several embedded devices using 1-Wire, SPI, and I<sup>2</sup>C. The goal? Your system will be a full-fledged,
+				between two ESP32 boards and
+				several embedded devices using Wifi and I<sup>2</sup>C. The goal? Your system will be a full-fledged,
 				wireless weather station.
-				An outdoor Arduino unit, connected to temperature, humidity, and light sensors, will transmit its data
-				over radio to the indoor Arduino unit,
+				An outdoor ESP32 unit, connected to temperature, humidity, and light sensors, will transmit its data
+				over radio to the indoor ESP32 unit,
 				which will print this information on a display.
 			</p>
 
@@ -156,18 +160,10 @@
 			<table class="table pj-download-table mb-5">
 				<tbody>
 					<tr>
-						<td>DHT Library</td>
+						<td>AHT20 Library</td>
 						<td>
 							<a class="btn btn-outline-success mx-3"
-								href="assets\libraries\DHT_sensor_library-1.4.4.zip"
-								role="button"><i class="bi bi-download"></i> Download</a>
-						</td>
-					</tr>
-					<tr>
-						<td>Adafruit Unified Sensor Library</td>
-						<td>
-							<a class="btn btn-outline-success mx-3"
-								href="assets\libraries\Adafruit_Sensor.zip"
+								href="assets/libraries/Adafruit_AHTX0.zip"
 								role="button"><i class="bi bi-download"></i> Download</a>
 						</td>
 					</tr>
@@ -179,83 +175,88 @@
 								role="button"><i class="bi bi-download"></i> Download</a>
 						</td>
 					</tr>
-
 					<tr>
-						<td>NRF24L01_W Library</td>
+						<td>WifiConfig Library</td>
 						<td>
 							<a class="btn btn-outline-success mx-3"
-								href="assets\libraries\NRF24L01_W.zip"
+								href="assets/libraries/WiFiConfig.zip"
 								role="button"><i class="bi bi-download"></i> Download</a>
 						</td>
 					</tr>
+					
 				</tbody>
 			</table>
 
 			<h2 class="mb-3 fw-bold" id="pj-heading-concepts">Concepts</h2>
-			<h3 class="mb-3" id="pj-heading-dht11">DHT11 Sensor</h3>
+			<h3 class="mb-3" id="pj-heading-aht20">AHT20 Sensor</h3>
 
 			<p class="mb-5">
-				We will use the DHT11 sensor module to measure temperature and humidity. This component is rather
+				We will use the AHT20 sensor module to measure temperature and humidity. This component is rather
 				straightforward.
-				The DHT11 uses the <a class="link-primary"
-					href="https://docs.arduino.cc/learn/communication/one-wire">1-Wire® protocol</a> to communicate
-				with the Arduino board over a single data line. We simply need to accept the data at the Arduino and
+				The AHT20 uses the <a class="link-primary" href="https://docs.arduino.cc/learn/communication/wire/" target="_blank"
+				rel="noopener noreferrer">Inter-Integrated Circuit (I²C)® protocol</a>
+				to communicate with the ESP32 board over a single data line and clock line. We simply need to accept the data at the ESP32 and
 				display it.
 			</p>
 
-			<h4 class="mb-3 fw-light">DHT11 Pinout Diagram</h4>
-			<img class="pj-img-fluid-end" src="assets\images\project_6\ops_dht11_annotated.png" width="200">
+			<h4 class="mb-3 fw-light">AHT20 Pinout</h4>
+			<img class="pj-img-fluid-end" src="assets/images/ops_project_6_AHT20pinout.png" width="250">
 			<p class="mb-5">
-				To the right is the pinout of the DHT11.
+				To the right is the pinout of the AHT20.
 				<br><br>
-				The GND and <span class="text-red">VCC</span> pins power the radio module. Note that the <span
-					class="text-red">VCC</span> pin takes a voltage between 3.3 and <br>
-					5V, but to keep it simple,
-				<strong>connect it to the VCC pin</strong> of the Arduino board.
+				The GND and <span class="text-red">VCC</span> pins power the sensor module. Note that the <span
+					class="text-red">VCC</span> pin takes a voltage between 3.3 and 5V, but to keep it simple,
+				<strong>connect it to the VCC pin</strong> of the ESP32 board.
 				<br><br>
-				The third and final pin is <span class="text-green">S</span>. This line carries the communication
-				between the Arduino and the sensor. It should be connected to a digital pin of the Arduino board.
+				<span style="color: rgb(58, 202, 58);">SDA</span> is the serial data pin corresponding to the <strong>data line</strong>. 
+				<span style="color: rgb(43, 154, 209);">SCL</span> is the serial clock pin corresponding to the clock line.
+				At the rising clock edge of the <strong>clock line</strong>, a bit of data is sent to and/or from the controller (ESP32) and a peripheral 
+				(AHT20 sensor) on the data line. These pins should be <strong>connected to digital pins</strong> on the ESP32 to facilitate I²C communication.
 			</p>
 
-			<h4 class="mb-3 fw-light">Using the DHT Library</h4>
+			<h4 class="mb-3 fw-light">Using the AHT20 Library</h4>
 			<p class="mb-3">
 
-				Writing the code for the DHT11 is almost as easy as wiring it! You can download the DHT library
+				Writing the code for the AHT20 is almost as easy as wiring it! You can download the library
 				<a class="link-primary"
-					href="assets\libraries\DHT_sensor_library-1.4.4.zip">here</a>. 
-
-				You will also need to download the Adafruit USD Library 
-				<a class="link-primary"
-					href="assets\libraries\Adafruit_Sensor.zip">here</a>. 
+					href="assets/libraries/Adafruit_AHTX0.zip">here</a>.  
 				Make sure to include the header files:
 			</p>
 			<p class="mb-3">
-				<code class="pj-code language-arduino">#include &lt;DHT.h&gt;</code> <br>
-				<code class="pj-code language-arduino">#include &lt;Adafruit_Sensor.h&gt;</code>
+				<code class="pj-code language-arduino">#include &lt;Adafruit_AHTX0.h&gt;</code> <br>
 			</p>
 			<p class="mb-3">
-				At the core of this library is the DHT class, which you will instantiate as an object and use to
+				At the core of this library is the Adafruit_AHTX0 class, which you will instantiate as an object and use to
 				read
 				data from the sensor.
 			</p>
 			<p class="mb-3">
-				Create an object as follows, declaring it in the global scope.
+				Create an object as follows, declaring it in the global scope. <br> <code class="pj-code language-arduino">Adafruit_AHTX0 aht;</code>
 			</p>
 			<p class="mb-3">
-				<code class="pj-code language-arduino">DHT weatherSensor(int pin, DHT11);</code>
+				Then, initialize two sensors_event_t objects called humidity and temp. sensors_event_t is a structure defined in the Adafruit Library. <code
+					class="pj-code language-arduino">sensors_event_t humidity, temp;</code>
 			</p>
-
+			<p class="mb-3">	
+				To start communication with the AHT20, call the
+				<code class="pj-code language-arduino">aht.begin()</code> function.<br>
+				<code class="pj-code language-arduino">aht.begin();</code>
+			</p>
+			<p class="mb-5">	
+				To collect data from the sensor, call the
+				<code class="pj-code language-arduino">getEvent()</code> function from the aht object as follows. <br>
+				<code class="pj-code language-arduino">aht.getEvent(&humidity, &temp);</code>
+			</p>
 			<p class="mb-3">
-				Then, in the <code class="pj-code language-arduino">setup()</code> function definition, initiate DHT communication with the following:
+				By calling <code class="pj-code language-arduino">getEvent()</code>, humidity and temp are updated with the latest sensor values.
+				You can now for example print these values to the serial monitor, just make sure in <code class="pj-code language-arduino">void setup()</code> you have included <code class="pj-code language-arduino">serial.Begin(115200);</code>.
 			</p>
 			<p class="mb-3">
-				<code class="pj-code language-arduino">weatherSensor.begin();</code>
+				<code class="pj-code language-arduino">Serial.print(humidity.relative_humidity);</code> <br>
+				<code class="pj-code language-arduino">Serial.print(temp.temperature);</code>
 			</p>
-			<p class="mb-5">
-				To collect data from the sensor, call the <code
-					class="pj-code language-arduino">readHumidity()</code>
-				and <code class="pj-code language-arduino">readTemperature()</code> functions
-				from the DHT object. These functions return a float type which can be stored in a variable.
+			<p class="mb-3">
+				Temperature is Celsius by default.
 			</p>
 
 			<h3 class="mb-3" id="pj-heading-lcd">LCD with I<sup>2</sup>C Backpack</h3>
@@ -265,7 +266,7 @@
 				<br><br>
 				Traditionally, characters are transmitted from the board to the LCD in a parallel protocol, along with bits for other 
 				features like backlighting and positioning. Instead, we’ll use an I<sup>2</sup>C backpack, which translates an I<sup>2</sup>C signal to parallel. 
-				This reduces the mess of wiring over 10 pins to the Arduino to just four.
+				This reduces the mess of wiring over 10 pins to the ESP32 to just four.
 				<br><br>
 			</p>
 			<h4 class="mb-3 fw-light">I<sup>2</sup>C Backpack Pinout Diagram </h4>
@@ -277,21 +278,21 @@
 			
 			<p class="mb-5">
 				It should also come as no surprise that the GND and <span class="text-orange">VCC</span> pins power the backpack and the LCD. Note that the <span class="text-orange">VCC</span> pin accepts 5V, 
-				so <strong> connect it to the 5V pin </strong> of the Arduino board.
+				so <strong> connect it to the 5V pin </strong> of the ESP32 board.
 			</p>
 
 				
 
-			<h4 class="mb-3 fw-light">Wiring the Arudino to the I<sup>2</sup>C Backpack</h4>
+			<h4 class="mb-3 fw-light">Wiring the ESP32 to the I<sup>2</sup>C Backpack</h4>
 			<p class="mb-3">
-				The Arduino is designed to handle I<sup>2</sup>C communication through certain pins on the board,
+				The ESP32 is designed to handle I<sup>2</sup>C communication through certain pins on the board,
 				which connect to the backpack as follows.
 			</p>
 
 			<table class="table pj-download-table mb-5">
 				<tr>
 					<th>I<sup>2</sup>C Backpack Pins</th>
-					<th>Arduino Nano Pins</th>
+					<th>ESP32 Pins</th>
 				</tr>
 				<tr>
 					<td>GND</td>
@@ -303,17 +304,16 @@
 				</tr>
 				<tr>
 					<td><span class="text-green">SDA</span></td>
-					<td>A4</td>
+					<td>8</td>
 				</tr>
 				<tr>
 					<td><span class="text-blue">SCL</span></td>
-					<td>A5</td>
+					<td>10</td>
 				</tr>
 			</table>
 			<p class="mb-5">
-				Having trouble seeing the text on your LCD? There is a potentiometer on the backpack that you can
-				turn to <strong>adjust the contrast </strong> of the LCD. You will need a Phillips screwdriver to do
-				so.
+				Having trouble seeing the text on your LCD? Use a Phillips screwdriver to turn
+				the potentiometer on the backpack. This will adjust the contrast of the LCD.
 			</p>
 
 			<h4 class="mb-3 fw-light" style="">Using the LiquidCrystal I<sup>2</sup>C Library</h4>
@@ -400,20 +400,22 @@ void loop()
 }</code></pre>
 
 
-			<h3 class="mb-3" id="pj-heading-nrf24l01">NRF24L01 Transceiver Module</h3>
+			<h3 class="mb-3" id="pj-heading-wifi">WiFi</h3>
 			<p class="mb-3">
-				The NRF24 radio transceiver is a popular choice for wireless communication between microcontroller boards. We’ll use the NRF24L01 variation, 
-				which is a low-power, high-frequency radio module.
+				WiFi is the most popular choice for wireless communication between devices. It uses radio waves to “connect” devices, 
+				allowing them to communicate. While we won’t be using an actual WiFi network, we will use the ESP32’s communication protocol 
+				<b>ESP-NOW</b>, which uses the ESP32’s built-in WiFi module.
+
 			</p>
 			<p class="mb-5">
-				Here’s how we’ll transmit data: The Arduino board will transfer messages to and from the radio module using SPI protocol, and the radio module will handle the rest. 
-				It uses a radio protocol called <a class="link-primary" href= "https://devzone.nordicsemi.com/nordic/nordic-blog/b/blog/posts/intro-to-shockburstenhanced-shockburst">Enhanced ShockBurst™</a> (ESB) to transmit wirelessly to another NRF24. The beauty of it all is that we don’t need to know how ESB protocol works; 
-				we just need to get the data from the Arduino to the radio module.
+				Here’s how we’ll transmit data: One ESP32’s WiFi module will wirelessly transmit messages to another ESP32’s 
+				WiFi module using the ESP-NOW protocol. We won’t dive into the details of how ESP-NOW works, but we will 
+				cover the concept of how radio waves are emitted.
 			</p>
 
 			<h4 class="mb-3 fw-light">Radio Frequency Bands and Channels</h4>
 			<p class="mb-3">
-				Remember that the NRF24 modules send information over radio waves, just like our mobile phones, satellites, and WiFi. But how do the <strong> radio waves </strong> emitted by a 
+				Remember that the WiFi modules send information over radio waves, just like our mobile phones, satellites, and WiFi. But how do the <strong> radio waves </strong> emitted by a 
 				satellite not interfere with the radio waves of a WiFi router or iPhone? Let’s explain: Each signal belongs to a <strong>frequency band</strong> or range of contiguous frequencies specified 
 				by the International Telecommunication Union (ITU).
 			</p>
@@ -421,136 +423,98 @@ void loop()
 			<img class="pj-img-fluid mx-auto mb-5" src="assets\images\ops_radio_frequency.png" width="1500">
 
 			<p class="mb-3">
-					FM radio is designated to a frequency band of 88-108 MHz, and WiFi exists in 2.4 GHz and 5 GHz bands. These bands are further divided into <strong>channels</strong>.
+					WiFi exists in 2.4 GHz,5 GHz and 6 GHz bands. These bands are further divided into <strong>channels</strong>.
 					</p>
 
 			<p class="mb-3">
-				For example, FM radio has 100 channels, each with a different radio frequency within the larger frequency band. FM radio stations are assigned to unique channels, which is why you normally don’t hear 
-				Taylor Swift overlaid with the latest stock market report.
+				For example, 2.4 GHz WiFi 14 channels, each with a different radio frequency within the larger frequency band. FM radio stations are assigned to unique channels, which is why you normally don’t hear 
+				Taylor Swift overlaid with the latest stock market report. WiFi networks close together are assigned to different channels so they do not interfere with each other. For instance, if you and your next-door 
+				neighbor set your WiFi networks to the same channel, the networks would interfere, slowing down your internet speeds.
 				</p>
 			<p class="mb-3">
-				If multiple radio signals were to exist on the same frequency, a collision would occur. This is why the ITU takes special care to regulate the radio spectrum.
+				If multiple radio signals were to exist on the same frequency, a collision would occur. This is why the ITU takes special care to regulating the radio spectrum.
 					</p>				
 			<p class="mb-5">
-				The NRF24L01 operates on a 2.4 GHz frequency band, which it shares with WiFi. This band is subdivided into 125 channels from which we choose to emit a signal. 
-				<strong>You will have to manually select a channel</strong> for the two radio modules to operate on. Moreover, this channel will have to be different from any nearby pair of NRF24 modules to avoid collisions.
-					</p>	
-
-			<h4 class="mb-3" style="">NRF24L01 Pinout</h4>
-			<p class="mb-3">
-				Below, you’ll find a pinout of the NRF24L01. You should recognize some of the pins as the SPI protocol lines 
-				(i.e., <span class="text-yellow">CE/CS</span>, <span class="text-green">PICO</span>, <span class="text-purple">POCI</span>, <span class="text-blue">SCK</span>).
-			<p class="mb-3">
-				<img class="pj-img-fluid mx-auto mb-5" src="assets\images\ops_nrf24l01_annotated.png" width="600">
-			</p>
-			<p class="mb-3">	
-					The GND and <span class="text-red">VCC</span> pins power the radio module. <Strong> Make sure that <span class="text-red">VCC</span> is connected to a 3.3V</Strong> power source rather than 5V. Unlike other components we use, the NRF24 accepts only 3.3V power, 
-					which is an increasingly common voltage in modern digital circuits. Luckily, the module still tolerates 5V logic, meaning we can connect the other pins to the Arduino’s digital pins as we normally would.
-						</p>
-			<p class="mb-3">
-				The <span class="text-yellow">CSN</span> pin is the “Chip Select Not” pin, which disables SPI communication when <Strong>HIGH</Strong>. When we want the radio module to listen for SPI messages, the pin is set to <strong>LOW</strong>.  
-					</p>	
-			<p class="mb-5">
-				Last but not least is the <span class="text-gray">IRQ</span> pin for interrupts, which we will not use in this project. Make sure the <span class="text-gray">IRQ</span> pin is left disconnected.
-			</p>	
-
-			<h4 class="mb-3 fw-light" id="pj-heading-dht11">Wiring the Arduino to the Radio Module</h4>
-			<p class="mb-3">
-			Just like I<sup>2</sup>C, the Arduino is designed to handle SPI communication through certain pins on the board, which connect to the NRF24 as follows.
-				
-
-			<table class="table pj-download-table mb-5">
-				<tr>
-					<th>NRF24L01 Pins</th>
-					<th>Arduino Nano Pins</th>
-				</tr>
-				<tr>
-					<td>GND</td>
-					<td>GND</td>
-				</tr>
-				<tr>
-					<td><span class="text-red">VCC</span></td>
-					<td>3.3V</td>
-				</tr>
-				<tr>
-					<td><span class="text-yellow">CE/CS</span></td>
-					<td>D7</td>
-				</tr>
-				<tr>
-					<td><span class="text-orange">CSN</span></td>
-					<td>D8</td>
-				</tr>
-				<tr>
-					<td><span class="text-blue">SCK</span></td>
-					<td>D13</td>
-				</tr>
-				<tr>
-					<td><span class="text-green">PICO</span></td>
-					<td>D11</td>
-				</tr>
-				<tr>
-					<td><span class="text-purple">POCI</span></td>
-					<td>D12</td>
-				</tr>
-				<tr>
-					<td><span class="text-gray">IRQ</span></td>
-					<td>None</td>
-				</tr>
+				The ESP-NOW communication protocol operates on a 2.4 GHz frequency band, which it shares with many WiFi networks. However, 
+				ESP-NOW is not a WiFi network itself; it is a different wireless communication that uses an ESP32’s WiFi module to directly 
+				communicate with another ESP32. While WiFi uses an access point to establish a connection between two devices, ESP-NOW identifies another ESP32 board by its MAC address and uses the ESP32 WiFi module to directly transmit data to that receiver address.
 
 
-			</table>
-
-			<h4 class="mb-3 fw-light" style="display: inline;">Using the NRF24L01_W Library</h4>
+			<h4 class="mb-3 fw-light" style="display: inline;">Using the WiFi Library</h4>
 			<p class="mb-3">
 				<br>
-				Once you wire the Arduino board to the radio module, it’s time to write code! Download the
-				library <a class="link-primary"
-					href="https://drive.google.com/file/d/1NOQYAHhi2zEvs3LF03NmtVruFnfNxvSp/view?usp=share_link">
+				Download the library <a class="link-primary"
+					href="assets/libraries/WiFiConfig.zip">
 					here </a>.
 				Make sure to include the header file:
 			</p>
 			<p class="mb-3">
-				<code class="pj-code language-arduino">#include &lt;NRF24L01_W.h&gt;</code>
+				<code class="pj-code language-arduino">#include &lt;WifiConfig.h&gt;</code>
 			</p>
 			<p class="mb-3">
-				You will instantiate a global object of the NRF24L01_W class, which represents the radio
-				connected to the Arduino board.
-				The two arguments of the constructor are the <span class="text-yellow">CS</span> and <span
-					class="text-orange">CSN</span> pins of the board.
+				You need to determine the <b>MAC address</b> of the receiver ESP32 board. Run this sketch 
+				code on your receiver ESP32. The serial monitor should show the <b>MAC address</b> as a series of <b>hexadecimal</b> 
+				numbers separated by colons.
 			</p>
 			<p class="mb-3">
-				<code class="pj-code language-arduino">NRF24L01_W radio(int CS, int CSN); </code>
+				<p>
+					Example address: 34:b7:da:f6:3e:78.
+				</p>
+				<pre class="mb-5"><code class="pj-code language-arduino" style="white-space: pre-wrap; height:60vh;">#include &lt;Wifi.h&gt;
+#include &lt;esp_wifi.h&gt;
+
+void readMacAddress(){
+	uint8_t baseMac[6];
+	esp_err_t ret = esp_wifi_get_mac(WIFI_IF_STA, baseMac);
+	if (ret == ESP_OK) {
+	Serial.printf("%02x:%02x:%02x:%02x:%02x:%02x\n",
+					baseMac[0], baseMac[1], baseMac[2],
+					baseMac[3], baseMac[4], baseMac[5]);
+	} else {
+	Serial.println("Failed to read MAC address");
+	}
+}
+
+void setup(){
+	Serial.begin(115200);
+	WiFi.mode(WIFI_STA);
+	WiFi.STA.begin();
+	Serial.print("[DEFAULT] ESP32 Board MAC Address: ");
+	readMacAddress();
+}
+	
+void loop(){
+	Serial.print("[DEFAULT] ESP32 Board MAC Address: ");
+	readMacAddress();
+}</code></pre>
 			</p>
 			<p class="mb-3">
-				The next steps are to configure your newly created radio object. Place this code in your <code
-					class="pj-code language-arduino">setup()</code> function.
+				Next, create an array to store the receiver ESP32’s <b>MAC address</b>. Each <b>hexadecimal number</b> should be one
+				entry in the array, with the prefix <b>0x</b> to specify that the number is in hexadecimal. So for our example 
+				address 34:b7:da:f6:3e:78, we would initialize the array below:
 			</p>
 			<p class="mb-3">
-				<code class="pj-code language-arduino">radio.begin();</code>
+				<code class="pj-code language-arduino">uint8_t receiverAddress[] = {0x34, 0xB7, 0xDA, 0xF6, 0x3E, 0x78}</code>
 			</p>
 			<p class="mb-3">
-				You will set the <code class="pj-code language-arduino">address</code> of your radio to a five
-				character string and pass it into the radio's <code
-					class="pj-code language-arduino">setReceiveAddress()</code> function.
-				For example, you could set the address to <code class="pj-code language-arduino">"B1440”</code>.
-				<strong>Make sure the address is unique</strong>.
+				The next step is to put your ESP32 board in <b>WiFi mode</b> to prepare the onboard WiFi module for communication and start the ESP-NOW protocol. Place this code in your <code class="pj-code language-arduino">setup()</code> function.
+			</p>
+			<p class ="mb-3">
+				<code class="pj-code language-arduino">wifi_setup();</code>
 			</p>
 			<p class="mb-3">
-				<code class="pj-code language-arduino">radio.setReceiveAddress(char[] address);</code>
+				You will set the receiver ESP32 as the transmitting board’s “peer” by passing the receiver board’s 
+				MAC address into the <code class="pj-code language-arduino">peer_setup()</code> function. This ensures ESP-NOW knows which board it is transmitting to.
 			</p>
 			<p class="mb-3">
-				Now, enter the address of the radio to which you intend to transmit messages.
+				<code class="pj-code language-arduino">peer_setup(receiverAddress);</code>
 			</p>
+			<div class="alert alert-info mt-2 mb-3" role="alert">	
+				(Note: this step is only necessary for your transmitter ESP32 sketch. Your receiver does not need a peer configured because it is not the one sending data.)
+			</div>
 			<p class="mb-3">
-				<code class="pj-code language-arduino">radio.setTransmitAddress(char[] address);</code>
-			</p>
-			<p class="mb-3">
-				You will also set the channel that your radios will operate on. <strong>Pick one at
-					random</strong> in the range of 0-124.
-				Make sure that both NRF24 modules are set to the <strong>same channel</strong>.
-			</p>
-			<p class="mb-3">
-				<code class="pj-code language-arduino">radio.setChannel(int channel);</code>
+				Let’s move on to the code that would appear in the <code class="pj-code language-arduino">main()</code> loop. This is where weather report messages 
+				will be read and written (transmitted and received). To facilitate the data transfer, you are provided with a special container <code class="pj-code language-arduino">WeatherReport</code> with three member variables that are initialized as follows. Note that these variables are <b>uint8_t</b> type (unsigned 8-bit integers 0-255).
 			</p>
 			<p class="mb-3">
 				Let’s move on to the code that would appear in the <code
@@ -571,69 +535,74 @@ void loop()
 				<code class="pj-code language-arduino">report.light = 1;</code>
 			</p>
 			<p class="mb-3">
-				To send a report to the other radio, use the <code
-					class="pj-code language-arduino">write()</code> function, passing the
-				<code class="pj-code language-arduino">WeatherReport</code> container as an argument.
+				To send a report to the other ESP32, use the <code
+					class="pj-code language-arduino">send_report()</code> function, passing both the receiver 
+					address and <code
+					class="pj-code language-arduino">WeatherReport</code> container as arguments
 			</p>
 			<p class="mb-3">
-				<code class="pj-code language-arduino">radio.write(WeatherReport report); </code>
+				<code class="pj-code language-arduino">send_report(receiverAddress, report);</code>
 			</p>
 			<p class="mb-3">
-				You may check to see if the radio has incoming data with the following function, which returns
-				an <code class="pj-code language-arduino">int</code> greater than zero
-				<em>if</em> there is data available.
+				To receive a weather report, you need to configure your other ESP32 as the receiver in its sketch. 
+				Create a global <code class="pj-code language-arduino">WeatherReport</code> variable (for example, report) and use the <code class="pj-code language-arduino">set_report_receiver()</code> function, 
+				passing in the address of the <code class="pj-code language-arduino">WeatherReport</code> container as an argument.
 			</p>
 			<p class="mb-3">
-				<code class="pj-code language-arduino">int payload = radio.available();</code>
+				<code class="pj-code language-arduino">set_report_receiver(&report);</code>
 			</p>
 			<p class="mb-3">
-				To read incoming data, use the radio’s <code class="pj-code language-arduino">read()</code>
-				function, which returns a <code class="pj-code language-arduino">WeatherReport</code>
-			</p>
-			<p class="mb-3">
-				<code class="pj-code language-arduino">WeatherReport incomingReport = radio.read();</code>
+				This code ensures that whenever the ESP32 receives data, it will automatically update your WeatherReport 
+				container with the transmitted values. &report is the memory location that contains your WeatherReport, 
+				which is needed to update the values.
 			</p>
 			<p class="mb-3">
 				Here’s an example of all the code put together.
 			</p>
 			<p class="alert alert-warning mt-2" role="alert">
-				Do not blindly copy-paste the sample code to your project deliverables. Read it, understand it, then adapt it to your own code.
+				Do not blindly copy-paste the sample code to your project deliverables. You will need to determine which functions to use in your individual transmitter and receiver sketches.
 			</p>
-			<pre class="mb-5"><code class="pj-code language-arduino" style="white-space: pre-wrap; height:60vh;">#include &lt;NRF24L01_W.h&gt;
-<NRF24L01_W.h>
-NRF24L01_W radio(7, 8);
+			<pre class="mb-5"><code class="pj-code language-arduino" style="white-space: pre-wrap; height:60vh;">#include &lt;WifiConfig.h&gt;
+//Find the mac address of your receiver ESP32 first, then enter it in here:
+uint8_t receiverAddress[] = {0x34, 0xB7, 0xDA, 0xF6, 0x3E, 0x78};
+
+WeatherReport report;      // global initialization of WeatherReport
+	
 
 void setup()
 {
-  Serial.begin(9600);                // Serial setup
-  radio.begin();                     // Initialize the radio
-  radio.setReceiveAddress("00001");  // Set this radio's address
-  radio.setTransmitAddress("00002"); // Address of the recipient
-  radio.setChannel(23);              // Set the channel
+  Serial.begin(115200);                // Serial setup
+  wifi_setup();                      // start wifi mode and ESP-NOW
+  peer_setup(receiverAddress);       // configure receiving address
+  set_report_receiver(&report);      // configure the receiver ESP32 to update report’s values upon reception
 }
 
 void loop()
 {
-  WeatherReport report;          // Initialize weather report
-  report.temperature = 34;
+  report.temperature = 34; 
   report.humidity = 70;
   report.light = 0;
 
-  radio.write(report);
 
-  if (radio.available())
-  {
-    WeatherReport incomingReport = radio.read();  // Read incoming
-    Serial.print("Temperature: ");              // Print temperature
-    Serial.println(incomingReport.temperature);
-  }
+  send_report(receiverAddress, report);       // send the report
+  Serial.print("Temperature: ");              // Print temperature
+  Serial.println(report.temperature);
 
   delay(1000);
 }</code></pre>
 
 
-
-
+					<h2 class="mb-3 fw-bold" id="pj-heading-esp32pinout">ESP32 Pinout</h2>
+					<p class="mb-3">
+						Thinking about using a pin but you don’t know what it does? 
+						Refer to the ESP32 pinout diagram. The full datasheet is linked in the Parts [Webpage Link] section.
+					</p>
+					<p class="mb-3">
+						~ represents pins that are PWM capable.
+					</p>
+					<p class="mb-3">
+						<img class="pj-img-fluid mx-auto mb-5" src="assets\images\pinouts\[2024-2025] OPS ESP32-C3 PINOUT.png" width="900">
+					</p>
 					<h2 class="mb-3 fw-bold" id="pj-heading-requirements">Requirements</h2>
 
 					<h3 class="mb-3" id="pj-heading-transmitter-station">Transmitter Station</h3>
@@ -643,7 +612,7 @@ void loop()
 							station.
 						</li>
 						<li class="list-group-item">
-							The transmitter must read and interpret data from a light sensor and DHT11 sensor
+							The transmitter must read and interpret data from a light sensor and AHT20 sensor
 							<strong>every 10 seconds</strong>.
 						</li>
 						<li class="list-group-item">
@@ -658,7 +627,7 @@ void loop()
 							The sensor data must be accurate.
 						</li>
 						<li class="list-group-item">
-							After the transmitter reads the sensor data, it must immediately send it using the NRF24L01
+							After the transmitter reads the sensor data, it must immediately send it using the ESP32's WiFi module
 							transceiver.
 						</li>
 						<li class="list-group-item">
@@ -673,11 +642,10 @@ void loop()
 							onto an LCD.
 						</li>
 						<li class="list-group-item">
-							The receiver must update the LCD with the most recently received data over the NRF24L01
-							transceiver.
+							The receiver must update the LCD with the most recently received data over the ESP32’s Wifi Module.
 						</li>
 						<li class="list-group-item">
-							The data received must be identical to the data sent over the NRF24L01 transceiver.
+							The data received must be identical to the data sent over the ESP32’s Wifi Module.
 						</li>
 						<li class="list-group-item">
 							The data must include the following:
@@ -717,20 +685,6 @@ void loop()
 								<td>1</td>
 							</tr>
 							<tr>
-								<td>Dupont Jumper Wire (Male-to-Female)</td>
-								<td>18</td>
-							</tr>
-							<tr>
-								<td>
-									<a class="pj-part"
-										data-bs-content="<img src='./assets/images/parts/ops_part_nrf24l01.png' height='150px' width='auto'>"
-										data-bs-trigger="hover focus" data-bs-toggle="popover" tabindex="0">
-										N4F24L01 Transceiver Module
-									</a>
-								</td>
-								<td>2</td>
-							</tr>
-							<tr>
 								<td>
 									<a class="pj-part"
 										data-bs-content="<img src='./assets/images/parts/ops_part_lcd_i2c_backpack.png' height='150px' width='auto'>"
@@ -743,9 +697,9 @@ void loop()
 							<tr>
 								<td>
 									<a class="pj-part"
-										data-bs-content="<img src='./assets/images/parts/ops_part_dht11.png' height='150px' width='auto'>"
+										data-bs-content="<img src='assets/images/ops_project_6_AHT20pinout.png' height='150px' width='auto'>"
 										data-bs-trigger="hover focus" data-bs-toggle="popover" tabindex="0">
-										DHT11
+										AHT20
 									</a>
 								</td>
 								<td>1</td>
@@ -753,9 +707,9 @@ void loop()
 							<tr>
 								<td>
 									<a class="pj-part"
-										data-bs-content="<img src='./assets/images/parts/ops_part_arduino_nano.png' height='150px' width='auto'>"
+										data-bs-content="<img src='assets\images\parts\ops_part_esp32c3fxh4.jpg' height='150px' width='auto'>"
 										data-bs-trigger="hover focus" data-bs-toggle="popover" tabindex="0">
-										Arduino Nano
+										ESP32
 									</a>
 								</td>
 								<td>2</td>
@@ -771,7 +725,7 @@ void loop()
 								<td>1</td>
 							</tr>
 							<tr>
-								<td>Resistor (10kΩ)</td>
+								<td>Resistor (4.7kΩ)</td>
 								<td>1</td>
 							</tr>
 							<tr>
@@ -800,7 +754,7 @@ void loop()
 							<div id="schemCollapse1" class="accordion-collapse collapse show"
 								data-bs-parent="#schemAccordian">
 								<div class="accordion-body text-center">
-									<img src='./assets/images/schematics/ops_schem_proj6_a.png' class="pj-img-fluid mx-auto" width="700">
+									<img src='./assets/images/project_6/Project 6 Schem A.png' class="pj-img-fluid mx-auto" width="700">
 								</div>
 							</div>
 						</div>
@@ -817,7 +771,7 @@ void loop()
 							<div id="schemCollapse2" class="accordion-collapse collapse"
 								data-bs-parent="#schemAccordian">
 								<div class="accordion-body text-center">
-									<img src='./assets/images/schematics/ops_schem_proj6_b.png' class="pj-img-fluid mx-auto" width="650">
+									<img src='./assets/images/project_6/Project 6 Schem B.png' class="pj-img-fluid mx-auto" width="650">
 								</div>
 							</div>
 						</div>
@@ -834,24 +788,7 @@ void loop()
 							<div id="schemCollapse3" class="accordion-collapse collapse"
 								data-bs-parent="#schemAccordian">
 								<div class="accordion-body text-center">
-									<img src='./assets/images/schematics/ops_schem_proj6_c.png' class="pj-img-fluid mx-auto" width="800">
-								</div>
-							</div>
-						</div>
-
-						<div class="accordion-item">
-							<h2 class="accordion-header">
-								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-									data-bs-target="#schemCollapse4" aria-expanded="true"
-									aria-controls="schemCollapse4">
-									Schematic D
-								</button>
-							</h2>
-							<!--Pin to page?-->
-							<div id="schemCollapse4" class="accordion-collapse collapse"
-								data-bs-parent="#schemAccordian">
-								<div class="accordion-body text-center">
-									<img src='./assets/images/schematics/ops_schem_proj6_d.png' class="pj-img-fluid mx-auto" width="800">
+									<img src='./assets/images/project_6/Project 6 Schematic C Revised.png' class="pj-img-fluid mx-auto" width="800">
 								</div>
 							</div>
 						</div>
@@ -861,14 +798,14 @@ void loop()
 
 					<h4 class="mb-3 fw-light" id="pj-heading-checkpoint1" style="">Checkpoint 1</h4>
 					<p class="mb-3">
-						You will test the DHT11 and light sensor, outputting their data to the serial monitor.
+						You will test the AHT20 and light sensor, outputting their data to the serial monitor.
 					</p>
 					<ol class="mb-5 list-group list-group-numbered">
 						<li class="list-group-item">
 							Build the circuit in <strong>Schematic A</strong> on one breadboard.
 						</li>
 						<li class="list-group-item">
-							Program the Arduino board to print the following information to the serial monitor
+							Program the ESP32 board to print the following information to the serial monitor
 							<strong>every 10
 								seconds</strong>:
 							<ul>
@@ -916,7 +853,7 @@ Time: Night</code></pre>
 							</div>
 						</li>
 						<li class="list-group-item">
-							Program the Arduino board to print the following information to the serial monitor
+							Program the ESP32 board to print the following information to the serial monitor
 							<strong>every 10
 								seconds</strong>:
 							<ul>
@@ -951,28 +888,25 @@ Time: Night</code></pre>
 							</div>
 							<div class="alert alert-info" role="alert">
 								<ul>
-									<li>Connect the NRF24 radios to the breadboard using the dupont jumper wire.</li>
 									<li>This circuit will be powered by the 9V battery. <strong>No USB power is
 											required.</strong></li>
 								</ul>
 							</div>
 						</li>
 						<li class="list-group-item">
-							Program the transmitter Arduino board to send a
-							<code class="pj-code language-arduino">WeatherReport</code> container over radio
+							Program the transmitter ESP32 board to send a
+							<code class="pj-code language-arduino">WeatherReport</code> container over ESP32's Wi-Fi Module
 							<strong>every 10
 								seconds</strong>.
 						</li>
 						<li class="list-group-item">
-							You will design the receiver board, which will display the weather report on the LCD. Build
-							the circuit in <strong>Schematic D</strong>,
-							which extends Schematic B (Checkpoint 2).
+							Use the circuit that you built in <strong>Schematic B</strong> as the receiver from Checkpoint 2.
 							<div class="alert alert-warning mt-2" role="alert">
 								<strong>Do not disassemble anything. </strong>Just add to the existing breadboard.
 							</div>
 						</li>
 						<li class="list-group-item">
-							Program the receiver Arduino board to display a
+							Program the receiver ESP32 board to display a
 							<code class="pj-code language-arduino">WeatherReport</code>on the LCD upon receiving one.
 							<div class="alert alert-info mt-2" role="alert">
 								You may set a delay since you only expect a report to be sent every 10 seconds.
@@ -1008,17 +942,17 @@ Time: Night</code></pre>
 					<ul class="mb-4 list-group">
 						<li class="list-group-item">
 							<i class="bi bi-check2-square me-2"></i>
-							Photo of the weather station/transmitter Arduino board
+							Photo of the weather station/transmitter ESP32 board
 							<div class="alert alert-info mt-2" role="alert">
-								This photo should include the DHT11, light sensor, NRF24 transceiver, and one Arduino
+								This photo should include the AHT20, light sensor, and one ESP32
 								correctly wired together.
 							</div>
 						</li>
 						<li class="list-group-item">
 							<i class="bi bi-check2-square me-2"></i>
-							Photo of the receiver Arduino board
+							Photo of the receiver ESP32 board
 							<div class="alert alert-info mt-2" role="alert">
-								This photo should include the NRF24 transceiver, LCD, and one Arduino correctly wired
+								This photo should include the ESP32 and LCD correctly wired
 								together.
 							</div>
 							<div class="alert alert-info mt-2" role="alert">
@@ -1028,9 +962,9 @@ Time: Night</code></pre>
 						</li>
 						<li class="list-group-item">
 							<i class="bi bi-check2-square me-2"></i>
-							Transmitter Arduino sketch file
+							Transmitter Arduino IDE sketch file
 							<div class="alert alert-info mt-2" role="alert">
-								This file should include all of the code you have written for the Arduino Nano acting as
+								This file should include all of the code you have written for the ESP32 acting as
 								the
 								transmitter. Name it “<code
 									class="pj-code language-plaintext">ops_project6_transmitter.ino</code>”.
@@ -1038,9 +972,9 @@ Time: Night</code></pre>
 						</li>
 						<li class="list-group-item">
 							<i class="bi bi-check2-square me-2"></i>
-							Receiver Arduino sketch file
+							Receiver Arduino IDE sketch file
 							<div class="alert alert-info mt-2" role="alert">
-								This file should include all of the code you have written for the Arduino Nano acting as
+								This file should include all of the code you have written for the ESP32 acting as
 								the
 								receiver. Name it “<code
 									class="pj-code language-plaintext">ops_project6_receiver.ino</code>”.
