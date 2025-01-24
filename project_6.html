@@ -53,13 +53,13 @@
 
 						<ul class="nav">
 							<li class="nav-item">
-								<a class="nav-link" href="#pj-heading-dht11">DHT11 Sensor</a>
+								<a class="nav-link" href="#pj-heading-aht20">AHT20 Sensor</a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="#pj-heading-lcd">LCD with I<sup>2</sup>C Backpack</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="#pj-heading-nrf24l01">NRF24L01 Transceiver Module</a>
+								<a class="nav-link" href="#pj-heading-wifi">WiFi</a>
 							</li>
 						</ul>
 					</li>
@@ -156,7 +156,7 @@
 			<table class="table pj-download-table mb-5">
 				<tbody>
 					<tr>
-						<td>DHT Library</td>
+						<td>AHT20 Library</td>
 						<td>
 							<a class="btn btn-outline-success mx-3"
 								href="assets\libraries\DHT_sensor_library-1.4.4.zip"
@@ -180,19 +180,12 @@
 						</td>
 					</tr>
 
-					<tr>
-						<td>NRF24L01_W Library</td>
-						<td>
-							<a class="btn btn-outline-success mx-3"
-								href="assets\libraries\NRF24L01_W.zip"
-								role="button"><i class="bi bi-download"></i> Download</a>
-						</td>
-					</tr>
+					
 				</tbody>
 			</table>
 
 			<h2 class="mb-3 fw-bold" id="pj-heading-concepts">Concepts</h2>
-			<h3 class="mb-3" id="pj-heading-dht11">AHT20 Sensor</h3>
+			<h3 class="mb-3" id="pj-heading-aht20">AHT20 Sensor</h3>
 
 			<p class="mb-5">
 				We will use the AHT20 sensor module to measure temperature and humidity. This component is rather
@@ -204,7 +197,7 @@
 			</p>
 
 			<h4 class="mb-3 fw-light">AHT20 Pinout</h4>
-			<img class="pj-img-fluid-end" src="assets\images\project_6\ops_dht11_annotated.png" width="200">
+			<img class="pj-img-fluid-end" src="assets/images/ops_project_6_AHT20pinout.png" width="250">
 			<p class="mb-5">
 				To the right is the pinout of the AHT20.
 				<br><br>
@@ -416,20 +409,22 @@ void loop()
 }</code></pre>
 
 
-			<h3 class="mb-3" id="pj-heading-nrf24l01">NRF24L01 Transceiver Module</h3>
+			<h3 class="mb-3" id="pj-heading-wifi">WiFi</h3>
 			<p class="mb-3">
-				The NRF24 radio transceiver is a popular choice for wireless communication between microcontroller boards. We’ll use the NRF24L01 variation, 
-				which is a low-power, high-frequency radio module.
+				WiFi is the most popular choice for wireless communication between devices. It uses radio waves to “connect” devices, 
+				allowing them to communicate. While we won’t be using an actual WiFi network, we will use the ESP32’s communication protocol 
+				<b>ESP-NOW</b>, which uses the ESP32’s built-in WiFi module.
+
 			</p>
 			<p class="mb-5">
-				Here’s how we’ll transmit data: The Arduino board will transfer messages to and from the radio module using SPI protocol, and the radio module will handle the rest. 
-				It uses a radio protocol called <a class="link-primary" href= "https://devzone.nordicsemi.com/nordic/nordic-blog/b/blog/posts/intro-to-shockburstenhanced-shockburst">Enhanced ShockBurst™</a> (ESB) to transmit wirelessly to another NRF24. The beauty of it all is that we don’t need to know how ESB protocol works; 
-				we just need to get the data from the Arduino to the radio module.
+				Here’s how we’ll transmit data: One ESP32’s WiFi module will wirelessly transmit messages to another ESP32’s 
+				WiFi module using the ESP-NOW protocol. We won’t dive into the details of how ESP-NOW works, but we will 
+				cover the concept of how radio waves are emitted.
 			</p>
 
 			<h4 class="mb-3 fw-light">Radio Frequency Bands and Channels</h4>
 			<p class="mb-3">
-				Remember that the NRF24 modules send information over radio waves, just like our mobile phones, satellites, and WiFi. But how do the <strong> radio waves </strong> emitted by a 
+				Remember that the WiFi modules send information over radio waves, just like our mobile phones, satellites, and WiFi. But how do the <strong> radio waves </strong> emitted by a 
 				satellite not interfere with the radio waves of a WiFi router or iPhone? Let’s explain: Each signal belongs to a <strong>frequency band</strong> or range of contiguous frequencies specified 
 				by the International Telecommunication Union (ITU).
 			</p>
@@ -437,136 +432,80 @@ void loop()
 			<img class="pj-img-fluid mx-auto mb-5" src="assets\images\ops_radio_frequency.png" width="1500">
 
 			<p class="mb-3">
-					FM radio is designated to a frequency band of 88-108 MHz, and WiFi exists in 2.4 GHz and 5 GHz bands. These bands are further divided into <strong>channels</strong>.
+					WiFi exists in 2.4 GHz,5 GHz and 6 GHz bands. These bands are further divided into <strong>channels</strong>.
 					</p>
 
 			<p class="mb-3">
-				For example, FM radio has 100 channels, each with a different radio frequency within the larger frequency band. FM radio stations are assigned to unique channels, which is why you normally don’t hear 
-				Taylor Swift overlaid with the latest stock market report.
+				For example, 2.4 GHz WiFi 14 channels, each with a different radio frequency within the larger frequency band. FM radio stations are assigned to unique channels, which is why you normally don’t hear 
+				Taylor Swift overlaid with the latest stock market report. WiFi networks close together are assigned to different channels so they do not interfere with each other. For instance, if you and your next-door 
+				neighbor set your WiFi networks to the same channel, the networks would interfere, slowing down your internet speeds.
 				</p>
 			<p class="mb-3">
-				If multiple radio signals were to exist on the same frequency, a collision would occur. This is why the ITU takes special care to regulate the radio spectrum.
+				If multiple radio signals were to exist on the same frequency, a collision would occur. This is why the ITU takes special care to regulating the radio spectrum.
 					</p>				
 			<p class="mb-5">
-				The NRF24L01 operates on a 2.4 GHz frequency band, which it shares with WiFi. This band is subdivided into 125 channels from which we choose to emit a signal. 
-				<strong>You will have to manually select a channel</strong> for the two radio modules to operate on. Moreover, this channel will have to be different from any nearby pair of NRF24 modules to avoid collisions.
-					</p>	
-
-			<h4 class="mb-3" style="">NRF24L01 Pinout</h4>
-			<p class="mb-3">
-				Below, you’ll find a pinout of the NRF24L01. You should recognize some of the pins as the SPI protocol lines 
-				(i.e., <span class="text-yellow">CE/CS</span>, <span class="text-green">PICO</span>, <span class="text-purple">POCI</span>, <span class="text-blue">SCK</span>).
-			<p class="mb-3">
-				<img class="pj-img-fluid mx-auto mb-5" src="assets\images\ops_nrf24l01_annotated.png" width="600">
-			</p>
-			<p class="mb-3">	
-					The GND and <span class="text-red">VCC</span> pins power the radio module. <Strong> Make sure that <span class="text-red">VCC</span> is connected to a 3.3V</Strong> power source rather than 5V. Unlike other components we use, the NRF24 accepts only 3.3V power, 
-					which is an increasingly common voltage in modern digital circuits. Luckily, the module still tolerates 5V logic, meaning we can connect the other pins to the Arduino’s digital pins as we normally would.
-						</p>
-			<p class="mb-3">
-				The <span class="text-yellow">CSN</span> pin is the “Chip Select Not” pin, which disables SPI communication when <Strong>HIGH</Strong>. When we want the radio module to listen for SPI messages, the pin is set to <strong>LOW</strong>.  
-					</p>	
-			<p class="mb-5">
-				Last but not least is the <span class="text-gray">IRQ</span> pin for interrupts, which we will not use in this project. Make sure the <span class="text-gray">IRQ</span> pin is left disconnected.
-			</p>	
-
-			<h4 class="mb-3 fw-light" id="pj-heading-dht11">Wiring the Arduino to the Radio Module</h4>
-			<p class="mb-3">
-			Just like I<sup>2</sup>C, the Arduino is designed to handle SPI communication through certain pins on the board, which connect to the NRF24 as follows.
-				
-
-			<table class="table pj-download-table mb-5">
-				<tr>
-					<th>NRF24L01 Pins</th>
-					<th>Arduino Nano Pins</th>
-				</tr>
-				<tr>
-					<td>GND</td>
-					<td>GND</td>
-				</tr>
-				<tr>
-					<td><span class="text-red">VCC</span></td>
-					<td>3.3V</td>
-				</tr>
-				<tr>
-					<td><span class="text-yellow">CE/CS</span></td>
-					<td>D7</td>
-				</tr>
-				<tr>
-					<td><span class="text-orange">CSN</span></td>
-					<td>D8</td>
-				</tr>
-				<tr>
-					<td><span class="text-blue">SCK</span></td>
-					<td>D13</td>
-				</tr>
-				<tr>
-					<td><span class="text-green">PICO</span></td>
-					<td>D11</td>
-				</tr>
-				<tr>
-					<td><span class="text-purple">POCI</span></td>
-					<td>D12</td>
-				</tr>
-				<tr>
-					<td><span class="text-gray">IRQ</span></td>
-					<td>None</td>
-				</tr>
+				The ESP-NOW communication protocol operates on a 2.4 GHz frequency band, which it shares with many WiFi networks. However, 
+				ESP-NOW is not a WiFi network itself; it is a different wireless communication that uses an ESP32’s WiFi module to directly 
+				communicate with another ESP32. While WiFi uses an access point to establish a connection between two devices, ESP-NOW identifies another ESP32 board by its MAC address and uses the ESP32 WiFi module to directly transmit data to that receiver address. ESP-NOW is a simple, low-power protocol designed for small amounts of data (less than 250 bytes). This allows devices to send and receive data very quickly while still operating on the same channels as 2.4 GHz WiFi networks.
 
 
-			</table>
-
-			<h4 class="mb-3 fw-light" style="display: inline;">Using the NRF24L01_W Library</h4>
+			<h4 class="mb-3 fw-light" style="display: inline;">Using the WiFi Library</h4>
 			<p class="mb-3">
 				<br>
-				Once you wire the Arduino board to the radio module, it’s time to write code! Download the
-				library <a class="link-primary"
-					href="https://drive.google.com/file/d/1NOQYAHhi2zEvs3LF03NmtVruFnfNxvSp/view?usp=share_link">
+				Download the library <a class="link-primary"
+					href="https://drive.google.com/file/d/1eCN9ene04gv9ReARkk14xnFRneFWyR0j/view?usp=sharing">
 					here </a>.
 				Make sure to include the header file:
 			</p>
 			<p class="mb-3">
-				<code class="pj-code language-arduino">#include &lt;NRF24L01_W.h&gt;</code>
+				<code class="pj-code language-arduino">#include &lt;WifiConfig.h&gt;</code>
 			</p>
 			<p class="mb-3">
-				You will instantiate a global object of the NRF24L01_W class, which represents the radio
-				connected to the Arduino board.
-				The two arguments of the constructor are the <span class="text-yellow">CS</span> and <span
-					class="text-orange">CSN</span> pins of the board.
+				You need to determine the <b>MAC address</b> of the receiver ESP32 board. Download and run this sketch 
+				code on your receiver ESP32. The serial monitor should show the <b>MAC address</b> as a series of <b>hexadecimal</b> 
+				numbers separated by colons.
 			</p>
 			<p class="mb-3">
-				<code class="pj-code language-arduino">NRF24L01_W radio(int CS, int CSN); </code>
+				<p>
+					Example address: 34:b7:da:f6:3e:78.
+				</p>
 			</p>
 			<p class="mb-3">
-				The next steps are to configure your newly created radio object. Place this code in your <code
-					class="pj-code language-arduino">setup()</code> function.
+				Next, create an array to store the receiver ESP32’s <b>MAC address</b>. Each <b>hexadecimal number</b> should be one
+				entry in the array, with the prefix <b>0x</b> to specify that the number is in hexadecimal. So for our example 
+				address 34:b7:da:f6:3e:78, we would initialize the array below:
 			</p>
 			<p class="mb-3">
-				<code class="pj-code language-arduino">radio.begin();</code>
+				<code class="pj-code language-arduino">uint8_t receiverAddress[] = {0x34, 0xB7, 0xDA, 0xF6, 0x3E, 0x78}</code>
 			</p>
 			<p class="mb-3">
-				You will set the <code class="pj-code language-arduino">address</code> of your radio to a five
-				character string and pass it into the radio's <code
-					class="pj-code language-arduino">setReceiveAddress()</code> function.
-				For example, you could set the address to <code class="pj-code language-arduino">"B1440”</code>.
-				<strong>Make sure the address is unique</strong>.
+				The next step is to put your ESP32 board in <b>WiFi mode</b> to prepare the onboard WiFi module for communication and start the ESP-NOW protocol. Place this code in your <code class="pj-code language-arduino">setup()</code> function.
+			</p>
+			<p class ="mb-3">
+				<code class="pj-code language-arduino">wifi_setup();</code>
 			</p>
 			<p class="mb-3">
-				<code class="pj-code language-arduino">radio.setReceiveAddress(char[] address);</code>
+				You will set the receiver ESP32 as the transmitting board’s “peer” by passing the receiver board’s 
+				MAC address into the <code class="pj-code language-arduino">peer_setup()</code> function. This ensures ESP-NOW knows which board it is transmitting to.
+			</p>
+			<p class="mb-3">
+				<code class="pj-code language-arduino">peer_setup(receiverAddress);</code>
 			</p>
 			<p class="mb-3">
 				Now, enter the address of the radio to which you intend to transmit messages.
 			</p>
-			<p class="mb-3">
-				<code class="pj-code language-arduino">radio.setTransmitAddress(char[] address);</code>
-			</p>
+			<div class="alert alert-info mt-2 mb-3" role="alert">	
+				(Note: this step is only necessary for your transmitter ESP32 sketch. Your receiver does not need a peer configured because it is not the one sending data.)
+			</div>
 			<p class="mb-3">
 				You will also set the channel that your radios will operate on. <strong>Pick one at
 					random</strong> in the range of 0-124.
 				Make sure that both NRF24 modules are set to the <strong>same channel</strong>.
 			</p>
 			<p class="mb-3">
-				<code class="pj-code language-arduino">radio.setChannel(int channel);</code>
+				Let’s move on to the code that would appear in the <code class="pj-code language-arduino">main()</code> loop. This is where weather report messages 
+				will be read and written (transmitted and received). To facilitate the data transfer, you are provided with a special container <code class="pj-code language-arduino">WeatherReport</code> with three member variables that are initialized as follows. Note that these variables are <b>uint8_t</b> type (unsigned 8-bit integers 0-255).
+
 			</p>
 			<p class="mb-3">
 				Let’s move on to the code that would appear in the <code
@@ -587,27 +526,31 @@ void loop()
 				<code class="pj-code language-arduino">report.light = 1;</code>
 			</p>
 			<p class="mb-3">
-				To send a report to the other radio, use the <code
-					class="pj-code language-arduino">write()</code> function, passing the
-				<code class="pj-code language-arduino">WeatherReport</code> container as an argument.
+				To send a report to the other ESP32, use the <code
+					class="pj-code language-arduino">send_report()</code> function, passing both the receiver 
+					address and <code
+					class="pj-code language-arduino">WeatherReport</code> container as arguments
 			</p>
 			<p class="mb-3">
-				<code class="pj-code language-arduino">radio.write(WeatherReport report); </code>
+				<code class="pj-code language-arduino">send_report(receiverAddress, report);</code>
 			</p>
 			<p class="mb-3">
-				You may check to see if the radio has incoming data with the following function, which returns
-				an <code class="pj-code language-arduino">int</code> greater than zero
-				<em>if</em> there is data available.
+				To receive a weather report, you need to configure your other ESP32 as the receiver in its sketch. 
+				Create a global <code class="pj-code language-arduino">WeatherReport</code> variable (for example, report) and use the <code class="pj-code language-arduino">set_report_receiver()</code> function, 
+				passing in the address of the <code class="pj-code language-arduino">WeatherReport</code> container as an argument.
 			</p>
 			<p class="mb-3">
-				<code class="pj-code language-arduino">int payload = radio.available();</code>
+				<code class="pj-code language-arduino">set_report_receiver(&report);</code>
 			</p>
 			<p class="mb-3">
 				To read incoming data, use the radio’s <code class="pj-code language-arduino">read()</code>
 				function, which returns a <code class="pj-code language-arduino">WeatherReport</code>
 			</p>
 			<p class="mb-3">
-				<code class="pj-code language-arduino">WeatherReport incomingReport = radio.read();</code>
+				This code ensures that whenever the ESP32 receives data, it will automatically update your WeatherReport 
+				container with the transmitted values. (Don’t worry about the & operator for now. You will learn more about 
+				this in your programming courses. Just know that &report is the memory location that contains your WeatherReport, 
+				which is needed to update the values.)
 			</p>
 			<p class="mb-3">
 				Here’s an example of all the code put together.
@@ -615,34 +558,31 @@ void loop()
 			<p class="alert alert-warning mt-2" role="alert">
 				Do not blindly copy-paste the sample code to your project deliverables. Read it, understand it, then adapt it to your own code.
 			</p>
-			<pre class="mb-5"><code class="pj-code language-arduino" style="white-space: pre-wrap; height:60vh;">#include &lt;NRF24L01_W.h&gt;
-<NRF24L01_W.h>
-NRF24L01_W radio(7, 8);
+			<pre class="mb-5"><code class="pj-code language-arduino" style="white-space: pre-wrap; height:60vh;">#include &lt;WifiConfig.h&gt;
+
+uint8_t receiverAddress[] = {0x34, 0xB7, 0xDA, 0xF6, 0x3E, 0x78};
+
+WeatherReport report;      // global initialization of WeatherReport
+	
 
 void setup()
 {
-  Serial.begin(9600);                // Serial setup
-  radio.begin();                     // Initialize the radio
-  radio.setReceiveAddress("00001");  // Set this radio's address
-  radio.setTransmitAddress("00002"); // Address of the recipient
-  radio.setChannel(23);              // Set the channel
+  Serial.begin(115200);                // Serial setup
+  wifi_setup();                      // start wifi mode and ESP-NOW
+  peer_setup(receiverAddress);       // configure receiving address
+  set_report_receiver(&report);      // configure the receiver ESP32 to update report’s values upon reception
 }
 
 void loop()
 {
-  WeatherReport report;          // Initialize weather report
-  report.temperature = 34;
+  report.temperature = 34; 
   report.humidity = 70;
   report.light = 0;
 
-  radio.write(report);
 
-  if (radio.available())
-  {
-    WeatherReport incomingReport = radio.read();  // Read incoming
-    Serial.print("Temperature: ");              // Print temperature
-    Serial.println(incomingReport.temperature);
-  }
+  send_report(receiverAddress, report);       // send the report
+  Serial.print("Temperature: ");              // Print temperature
+  Serial.println(report.temperature);
 
   delay(1000);
 }</code></pre>
