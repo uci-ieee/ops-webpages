@@ -448,7 +448,7 @@ void loop()
 				<code class="pj-code language-arduino">#include &lt;WifiConfig.h&gt;</code>
 			</p>
 			<p class="mb-3">
-				You need to determine the <b>MAC address</b> of the receiver ESP32 board. Download and run this sketch 
+				You need to determine the <b>MAC address</b> of the receiver ESP32 board. Run this sketch 
 				code on your receiver ESP32. The serial monitor should show the <b>MAC address</b> as a series of <b>hexadecimal</b> 
 				numbers separated by colons.
 			</p>
@@ -456,6 +456,33 @@ void loop()
 				<p>
 					Example address: 34:b7:da:f6:3e:78.
 				</p>
+				<pre class="mb-5"><code class="pj-code language-arduino" style="white-space: pre-wrap; height:60vh;">#include &lt;Wifi.h&gt;
+#include &lt;esp_wifi.h&gt;
+
+void readMacAddress(){
+	uint8_t baseMac[6];
+	esp_err_t ret = esp_wifi_get_mac(WIFI_IF_STA, baseMac);
+	if (ret == ESP_OK) {
+	Serial.printf("%02x:%02x:%02x:%02x:%02x:%02x\n",
+					baseMac[0], baseMac[1], baseMac[2],
+					baseMac[3], baseMac[4], baseMac[5]);
+	} else {
+	Serial.println("Failed to read MAC address");
+	}
+}
+
+void setup(){
+	Serial.begin(115200);
+	WiFi.mode(WIFI_STA);
+	WiFi.STA.begin();
+	Serial.print("[DEFAULT] ESP32 Board MAC Address: ");
+	readMacAddress();
+}
+	
+void loop(){
+	Serial.print("[DEFAULT] ESP32 Board MAC Address: ");
+	readMacAddress();
+}</code></pre>
 			</p>
 			<p class="mb-3">
 				Next, create an array to store the receiver ESP32’s <b>MAC address</b>. Each <b>hexadecimal number</b> should be one
@@ -478,21 +505,12 @@ void loop()
 			<p class="mb-3">
 				<code class="pj-code language-arduino">peer_setup(receiverAddress);</code>
 			</p>
-			<p class="mb-3">
-				Now, enter the address of the radio to which you intend to transmit messages.
-			</p>
 			<div class="alert alert-info mt-2 mb-3" role="alert">	
 				(Note: this step is only necessary for your transmitter ESP32 sketch. Your receiver does not need a peer configured because it is not the one sending data.)
 			</div>
 			<p class="mb-3">
-				You will also set the channel that your radios will operate on. <strong>Pick one at
-					random</strong> in the range of 0-124.
-				Make sure that both NRF24 modules are set to the <strong>same channel</strong>.
-			</p>
-			<p class="mb-3">
 				Let’s move on to the code that would appear in the <code class="pj-code language-arduino">main()</code> loop. This is where weather report messages 
 				will be read and written (transmitted and received). To facilitate the data transfer, you are provided with a special container <code class="pj-code language-arduino">WeatherReport</code> with three member variables that are initialized as follows. Note that these variables are <b>uint8_t</b> type (unsigned 8-bit integers 0-255).
-
 			</p>
 			<p class="mb-3">
 				Let’s move on to the code that would appear in the <code
@@ -530,23 +548,18 @@ void loop()
 				<code class="pj-code language-arduino">set_report_receiver(&report);</code>
 			</p>
 			<p class="mb-3">
-				To read incoming data, use the radio’s <code class="pj-code language-arduino">read()</code>
-				function, which returns a <code class="pj-code language-arduino">WeatherReport</code>
-			</p>
-			<p class="mb-3">
 				This code ensures that whenever the ESP32 receives data, it will automatically update your WeatherReport 
-				container with the transmitted values. (Don’t worry about the & operator for now. You will learn more about 
-				this in your programming courses. Just know that &report is the memory location that contains your WeatherReport, 
-				which is needed to update the values.)
+				container with the transmitted values. &report is the memory location that contains your WeatherReport, 
+				which is needed to update the values.
 			</p>
 			<p class="mb-3">
 				Here’s an example of all the code put together.
 			</p>
 			<p class="alert alert-warning mt-2" role="alert">
-				Do not blindly copy-paste the sample code to your project deliverables. Read it, understand it, then adapt it to your own code.
+				Do not blindly copy-paste the sample code to your project deliverables. You will need to determine which functions to use in your individual transmitter and receiver sketches.
 			</p>
 			<pre class="mb-5"><code class="pj-code language-arduino" style="white-space: pre-wrap; height:60vh;">#include &lt;WifiConfig.h&gt;
-
+//Find the mac address of your receiver ESP32 first, then enter it in here:
 uint8_t receiverAddress[] = {0x34, 0xB7, 0xDA, 0xF6, 0x3E, 0x78};
 
 WeatherReport report;      // global initialization of WeatherReport
@@ -680,7 +693,7 @@ void loop()
 							<tr>
 								<td>
 									<a class="pj-part"
-										data-bs-content="<img src='./assets/images/parts/ops_part_dht11.png' height='150px' width='auto'>"
+										data-bs-content="<img src='assets/images/ops_project_6_AHT20pinout.png' height='150px' width='auto'>"
 										data-bs-trigger="hover focus" data-bs-toggle="popover" tabindex="0">
 										AHT20
 									</a>
@@ -737,7 +750,7 @@ void loop()
 							<div id="schemCollapse1" class="accordion-collapse collapse show"
 								data-bs-parent="#schemAccordian">
 								<div class="accordion-body text-center">
-									<img src='./assets/images/schematics/ops_schem_proj6_a.png' class="pj-img-fluid mx-auto" width="700">
+									<img src='./assets/images/project_6/Project 6 Schem A.png' class="pj-img-fluid mx-auto" width="700">
 								</div>
 							</div>
 						</div>
@@ -754,7 +767,7 @@ void loop()
 							<div id="schemCollapse2" class="accordion-collapse collapse"
 								data-bs-parent="#schemAccordian">
 								<div class="accordion-body text-center">
-									<img src='./assets/images/schematics/ops_schem_proj6_b.png' class="pj-img-fluid mx-auto" width="650">
+									<img src='./assets/images/project_6/Project 6 Schem B.png' class="pj-img-fluid mx-auto" width="650">
 								</div>
 							</div>
 						</div>
@@ -771,24 +784,7 @@ void loop()
 							<div id="schemCollapse3" class="accordion-collapse collapse"
 								data-bs-parent="#schemAccordian">
 								<div class="accordion-body text-center">
-									<img src='./assets/images/schematics/ops_schem_proj6_c.png' class="pj-img-fluid mx-auto" width="800">
-								</div>
-							</div>
-						</div>
-
-						<div class="accordion-item">
-							<h2 class="accordion-header">
-								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-									data-bs-target="#schemCollapse4" aria-expanded="true"
-									aria-controls="schemCollapse4">
-									Schematic D
-								</button>
-							</h2>
-							<!--Pin to page?-->
-							<div id="schemCollapse4" class="accordion-collapse collapse"
-								data-bs-parent="#schemAccordian">
-								<div class="accordion-body text-center">
-									<img src='./assets/images/schematics/ops_schem_proj6_d.png' class="pj-img-fluid mx-auto" width="800">
+									<img src='./assets/images/project_6/Project 6 Schematic C Revised.png' class="pj-img-fluid mx-auto" width="800">
 								</div>
 							</div>
 						</div>
@@ -900,9 +896,7 @@ Time: Night</code></pre>
 								seconds</strong>.
 						</li>
 						<li class="list-group-item">
-							You will design the receiver board, which will display the weather report on the LCD. Build
-							the circuit in <strong>Schematic D</strong>,
-							which extends Schematic B (Checkpoint 2).
+							Use the circuit that you built in <strong>Schematic B</strong> as the receiver from Checkpoint 2.
 							<div class="alert alert-warning mt-2" role="alert">
 								<strong>Do not disassemble anything. </strong>Just add to the existing breadboard.
 							</div>
@@ -954,7 +948,7 @@ Time: Night</code></pre>
 							<i class="bi bi-check2-square me-2"></i>
 							Photo of the receiver ESP32 board
 							<div class="alert alert-info mt-2" role="alert">
-								This photo should include the NRF24 transceiver, LCD, and one Arduino correctly wired
+								This photo should include the ESP32 and LCD correctly wired
 								together.
 							</div>
 							<div class="alert alert-info mt-2" role="alert">
