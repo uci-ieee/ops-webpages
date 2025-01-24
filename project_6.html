@@ -222,7 +222,7 @@
 				<code class="pj-code language-arduino">#include &lt;Adafruit_AHTX0.h&gt;</code> <br>
 			</p>
 			<p class="mb-3">
-				At the core of this library is the AHT class, which you will instantiate as an object and use to
+				At the core of this library is the Adafruit_AHTX0 class, which you will instantiate as an object and use to
 				read
 				data from the sensor.
 			</p>
@@ -230,24 +230,13 @@
 				Create an object as follows, declaring it in the global scope. <br> <code class="pj-code language-arduino">Adafruit_AHTX0 aht;</code>
 			</p>
 			<p class="mb-3">
-				A structure is a data type that groups multiple variables into a single unit.
-				Create a structure called struct_message that holds the variables temperature and humidity as seen below.
-			</p>
-			<p class="mb-3">
-				<pre class="mb-3"><code class="pj-code language-arduino">
-typedef struct struct_message {
-	float temperature;
-	float humidity;
-} struct_message;
-				</code></pre>
-			</p>
-			<p class="mb-3">
-				Then, initialize a struct_message object called myData as follows.<br>
-				<code class="pj-code language-arduino">struct_message myData;</code>
-			</p>
-			<p class="mb-3">
-				Initialize two sensors_event_t objects called humidity and temp. sensors_event_t is a structure defined in the Adafruit Library. <code
+				Then, initialize two sensors_event_t objects called humidity and temp. sensors_event_t is a structure defined in the Adafruit Library. <code
 					class="pj-code language-arduino">sensors_event_t humidity, temp;</code>
+			</p>
+			<p class="mb-3">	
+				To start communication with the AHT20, call the
+				<code class="pj-code language-arduino">aht.begin()</code> function.<br>
+				<code class="pj-code language-arduino">aht.begin();</code>
 			</p>
 			<p class="mb-5">	
 				To collect data from the sensor, call the
@@ -256,14 +245,14 @@ typedef struct struct_message {
 			</p>
 			<p class="mb-3">
 				By calling <code class="pj-code language-arduino">getEvent()</code>, humidity and temp are updated with the latest sensor values.
-				Then as follows, assign these values as floats to our humidity and temperature variables defined in myData.
+				You can now for example print these values to the serial monitor, just make sure in <code class="pj-code language-arduino">void setup()</code> you have included <code class="pj-code language-arduino">serial.Begin(115200);</code>.
 			</p>
 			<p class="mb-3">
-				<code class="pj-code language-arduino">myData.humidity = humidity.relative_humidity;</code> <br>
-				<code class="pj-code language-arduino">myData.temperature = temp.temperature;</code>
+				<code class="pj-code language-arduino">Serial.print(humidity.relative_humidity);</code> <br>
+				<code class="pj-code language-arduino">Serial.print(temp.temperature);</code>
 			</p>
 			<p class="mb-3">
-				Temperature is Celsius by default. At this point, you can print the values to the serial monitor or use it however else you please.
+				Temperature is Celsius by default.
 			</p>
 
 			<h3 class="mb-3" id="pj-heading-lcd">LCD with I<sup>2</sup>C Backpack</h3>
@@ -311,11 +300,11 @@ typedef struct struct_message {
 				</tr>
 				<tr>
 					<td><span class="text-green">SDA</span></td>
-					<td>A4</td>
+					<td>8</td>
 				</tr>
 				<tr>
 					<td><span class="text-blue">SCL</span></td>
-					<td>A5</td>
+					<td>10</td>
 				</tr>
 			</table>
 			<p class="mb-5">
@@ -444,14 +433,14 @@ void loop()
 			<p class="mb-5">
 				The ESP-NOW communication protocol operates on a 2.4 GHz frequency band, which it shares with many WiFi networks. However, 
 				ESP-NOW is not a WiFi network itself; it is a different wireless communication that uses an ESP32’s WiFi module to directly 
-				communicate with another ESP32. While WiFi uses an access point to establish a connection between two devices, ESP-NOW identifies another ESP32 board by its MAC address and uses the ESP32 WiFi module to directly transmit data to that receiver address. ESP-NOW is a simple, low-power protocol designed for small amounts of data (less than 250 bytes). This allows devices to send and receive data very quickly while still operating on the same channels as 2.4 GHz WiFi networks.
+				communicate with another ESP32. While WiFi uses an access point to establish a connection between two devices, ESP-NOW identifies another ESP32 board by its MAC address and uses the ESP32 WiFi module to directly transmit data to that receiver address.
 
 
 			<h4 class="mb-3 fw-light" style="display: inline;">Using the WiFi Library</h4>
 			<p class="mb-3">
 				<br>
 				Download the library <a class="link-primary"
-					href="https://drive.google.com/file/d/1eCN9ene04gv9ReARkk14xnFRneFWyR0j/view?usp=sharing">
+					href="assets/libraries/WiFiConfig.zip">
 					here </a>.
 				Make sure to include the header file:
 			</p>
