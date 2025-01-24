@@ -214,17 +214,33 @@
 				(AHT20 sensor) on the data line. These pins should be <strong>connected to digital pins</strong> on the ESP32 to facilitate I²C communication.
 			</p>
 
-			<h4 class="mb-3 fw-light">Using the AHT20 Library</h4>
+			<h4 class="mb-3 fw-light">Using the AHT20 and Wire Library</h4>
 			<p class="mb-3">
 
-				Writing the code for the AHT20 is almost as easy as wiring it! You can download the library
+				Writing the code for the AHT20 is almost as easy as wiring it! You can download the AHT library
 				<a class="link-primary"
-					href="assets/libraries/Adafruit_AHTX0.zip">here</a>.  
+					href="assets/libraries/Adafruit_AHTX0.zip">here</a> (The wire library is built-in).  
 				Make sure to include the header files:
 			</p>
 			<p class="mb-3">
 				<code class="pj-code language-arduino">#include &lt;Adafruit_AHTX0.h&gt;</code> <br>
 			</p>
+			<p class="mb-3">
+				<code class="pj-code language-arduino">#include &lt;Wire.h&gt;</code> <br>
+			</p>
+			<p class="mb-3">
+				The wire built-in library allows us to set our own SDA and SCL pins for I2C. You can define your I2C pins by writing:
+			</p>
+			<p class="mb-3">
+				<code class="pj-code language-arduino">#define I2C_SDA 6 //pin 6</code> <br>
+				<code class="pj-code language-arduino">#define I2C_SDA 7 //pin 7</code> <br>
+			</p>
+			<p class="mb-3">
+				In <code class="pj-code language-arduino">void setup()</code>, configure the I2C pins using:
+			</p>
+			<p class="mb-3">
+				<code class="pj-code language-arduino">Wire.begin(I2C_SDA, I2C_SCL);</code> <br>
+			</p>	
 			<p class="mb-3">
 				At the core of this library is the Adafruit_AHTX0 class, which you will instantiate as an object and use to
 				read
