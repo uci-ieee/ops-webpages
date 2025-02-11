@@ -76,7 +76,7 @@
 						</ul>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#pj-heading-arduino-nano-pinout">Arduino Nano Pinout</a>
+						<a class="nav-link" href="#pj-heading-esp32pinout">ESP32 Pinout</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="#pj-heading-requirements">Requirements</a>
@@ -117,8 +117,8 @@
 					</div>
 					<div class="alert alert-light" role="alert">
 						<i class="bi bi-calendar-event me-1"></i>
-						Updated 2024.04.07 <br>
-						By Colton Kaneria
+						Updated 2025.02.11 <br>
+						By Zicong Yu
 					</div>
 				</div>
 
@@ -126,7 +126,7 @@
 				<p class="mb-5">
 					Now for an interlude in timers and interrupts! You will create a digital stopwatch using pushbutton
 					switches and a
-					7-Segment Display with Arduino. A piezo buzzer will beep when the buttons are pressed. What are you
+					7-Segment Display with the ESP32. A piezo buzzer will beep when the buttons are pressed. What are you
 					waiting for? Get
 					started!
 				</p>
@@ -179,8 +179,8 @@
 				<h3 class="mb-3" id="pj-heading-measuring-time">Measuring Time</h3>
 				<p class="mb-5">
 					We will record the time elapsed between a start and stop point. To do so requires a device within
-					the Arduino board
-					called the… wait for it… timer! The Arduino Nano conveniently has three timers, only one of which we
+					the ESP32 board
+					called the… wait for it… timer! The ESP32 conveniently has four timers, only one of which we
 					will need for
 					measuring the time. Keeping it simple, we will use a library to interface with the timer and
 					configure what is
@@ -207,7 +207,7 @@
 					<code class="pj-code language-arduino">Timer timer;</code>
 				</p>
 				<p class="mb-3">
-					Examine the table below for a overview of its member functions:
+					Examine the table below for an overview of its member functions:
 				<table class="table mb-5">
 					<tr>
 						<th>Function</th>
@@ -260,7 +260,7 @@
 
 				<h3 class="mb-3" id="pj-heading-interrupts">Interrupts</h3>
 				<p class="mb-4">
-					An <strong>interrupt request</strong> (<strong>IRQ</strong>) is a request to the Arduino's CPU to halt the currently executing code when an event
+					An <strong>interrupt request</strong> (<strong>IRQ</strong>) is a request to the ESP32's CPU to halt the currently executing code when an event
 					occurs. After the
 					request (or IRQ) is sent, the CPU will call another function to handle the event; it's called an
 					<strong>interrupt handler</strong> or
@@ -286,7 +286,7 @@
 				</p>
 
 				<div class="alert alert-warning" role="alert">
-					Only the Arduino Nano's <strong>digital pins D2 and D3</strong> can be used for external interrupts.
+					Note: All of the ESP32's GPIO pins can be used for external interrupts.
 				</div>
 
 				<p class="mb-3">
@@ -418,7 +418,7 @@ Serial.println("The interrupt has been handled");
 						class="text-red">VCC</span>
 					pins. Note that the <span class="text-red">VCC</span> pin accepts
 					5V, so <strong>connect it
-						to the 5V pin</strong> of the Arduino board.
+						to the 5V pin</strong> of the ESP32 board.
 				</p>
 
 				<h4 class="mb-3 fw-light">Using the TM1637 Library</h4>
@@ -525,10 +525,10 @@ Serial.println("The interrupt has been handled");
 					buzzer.
 				</p>
 
-				<h4 class="mb-3 fw-light">Using the Buzzer with Arduino</h4>
+				<h4 class="mb-3 fw-light">Using the Buzzer with ESP32</h4>
 
 				<p class="mb-3">
-					We will use a built-in Arduino function to send a PWM signal of specific frequency to the piezo
+					We will use a built-in Arduino IDE function to send a PWM signal of specific frequency to the piezo
 					buzzer. Instead of using
 					<code class="pj-code language-arduino">analogWrite</code>, we will try <code
 						class="pj-code language-arduino">tone</code>, which allows you to set
@@ -600,17 +600,30 @@ Serial.println("The interrupt has been handled");
 				<p class="mb-5">
 					Try it out! Play note C5 for 1 second with <code
 						class="pj-code language-arduino">tone(6, 523, 1000);</code> where the buzzer is connected to pin
-					D6.
+					5.
 				</p>
 
-				<h2 class="mb-3 fw-bold" id="pj-heading-arduino-nano-pinout">Arduino Nano Pinout</h2>
-				<p class="mb-5">
-					Thinking about using a pin but you don't know what it does? Refer to the Arduino Nano pinout
-					diagram. The full datasheet is linked in the <a href="#pj-heading-parts">Parts</a> section.
-					<br>
-					<span class="text-blue">~</span> represents pins that are PWM capable.
-					<img class="img-fluid my-4" src=".\assets\images\pinouts\ops-pinout-arduino-nano.png">
+				<h2 class="mb-3 fw-bold" id="pj-heading-pinout">ESP32 Pinout Diagram</h2>
+				<p class = "mb-3">
+					Thinking about using a pin you don't know what it does? Refer to the ESP32 Board pinout diagram.
 				</p>
+				<p class="mb-3">
+                    <img class="pj-img-fluid mx-auto mb-4" src="./assets/images/pinouts/[2024-2025] OPS ESP32-C3 PINOUT.png"
+					width="900">
+					When trying to figure out what pin to use for your specific application/project, refer to the ESP32 Pinout diagram.
+                    <br>
+					<ul>
+						<li><strong>NC</strong> stands for <strong>No Connect</strong>, and these pins should be left unconnected at all times.</li>
+						<li><strong>GPIO</strong> stands for a General Purpose Input/Output pin and can be used to send or read signals.</li>
+						<li><strong>ADC</strong> stands for analog to digital converter and it reads the input voltage and makes a digital number to represent that amount of voltage.</li>
+						<li><strong>TXD</strong> stands for transmitt data and can be used to transmitt data using a communication protocols.</li>
+						<li><strong>RXD</strong> stands for receive data and can be used to receive data using communication protocols.</li>
+						<li>The <strong>~ symbol</strong> represents pins that are PWM (Pulse Width Modulation) capable.</li>
+					</ul>
+					<div class="alert alert-info mt-2" role="alert">
+						Info: All GPIO pins are PWM capable.
+					</div>
+                </p>
 
 				<h2 class="mb-3 fw-bolder" id="pj-heading-requirements">Requirements</h2>
 				<p class="mb-3">
@@ -721,28 +734,16 @@ Serial.println("The interrupt has been handled");
 					<tbody>
 						<tr>
 							<td>
-								<a class="pj-part pj-part-link"
-									data-bs-content="<img src='./assets/images/parts/ops_part_arduino_nano.png' height='150px' width='auto'>"
-									data-bs-trigger="hover focus" data-bs-toggle="popover" tabindex="0"
-									href="./assets/datasheets/ops_datasheet_arduino_nano.pdf" target="_blank"
-									rel="noopener noreferrer">
-									Arduino Nano
+								<a class="pj-part"
+										data-bs-content="<img src='assets\images\parts\ops_part_esp32c3fxh4.jpg' height='150px' width='auto'>"
+										data-bs-trigger="hover focus" data-bs-toggle="popover" tabindex="0">
+										ESP32
 								</a>
 							</td>
 							<td>1</td>
 						</tr>
 						<tr>
 							<td>Breadboard</td>
-							<td>1</td>
-						</tr>
-						<tr>
-							<td>
-								<a class="pj-part"
-									data-bs-content="<img src='./assets/images/project_4/ops_micro_usb.jpg' height='150px' width='auto'>"
-									data-bs-trigger="hover focus" data-bs-toggle="popover" tabindex="0">
-									Nano-compatible USB Cable
-								</a>
-							</td>
 							<td>1</td>
 						</tr>
 						<tr>
@@ -830,7 +831,7 @@ Serial.println("The interrupt has been handled");
 					<li class="list-group-item">
 						Build the circuit in <strong>Schematic A</strong> (Toggle-able LED Circuit) on your breadboard.
 						<div class="alert alert-info mt-2" role="alert">
-							Use the built-in LED connected to the Arduino Nano's D13 pin
+							Use the built-in LED connected to the ESP32's 8 pin
 						</div>
 						<div class="alert alert-info mt-2" role="alert">
 							Don't forget to use INPUT_PULLUP when setting the pinmode of the pushbutton pin.
@@ -847,7 +848,7 @@ Serial.println("The interrupt has been handled");
 						Build the circuit in <strong>Schematic B</strong> (Digital Stopwatch) on your breadboard.
 					</li>
 					<li class="list-group-item">
-						Upload your sketch to the Arduino Nano, and verify that the program executes as expected.
+						Upload your sketch to the ESP32, and verify that the program executes as expected.
 					</li>
 				</ol>
 
@@ -866,9 +867,9 @@ Serial.println("The interrupt has been handled");
 				<ul class="mb-4 list-group">
 					<li class="list-group-item">
 						<i class="bi bi-check2-square me-2"></i>
-						Video of the Digital stopwatch Arduino board
+						Video of the Digital stopwatch ESP32 board
 						<div class="alert alert-info mt-2" role="alert">
-							This video should include the TM1637, two pushbuttons, piezo buzzer and Arduino correctly
+							This video should include the TM1637, two pushbuttons, piezo buzzer and ESP32 correctly
 							wired together.
 						</div>
 						<div class="alert alert-info mt-2" role="alert">
@@ -886,7 +887,7 @@ Serial.println("The interrupt has been handled");
 						<i class="bi bi-check2-square me-2"></i>
 						Digital stopwatch Arduino sketch file
 						<div class="alert alert-info mt-2" role="alert">
-							This file should include all of the code you have written for the Arduino Nano acting as the
+							This file should include all of the code you have written for the ESP32 acting as the
 							transmitter. Name it “<strong>ops_project7.ino</strong>".
 						</div>
 					</li>
