@@ -273,14 +273,14 @@
 					Every iteration of the
 					loop, you read the pushbutton's state, waiting to see if it was pressed. What an ordeal! Instead, we
 					can use an
-					interrupt to let the Arduino know when the button is pressed. Then, the interrupt handler will
+					interrupt to let the ESP32 know when the button is pressed. Then, the interrupt handler will
 					perform whichever
 					instructions follow the button press.
 				</p>
 
 				<h4 class="mb-3 fw-light">attachInterrupt</h4>
 				<p class="mb-3">
-					We will use a built-in Arduino function to initialize an interrupt. A digital pin will serve as the
+					We will use a built-in ESP32 function to initialize an interrupt. A digital pin will serve as the
 					line in which IRQs
 					are sent. That same pin is where the external device, such as a pushbutton, should be connected.
 				</p>
@@ -394,7 +394,7 @@ Serial.println("The interrupt has been handled");
 					however, the number of
 					signal lines quickly grows for each additional digit. The TM1637 chip is designed to alleviate this
 					exact problem. The
-					IC interfaces with a 4-digit display and can be controlled via I2C protocol by the Arduino.
+					IC interfaces with a 4-digit display and can be controlled via I2C protocol by the ESP32.
 				</p>
 
 				<h4 class="mb-3 fw-light" id="pj-heading-tm1637">TM1637 Pinout Diagram</h4>
@@ -410,7 +410,7 @@ Serial.println("The interrupt has been handled");
 					traditional <span class="text-green">SDA</span> and
 					<span class="text-green">SCL</span>, they serve the same purpose. These pins should be connected to
 					any two digital pins on the
-					Arduino board.
+					ESP32 board.
 				</p>
 
 				<p class="mb-5">
@@ -634,7 +634,7 @@ Serial.println("The interrupt has been handled");
 				<h3 class="mb-3">Toggle-able LED Circuit</h3>
 				<ul class="mb-5 list-group">
 					<li class="list-group-item">
-						You must write a program in which the Arduino board toggles the state of its built-in LED (D13)
+						You must write a program in which the ESP32 board toggles the state of its built-in LED (D13)
 						when a button is
 						pressed.
 					</li>
