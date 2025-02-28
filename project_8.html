@@ -114,18 +114,21 @@
 					</div>
 					<div class="alert alert-light" role="alert">
 						<i class="bi bi-calendar-event me-1"></i>
-						Updated 2024.02.29<br>
-						By Dylan Vu
+						Updated 2025.02.28<br>
+						By Gavin Nguyen
 					</div>
 				</div>
 
 				<h2 class="mb-3 fw-bold" id="pj-heading-introduction">Overview</h2>
-				<p class="mb-5">
+				<p class="mb-3">
 					You have explored circuit design and prototyping through breadboards and perfboards. This time, you
 					will explore the
 					manufacturing of more sophisticated circuit prototypes and finished products: You will create a
 					printed circuit board
 					(PCB) of the all-too-familiar 555 Blinker circuit with the software KiCad.
+					<div class="alert alert-info mt-2 mb-3" role="alert">
+						It is highly recommended to use a mouse for this project.
+					</div>
 				</p>
 
 				<h2 class="mb-3 fw-bold" id="pj-heading-concepts">Concepts</h2>
@@ -252,9 +255,6 @@
 							class="link-primary" href="#pj-heading-parts">Parts</a>
 						section of the project
 						specification
-					</li>
-					<li class="list-group-item">
-						Optional Challenge: The PCB must have no traces on the bottom copper layer and no vias
 					</li>
 				</ul>
 
@@ -487,9 +487,13 @@
 							<br>
 							{<strong>base value</strong>} {<strong>scale</strong>} {<strong>unit</strong>}
 							<br>
-							<strong>scale</strong> (power of 10): p: -12, n: -9, u: -6, m: -3, k: 3, M: 6, G: 9
+							<strong>scale</strong> (power of 10): p: 10<sup>-12</sup>, n: 10<sup>-9</sup>, u: 10<sup>-6</sup>, m: 10<sup>-3</sup>, k: 10<sup>3</sup>, M: 10<sup>6</sup>, G: 10<sup>9</sup>
 							<br>
 							<strong>unit</strong>: Capacitors: F, Inductors: H, Resistors: None
+							<br>
+							Ex. A capacitance of 1*10<sup>-6</sup>F would be denoted as 1uF.
+							<br>     
+							In this example, {base value = 1} {scale = u} {unit = F}
 						</div>
 					</li>
 					<li class="list-group-item">
@@ -663,7 +667,7 @@
 						Traces with <strong>30 mil width</strong> must be used for <strong>signal lines</strong>
 						<br><br>
 						Vist the <strong>Track use netclass width</strong> and <strong>Via use netclass
-							sizes</strong>ropdowns and select one of the newly populated options.
+							sizes</strong> dropdowns and select one of the newly populated options.
 						(Change between the options as necessary when you route the traces.)
 						<div>
 							<img class="img-fluid my-4"
@@ -673,17 +677,17 @@
 					<li class="list-group-item">
 						Create the board outline. Select the <strong>Edge.Cuts</strong> layer then use one of the shapes
 						tools to create the outline. Remember to
-						return to the <strong>F.Cu</strong> (Front Copper) layer when done.
+						return to the <strong>F.Cu</strong> (Front Copper) layer when done. A board shape of ~60x35mm is reasonable for this project.
 						<div>
 							<img class="img-fluid my-4"
 								src=".\assets\images\project_8\ops_project_8_kicad_board_outline.gif">
 						</div>
 					</li>
 					<li class="list-group-item">
-						Create the traces. Select <strong>Route Tracks<img class="img-fluid ms-1"
+						Space out your components a reasonable distance and create the traces. Select <strong>Route Tracks<img class="img-fluid ms-1"
 								src=".\assets\images\project_8\ops_project_8_kicad_button_route_tracks.png"></strong>
 						(or press <strong>X</strong>) and begin
-						drawing traces between pads which are connected via the
+						drawing traces between pads which are connected by the
 						ratsnets.
 						<div>
 							<img class="img-fluid my-4"
@@ -695,6 +699,11 @@
 						</div>
 						<div class="alert alert-warning" role="alert">
 							Leave the <strong>ground pads unconnected</strong>.
+						</div>
+						<div class="alert alert-warning" role="alert">
+							Pro tip: Avoid routing traces with 90 degree angles, and use <strong>135 degree tracks instead</strong>.
+							<br>
+							Ex. The connection between NE555P Pin 6 to C1 Pin 1 maintains a 135 degree track.
 						</div>
 					</li>
 					<li class="list-group-item">
