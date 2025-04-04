@@ -46,10 +46,10 @@
 						<a class="nav-link" href="#pj-heading-introduction">Introduction</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#pj-heading-arduino-libraries">Arduino Libraries</a>
+						<a class="nav-link" href="#pj-heading-schedule">Schedule</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#pj-heading-installing-kicad">Installing KiCAD 7.0</a>
+						<a class="nav-link" href="#pj-heading-installing-kicad">Installing KiCAD</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="#pj-heading-concepts">Concepts</a>
@@ -62,11 +62,11 @@
 									Half-H Driver</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="#pj-heading-nrf24l01">NRF24L01 Transceiver Module</a>
+								<a class="nav-link" href="#pj-heading-wifi">WiFi</a>
 							</li>
 						</ul>
 					<li class="nav-item">
-						<a class="nav-link" href="#pj-heading-arduino-nano-pinout">Arduino Nano Pinout</a>
+						<a class="nav-link" href="#pj-heading-esp32-pinout">ESP32 Pinout</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="#pj-heading-requirements">Requirements</a>
@@ -98,8 +98,8 @@
 					</div>
 					<div class="alert alert-light" role="alert">
 						<i class="bi bi-calendar-event me-1"></i>
-						Updated 2024.04.12 <br>
-						By Benjamen Bielecki
+						Updated 2025.04.03 <br>
+						By Zicong Yu and Gavin Nguyen
 					</div>
 
 				</div>
@@ -117,47 +117,74 @@
 					in building this project. It will only need to meet the base requirements; the rest is up to you.
 				</p>
 
-				<h2 class="mb-3 fw-bold" id="pj-heading-arduino-libraries">Installing Arduino Libraries</h2>
+				<h2 class="mb-3 fw-bold" id="pj-heading-schedule">Schedule</h2>
+				<div class="container table-container">
+					<table class="table table-bordered table-striped text-center">
+						<thead class="table-primary">
+							<tr>
+								<th>Week</th>
+								<th>Activity</th>
+								<th>Workshop</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>1</td>
+								<td class="due-date">Capstone PCB Design (Due <b>April 4th, 2025 at 11:59 PM</b>)<br>Attend Lecture: Capstone Project: Getting Started</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td></td>
+								<td>Capstone Rover Assembly</td>
+							</tr>
+							<tr>
+								<td>3</td>
+								<td>Attend Lecture: Senior Design Project Showcase</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>4</td>
+								<td></td>
+								<td>Capstone PCB Assembly</td>
+							</tr>
+							<tr>
+								<td>5</td>
+								<td>Start Working on Capstone Programming Independently (Lecture Tentative) </td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>6</td>
+								<td></td>
+								<td>Capstone Programming</td>
+							</tr>
+							<tr>
+								<td>7</td>
+								<td>Attend Lecture: End of the Year Review/Reflection</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>8</td>
+								<td>Suggested Capstone Project Submission Date: May 23rd</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>9</td>
+								<td>Rover Competition</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>10</td>
+								<td>OFFICIAL Capstone Project Submission Deadline: June 6th, 2025 at 11:59PM</td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<h2 class="mb-3 fw-bold" id="pj-heading-installing-kicad">Installing KiCad</h2>
 				<p class="mb-3">
-					Here is a quick recap on how you can install Arduino libraries in the
-					<a class="link-primary" href="https://www.arduino.cc/en/software" target="_blank"
-						rel="noopener noreferrer">Arduino IDE 2.0.0+</a>
-				</p>
-				<ol class="mb-4 list-group list-group-numbered">
-					<li class="list-group-item">
-						Download the library as a <strong>.zip</strong>
-					</li>
-					<li class="list-group-item">
-						In the Arduino IDE, go to <strong>Sketch → Include Library → Add .ZIP Library…</strong>
-					</li>
-					<li class="list-group-item">
-						Select the <strong>.zip</strong> of the library and click <strong>Open</strong>.
-					</li>
-				</ol>
-				<img class="img-fluid mb-4" src=".\assets\images\ops_arduino_ide_zip_library.png">
-
-				<p class="mb-4">
-					You're done! Just make sure to <code class="pj-code language-arduino">#include</code> the library
-					header
-					file so that your
-					code compiles.
-				</p>
-
-				<table class="table pj-download-table mb-5">
-					<tbody>
-						<tr>
-							<td>NRF24L01_W Library</td>
-							<td>
-								<a class="btn btn-outline-success mx-3" href="assets\libraries\NRF24L01_W.zip"
-									role="button"><i class="bi bi-download"></i> Download</a>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-
-				<h2 class="mb-3 fw-bold" id="pj-heading-installing-kicad">Installing KiCad 7.0</h2>
-				<p class="mb-3">
-					To complete this project, you will download the PCB design software KiCad (version 7.0.11).
+					To complete this project, you will download the PCB design software KiCad (the latest version).
 				</p>
 
 				<table class="table pj-download-table mb-5">
@@ -166,7 +193,7 @@
 							<td>Windows</td>
 							<td>
 								<a class="btn btn-outline-success mx-3"
-									href="https://downloads.kicad.org/kicad/windows/explore/stable/download/kicad-7.0.11-x86_64.exe"
+									href="https://github.com/KiCad/kicad-source-mirror/releases/download/9.0.1/kicad-9.0.1-x86_64.exe"
 									role="button"><i class="bi bi-download"></i> Download</a>
 							</td>
 						</tr>
@@ -174,7 +201,7 @@
 							<td>Mac</td>
 							<td>
 								<a class="btn btn-outline-success mx-3"
-									href="https://downloads.kicad.org/kicad/macos/explore/stable/download/kicad-unified-universal-7.0.11.dmg"
+									href="https://github.com/KiCad/kicad-source-mirror/releases/download/9.0.1/kicad-unified-universal-9.0.1.dmg"
 									role="button"><i class="bi bi-download"></i> Download</a>
 							</td>
 						</tr>
@@ -186,7 +213,7 @@
 						Download the installer from the link appropriate to your OS.
 					</li>
 					<li class="list-group-item">
-						Launch the installer. Click Next.
+						Launch the installer (we use a previous version here but use the latest version). Click Next.
 						<div>
 							<img class="img-fluid my-4"
 								src=".\assets\images\project_8/ops_project_8_kicad_installer1.png">
@@ -218,7 +245,7 @@
 				<p class="mb-3">
 					The remote control will accept input via an <i>analog</i> joystick. The component outputs analog
 					signals that
-					the Arduino board will read and process. Much like a console controller, the joystick has two axes,
+					the ESP32 will read and process. Much like a console controller, the joystick has two axes,
 					horizontal and vertical. The degree to which the joystick has pivoted along these axes determines
 					the
 					output of its data lines.
@@ -230,21 +257,20 @@
 				<p class="mb-5">
 					To the left is the pinout of the joystick. The GND and <span class="text-red">+5V</span> pins power
 					the radio module.
-					Make sure they are connected appropriately to the Arduino board.
+					Make sure they are connected appropriately to the ESP32.
 					<br><br>
 					The next two pins are <span class="text-blue">VX</span> and <span class="text-pink">VY</span>, which
 					carry analog signals for
 					the horizontal and vertical position of the joystick, respectively. These pins must be connected to
-					analog pins on the Arduino
-					board.
+					analog pins on the ESP32.
 					<br><br>
 					The last pin is <span class="text-green">SW</span>. The joystick may act as a button/<i>switch</i>,
 					the digital signal of which
 					is carried by <span class="text-green">SW</span>. This pin should be connected to a digital pin on
-					the Arduino.
+					the ESP32.
 					<br><br>
 				</p>
-				<h4 class="mb-3 fw-light">Wiring the Joystick to the Arduino</h4>
+				<h4 class="mb-3 fw-light">Wiring the Joystick to the ESP32</h4>
 				<p class="mb-5">
 					The following connections are recommended, so the PCB design procedure is easier to follow. In the
 					end, you can wire the joystick
@@ -253,7 +279,7 @@
 				<table class="table pj-download-table mb-5">
 					<tr>
 						<th>Joystick Pins</th>
-						<th>Arduino Nano Pins</th>
+						<th>ESP32 Pins</th>
 					</tr>
 					<tr>
 						<td>GND</td>
@@ -265,21 +291,21 @@
 					</tr>
 					<tr>
 						<td><span class="text-blue">VX</span></td>
-						<td>A0</td>
+						<td>2</td>
 					</tr>
 					<tr>
 						<td><span class="text-pink">VY</span></td>
-						<td>A1</td>
+						<td>1</td>
 					</tr>
 					<tr>
 						<td><span class="text-green">SW</span></td>
-						<td>D2</td>
+						<td>4</td>
 					</tr>
 				</table>
 
 				<h4 class="mb-3 fw-light">Pull-Up Resistors</h4>
 				<p class="mb-5">
-					Suppose you use a digital input pin on the Arduino board, but it’s not connected to anything. Is the
+					Suppose you use a digital input pin on the ESP32, but it’s not connected to anything. Is the
 					state of the pin HIGH or LOW?
 					For it to be HIGH, the pin would need to be connected to the VCC power source. For the state to be
 					LOW, the pin would need to be
@@ -316,7 +342,7 @@
 					When you use a button or, in our case, the <span class="text-green">SW</span> pin of the joystick,
 					you should use a pull-up resistor.
 					Instead of building an external circuit, you can use an <b>internal pull-up resistor</b> in the
-					Arduino board. You may do so by setting
+					ESP32. You may do so by setting
 					the pin mode as follows:
 				</p>
 				<p class="mb-3">
@@ -363,7 +389,7 @@
 						Of the several system examples, we will use the <b>Bidirectional DC Motor Control</b>.
 					</li>
 					<li class="list-group-item">
-						The term “<b>logic</b>” refers to the binary HIGH and LOW output of the Arduino digital
+						The term “<b>logic</b>” refers to the binary HIGH and LOW output of the ESP32 digital
 						pins.
 					</li>
 				</ol>
@@ -376,7 +402,7 @@
 				<img class="pj-img-fluid mx-auto mb-4" src="./assets/images/capstone/ops_L293D_pinout.png"
 					width="500">
 				<p class="mb-3">
-					Ensure that the Arduino board and L293D share a <b>ground connection</b>.
+					Ensure that the ESP32 board and L293D share a <b>ground connection</b>.
 					<br><br>
 					As you will learn in the datasheet, <span class="text-indigo">1EN</span> and <span
 						class="text-pink">2EN</span> are enable pins, which you will
@@ -386,237 +412,214 @@
 				</p>
 
 				<div class="alert alert-warning mb-5" role="alert">
-					<b>The motors need to be powered directly by the 9V battery</b>, which is capable of supplying more power than the Arduino
+					<b>The motors need to be powered directly by the 9V battery</b>, which is capable of supplying more power than the ESP32
 					board. 
 				</div>
 
-				<h3 class="mb-3 fw-bold" id="pj-heading-nrf24l01">NRF24L01 Transceiver Module</h3>
-				<p class="mb-3">
-					The NRF24 radio transceiver is a popular choice for wireless communication between microcontroller
-					boards. We’ll use the NRF24L01 variation,
-					which is a low-power, high-frequency radio module.
-				</p>
-				<p class="mb-5">
-					Here’s how we’ll transmit data: The Arduino board will transfer messages to and from the radio
-					module using SPI protocol, and the radio module will handle the rest.
-					It uses a radio protocol called <a class="link-primary"
-						href="https://devzone.nordicsemi.com/nordic/nordic-blog/b/blog/posts/intro-to-shockburstenhanced-shockburst">Enhanced
-						ShockBurst™</a> (ESB) to transmit wirelessly to another NRF24. The beauty of it all is that we
-					don’t need to know how ESB protocol works;
-					we just need to get the data from the Arduino to the radio module.
-				</p>
 
-				<h4 class="mb-3 fw-light">Radio Frequency Bands and Channels</h4>
-				<p class="mb-3">
-					Remember that the NRF24 modules send information over radio waves, just like our mobile phones,
-					satellites, and WiFi. But how do the <strong> radio waves </strong> emitted by a
-					satellite not interfere with the radio waves of a WiFi router or iPhone? Let’s explain: Each signal
-					belongs to a <strong>frequency band</strong> or range of contiguous frequencies specified
-					by the International Telecommunication Union (ITU).
-				</p>
+				<h3 class="mb-3" id="pj-heading-wifi">WiFi</h3>
+			<p class="mb-3">
+				WiFi is the most popular choice for wireless communication between devices. It uses radio waves to “connect” devices, 
+				allowing them to communicate. While we won’t be using an actual WiFi network, we will use the ESP32’s communication protocol 
+				<b>ESP-NOW</b>, which uses the ESP32’s built-in WiFi module.
 
-				<img class="pj-img-fluid mx-auto mb-5" src="assets\images\ops_radio_frequency.png" width="1500">
+			</p>
+			<p class="mb-5">
+				Here’s how we’ll transmit data: One ESP32’s WiFi module will wirelessly transmit messages to another ESP32’s 
+				WiFi module using the ESP-NOW protocol. We won’t dive into the details of how ESP-NOW works, but we will 
+				cover the concept of how radio waves are emitted.
+			</p>
 
-				<p class="mb-3">
-					FM radio is designated to a frequency band of 88-108 MHz, and WiFi exists in 2.4 GHz and 5 GHz
-					bands. These bands are further divided into <strong>channels</strong>.
-				</p>
+			<h4 class="mb-3 fw-light">Radio Frequency Bands and Channels</h4>
+			<p class="mb-3">
+				Remember that the WiFi modules send information over radio waves, just like our mobile phones, satellites, and WiFi. But how do the <strong> radio waves </strong> emitted by a 
+				satellite not interfere with the radio waves of a WiFi router or iPhone? Let’s explain: Each signal belongs to a <strong>frequency band</strong> or range of contiguous frequencies specified 
+				by the International Telecommunication Union (ITU).
+			</p>
 
-				<p class="mb-3">
-					For example, FM radio has 100 channels, each with a different radio frequency within the larger
-					frequency band. FM radio stations are assigned to unique channels, which is why you normally don’t
-					hear
-					Taylor Swift overlaid with the latest stock market report.
-				</p>
-				<p class="mb-3">
-					If multiple radio signals were to exist on the same frequency, a collision would occur. This is why
-					the ITU takes special care to regulate the radio spectrum.
-				</p>
-				<p class="mb-5">
-					The NRF24L01 operates on a 2.4 GHz frequency band, which it shares with WiFi. This band is
-					subdivided into 125 channels from which we choose to emit a signal.
-					<strong>You will have to manually select a channel</strong> for the two radio modules to operate on.
-					Moreover, this channel will have to be different from any nearby pair of NRF24 modules to avoid
-					collisions.
-				</p>
+			<img class="pj-img-fluid mx-auto mb-5" src="assets\images\ops_radio_frequency.png" width="1500">
 
-				<h4 class="mb-3" style="">NRF24L01 Pinout</h4>
-				<p class="mb-3">
-					Below, you’ll find a pinout of the NRF24L01. You should recognize some of the pins as the SPI
-					protocol lines
-					(i.e., <span class="text-yellow">CE/CS</span>, <span class="text-green">PICO</span>, <span
-						class="text-purple">POCI</span>, <span class="text-blue">SCK</span>).
-				<p class="mb-3">
-					<img class="pj-img-fluid mx-auto mb-5" src="assets\images\ops_nrf24l01_annotated.png" width="600">
-				</p>
-				<p class="mb-3">
-					The GND and <span class="text-red">VCC</span> pins power the radio module. <Strong> Make sure that
-						<span class="text-red">VCC</span> is connected to a 3.3V</Strong> power source rather than 5V.
-					Unlike other components we use, the NRF24 accepts only 3.3V power,
-					which is an increasingly common voltage in modern digital circuits. Luckily, the module still
-					tolerates 5V logic, meaning we can connect the other pins to the Arduino’s digital pins as we
-					normally would.
-				</p>
-				<p class="mb-3">
-					The <span class="text-yellow">CSN</span> pin is the “Chip Select Not” pin, which disables SPI
-					communication when <Strong>HIGH</Strong>. When we want the radio module to listen for SPI messages,
-					the pin is set to <strong>LOW</strong>.
-				</p>
-				<p class="mb-5">
-					Last but not least is the <span class="text-gray">IRQ</span> pin for interrupts, which we will not
-					use in this project. Make sure the <span class="text-gray">IRQ</span> pin is left disconnected.
-				</p>
+			<p class="mb-3">
+					WiFi exists in 2.4 GHz,5 GHz and 6 GHz bands. These bands are further divided into <strong>channels</strong>.
+					</p>
 
-				<h4 class="mb-3 fw-light" id="pj-heading-dht11">Wiring the Arduino to the Radio Module</h4>
-				<p class="mb-3">
-					Just like I<sup>2</sup>C, the Arduino is designed to handle SPI communication through certain pins
-					on the board, which connect to the NRF24 as follows.
+			<p class="mb-3">
+				For example, 2.4 GHz WiFi 14 channels, each with a different radio frequency within the larger frequency band. FM radio stations are assigned to unique channels, which is why you normally don’t hear 
+				Taylor Swift overlaid with the latest stock market report. WiFi networks close together are assigned to different channels so they do not interfere with each other. For instance, if you and your next-door 
+				neighbor set your WiFi networks to the same channel, the networks would interfere, slowing down your internet speeds.
+				</p>
+			<p class="mb-3">
+				If multiple radio signals were to exist on the same frequency, a collision would occur. This is why the ITU takes special care to regulating the radio spectrum.
+					</p>				
+			<p class="mb-5">
+				The ESP-NOW communication protocol operates on a 2.4 GHz frequency band, which it shares with many WiFi networks. However, 
+				ESP-NOW is not a WiFi network itself; it is a different wireless communication that uses an ESP32’s WiFi module to directly 
+				communicate with another ESP32. While WiFi uses an access point to establish a connection between two devices, ESP-NOW identifies another ESP32 board by its MAC address and uses the ESP32 WiFi module to directly transmit data to that receiver address.
 
 
-				<table class="table pj-download-table mb-5">
-					<tr>
-						<th>NRF24L01 Pins</th>
-						<th>Arduino Nano Pins</th>
-					</tr>
-					<tr>
-						<td>GND</td>
-						<td>GND</td>
-					</tr>
-					<tr>
-						<td><span class="text-red">VCC</span></td>
-						<td>3.3V</td>
-					</tr>
-					<tr>
-						<td><span class="text-yellow">CE/CS</span></td>
-						<td>D7</td>
-					</tr>
-					<tr>
-						<td><span class="text-orange">CSN</span></td>
-						<td>D8</td>
-					</tr>
-					<tr>
-						<td><span class="text-blue">SCK</span></td>
-						<td>D13</td>
-					</tr>
-					<tr>
-						<td><span class="text-green">PICO</span></td>
-						<td>D11</td>
-					</tr>
-					<tr>
-						<td><span class="text-purple">POCI</span></td>
-						<td>D12</td>
-					</tr>
-					<tr>
-						<td><span class="text-gray">IRQ</span></td>
-						<td>None</td>
-					</tr>
-
-
-				</table>
-
-				<h4 class="mb-3 fw-light" style="display: inline;">Using the NRF24L01_W Library</h4>
-				<p class="mb-3">
-					<br>
-					Once you wire the Arduino board to the radio module, it’s time to write code! Download the
-					library <a class="link-primary" href="assets/libraries/NRF24L01_W.zip" download>
-						here</a>.
-					Make sure to include the header file:
-				</p>
-				<p class="mb-3">
-					<code class="pj-code language-arduino">#include &lt;NRF24L01_W.h&gt;</code>
-				</p>
-				<p class="mb-3">
-					You will instantiate a global object of the NRF24L01_W class, which represents the radio
-					connected to the Arduino board.
-					The two arguments of the constructor are the <span class="text-yellow">CS</span> and <span
-						class="text-orange">CSN</span> pins of the board.
-				</p>
-				<p class="mb-3">
-					<code class="pj-code language-arduino">NRF24L01_W radio(int CS, int CSN); </code>
-				</p>
-				<p class="mb-3">
-					The next steps are to configure your newly created radio object. Place this code in your <code
-						class="pj-code language-arduino">setup()</code> function.
-				</p>
-				<p class="mb-3">
-					<code class="pj-code language-arduino">radio.begin();</code>
-				</p>
-				<p class="mb-3">
-					You will set the <code class="pj-code language-arduino">address</code> of your radio to a five
-					character string and pass it into the radio's <code
-						class="pj-code language-arduino">setReceiveAddress()</code> function.
-					For example, you could set the address to <code class="pj-code language-arduino">"B1440”</code>.
-					<strong>Make sure the address is unique</strong>.
-				</p>
-				<p class="mb-3">
-					<code class="pj-code language-arduino">radio.setReceiveAddress(char[] address);</code>
-				</p>
-				<p class="mb-3">
-					Now, enter the address of the radio to which you intend to transmit messages.
-				</p>
-				<p class="mb-3">
-					<code class="pj-code language-arduino">radio.setTransmitAddress(char[] address);</code>
-				</p>
-				<p class="mb-3">
-					You will also set the channel that your radios will operate on. <strong>Pick one at
-						random</strong> in the range of 0-124.
-					Make sure that both NRF24 modules are set to the <strong>same channel</strong>.
-				</p>
-				<p class="mb-3">
-					<code class="pj-code language-arduino">radio.setChannel(int channel);</code>
-				</p>
-				<p class="mb-3">
-					Let’s move on to the code that would appear in the <code
-						class="pj-code language-arduino">main()</code> loop. This is where radio messages will be
-					read and written (transmitted and received).
-					To facilitate the data transfer, you are provided with a special container <code
-						class="pj-code language-arduino">RemoteData</code> with three member variables that are
-					initialized as follows.
-					These are the <code class="pj-code language-arduino">uint8_t</code> (unsigned 8-bit int) type.
-				</p>
-				<p class="mb-3">
-					<code class="pj-code language-arduino">RemoteData data;</code>
-					<br>
-					<code class="pj-code language-arduino">data.vx = 77;</code>
-					<br>
-					<code class="pj-code language-arduino">data.vy = 89;</code>
-					<br>
-					<code class="pj-code language-arduino">data.sw = 1;</code>
-				</p>
-				<p class="mb-3">
-					To send a report to the other radio, use the <code class="pj-code language-arduino">write()</code>
-					function, passing the
-					<code class="pj-code language-arduino">RemoteData</code> container as an argument.
-				</p>
-				<p class="mb-3">
-					<code class="pj-code language-arduino">radio.write(RemoteData data); </code>
-				</p>
-				<p class="mb-3">
-					You may check to see if the radio has incoming data with the following function, which returns
-					an <code class="pj-code language-arduino">int</code> greater than zero
-					<em>if</em> there is data available.
-				</p>
-				<p class="mb-3">
-					<code class="pj-code language-arduino">int payload = radio.available();</code>
-				</p>
-				<p class="mb-3">
-					To read incoming data, use the radio’s <code class="pj-code language-arduino">read()</code>
-					function, which returns a <code class="pj-code language-arduino">RemoteData</code>
-				</p>
-				<p class="mb-5">
-					<code class="pj-code language-arduino">RemoteData data = radio.read();</code>
-				</p>
-
-				<h2 class="mb-3 fw-bold" id="pj-heading-arduino-nano-pinout">Arduino Nano Pinout</h2>
-				<p class="mb-1">
-					Thinking about using a pin but you don't know what it does? Refer to the Arduino Nano pinout
-					diagram, or scroll further to find the full datasheet.
-				</p>
+			<h4 class="mb-3 fw-light" style="display: inline;">Using the WiFi Library</h4>
+			<p class="mb-3">
+				<br>
+				Download the library <a class="link-primary"
+					href="assets/libraries/WiFiConfig.zip">
+					here </a>.
+				Make sure to include the header file:
+			</p>
+			<p class="mb-3">
+				<code class="pj-code language-arduino">#include &lt;WifiConfig.h&gt;</code>
+			</p>
+			<p class="mb-3">
+				You need to determine the <b>MAC address</b> of the receiver ESP32 board. Run this sketch 
+				code on your receiver ESP32. The serial monitor should show the <b>MAC address</b> as a series of <b>hexadecimal</b> 
+				numbers separated by colons.
+			</p>
+			<p class="mb-3">
 				<p>
-					<span class="text-blue">~</span> represents pins that are PWM capable.
+					Example address: 34:b7:da:f6:3e:78.
 				</p>
-				<img class="pj-img-fluid mx-auto mb-5" src=".\assets\images\pinouts\ops-pinout-arduino-nano.png"
-					width="800">
+				<pre class="mb-5"><code class="pj-code language-arduino" style="white-space: pre-wrap; height:60vh;">#include &lt;WiFi.h&gt;
+#include &lt;esp_wifi.h&gt;
+
+void readMacAddress(){
+	uint8_t baseMac[6];
+	esp_err_t ret = esp_wifi_get_mac(WIFI_IF_STA, baseMac);
+	if (ret == ESP_OK) {
+	Serial.printf("%02x:%02x:%02x:%02x:%02x:%02x\n",
+					baseMac[0], baseMac[1], baseMac[2],
+					baseMac[3], baseMac[4], baseMac[5]);
+	} else {
+	Serial.println("Failed to read MAC address");
+	}
+}
+
+void setup(){
+	Serial.begin(115200);
+	WiFi.mode(WIFI_STA);
+	WiFi.STA.begin();
+	Serial.print("[DEFAULT] ESP32 Board MAC Address: ");
+	readMacAddress();
+}
+	
+void loop(){
+	Serial.print("[DEFAULT] ESP32 Board MAC Address: ");
+	readMacAddress();
+}</code></pre>
+			</p>
+			<p class="mb-3">
+				Next, create an array to store the receiver ESP32’s <b>MAC address</b>. Each <b>hexadecimal number</b> should be one
+				entry in the array, with the prefix <b>0x</b> to specify that the number is in hexadecimal. So for our example 
+				address 34:b7:da:f6:3e:78, we would initialize the array below:
+			</p>
+			<p class="mb-3">
+				<code class="pj-code language-arduino">uint8_t receiverAddress[] = {0x34, 0xB7, 0xDA, 0xF6, 0x3E, 0x78}</code>
+			</p>
+			<p class="mb-3">
+				The next step is to put your ESP32 board in <b>WiFi mode</b> to prepare the onboard WiFi module for communication and start the ESP-NOW protocol. Place this code in your <code class="pj-code language-arduino">setup()</code> function.
+			</p>
+			<p class ="mb-3">
+				<code class="pj-code language-arduino">wifi_setup();</code>
+			</p>
+			<p class="mb-3">
+				You will set the receiver ESP32 as the transmitting board’s “peer” by passing the receiver board’s 
+				MAC address into the <code class="pj-code language-arduino">peer_setup()</code> function. This ensures ESP-NOW knows which board it is transmitting to.
+			</p>
+			<p class="mb-3">
+				<code class="pj-code language-arduino">peer_setup(receiverAddress);</code>
+			</p>
+			<div class="alert alert-info mt-2 mb-3" role="alert">	
+				(Note: this step is only necessary for your transmitter ESP32 sketch. Your receiver does not need a peer configured because it is not the one sending data.)
+			</div>
+			<p class="mb-3">
+				Let’s move on to the code that would appear in the <code class="pj-code language-arduino">main()</code> loop. This is where RemoteData messages 
+				will be read and written (transmitted and received). To facilitate the data transfer, you are provided with a special container <code class="pj-code language-arduino">RemoteData</code> with three member variables that are initialized as follows. Note that these variables are <b>uint8_t</b> type (unsigned 8-bit integers 0-255).
+			</p>
+			<p class="mb-3">
+				<code class="pj-code language-arduino">RemoteData data;</code>
+				<br>
+				<code class="pj-code language-arduino">data.vx = 77;</code>
+				<br>
+				<code class="pj-code language-arduino">data.vy = 89;</code>
+				<br>
+				<code class="pj-code language-arduino">data.sw = 3;</code>
+			</p>
+			<p class="mb-3">
+				To send data to the other ESP32, use the <code
+					class="pj-code language-arduino">send_data()</code> function, passing both the receiver 
+					address and <code
+					class="pj-code language-arduino">RemoteData</code> container as arguments
+			</p>
+			<p class="mb-3">
+				<code class="pj-code language-arduino">send_data(receiverAddress, data);</code>
+			</p>
+			<p class="mb-3">
+				To receive data, you need to configure your other ESP32 as the receiver in its sketch. 
+				Create a global <code class="pj-code language-arduino">RemoteData</code> variable (for example, report) and use the <code class="pj-code language-arduino">set_data_receiver()</code> function, 
+				passing in the address of the <code class="pj-code language-arduino">RemoteData</code> container as an argument.
+			</p>
+			<p class="mb-3">
+				<code class="pj-code language-arduino">set_data_receiver(&data);</code>
+			</p>
+			<p class="mb-3">
+				This code ensures that whenever the ESP32 receives data, it will automatically update your RemoteData 
+				container with the transmitted values. &data is the memory location that contains your RemoteData, 
+				which is needed to update the values.
+			</p>
+			<p class="mb-3">
+				Here’s an example of all the code put together.
+			</p>
+			<p class="alert alert-warning mt-2" role="alert">
+				Do not blindly copy-paste the sample code to your project deliverables. You will need to determine which functions to use in your individual transmitter and receiver sketches.
+			</p>
+			<pre class="mb-5"><code class="pj-code language-arduino" style="white-space: pre-wrap; height:60vh;">#include &lt;WifiConfig.h&gt;
+//Find the mac address of your receiver ESP32 first, then enter it in here:
+uint8_t receiverAddress[] = {0x34, 0xB7, 0xDA, 0xF6, 0x3E, 0x78};
+
+RemoteData data;      // global initialization of RemoteData
+	
+
+void setup()
+{
+  Serial.begin(115200);                // Serial setup
+  wifi_setup();                      // start wifi mode and ESP-NOW
+  peer_setup(receiverAddress);       // configure receiving address
+  set_data_receiver(&data);      // configure the receiver ESP32 to update data's values upon reception
+}
+
+void loop()
+{
+  data.vx = 34; 
+  data.vy = 70;
+  data.sw = 0;
+
+
+  send_data(receiverAddress, data);       // send the data
+  Serial.print("VX: ");              // Print VX
+  Serial.println(data.vx);
+
+  delay(1000);
+}</code></pre>
+				
+				<h2 class="mb-3 fw-bold" id="pj-heading-esp32-pinout">ESP32 Pinout Diagram</h2>
+				<p class = "mb-3">
+					Thinking about using a pin you don't know what it does? Refer to the ESP32 Board pinout diagram.
+				</p>
+				<p class="mb-3">
+					<img class="pj-img-fluid mx-auto mb-4" src="./assets/images/pinouts/[2024-2025] OPS ESP32-C3 PINOUT.png"
+					width="900">
+					When trying to figure out what pin to use for your specific application/project, refer to the ESP32 Pinout diagram.
+					<br>
+					<ul>
+						<li><strong>NC</strong> stands for <strong>No Connect</strong>, and these pins should be left unconnected at all times.</li>
+						<li><strong>GPIO</strong> stands for a General Purpose Input/Output pin and can be used to send or read signals.</li>
+						<li><strong>ADC</strong> stands for analog to digital converter and it reads the input voltage and makes a digital number to represent that amount of voltage.</li>
+						<li><strong>TXD</strong> stands for transmitt data and can be used to transmitt data using a communication protocols.</li>
+						<li><strong>RXD</strong> stands for receive data and can be used to receive data using communication protocols.</li>
+						<li>The <strong>~ symbol</strong> represents pins that are PWM (Pulse Width Modulation) capable.</li>
+					</ul>
+					<div class="alert alert-info mt-2" role="alert">
+						Info: All GPIO pins are PWM capable.
+					</div>
+				</p>
 
 				<h2 class="mb-3 fw-bold" id="pj-heading-requirements">Requirements</h2>
 				<p class="mb-3">
@@ -636,6 +639,9 @@
 					<li class="list-group-item">
 						A user should be able to intuitively use the joystick to control the rover. This means that
 						pivoting the joystick left should move the rover left, not backward.
+					</li>
+					<li class="list-group-item">
+						The remote control should feature two LEDS: A <span class="text-green">green</span> one that turns on when the rover is moving and a <span class="text-red">red</span> one that turns on when the rover is not moving.
 					</li>
 					<li class="list-group-item">
 						You must design a PCB for the remote control.
@@ -681,20 +687,6 @@
 							<td>1</td>
 						</tr>
 						<tr>
-							<td>Dupont Jumper Wire (Male-to-Female)</td>
-							<td>7</td>
-						</tr>
-						<tr>
-							<td>
-								<a class="pj-part"
-									data-bs-content="<img src='./assets/images/parts/ops_part_nrf24l01.png' height='150px' width='auto'>"
-									data-bs-trigger="hover focus" data-bs-toggle="popover" tabindex="0">
-									N4F24L01 Transceiver Module
-								</a>
-							</td>
-							<td>2</td>
-						</tr>
-						<tr>
 							<td>Gearbox Motor</td>
 							<td>2</td>
 						</tr>
@@ -735,8 +727,14 @@
 							<td>1</td>
 						</tr>
 						<tr>
-							<td>Diode</td>
-							<td>1</td>
+							<td>
+								<a class="pj-part"
+									data-bs-content="<img src='assets\images\parts\ops_part_esp32c3fxh4.jpg' height='150px' width='auto'>"
+									data-bs-trigger="hover focus" data-bs-toggle="popover" tabindex="0">
+									ESP32
+								</a>
+							</td>
+							<td>2</td>
 						</tr>
 						<tr>
 							<td>Mini USB Cable</td>
@@ -756,6 +754,14 @@
 						</tr>
 						<tr>
 							<td>1x15 Pin Female Header</td>
+							<td>2</td>
+						</tr>
+						<tr>
+							<td>LED</td>
+							<td>2</td>
+						</tr>
+						<tr>
+							<td>Resistor, 220Ω</td>
 							<td>2</td>
 						</tr>
 						<tr>
@@ -784,7 +790,7 @@
 						<div id="schemCollapse1" class="accordion-collapse collapse show"
 							data-bs-parent="#schemAccordian">
 							<div class="accordion-body text-center">
-								<img src='./assets/images/schematics/ops_schem_capstone.png'
+								<img src='assets/images/capstone/ops_capstone_schematic.png'
 									class="pj-img-fluid mx-auto" width="700">
 							</div>
 						</div>
@@ -792,106 +798,7 @@
 				</div>
 
 				<h2 class="mb-3 fw-bold" id="pj-heading-procedure">Instructions</h2>
-				<h4 class="mb-3 fw-light">PCB Design</h4>
-
-				<ol class="mb-5 list-group list-group-numbered">
-					<li class="list-group-item">
-						Open KiCad 7.0 and create a new project.
-						<ul>
-							<li>
-								Name the project file using the following format:
-								“<b>capstone_firstname_lastname.kicad_pro</b>”.
-							</li>
-						</ul>
-					</li>
-					<li class="list-group-item">
-						Create <b>Schematic A</b> in the project’s schematic editor.
-						<ul>
-							<li>You must use the symbols and corresponding footprints listed below:</li>
-							<ul>
-								<li>
-									Symbol: <b>Arduino_Nano_v3.x</b> <br>
-									Footprint Library: <b>Module</b> <br>
-									Footprint: <b>Arduino_Nano</b>
-								</li>
-								<li>
-									Symbol: <b>Conn_01x05_Socket</b> <br>
-									Footprint Library: <b>Connector_PinSocket_2.54mm</b> <br>
-									Footprint: <b>PinSocket_1x05_P2.54mm_Vertical</b> <br>
-								</li>
-								<li>
-									Symbol: <b>NRF24L01_Breakout</b> <br>
-									Footprint Library: <b>RF_Module</b> <br>
-									Footprint: <b>nRF24L01_Breakout</b> <br>
-								</li>
-							</ul>
-							<li>
-								Note that we do not use a symbol for the joystick. Instead, we use a 1x5 socket header.
-								You must observe the physical pinout of the joystick and make sure it matches the pin
-								wiring of the header in your KiCad schematic.
-							</li>
-						</ul>
-					</li>
-					<li class="list-group-item">
-						Before proceeding to the next step, make sure that you have done the following:
-						<ul>
-							<li>
-								Run the <b>Annotate Schematic</b> tool. <img class="img-fluid ms-1"
-									src=".\assets\images\project_8\ops_project_8_kicad_button_reference_designators.png">
-							</li>
-							<li>
-								Run the <b>Electrical Rules Checker (ERC)</b> tool. <img class="img-fluid ms-1"
-									src=".\assets\images\project_8\ops_project_8_kicad_button_electronic_rules_checker.png">
-							</li>
-							<ul>
-								<li>
-									There should be no violations except for <b>Error: Input Power pin not driven by
-										any Output Power pins.</b>
-								</li>
-							</ul>
-							<li>
-								Make sure every symbol is assigned to the correct footprint.
-							</li>
-						</ul>
-					</li>
-					<li class="list-group-item">
-						Download this <a class="link-primary" href="assets/pcb/jlcpcb_design_rules.zip" download>file</a>. You will use it to import the manufacturer’s PCB constraints to your project.
-					</li>
-					<li class="list-group-item">
-						Unzip the downloaded file "<b>jlcpcb_design_rules.zip</b>" and place its contents ("<b>capstone_firstname_lastname.kicad_dru</b>") in your KiCad project folder.
-					</li>
-					<li class="list-group-item">
-						Rename "<b>capstone_firstname_lastname.kicad_dru</b>" to the name of your KiCad project.
-					</li>
-					<li class="list-group-item">
-						In the PCB Editor, click <b>Update PCB</b> or press <b>F8</b>. <img class="img-fluid ms-1"
-							src=".\assets\images\project_8\ops_project_8_kicad_button_update_pcb.png">
-					</li>
-					<li class="list-group-item">
-						Complete the layout and traces for your PCB design.
-					</li>
-					<li class="list-group-item">
-						Before submitting your design, make sure you have done the following:
-						<ul>
-							<li>
-								Place the 01x05 female header (for the joystick) along the edge of your PCB.
-								The joystick needs to be attached off the edge of the board.
-							</li>
-							<li>
-								Run <b>Design Rules Checker (DRC)</b> tool. <img class="img-fluid ms-1"
-									src=".\assets\images\project_8\ops_project_8_kicad_button_electronic_rules_checker.png">
-								<ul>
-									<li>
-										There should be no violations.
-									</li>
-								</ul>
-							</li>
-						</ul>
-					</li>
-					<li class="list-group-item">
-						Submit your PCB design based on the instructions in the Deliverables section.
-					</li>
-				</ol>
+				
 
 				<h4 class="mb-3 fw-light">PCB Assembly</h4>
 				<ol class="mb-5 list-group list-group-numbered">
@@ -1049,12 +956,8 @@
 				<p class="mb-5">
 					How you write the code is all up to you. Just make sure there are two files, one for the rover
 					and one for the remote control.
-					<br><br>
-					<b>Install the newest version</b> of the NRF24L01_W library as well.
-					<br><br>
 					As a final suggestion, look back at your old project submissions and reuse applicable code.
 				</p>
-
 
 				<h2 class="mb-3 fw-bold" id="pj-heading-deliverables">Deliverables</h2>
 				<h4 class="mb-3 fw-light">PCB Design</h4>
@@ -1096,7 +999,7 @@
 					</li>
 					<li class="list-group-item">
 						<i class="bi bi-check2-square me-2"></i>
-						<b>Rover Arduino sketch file</b>
+						<b>Rover ESP32 sketch file</b>
 						<div class="alert alert-info mt-2" role="alert">
 							This file should include all of the code you have written for the rover. Name it
 							“<b>capstone_rover.ino</b>”.
@@ -1104,7 +1007,7 @@
 					</li>
 					<li class="list-group-item">
 						<i class="bi bi-check2-square me-2"></i>
-						<b>Remote Control Arduino sketch file</b>
+						<b>Remote Control ESP32 sketch file</b>
 						<div class="alert alert-info mt-2" role="alert">
 							This file should include all of the code you have written for the remote control. Name
 							it “<b>capstone_remote.ino</b>”.
