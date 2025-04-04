@@ -49,9 +49,6 @@
 						<a class="nav-link" href="#pj-heading-schedule">Schedule</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#pj-heading-arduino-libraries">Arduino Libraries</a>
-					</li>
-					<li class="nav-item">
 						<a class="nav-link" href="#pj-heading-installing-kicad">Installing KiCAD</a>
 					</li>
 					<li class="nav-item">
@@ -126,96 +123,68 @@
 						<thead class="table-primary">
 							<tr>
 								<th>Week</th>
-								<th>Suggested Activity</th>
+								<th>Activity</th>
 								<th>Workshop</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
 								<td>1</td>
-								<td>PCB Design</td>
-								<td>Capstone PCB Design</td>
-							</tr>
-							<tr>
-								<td>2</td>
-								<td class="due-date">(Due <b>April 4th, 2025 at 11:59 PM</b>)</td>
+								<td class="due-date">Capstone PCB Design (Due <b>April 4th, 2025 at 11:59 PM</b>)<br>Attend Lecture: Capstone Project: Getting Started</td>
 								<td></td>
 							</tr>
 							<tr>
-								<td>3</td>
-								<td>Rover Assembly</td>
+								<td>2</td>
+								<td></td>
 								<td>Capstone Rover Assembly</td>
+							</tr>
+							<tr>
+								<td>3</td>
+								<td>Attend Lecture: Senior Design Project Showcase</td>
+								<td></td>
 							</tr>
 							<tr>
 								<td>4</td>
 								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>5</td>
-								<td>PCB Assembly</td>
-								<td>Capstone PCB Assembly</td>
-							</tr>
-							<tr>
-								<td>6</td>
-								<td>Program Remote Control and Rover</td>
 								<td>Capstone Programming</td>
 							</tr>
 							<tr>
-								<td>7</td>
+								<td>5</td>
+								<td>Continue Working on Capstone Programming Independently</td>
 								<td></td>
+							</tr>
+							<tr>
+								<td>6</td>
+								<td></td>
+								<td>Capstone PCB Assembly</td>
+							</tr>
+							<tr>
+								<td>7</td>
+								<td>End of the Year Review/Reflection</td>
 								<td></td>
 							</tr>
 							<tr>
 								<td>8</td>
-								<td>Submission Deadline</td>
+								<td>Suggested Capstone Project Submission Date: May 23rd</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>9</td>
+								<td>Rover Competition</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>10</td>
+								<td>OFFICIAL Capstone Project Submission Deadline: June 6th, 2025 at 11:59PM</td>
 								<td></td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
-					
-				<h2 class="mb-3 fw-bold" id="pj-heading-arduino-libraries">Installing Arduino Libraries</h2>
-				<p class="mb-3">
-					Here is a quick recap on how you can install Arduino libraries in the
-					<a class="link-primary" href="https://www.arduino.cc/en/software" target="_blank"
-						rel="noopener noreferrer">Arduino IDE 2.0.0+</a>
-				</p>
-				<ol class="mb-4 list-group list-group-numbered">
-					<li class="list-group-item">
-						Download the library as a <strong>.zip</strong>
-					</li>
-					<li class="list-group-item">
-						In the Arduino IDE, go to <strong>Sketch → Include Library → Add .ZIP Library…</strong>
-					</li>
-					<li class="list-group-item">
-						Select the <strong>.zip</strong> of the library and click <strong>Open</strong>.
-					</li>
-				</ol>
-				<img class="img-fluid mb-4" src=".\assets\images\ops_arduino_ide_zip_library.png">
-
-				<p class="mb-4">
-					You're done! Just make sure to <code class="pj-code language-arduino">#include</code> the library
-					header
-					file so that your
-					code compiles.
-				</p>
-
-				<table class="table pj-download-table mb-5">
-					<tbody>
-						<tr>
-							<td>NRF24L01_W Library</td>
-							<td>
-								<a class="btn btn-outline-success mx-3" href="assets\libraries\NRF24L01_W.zip"
-									role="button"><i class="bi bi-download"></i> Download</a>
-							</td>
-						</tr>
-					</tbody>
-				</table>
 
 				<h2 class="mb-3 fw-bold" id="pj-heading-installing-kicad">Installing KiCad</h2>
 				<p class="mb-3">
-					To complete this project, you will download the PCB design software KiCad (version 7.0.11).
+					To complete this project, you will download the PCB design software KiCad (the latest version).
 				</p>
 
 				<table class="table pj-download-table mb-5">
@@ -244,7 +213,7 @@
 						Download the installer from the link appropriate to your OS.
 					</li>
 					<li class="list-group-item">
-						Launch the installer(we use 7.0.11 here but use the latest version). Click Next.
+						Launch the installer (we use a previous version here but use the latest version). Click Next.
 						<div>
 							<img class="img-fluid my-4"
 								src=".\assets\images\project_8/ops_project_8_kicad_installer1.png">
@@ -420,7 +389,7 @@
 						Of the several system examples, we will use the <b>Bidirectional DC Motor Control</b>.
 					</li>
 					<li class="list-group-item">
-						The term “<b>logic</b>” refers to the binary HIGH and LOW output of the Arduino digital
+						The term “<b>logic</b>” refers to the binary HIGH and LOW output of the ESP32 digital
 						pins.
 					</li>
 				</ol>
@@ -433,7 +402,7 @@
 				<img class="pj-img-fluid mx-auto mb-4" src="./assets/images/capstone/ops_L293D_pinout.png"
 					width="500">
 				<p class="mb-3">
-					Ensure that the Arduino board and L293D share a <b>ground connection</b>.
+					Ensure that the ESP32 board and L293D share a <b>ground connection</b>.
 					<br><br>
 					As you will learn in the datasheet, <span class="text-indigo">1EN</span> and <span
 						class="text-pink">2EN</span> are enable pins, which you will
@@ -443,7 +412,7 @@
 				</p>
 
 				<div class="alert alert-warning mb-5" role="alert">
-					<b>The motors need to be powered directly by the 9V battery</b>, which is capable of supplying more power than the Arduino
+					<b>The motors need to be powered directly by the 9V battery</b>, which is capable of supplying more power than the ESP32
 					board. 
 				</div>
 
@@ -605,7 +574,7 @@ void loop(){
 //Find the mac address of your receiver ESP32 first, then enter it in here:
 uint8_t receiverAddress[] = {0x34, 0xB7, 0xDA, 0xF6, 0x3E, 0x78};
 
-RemoteData data;      // global initialization of WeatherReport
+RemoteData data;      // global initialization of RemoteData
 	
 
 void setup()
@@ -670,6 +639,9 @@ void loop()
 					<li class="list-group-item">
 						A user should be able to intuitively use the joystick to control the rover. This means that
 						pivoting the joystick left should move the rover left, not backward.
+					</li>
+					<li class="list-group-item">
+						The remote control should feature two LEDS: A <span class="text-green">green</span> one that turns on when the rover is moving and a <span class="text-red">red</span> one that turns on when the rover is not moving.
 					</li>
 					<li class="list-group-item">
 						You must design a PCB for the remote control.
@@ -782,6 +754,14 @@ void loop()
 						</tr>
 						<tr>
 							<td>1x15 Pin Female Header</td>
+							<td>2</td>
+						</tr>
+						<tr>
+							<td>LED</td>
+							<td>2</td>
+						</tr>
+						<tr>
+							<td>Resistor, 220Ω</td>
 							<td>2</td>
 						</tr>
 						<tr>
