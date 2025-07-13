@@ -57,7 +57,7 @@
 						<a class="nav-link" href="#pj-heading-power_oring">Power ORing</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#pj-heading-motor_driver">Motor Driver</a>
+						<a class="nav-link" href="#pj-heading-motor_driver_and_encoders">Motor Driver & Encoders</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="#pj-heading-emitter_receiver_pairs">Emitter/Receiver Pairs</a>
@@ -165,7 +165,17 @@
 				<h2 class="mb-3 fw-bold" id="pj-heading-power_supply">Power Supply</h2>
 				<br>
 				<p class="mb-5">
-					<strong>[!!!Come back to this!!!]</strong>
+					Your micromouse will be powered by a battery and operate with three voltage domains: the battery's own voltage, 5V, and 3.3V. 
+					To accomplish this, your board will use <strong>voltage regulators</strong>, which convert an input voltage to a lower output voltage.
+					In the bottom schematic, your battery is connected to a switch, which when ON, connects your battery to the 5V regulator (LM1085-5.0)
+					This regulator takes the battery's voltage at its VI pin and outputs 5V at its VO pin. 
+					Your components that need 5V will receive it through the +5V net at the output node.
+					<br>
+					Similarly, in the top circuit, the 3.3V regulator steps down your 5V domain to a 3.3V domain. 
+					Please note that there are <strong>two</strong> 3.3V nets on your schematic: <strong>+3V3</strong> and <strong>+3.3VA</strong>. 
+					The +3.3VA is a "filtered out" version of the +3V3 net. The 10 uH inductor filters out any "noise" or variations in the 3.3V voltage, 
+					so the +3.3VA net is a stable 3.3V voltage for parts of your board that require extremem accuracy. For example, your IR sensors need 
+					to measure the distance from your mouse to nearby walls, It is very inportant for their 3.3V to be consistent because any variations will change the distance readings.
 				</p>
 
 				<h2 class="mb-3 fw-bold" id="pj-heading-power_oring">Power Supply</h2>
@@ -174,12 +184,9 @@
 					<strong>[!!!Come back to this!!!]</strong>
 				</p>
 
-				<h2 class="mb-3 fw-bold" id="pj-heading-motor_driver">Motor Driver</h2>
+				<h2 class="mb-3 fw-bold" id="pj-heading-motor_driver_and_encoders">Motor Driver & Encoders</h2>
+				<h3 class="mb-3" id="pj-heading-dc_motors">DC Motors</h3>
 				<br>
-				<p class="mb-5">
-					This section details the mouse's motors, the motor driver operating them, and the encoder interfacing the motors with the driver.
-				</p>
-				<h3 class="mb-3" id="pj-heading-ceramic_capacitors">DC Motors</h3>
 				<p class="mb-5">
 					A <strong>DC motor</strong> is a machine that converts electrical energy to mechanical rotation.
 					In this project, we will use DC motors to spin the mouse's wheels.
@@ -187,7 +194,7 @@
 					<strong>[!!!NEED IMAGE OF MOTORS FROM SLIDES!!!]</strong>
 					<br><br>
 					Our motors are Pololu Micro Metal Gearmotors, which are dual shaft and have a 30:1 gear ratio.
-					They will be installed and held in palce by motor mounts screwed into the PCB.
+					They will be installed and held in place by motor mounts screwed into the PCB.
 					(Note: The PCB will have drill holes for these mounts.)
 					<br><br>
 					<strong>[!!!NEED IMAGE OF MOTOR MOUNTS FROM SLIDES!!!]</strong>
@@ -197,15 +204,43 @@
 					A motor driver is an IC (integrated circuit) chip that controls how the motors spin.
 					We will use an L293D chip to drive the two DC motors of the mouse.
 					<br><br>
-					<strong>[!!!NEED IMAGE OF MOTOR DRIVER DIAGRAM FROM SLIDES ALONG WITH SCHEMATIC!!!]</strong>
+					<strong>[!!!NEED IMAGE OF MOTOR DRIVER SCHEMATIC MAKE SURE TO BOX IT IN RED!!!]</strong>
 					<br><br>
-					The input to control how fast the motors spin is a <strong>PWM signal</strong>.
-					This is inputted into the enable pins of the motor driver.
+					The inputs to control how fast each motor spins are <strong>PWM signals</strong>. (We will discuss this more in a bit.)
+					As seen in the schematic above, these signals are indicated by nets M1_SPD and M2_SPD, being inputted to pins PWMA and PWMB. 
 					<br><br>
-					<strong>[!!!NEED THEO'S DRAWING FROM SLIDES!!!]</strong>
+					The IN pins (1A, 2A, etc) determine the direction of rotation for each motor. 
+					For instance, inputting a HIGH singal to 1A and LOW to 2A may cause Motor 1 to rotate counterclockwise, 
+					and setting 1A to LOW and 2A to HIGH may cause it to rotate clockwise instead. 
+					(Note: the actual directions are different for every motor. 
+					You will need to test your motors to determine which inputs cause it to rotate clockwise and counterclockwise.)
+					<br><br>
+					Each of the motor's leads will be connected to a pair of output pins (eg. 1Y & 2Y), as represented by the OUT nets.
+					The motors are powered via the L293D's VCC1 and VCC2 pins, which require 5V and your battery's voltage.
+					<br>
+				</p>
+				<h3 class="mb-3" id="pj-heading-pwm">PWM</h3>
+				<p class="mb-5">
+					<br>
+					Pulse Width Modulation refers to a signal that is HIGH for a set percentage of its period and LOW for the remaining time. 
+					In other words, its "pulse width" is being "modulated" or portioned.
+					<br><br>
+					<strong>[!!!IMAGE NEEDED: THREE PWM SIGNALS FROM SLIDES!!!]</strong>
+					<br><br>
+					This PWM signal can simulate a voltage, which is equal to the product of the amplitude and duty cycle.
+					Below are a few examples of simulated voltages from a 10V amplitude PWM signal.
+					<br><br>
+					<strong>[!!!IMAGE NEEDED: THREE PWM SIGNALS FROM SLIDES!!!]</strong>
+				</p>
+				<h3 class="mb-3" id="pj-heading-encoders">Encoders</h3>
+				<p class="mb-5">
+					At the end of each motor, you will attach an <strong>encoder</strong> and a small magnetic disk which rotates with the motor. 
+					The magnetic disks each have two mangetic poles that pass over the encoder's Hall effect sensors as the disks rotate.
+					These sensors detect changes in the magnetic field caused by the spinning disks.
+					This generates a pulse in each of the sensor's channels, alternating between HIGH and LOW corresponding to the positive/negative poles above the sensor. 
+					The STM32 microcntroller's "Encoder Mode" can then interpret these signals to determine the distance each motor spun.
 
-
-
+					<strong>[!!! NEED IMAGES OF COMPONENTS AND SIGNALS!!!]</strong>
 
 				</p>
 				
