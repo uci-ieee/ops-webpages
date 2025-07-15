@@ -51,13 +51,32 @@
 						<a class="nav-link" href="#pj-heading-mcu">MCU</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#pj-heading-power_supply">Power Supply</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#pj-heading-power_oring">Power ORing</a>
+						<a class="nav-link" href="#pj-heading-power_supply_and_oring">Power Supply & ORing</a>
+						<ul class="nav">
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-power_supply">DC Motors</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-power_oring">Motor Driver</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-v_meter">V_METER</a>
+							</li>
+						</ul>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="#pj-heading-motor_driver_and_encoders">Motor Driver & Encoders</a>
+						<ul class="nav">
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-dc_motors">DC Motors</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-motor_driver">Motor Driver</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-pwm">PWM</a>
+							</li>
+						</ul>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="#pj-heading-emitter_receiver_pairs">Emitter/Receiver Pairs</a>
@@ -152,63 +171,101 @@
 				<h2 class="mb-3 fw-bold" id="pj-heading-mcu">MCU</h2>
 				<br>
 				<p class="mb-5">
+					<img class="img-fluid my-3 me-lg-5 me-3 float-end" style="max-width: 200px;"
+						src="./assets/images/mm_bluepill.jpg">
 					The microcontroller is the brain of your mouse. 
 					It communicates with the mouse's sensors to detect walls and direct the mouse's movements. 
-					And most importantly, the microcontroller runs the mouse's maze-solving algorithms.
+					And most importantly, the microcontroller runs the mouse's
+					
+					 maze-solving algorithms.
 					<br><br>
-					For this project, we will use the <strong>STM32F103C8T6</strong>, otherwise known as the <strong>Bluepill</strong>.
-					Refer to this component throughout this page, because it interfaces with all other parts of the schematic!
-					<br><br>
-					<strong>[!!!NEED IMAGES OF SCHEMATIC AND BLUEPILL HERE!!!]</strong>
+					For this project, we will use the <strong>STM32F103C8T6</strong>, otherwise known as the <strong>Bluepill</strong>. 
+					Refer back to the Bluepill's schematic as you read this page, 
+					because it interfaces with all other parts of the schematic.
+					<div style="clear: both;"></div>
+					<img class="pj-img-fluid mx-auto mb-4" src="./assets/images/mm_bluepill_schematic.png"
+						width="500">
 				</p>
 
-				<h2 class="mb-3 fw-bold" id="pj-heading-power_supply">Power Supply</h2>
+				<h2 class="mb-3 fw-bold" id="pj-heading-power_supply_and_oring">Power Supply & ORing</h2>
 				<br>
+				<h3 class="mb-3" id="pj-heading-power_supply">Power Supply</h3>
 				<p class="mb-5">
 					Your micromouse will be powered by a battery and operate with three voltage domains: the battery's own voltage, 5V, and 3.3V. 
 					To accomplish this, your board will use <strong>voltage regulators</strong>, which convert an input voltage to a lower output voltage.
+					<br><br>
+					<img class="pj-img-fluid mx-auto mb-4" src="./assets/images/mm_power_supply_schematic.png"
+						width="800">
 					In the bottom schematic, your battery is connected to a switch, which when ON, connects your battery to the 5V regulator (LM1085-5.0)
 					This regulator takes the battery's voltage at its VI pin and outputs 5V at its VO pin. 
 					Your components that need 5V will receive it through the +5V net at the output node.
-					<br>
+					<br><br>
 					Similarly, in the top circuit, the 3.3V regulator steps down your 5V domain to a 3.3V domain. 
 					Please note that there are <strong>two</strong> 3.3V nets on your schematic: <strong>+3V3</strong> and <strong>+3.3VA</strong>. 
 					The +3.3VA is a "filtered out" version of the +3V3 net. The 10 uH inductor filters out any "noise" or variations in the 3.3V voltage, 
-					so the +3.3VA net is a stable 3.3V voltage for parts of your board that require extremem accuracy. For example, your IR sensors need 
-					to measure the distance from your mouse to nearby walls, It is very inportant for their 3.3V to be consistent because any variations will change the distance readings.
+					so the +3.3VA net is a stable 3.3V voltage for parts of your board that require extreme accuracy. For example, your IR sensors need 
+					to measure the distance from your mouse to nearby walls. It is very important for their 3.3V to be consistent because any variations will offset the distance readings.
+					<br><br>
+					<strong>However</strong>, please note that the +5V_NET at the output of the 5V regulator is <strong>different</strong> 
+					than the +5V arrow net seen throughout the rest of the schematic (including the input to the 3.3V regulator).
+					The <strong>ORing circuit</strong> allows the +5V_NET voltage to pass through to the +5V net when the mouse is powered by battery but not STLink. 
 				</p>
-
-				<h2 class="mb-3 fw-bold" id="pj-heading-power_oring">Power Supply</h2>
-				<br>
+				<h3 class="mb-3" id="pj-heading-power_oring">Power ORing</h3>
 				<p class="mb-5">
-					<strong>[!!!Come back to this!!!]</strong>
+					The STLink is safe for the mouse only at 3.3V, so the ORing circuit protects the mouse from overvoltage 
+					by disconnecting +5V from the +5V_NET regulator output and the VCC from the battery voltage when the STLink is connected. 
+					This way, when both the battery and STLink are connected to the mouse, it will not get fried. 
+					Below is the schematic for the ORing circuit. U5 and U6 are ideal diode ICs, enabled by the *CE pin. 
+					<br><br>
+					<img class="pj-img-fluid mx-auto mb-4" src="./assets/images/mm_oring_schematic.png"
+						width="800">
+					You may connect the STLink to either the J2 header or J5 header, but only J2 ofers the ORing voltage protection mechanism with its +3V3_NET. 
+					Normally, when the voltage at *CE is low, current is conducted from VIN to VOUT, passing the voltage through. 
+					This voltage also reaches the MOSFET's gate, switching it ON and passing the battery voltage to the VCC net.
+					However, when the STLink is connected to J2, it supplies 3.3V to U6's *CE pin through the +3V3_NET, 
+					opening the diode and preventing the regulator output 5V and battery voltage from reaching the rest of the mouse.
+				</p>
+				<h3 class="mb-3" id="pj-heading-v_meter">V_METER</h3>
+				<p class="mb-5">
+					<img class="img-fluid my-3 me-lg-5 me-3 float-end" style="max-width: 350px;"
+						src="./assets/images/mm_v_meter.png">
+					You may have noticed a voltage divider in the power supply schematic. This is designed to measure the voltage of your battery. 
+					The V_METER net connects to one of the STM32's GPIO pins, allowing it to measure the voltage at the divider node. 
+					The voltage divider is necessary because the STM32 pins cannot handle high voltages, 
+					so the divider allows us to measure 1/3 of the battery's actual voltage instead. 
+					After some simple math, you can calculate the battery's true voltage.
+					<br><br>
 				</p>
 
 				<h2 class="mb-3 fw-bold" id="pj-heading-motor_driver_and_encoders">Motor Driver & Encoders</h2>
-				<h3 class="mb-3" id="pj-heading-dc_motors">DC Motors</h3>
 				<br>
+				<h3 class="mb-3" id="pj-heading-dc_motors">DC Motors</h3>
 				<p class="mb-5">
+					<img class="img-fluid my-3 me-lg-5 me-3 float-end" style="max-width: 150px;"
+						src="assets/images/mm_motor.png">
 					A <strong>DC motor</strong> is a machine that converts electrical energy to mechanical rotation.
-					In this project, we will use DC motors to spin the mouse's wheels.
+					We will use DC motors to spin the mouse's wheels.
 					<br><br>
-					<strong>[!!!NEED IMAGE OF MOTORS FROM SLIDES!!!]</strong>
-					<br><br>
+					<img class="img-fluid my-3 me-lg-5 me-3 float-end" style="max-width: 150px;"
+						src="assets/images/mm_motor_mounts.jpg">
 					Our motors are Pololu Micro Metal Gearmotors, which are dual shaft and have a 30:1 gear ratio.
 					They will be installed and held in place by motor mounts screwed into the PCB.
 					(Note: The PCB will have drill holes for these mounts.)
-					<br><br>
-					<strong>[!!!NEED IMAGE OF MOTOR MOUNTS FROM SLIDES!!!]</strong>
+					
 				</p>
 				<h3 class="mb-3" id="pj-heading-motor_driver">Motor Driver</h3>
 				<p class="mb-5">
 					A motor driver is an IC (integrated circuit) chip that controls how the motors spin.
-					We will use an L293D chip to drive the two DC motors of the mouse.
+					We will use an L293D chip to drive the mouse's motors.
 					<br><br>
-					<strong>[!!!NEED IMAGE OF MOTOR DRIVER SCHEMATIC MAKE SURE TO BOX IT IN RED!!!]</strong>
-					<br><br>
+					<img class="pj-img-fluid mx-auto mb-4" src="./assets/images/mm_l293d_infographic.jpg"
+						width="700">
+					<img class="pj-img-fluid mx-auto mb-4" src="./assets/images/mm_l293d_drawing.png"
+						width="700">
 					The inputs to control how fast each motor spins are <strong>PWM signals</strong>. (We will discuss this more in a bit.)
-					As seen in the schematic above, these signals are indicated by nets M1_SPD and M2_SPD, being inputted to pins PWMA and PWMB. 
-					<br><br>
+					As seen in the schematic below, these signals are indicated by nets M1_SPD and M2_SPD, being inputted to pins PWMA and PWMB.
+					<img class="pj-img-fluid mx-auto mb-4" src="./assets/images/mm_l293d_schematic_annotated.png"
+						width="700">
 					The IN pins (1A, 2A, etc) determine the direction of rotation for each motor. 
 					For instance, inputting a HIGH singal to 1A and LOW to 2A may cause Motor 1 to rotate counterclockwise, 
 					and setting 1A to LOW and 2A to HIGH may cause it to rotate clockwise instead. 
@@ -221,28 +278,36 @@
 				</p>
 				<h3 class="mb-3" id="pj-heading-pwm">PWM</h3>
 				<p class="mb-5">
-					<br>
 					Pulse Width Modulation refers to a signal that is HIGH for a set percentage of its period and LOW for the remaining time. 
 					In other words, its "pulse width" is being "modulated" or portioned.
-					<br><br>
-					<strong>[!!!IMAGE NEEDED: THREE PWM SIGNALS FROM SLIDES!!!]</strong>
-					<br><br>
+					<br>
+					<img class="img-fluid my-3 me-lg-5 me-3 float-end" style="max-width: 560px;"
+						src="assets/images/mm_three_pwm_math.png">
+					<br>
 					This PWM signal can simulate a voltage, which is equal to the product of the amplitude and duty cycle.
-					Below are a few examples of simulated voltages from a 10V amplitude PWM signal.
-					<br><br>
-					<strong>[!!!IMAGE NEEDED: THREE PWM SIGNALS FROM SLIDES!!!]</strong>
+					To the right are a few examples of simulated voltages from a 10V amplitude PWM signal.
 				</p>
 				<h3 class="mb-3" id="pj-heading-encoders">Encoders</h3>
 				<p class="mb-5">
 					At the end of each motor, you will attach an <strong>encoder</strong> and a small magnetic disk which rotates with the motor. 
+					<img class="pj-img-fluid mx-auto mb-4" src="./assets/images/mm_encoder_and_magnet.png"
+						width="500">
 					The magnetic disks each have two mangetic poles that pass over the encoder's Hall effect sensors as the disks rotate.
 					These sensors detect changes in the magnetic field caused by the spinning disks.
 					This generates a pulse in each of the sensor's channels, alternating between HIGH and LOW corresponding to the positive/negative poles above the sensor. 
-					The STM32 microcntroller's "Encoder Mode" can then interpret these signals to determine the distance each motor spun.
-
-					<strong>[!!! NEED IMAGES OF COMPONENTS AND SIGNALS!!!]</strong>
-
+					The STM32 microcontroller's "Encoder Mode" can then interpret these signals to determine the distance each motor spun.
+					<img class="pj-img-fluid mx-auto mb-4" src="./assets/images/mm_encoders_exp.png"
+						width="800">
+					<img class="img-fluid my-3 me-lg-5 me-3 float-end" style="max-width: 475px;"
+						src="assets/images/mm_encoders_schematic.png">
+					Within the Motor Driver section of the schematic, the encoders are represented by the connectors M1_Conn_Alt and M2_Conn_Alt. 
+					They interface your motors with both the motor driver and the STM32. 
+					The motors will spin according to the signals received at the OUT nets, and the STM32 can track the motor's movements 
+					using the ENC nets' signals.
+					
 				</p>
+
+				<h2 class="mb-3 fw-bold" id="pj-heading-emitter_receiver_pairs">Emitter/Receiver Pairs</h2>
 				
 
 				<!-- ======= Colton's work ends ======= -->
