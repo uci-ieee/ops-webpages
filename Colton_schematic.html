@@ -54,10 +54,10 @@
 						<a class="nav-link" href="#pj-heading-power_supply_and_oring">Power Supply & ORing</a>
 						<ul class="nav">
 							<li class="nav-item">
-								<a class="nav-link" href="#pj-heading-power_supply">DC Motors</a>
+								<a class="nav-link" href="#pj-heading-power_supply">Power Supply</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="#pj-heading-power_oring">Motor Driver</a>
+								<a class="nav-link" href="#pj-heading-power_oring">Power ORing</a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="#pj-heading-v_meter">V_METER</a>
@@ -80,67 +80,17 @@
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="#pj-heading-emitter_receiver_pairs">Emitter/Receiver Pairs</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#pj-heading-buttons_LEDs_buzzer">Buttons, LEDs, and Buzzer</a>
+						<ul class="nav">
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-ir-emitter-schematic">IR Emitter Schematic</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-ir-receiver-schematic">IR Receiver Schematic</a>
+							</li>
+						</ul>
 					</li>
 
 					<!-- ======= Colton's work ends ======= -->
-
-					<li class="nav-item">
-						<a class="nav-link" href="#pj-heading-concepts">Concepts</a>
-						<ul class="nav">
-							<li class="nav-item">
-								<a class="nav-link" href="#pj-heading-ceramic_capacitors">Ceramic Capacitors</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="#pj-heading-pushbutton">Pushbutton</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="#pj-heading-piezoelectric_buzzer">Piezoelectric Buzzer</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="#pj-heading-NE555P_IC">NE555P IC</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="#pj-heading-pcb">Printed Circuit Board (PCB)</a>
-							</li>
-						</ul>
-					<li class="nav-item">
-						<a class="nav-link" href="#pj-heading-requirements">Requirements</a>
-						<ul class="nav">
-							<li class="nav-item">
-								<a class="nav-link" href="#pj-heading-555_Blinker">555 LED Blinker</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="#pj-heading-555_Piano">555 Piano</a>
-							</li>
-
-						</ul>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#pj-heading-parts">Parts</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#pj-heading-schematics">Schematics</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#pj-heading-instructions">Instructions</a>
-						<ul class="nav">
-							<li class="nav-item">
-								<a class="nav-link" href="#pj-heading-checkpoint1">Checkpoint 1</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="#pj-heading-checkpoint2">Checkpoint 2</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="#pj-heading-checkpoint3">Checkpoint 3</a>
-							</li>
-						</ul>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#pj-heading-deliverables">Deliverables</a>
-					</li>
 				</ul>
 			</nav>
 		</aside>
@@ -304,522 +254,76 @@
 					They interface your motors with both the motor driver and the STM32. 
 					The motors will spin according to the signals received at the OUT nets, and the STM32 can track the motor's movements 
 					using the ENC nets' signals.
-					
+					<br><br>
+					<br>
 				</p>
 
 				<h2 class="mb-3 fw-bold" id="pj-heading-emitter_receiver_pairs">Emitter/Receiver Pairs</h2>
+				<p class="mb-5">
+					<img class="img-fluid my-3 me-lg-5 me-3 float-end" style="max-width: 350px;"
+						src="./assets/images/mm_ir_detection.png">
+					We will detect the wall surrounding the mouse using <strong>infrared light (IR)</strong>.
+					This is done by emitting light from an IR emitter onto the walls then measuring how much light is reflected back with an IR receiver.
+					The greater the amount of light received, the closer the wall is. This allows the mouse to detect whether there is a wall next to it and how close it is.
+					<br><br>
+					This section will focus on the individual schematics of the IR emitters and IR receivers.
+				</p>
+				<h3 class="mb-3" id="pj-heading-ir-emitter-schematic">IR Emitter Schematic</h3>
+				<p class="mb-5">
+					<img class="pj-img-fluid mx-auto mb-4" src="./assets/images/mm_ir_emitter_schematic.png"
+						width="830">
+					<img class="img-fluid my-3 me-lg-5 me-3 float-end" style="max-width: 200px;"
+						src="./assets/images/mm_ir_emitter.png">
+					The diode at the top of each of the 4 "sub-circuits" is an IR emitter. It emits IR light when it experiences an electric current. 
+					IR emitters are ofen implemented using IR light-emitting diodes (LEDs). 
+					However, the pinout for our IR emitters is the opposite of a typical LED; <strong>the longer lead is negative (-) and the shorter lead is positive (+)</strong>.
+					<br><br>
+					Theoretically, we could just continuously emit light from these emitters then measure the reflected light with the IR receivers, 
+					but this is unsafe for the IR emitters. Instead, we will switch the IR emitters ON and OFF using a <strong>MOSFET</strong>, which 
+					acts as a switch.
+				</p>
+				<h4 class="mb-3 fw-light" id="pj-heading-MOSFETs" style="display: inline;">MOSFETs</h4>
+				<br><br>
+				<p class="mb-5">
+					<img class="img-fluid my-3 me-lg-5 me-3 float-end" style="max-width: 150px;"
+						src="./assets/images/mm_n-channel_mosfet.png">
+					To turn the IR emitters ON and OFF, we will use three-terminal N-Channel MOSFETs. These MOSFETs have three pins: Drain (D), Source (S) (connected to GND), and Gate (G).
+					Current flows from drain to source when a voltage is applied at the gate. This applied voltage causes a channel to form across the length of the MOSFET, allowing curernt to flow from drain to source.
+					However, the gate voltage must be greater than or equal to the threshold voltage to turn the MOSFET on (specified on the datasheet).
+					<br><br>
+					<img class="pj-img-fluid mx-auto mb-4" src="./assets/images/mm_mosfet_on.png"
+						width="550">
+					When no voltage is applied to the gate, the MOSFET does not conduct any current. Hence, with a MOSFET connected in series with an IR emtiter, 
+					we can turn the emitter ON and OFF by writing HIGH or LOW signals to the MOSFET gate from one of the STM32's GPIO pins (PB12 in the example above).
+				</p>
+				<h3 class="mb-3" id="pj-heading-ir-receiver-schematic">IR Receiver Schematic</h3>
+				<p class="mb-5">
+					<img class="pj-img-fluid mx-auto mb-4" src="./assets/images/mm_ir_receiver_schematic.png"
+						width="830">
+					<img class="img-fluid my-3 me-lg-5 me-3 float-start" style="max-width: 110px;"
+						src="./assets/images/mm_ir_receiver.png">
+					<img class="img-fluid my-3 me-lg-5 me-3 float-end" style="max-width: 175px;"
+						src="./assets/images/mm_phototransistor_pinout.png">
+					Each of the 4 "sub-circuits" of the IR receiver schematic consists of an IR receiver (also known as a phototransistor) in series with a 1.8k resistor.
+					The IR receivers have the same pinout as the IR emitters: <strong>the longer lead is negative (-) and the shorter lead is positive (+)</strong>.
+					<br><br>
+					Essentially, the phototransistor conducts a current proportional to the light incident on its base. This current flows from collector to emitter and into the 1.8k resistor.
+					The greater this current, the greater the voltage across the resistor, which the STM32 can measure via a GPIO pin net.
+					<br><br>
+					In summary the wall detection process works like this: the closer walls are to the mouse, the greater the reflected light incident on the phototransistor, and the greater the voltage measured by the STM32. 
+					This is how the mouse calculates its distance from each of its surrounding walls, which is crucial when it must adjust its movements to realign itself.
+
+				</p>
+
+
+				
+				
 				
 
 				<!-- ======= Colton's work ends ======= -->
 
 
-				<h2 class="mb-3 fw-bold" id="pj-heading-concepts">Concepts</h2>
-				<br>
-				<h3 class="mb-3" id="pj-heading-ceramic_capacitors">Ceramic Capacitors</h3>
-				<p class="mb-5">
-					A <strong>capacitor</strong> is a component that briefly stores electrical energy, which it charges
-					and discharges in bursts.
-					It is not a battery. Batteries store energy at a high density and slowly charge and discharge that
-					energy.
-					<br><br>
-					<img class="img-fluid my-3 me-lg-5 me-3 float-end" style="max-width: 200px;"
-						src="./assets/images/project_2/ops_capacitor_ceramic.webp">
-					The ability of a capacitor to store energy is its <strong>capacitance</strong>, measured in
-					<strong>farads (F)</strong>.
-					<br><br>
-					The higher the capacitance, the longer it can store energy. Naturally, the capacitor will also take
-					more time to charge and discharge.
-
-				</p>
-
-
-
-				<h4 class="mb-3 fw-light" id="pj-heading-common_uses" style="display: inline;">Common Uses</h4>
-				<p class="mb-5">
-					Capacitors can be used to block low frequency AC current, as is the case with our 555 Piano. A
-					capacitor in series with the piezo buzzer
-					filters out the low frequencies to produce clean sound.
-					<br><br>
-					We will also use a capacitor in project 2 to configure the NE555P IC. The time it takes for the capacitor to
-					charge and
-					discharge determines the delay of the IC.
-					<br><br>
-				</p>
-
-				<h4 class="mb-3 fw-light" id="pj-heading-capacitor_markings" style="display: inline;">Capacitor Markings
-				</h4>
-				<p class="mb-5">
-					<img class="img-fluid my-3 me-lg-5 me-3 float-end" style="max-width: 200px;"
-						src="./assets/images/project_2/ops_capacitor_ceramic_103_annotated.png">
-					You can determine the capacitance of a ceramic capacitor from its 3-digit markings. As shown on the
-					right, the first two digits
-					are multiplied by 10 raised to the power of the third digit. The product is the value of the
-					capacitor measured in picofarads, or 10<sup>-12</sup>F. For 
-					example, the capacitor on the right labeled 103 would have a capacitance of 10x10<sup>-3</sup>pF,
-					which can be converted to 0.01uF or 10nF.
-				</p>
-
-				<h4 class="mb-3 fw-light" id="pj-heading-symbol" style="display: inline;">Symbol</h4>
-
-				<p class="mb-5">
-					<img class="img-fluid my-3 me-lg-5 me-3 float-end" style="max-width: 200px;"
-						src="./assets/images/project_2/ops_symbol_capacitor_unpolarized.jpg">
-					Our projects make use of <strong>ceramic capacitors</strong> which have no polarity. Non-polar
-					capacitors are represented by the
-					schematic symbol on the right.
-				</p>
-
-
-				<h3 class="mb-3" id="pj-heading-pushbutton">Pushbutton</h3>
-				<p class="mb-5">
-					<img class="img-fluid my-3 me-lg-5 me-3 float-end" style="max-width: 100px;"
-						src="./assets/images/project_2/ops_pushbutton.jpg">
-					A <strong>pushbutton</strong> is a type of switch. It completes a circuit when pressed and
-					disconnects the circuit when released.
-				</p>
-
-				<h4 class="mb-3 fw-light" id="pj-pushbutton-legs" style="display: inline;">Pushbutton Legs</h4>
-				<p class="mb-5">
-					<img class="img-fluid my-3 me-lg-5 me-3 float-end" style="max-width: 200px;"
-						src="./assets/images/project_2/ops_pushbutton_annotated.png">
-					The figure shows that the legs labeled 1 are internally connected. This pair of legs acts as one
-					node in our circuit.
-					The same is true for the legs labeled 2.
-					<br><br>
-					Legs 1 and 2 are connected only while the button is pressed. This means that when the button is
-					pressed,
-					all four of its legs are connected as a single node.
-
-				</p>
-
-
-
-				<h4 class="mb-3 fw-light" id="pj-heading-pushbutton-symbol" style="display: inline;">Symbol</h4>
-				<p class="mb-5">
-					<img class="img-fluid my-3 me-lg-5 me-3 float-end" style="max-width: 100px;"
-						src="./assets/images/project_2/ops_symbol_pushbutton.png">
-					Though pushbuttons have four legs, their schematic symbol reduces the complexity to two terminals
-					(as depicted in the figure).
-					We can think of legs 1 as one terminal and legs 2 as the opposite terminal.
-				</p>
-
-
-				<h3 class="mb-3" id="pj-heading-piezoelectric_buzzer">Piezoelectric Buzzer</h3>
-				<p class="mb-5">
-					<img class="img-fluid my-3 me-lg-5 me-3 float-end" style="max-width: 300px;"
-						src="./assets/images/project_2/ops_piezo.webp">
-					A <strong>piezoelectric buzzer</strong> is a component used to produce sound.
-					<br><br>
-					Piezo buzzers come in two varieties: active and passive.
-					<strong>Active</strong> buzzers have a built-in oscillator with a set frequency, meaning that they can only produce a single-tone sound.
-					<strong>Passive</strong> buzzers do not but can produce different notes based on the frequency of the oscillating signal that it is fed.
-					<br><br>
-					We will use a passive piezo buzzer to play different notes on the 555 Piano.
-				</p>
-
-				<h4 class="mb-3 fw-light" id="pj-buzzer_symbol" style="display: inline;">Symbol</h4>
-				<p class="mb-5">
-					<img class="img-fluid my-3 me-lg-5 me-3 float-end" style="max-width: 120px;"
-						src="./assets/images/project_2/ops_symbol_piezo.png">
-					The symbol on the right depicts a non-polar piezo buzzer. The symbols for speakers and piezo buzzers
-					are often used interchangeably.
-				</p>
-
-				<!--Finished up to here-->
-
-				<h3 class="mb-3" id="pj-heading-NE555P_IC">NE555P IC</h3>
-				<p class="mb-3">
-					The <strong>555 Timer</strong> is one of the most popular integrated circuits for hobby projects. It
-					has multiple use cases,
-					but we will operate the timer in <strong>astable mode</strong>.                                
-					In this mode, it outputs an <strong>oscillating digital waveform</strong> (see the image below),
-					which we will feed to the piezo buzzer.
-					<br>
-					<img class="img-fluid m-2 d-block" src="./assets/images/project_2/ops_waveform_digital.png">
-				</p>
-
-				<p class="mb-5">
-					Remember that the frequency of the waveform is the same as the pitch of the buzzer sound.
-					<br><br>
-				</p>
-
-				<h4 class="mb-3 fw-light" id="pj-heading-NE555PIC" style="display: inline;">Pinout Diagram</h4>
-				<p class="mb-3">
-					We will use the <strong>NE555P</strong>, a variant of the 555 Timer. Its pinout diagram is shown
-					below.
-					<img class="img-fluid my-3 me-lg-5 me-3 float-start" style="max-width: 400px;"
-						src="assets/images/project_2/ops_pinout_ne555p.png">
-				</p>
-
-				<p class="mb-5">
-					The <strong>pinout diagram</strong> identifies each contact or pin of the IC. Usually, a <strong>datasheet</strong>
-					will
-					include a pinout and a table that matches each pin with a description. The pinout may
-					change depending on the IC’s packaging, which the datasheet will indicate. For this
-					project, the IC package is DIP.
-					<br>
-					Note that the organization of the pinout differs from the schematics below. The true location of the
-					ICs pins is shown by the
-					pinout, not the schematic. Use the notch (the U-shaped indentation) on the top of the DIP-style IC to find its correct orientation: 
-					the pin directly left to the notch will always be pin 1.
-					<br><br>
-				</p>
-
-				<h4 class="mb-3 fw-light" id="pj-heading-NE555PIC" style="display: inline;">How It Works</h4>
-				<p class="mb-5">
-					Learn more about 555 Timer’s functionality in the lecture material <a class="link-primary"
-						href="https://ieee.ics.uci.edu/ops/lectures.html" target="_blank"
-						rel="noopener noreferrer">here</a>.
-					<br><br>
-				</p>
-
-				<h3 class="mb-3" id="pj-heading-pcb">Printed Circuit Board (PCB)</h3>
-				<p class="mb-3">
-					<img class="img-fluid my-3 me-lg-5 me-3 float-end m-lg-3" style="max-width: 400px;"
-						src="assets/images/project_2/ops_proj2_pcb.png">
-					Breadboards and perfboards are great for prototyping simple circuits. However, when electronics are
-					more complex or are ready for production, we typically use <strong>printed circuit boards </strong>
-					or <strong>PCBs</strong>. Nearly every device, from a digital alarm clock to a laptop or computer, uses
-					a PCB. It is a board designed
-					with ECAD software, that connects individual components.
-					<br><br>
-					The benefits of PCBs over prototyping boards are numerous: They're more compact, more reliable, and
-					enable
-					complex circuit design. Above all, they are easy to mass produce.
-
-				</p>
-
-
-
-				<p class="mb-3">
-					For this project, you will solder the 555 Piano to a PCB we designed in an ECAD software called
-					KiCAD (as seen below). If you are not enrolled in the course, you may alternatively use a perfboard.
-				</p>
-				<img class="img-fluid my-3 me-lg-5 me-3 img-lg" src="assets/images/project_2/ops_kicad_example.png">
-
-				<p class="mb-5">
-					Soldering to a PCB is much like soldering to a perfboard, and you may even find it easier.
-					For more soldering tips visit our workshop material <a class="link-primary"
-						href="https://ieee.ics.uci.edu/ops/workshops.html" target="_blank"
-						rel="noopener noreferrer">here</a>.
-				</p>
-				<h2 class="mb-3 fw-bolder" id="pj-heading-requirements">Requirements</h2>
-				<p class="mb-5">
-					For readers who are enrolled in the course: In order to receive full marks on your project
-					submission,
-					make sure it meets the following <strong>minimum requirements</strong>.
-				</p>
-				<h3 class="mb-3" id="pj-heading-555_Blinker">555 LED Blinker</h3>
-				<ul class="mb-5 list-group">
-					<li class="list-group-item">
-						You must build a blinking LED circuit.
-					</li>
-					<li class="list-group-item">
-						The LED in the circuit must cycle at a rate of roughly once per second.
-					</li>
-					<li class="list-group-item">
-						The LED must be brightly lit when turned ON.
-					</li>
-					<li class="list-group-item">
-						The LED must be completely dark when turned OFF.
-					</li>
-					<li class="list-group-item">
-						The circuit must be built on a breadboard.
-					</li>
-				</ul>
-				<h3 class="mb-3" id="pj-heading-555_Piano">555 Piano</h3>
-				<ul class="mb-5 list-group">
-					<li class="list-group-item">
-						You must build an electronic “piano” circuit with three buttons.
-					</li>
-					<li class="list-group-item">
-						The circuit must emit a distinct tone for each of the three buttons pressed.
-					</li>
-					<li class="list-group-item">
-						When a button is pressed, the piezo should emit minimal static noise.
-					</li>
-					<li class="list-group-item">
-						The circuit must emit tones at a reasonable volume (not too low).
-					</li>
-					<li class="list-group-item">
-						The circuit must be soldered to the provided PCB.
-					</li>
-				</ul>
-
-				<h2 class="mb-3 fw-bold" id="pj-heading-parts">Parts</h2>
-
-				<!-- ======= Part Table ======= -->
-				<table class="table pj-part-table mb-5">
-					<thead>
-						<tr>
-							<th scope="col">Part Name</th>
-							<th scope="col">Qty</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>Breadboard</td>
-							<td>1</td>
-						</tr>
-
-						<tr>
-							<td>Battery (9V)</td>
-							<td>1</td>
-						</tr>
-						<tr>
-							<td>
-								<a class="pj-part"
-									data-bs-content="<img src='assets/images/parts/ops_part_batterySnap.jpg' height='150px' width='auto'>"
-									data-bs-trigger="hover focus" data-bs-toggle="popover" tabindex="0">
-									Dupont 9V Snap Connector
-								</a>
-							</td>
-							<td>1</td>
-						<tr>
-							<td>
-								<a class="pj-part"
-									data-bs-content="<img src='assets/images/parts/ops_part_2pinHeader.jpg' height='150px' width='auto'>"
-									data-bs-trigger="hover focus" data-bs-toggle="popover" tabindex="0">
-									Header, 2.54mm, Female, 1x2
-								</a>
-							</td>
-							<td>2</td>
-						</tr>
-						<tr>
-							<td>
-								<a class="pj-part pj-part-link"
-									data-bs-content="<img src='assets/images/parts/ops_part_ne555p.png' height='150px' width='auto'>"
-									data-bs-trigger="hover focus" data-bs-toggle="popover" tabindex="0" a
-									class="link-primary" href="./assets/datasheets/ops_datasheet_ne555.pdf"
-									target="_blank" rel="noopener noreferrer">
-									NE555P IC
-								</a>
-							</td>
-							<td>1</td>
-						</tr>
-						<tr>
-							<td>Resistor, 1kΩ</td>
-							<td>3</td>
-						</tr>
-						<tr>
-							<td>Resistor, 4.7kΩ</td>
-							<td>1</td>
-						</tr>
-						<tr>
-							<td>Resistor, 470kΩ</td>
-							<td>1</td>
-						</tr>
-						<tr>
-							<td>
-								<a class="pj-part"
-									data-bs-content="<img src='assets/images/parts/ops_part_tactileSwitch.png' height='150px' width='auto'>"
-									data-bs-trigger="hover focus" data-bs-toggle="popover" tabindex="0" a
-									class="link-primary">
-									Switch, Tactile
-								</a>
-							</td>
-							<td>3</td>
-						</tr>
-						<tr>
-							<td>
-								<a class="pj-part"
-									data-bs-content="<img src='assets/images/parts/ops_parts_8pinDipSocket.png' height='150px' width='auto'>"
-									data-bs-trigger="hover focus" data-bs-toggle="popover" tabindex="0">
-									Dip Socket, 8 pin
-								</a>
-							</td>
-							<td>1</td>
-						</tr>
-						<tr>
-							<td>
-								<a class="pj-part"
-									data-bs-content="<img src='assets/images/parts/ops_part_led.jpg' height='150px' width='auto'>"
-									data-bs-trigger="hover focus" data-bs-toggle="popover" tabindex="0"
-									href="./assets/datasheets/ops_all_leds_datasheet.pdf" target="_blank"
-									rel="noopener noreferrer">
-									LED, 2V
-								</a>
-							</td>
-							<td>1</td>
-						</tr>
-						<tr>
-							<td>Capacitor, 0.1µF</td>
-							<td>1</td>
-						</tr>
-						<tr>
-							<td>Capacitor, 1µF</td>
-							<td>1</td>
-						</tr>
-						<tr>
-							<td>Capacitor, 10µF</td>
-							<td>1</td>
-						</tr>
-						<tr>
-							<td>
-								<a class="pj-part"
-									data-bs-content="<img src='assets/images/project_2/ops_proj2_pcb.png' height='150px' width='auto'>"
-									data-bs-trigger="hover focus" data-bs-toggle="popover" tabindex="0">
-									555 Piano PCB
-								</a>
-								<a>
-									or
-								</a>
-								<a class="pj-part"
-									data-bs-content="<img src='assets/images/project_2/ops_part_perfboard.jpg' height='150px' width='auto'>"
-									data-bs-trigger="hover focus" data-bs-toggle="popover" tabindex="0">
-									Perfboard
-								</a>
-							</td>
-							<td>1</td>
-						</tr>
-						<tr>
-							<td>
-								<a class="pj-part"
-									data-bs-content="<img src='assets/images/parts/ops_part_buzzer.webp' height='150px' width='auto'>"
-									data-bs-trigger="hover focus" data-bs-toggle="popover" tabindex="0" a
-									class="link-primary">
-									Piezo Buzzer, 1.5V
-								</a>
-							</td>
-							<td>1</td>
-						</tr>
-						<tr>
-							<td>Jumper Wire</td>
-							<td>?</td>
-						</tr>
-					</tbody>
-				</table>
-				<!-- End Part Table -->
-
-				<h2 class="mb-3 fw-bold" id="pj-heading-schematics">Schematics</h2>
-				<div class="accordion mb-5" id="schemAccordian">
-					<div class="accordion-item">
-						<h2 class="accordion-header">
-							<button class="accordion-button" type="button" data-bs-toggle="collapse"
-								data-bs-target="#schemCollapse1" aria-expanded="true" aria-controls="schemCollapse1">
-								Schematic A (555 LED Blinker)
-							</button>
-						</h2>
-						<!--Pin to page?-->
-						<div id="schemCollapse1" class="accordion-collapse collapse show"
-							data-bs-parent="#schemAccordian">
-							<div class="accordion-body text-center">
-								<img src='assets/images/project_2/ops_schem_proj2a.png' class="pj-schem">
-							</div>
-						</div>
-					</div>
-
-					<div class="accordion-item">
-						<h2 class="accordion-header">
-							<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-								data-bs-target="#schemCollapse2" aria-expanded="true" aria-controls="schemCollapse2">
-								Schematic B (555 Piano)
-							</button>
-						</h2>
-						<!--Pin to page?-->
-						<div id="schemCollapse2" class="accordion-collapse collapse" data-bs-parent="#schemAccordian">
-							<div class="accordion-body text-center">
-								<img src='assets/images/project_2/ops_schem_proj2b.png' class="pj-schem"
-									style="max-width: 10000px;">
-							</div>
-						</div>
-					</div>
-				</div>
-
-
-				<h2 class="mb-3 fw-bold" id="pj-heading-instructions">Instructions</h2>
-				<h3 class="mb-3" id="pj-heading-checkpoint1">Checkpoint 1</h3>
-				<ol class="mb-5 list-group list-group-numbered">
-					<li class="list-group-item">
-						Build the circuit from <strong>Schematic A</strong> on your breadboard.
-						<div class="alert alert-info mt-2" role="alert">
-							Refer closely to the 555 Timer IC pinout diagram. The schematic does not show the true
-							location of each pin on the IC, but the pinout does.
-							<p>
-								<br>
-								Use the capacitor marking guide when looking for the right capacitors for this circuit.
-							</p>
-							<div>
-					</li>
-					<li class="list-group-item">
-						Verify that the circuit meets the design requirements. Before proceeding to the next checkpoint,
-						make sure you have created the required deliverables.
-					</li>
-				</ol>
-
-				<h3 class="mb-3" id="pj-heading-checkpoint2">Checkpoint 2</h3>
-				<ol class="mb-5 list-group list-group-numbered">
-					<li class="list-group-item">
-						Deconstruct the circuit you built in Checkpoint 1 and reuse the components to
-						build the circuit from <strong>Schematic B</strong> (the piano) on the breadboard.
-					</li>
-					<li class="list-group-item">
-						Verify that the circuit meets the design requirements (no soldering required yet).
-						Before proceeding to the next checkpoint, make sure you have created the required deliverables.
-					</li>
-				</ol>
-
-				<h3 class="mb-3" id="pj-heading-checkpoint3">Checkpoint 3</h3>
-				<ol class="mb-5 list-group list-group-numbered">
-					<li class="list-group-item">
-						Enrolled Students: Solder the circuit components from Schematic B to the provided PCB.
-						<p>
-							&nbsp;&nbsp;&nbsp;&nbsp;If you do not have a PCB, you may use a perfboard
-							instead.
-						</p>
-						<div class="alert alert-warning mt-2" role="alert">
-							<strong>Do not solder the 9V snap connector</strong> to the PCB. Instead, solder the female
-							1x2 header to the
-							board. The snap connector will be inserted into the header’s terminals.
-						</div>
-
-						<div class="alert alert-warning mt-2" role="alert">
-							<strong>Do not solder the NE555 IC</strong> to the PCB. Instead, solder the 8-pin DIP socket
-							to the
-							board. The IC will be inserted into the DIP socket.
-						</div>
-					</li>
-				</ol>
-
-
-				<h2 class="mb-3 fw-bold" id="pj-heading-deliverables">Deliverables</h2>
-				<p class="mb-3">
-					Students enrolled in the course must submit the deliverables below to the corresponding Canvas
-					course assignment.
-					<br>
-					<br>
-					Place the following files in a single folder:
-				</p>
-
-				<ul class="mb-4 list-group">
-					<li class="list-group-item">
-						<i class="bi bi-check2-square me-2"></i>
-						Video of the 555 LED Blinker (Schematic A) circuit on a breadboard
-						<div class="alert alert-info mt-2" role="alert">
-							The video should clearly show the LED blinking ON and OFF.
-						</div>
-					</li>
-					<li class="list-group-item">
-						<i class="bi bi-check2-square me-2"></i>
-						Video of the 555 Piano (Schematic B) circuit on a breadboard
-						<div class="alert alert-info mt-2" role="alert">
-							Make sure to press each button in the video. The video must include sound.
-						</div>
-					</li>
-					<li class="list-group-item">
-						<i class="bi bi-check2-square me-2"></i>
-						Video of the 555 Piano (Schematic B) circuit soldered to the PCB
-						<div class="alert alert-info mt-2" role="alert">
-							Make sure to press each button in the video. The video must include sound.
-						</div>
-				</ul>
-				<p class="mb-3">
-					<strong>Compress</strong> the folder to a <strong>zip</strong> file and rename the file using the
-					format
-					“<strong>ops_project#_lastname_firstname.zip</strong>” Then, submit the <strong>zip</strong> file to
-					the Project 2 Canvas
-					assignment.
-				</p>
+				
 		</main>
 	</div>
 	<!-- ======= Footer ======= -->
