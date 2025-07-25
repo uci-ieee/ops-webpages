@@ -57,28 +57,45 @@
 							<li class="nav-item">
 								<a class="nav-link" href="#pj-heading-benefits-of-pcbs">Benefits of PCBs</a>
 							</li>
-						</ul>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#pj-heading-concepts">Concepts</a>
-						<ul class="nav">
-							<li class="nav-item">
-								<a class="nav-link" href="#pj-heading-printed-circuit-boards">Printed Circuit Boards
-									(PCB)</a>
-							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="#pj-heading-pcb-design-overview">PCB Design Overview</a>
 							</li>
 						</ul>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#pj-heading-schematic-layout">Schematic Layout</a>
+						<a class="nav-link" href="#pj-heading-installing-kicad">Installing KiCad 9.0</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#pj-heading-instructions">Instructions</a>
+						<a class="nav-link" href="#pj-heading-schematic-layout">Schematic Layout</a>
 						<ul class="nav">
 							<li class="nav-item">
-								<a class="nav-link" href="#pj-heading-checkpoint1">Checkpoint 1</a>
+								<a class="nav-link" href="#pj-heading-overview-schematic">Overview</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-creating-a-schematic">Creating a Schematic</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-adding-components">Addign Components</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-assigning-footprints">Assigning Footprints</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-wiring">Wiring</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-annotating-the-schematic">Annotating the Schematic</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-running-erc">Running ERC</a>
+							</li>
+						</ul>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-pcb-layout">PCB Layout</a>
+						<ul class="nav">
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-overview-pcb">Overview</a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="#pj-heading-checkpoint2">Checkpoint 2</a>
@@ -87,10 +104,10 @@
 								<a class="nav-link" href="#pj-heading-checkpoint3">Checkpoint 3</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="#pj-heading-checkpoint4">Checkpoint 4</a>
+								<a class="nav-link" href="#pj-heading-running-drc">Running DRC</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="#pj-heading-checkpoint5">Checkpoint 5</a>
+								<a class="nav-link" href="#pj-heading-manufacturing-files">Manufacturing Files</a>
 							</li>
 						</ul>
 					</li>
@@ -109,7 +126,7 @@
 					</div>
 					<div class="alert alert-light" role="alert">
 						<i class="bi bi-calendar-event me-1"></i>
-						Updated 2025.07.22<br>
+						Updated 2025.07.24<br>
 						By Colton Kaneria
 					</div>
 					
@@ -118,7 +135,7 @@
 				
 				<p class="mb-3">
 					<div class="alert alert-info mt-2 mb-3" role="alert">
-						Note: It is highly recommended to use a mouse for this project.
+						It is highly recommended to use a mouse for this project.
 					</div>
 				</p>
 				<h2 class="mb-3 fw-bold" id="#pj-heading-introduction-to-pcbs">Introduction</h2>
@@ -203,6 +220,11 @@
 					</tbody>
 				</table>
 
+				<p class="mb-3">
+					<div class="alert alert-info mt-2 mb-3" role="alert">
+						The following installation screenshots are from KiCad 7.0, but the setup is the same as 9.0.
+					</div>
+				</p>
 				<ol class="list-group list-group-numbered mb-5">
 					<li class="list-group-item">
 						Download the installer from the link appropriate to your OS.
@@ -239,31 +261,35 @@
 
 				<h2 class="mb-3 fw-bold" id="pj-heading-schematic-layout">Schematic Layout</h2>
 				<p class="mb-3">
-					Each checkpoint guides you through the process of designing the 555 Blinker circuit, which should
-					look something like
-					this upon completion:
+					<div class="alert alert-info mt-2 mb-3" role="alert">
+						Since your schematic is already provided, you may skip this section.
+						However, this section is still very important to know for PCB design as a whole.
+					</div>
 				</p>
-				<div>
-					<img class="img-fluid my-4" src=".\assets\images\project_8\ops_project_8_kicad_completed.png">
-				</div>
+				<br>
+				<h3 class="mb-3" id="pj-heading-overview-schematic">Overview of Schematic Development</h3>
 				<p class="mb-3">
-					<strong>Make sure to save your progress frequently.</strong> Nothing is more infuriating than trying
-					to recover lost data and lost time.
+					Below is the general procedure when creating a schematic:
 				</p>
-				<p class="mb-3">
-					<strong>You should also do yourself the favor of using a mouse.</strong> Suffice to say, KiCad is
-					unkind to touchpad users (and if you are using a pointing stick, something is wrong with you.)
-				</p>
-				<p class="mb-3">
-					And with that, let's get started!
-				</p>
-				<h3 class="mb-3" id="pj-heading-checkpoint1">Checkpoint 1</h3>
 				<ol class="mb-5 list-group list-group-numbered">
 					<li class="list-group-item">
-						Open <strong>KiCad 7.0</strong> to launch the <strong>Project Manager</strong> and create a new
-						project. Name the
-						project file using the following format:
-						<strong>“ops_project8_lastname_firstname.kicad_pro”</strong>
+						Add symbols to represent components.
+					</li>
+					<li class="list-group-item">
+						Assign footprints to symbols.
+					</li>
+					<li class="list-group-item">
+						Connect components together with wires.
+					</li>
+					<li class="list-group-item">
+						Verify the design with the Electrical Rules Checker (ERC).
+					</li>
+				</ol>
+				<h3 class="mb-3" id="pj-heading-creating-a-schematic">Creating a Schematic</h3>
+				<ol class="mb-5 list-group list-group-numbered">
+					<li class="list-group-item">
+						Open <strong>KiCad 9.0</strong> to launch the <strong>Project Manager</strong> and create a new
+						project. Name the project.
 						<div>
 							<img class="img-fluid my-4"
 								src=".\assets\images\project_8\ops_project_8_kicad_new_proj.gif">
@@ -278,6 +304,9 @@
 								src=".\assets\images\project_8\ops_project_8_kicad_schematic_editor.png">
 						</div>
 					</li>
+				</ol>
+				<h3 class="mb-3" id="pj-heading-adding-components">Adding Components</h3>
+				<ol class="mb-5 list-group list-group-numbered">
 					<li class="list-group-item">
 						Click on <strong>Add Power Symbol<img class="img-fluid ms-1"
 								src=".\assets\images\project_8\ops_project_8_kicad_button_add_power_symbol.png"></strong>
@@ -316,6 +345,17 @@
 						</div>
 					</li>
 					<li class="list-group-item">
+						If a symbol is in the
+						wrong orientation right
+						click on the component and select <strong>Rotate Counterclockwise</strong> (or press
+						<strong>R</strong>) to rotate it 90 degrees
+						counterclockwise.
+						<div>
+							<img class="img-fluid my-4"
+								src=".\assets\images\project_8\ops_project_8_kicad_rotate_counterclockwise.png">
+						</div>
+					</li>
+					<li class="list-group-item">
 						For each valued component (resistors, capacitor, LED), right click on the component, and select
 						<strong>Properties</strong> (or press <strong>E</strong>).
 						<br><br>
@@ -340,6 +380,18 @@
 							In this example, {base value = 1} {scale = u} {unit = F}
 						</div>
 					</li>
+				</ol>
+				<h3 class="mb-3" id="pj-heading-assigning-footprints">Assigning Footprints</h3>
+				<p class="mb-5">
+					A <strong>footprint</strong>, as the name suggests, is the <strong>physical layout</strong> of a component.
+					It specifies whether a component is surface mounted or through hole and shows how much space the component takes up on the board.
+					<br><br>
+					It is important to select the correct footprints in the schematic designer so your actual components are compatible with your PCB. 
+					For example, if you incorrectly select a SMD footprint for your through hole resistor, you will not be able to solder it onto the board!
+
+					<br><br>(... okay, unless you get creative ...)
+				</p>
+				<ol class="mb-5 list-group list-group-numbered">
 					<li class="list-group-item">
 						Open the <strong>Footprint Assignment<img class="img-fluid ms-1"
 								src=".\assets\images\project_8\ops_project_8_kicad_button_footprint_assignment.png"></strong>
@@ -362,17 +414,9 @@
 							footprint assignments will be copied over as well
 						</div>
 					</li>
-					<li class="list-group-item">
-						Move symbols and rotate them in preparation to connect them with wires. If a symbol is in the
-						wrong orientation right
-						click on the component and select <strong>Rotate Counterclockwise</strong> (or press
-						<strong>R</strong>) to rotate it 90 degrees
-						counterclockwise.
-						<div>
-							<img class="img-fluid my-4"
-								src=".\assets\images\project_8\ops_project_8_kicad_rotate_counterclockwise.png">
-						</div>
-					</li>
+				</ol>
+				<h3 class="mb-3" id="pj-heading-wiring">Wiring</h3>
+				<ol class="mb-5 list-group list-group-numbered">
 					<li class="list-group-item">
 						Complete the circuit defined by the provided schematic. Select the <strong>Wire<img
 								class="img-fluid ms-1"
@@ -405,11 +449,15 @@
 							<img class="img-fluid my-4"
 								src=".\assets\images\project_8\ops_project_8_kicad_add_no_connection_flag.gif">
 						</div>
-						Run the Annotate Schematic tool
 					</li>
 				</ol>
 
-				<h3 class="mb-3" id="pj-heading-checkpoint2">Checkpoint 2</h3>
+				<h3 class="mb-3" id="pj-heading-annotating-the-schematic">Annotating the Schematic</h3>
+				<p class="mb-5">
+					Every component needs a unique name. Otherwise, the manufacturing files will have no way to distinguish between components of the same type.
+					Your schematic may have a bunch of components with "?" at the end, such as "R?" or "C?" This is because they haven't been numbered yet.
+					The <strong>Annotate Schematic</strong> tool automatically assigns numbers to any components missing one. So all your components will have a name like R1, R2, C1, or C2, etc.
+				</p>
 				<ol class="mb-5 list-group list-group-numbered">
 					<li class="list-group-item">
 						Open the <strong>Annotate Schematic<img class="img-fluid ms-1"
@@ -422,8 +470,17 @@
 								src=".\assets\images\project_8\ops_project_8_kicad_annotate_schematic.gif">
 						</div>
 					</li>
+				</ol>
+				<h3 class="mb-3" id="pj-heading-running-erc">Running ERC</h3>
+				<p class="mb-5">
+					The last step in schematic layout is to verify the circuit using the Electrical Rules Checker tool, also known as the <strong>ERC</strong>.
+					This will catch any errors in your schematic, such as pins being left unconnected.
+					Errors will be listed in the popup window and annotated with red arrows on the schematic itself.
+					You can also click on the errors in the popup window to be directed to them in the schematic.
+				</p>
+				<ol class="mb-5 list-group list-group-numbered">
 					<li class="list-group-item">
-						You will now verify the schematic. Open the <strong>Electrical Rules Check (ERC)</strong>
+						Open the <strong>Electrical Rules Check (ERC)</strong>
 						tool<img class="img-fluid ms-1"
 							src=".\assets\images\project_8\ops_project_8_kicad_button_electronic_rules_checker.png">
 						and select <strong>Run ERC</strong>
@@ -435,6 +492,33 @@
 							There should be no violations except for Error: Input Power pin not driven by any Output
 							Power pins.
 						</div>
+					</li>
+				</ol>
+
+				<h2 class="mb-3 fw-bold" id="pj-heading-pcb-layout">PCB Layout</h2>
+				<p class="mb-3">
+					Now that we've finished the schematic for the mouse, it's time to design the physical PCB.
+				</p>
+				<br>
+				<h3 class="mb-3" id="pj-heading-overview-pcb">Overview of PCB Layout</h3>
+				<p class="mb-3">
+					Below is the general procedure of PCB layout:
+				</p>
+				<ol class="mb-5 list-group list-group-numbered">
+					<li class="list-group-item">
+						Update the PCB layout from the schematic.
+					</li>
+					<li class="list-group-item">
+						Create the board outline.
+					</li>
+					<li class="list-group-item">
+						Place components.
+					</li>
+					<li class="list-group-item">
+						Run the Design Rules Checker (DRC).
+					</li>
+					<li class="list-group-item">
+						View the PCB in the 3D viewer.
 					</li>
 				</ol>
 
