@@ -169,7 +169,7 @@
 					<br><br>
 					<img class="pj-img-fluid mx-auto mb-4" src="./assets/images/mm_oring_schematic.png"
 						width="800">
-					You may connect the STLink to either the J2 header or J5 header, but only J2 ofers the ORing voltage protection mechanism with its +3V3_NET. 
+					You may connect the STLink to either the J2 header or J5 header, but only J2 offers the ORing voltage protection mechanism with its +3V3_NET. 
 					Normally, when the voltage at *CE is low, current is conducted from VIN to VOUT, passing the voltage through. 
 					This voltage also reaches the MOSFET's gate, switching it ON and passing the battery voltage to the VCC net.
 					However, when the STLink is connected to J2, it supplies 3.3V to U6's *CE pin through the +3V3_NET, 
@@ -217,7 +217,7 @@
 					<img class="pj-img-fluid mx-auto mb-4" src="./assets/images/mm_l293d_schematic_annotated.png"
 						width="700">
 					The IN pins (1A, 2A, etc) determine the direction of rotation for each motor. 
-					For instance, inputting a HIGH singal to 1A and LOW to 2A may cause Motor 1 to rotate counterclockwise, 
+					For instance, inputting a HIGH signal to 1A and LOW to 2A may cause Motor 1 to rotate counterclockwise, 
 					and setting 1A to LOW and 2A to HIGH may cause it to rotate clockwise instead. 
 					(Note: the actual directions are different for every motor. 
 					You will need to test your motors to determine which inputs cause it to rotate clockwise and counterclockwise.)
@@ -242,7 +242,7 @@
 					At the end of each motor, you will attach an <strong>encoder</strong> and a small magnetic disk which rotates with the motor. 
 					<img class="pj-img-fluid mx-auto mb-4" src="./assets/images/mm_encoder_and_magnet.png"
 						width="500">
-					The magnetic disks each have two mangetic poles that pass over the encoder's Hall effect sensors as the disks rotate.
+					The magnetic disks each have two magnetic poles that pass over the encoder's Hall effect sensors as the disks rotate.
 					These sensors detect changes in the magnetic field caused by the spinning disks.
 					This generates a pulse in each of the sensor's channels, alternating between HIGH and LOW corresponding to the positive/negative poles above the sensor. 
 					The STM32 microcontroller's "Encoder Mode" can then interpret these signals to determine the distance each motor spun.
@@ -275,7 +275,7 @@
 					<img class="img-fluid my-3 me-lg-5 me-3 float-end" style="max-width: 200px;"
 						src="./assets/images/mm_ir_emitter.png">
 					The diode at the top of each of the 4 "sub-circuits" is an IR emitter. It emits IR light when it experiences an electric current. 
-					IR emitters are ofen implemented using IR light-emitting diodes (LEDs). 
+					IR emitters are often implemented using IR light-emitting diodes (LEDs). 
 					However, the pinout for our IR emitters is the opposite of a typical LED; <strong>the longer lead is negative (-) and the shorter lead is positive (+)</strong>.
 					<br><br>
 					Theoretically, we could just continuously emit light from these emitters then measure the reflected light with the IR receivers, 
@@ -288,12 +288,12 @@
 					<img class="img-fluid my-3 me-lg-5 me-3 float-end" style="max-width: 150px;"
 						src="./assets/images/mm_n-channel_mosfet.png">
 					To turn the IR emitters ON and OFF, we will use three-terminal N-Channel MOSFETs. These MOSFETs have three pins: Drain (D), Source (S) (connected to GND), and Gate (G).
-					Current flows from drain to source when a voltage is applied at the gate. This applied voltage causes a channel to form across the length of the MOSFET, allowing curernt to flow from drain to source.
+					Current flows from drain to source when a voltage is applied at the gate. This applied voltage causes a channel to form across the length of the MOSFET, allowing current to flow from drain to source.
 					However, the gate voltage must be greater than or equal to the threshold voltage to turn the MOSFET on (specified on the datasheet).
 					<br><br>
 					<img class="pj-img-fluid mx-auto mb-4" src="./assets/images/mm_mosfet_on.png"
 						width="550">
-					When no voltage is applied to the gate, the MOSFET does not conduct any current. Hence, with a MOSFET connected in series with an IR emtiter, 
+					When no voltage is applied to the gate, the MOSFET does not conduct any current. Hence, with a MOSFET connected in series with an IR emitter, 
 					we can turn the emitter ON and OFF by writing HIGH or LOW signals to the MOSFET gate from one of the STM32's GPIO pins (PB12 in the example above).
 				</p>
 				<h3 class="mb-3" id="pj-heading-ir-receiver-schematic">IR Receiver Schematic</h3>

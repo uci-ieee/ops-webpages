@@ -75,7 +75,7 @@
 								<a class="nav-link" href="#pj-heading-creating-a-schematic">Creating a Schematic</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="#pj-heading-adding-components">Addign Components</a>
+								<a class="nav-link" href="#pj-heading-adding-components">Adding Components</a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="#pj-heading-assigning-footprints">Assigning Footprints</a>
@@ -84,7 +84,7 @@
 								<a class="nav-link" href="#pj-heading-wiring">Wiring</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="#pj-heading-annotating-the-schematic">Annotating the Schematic</a>
+								<a class="nav-link" href="#pj-heading-annotate-schematic">Annotate Schematic</a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="#pj-heading-running-erc">Running ERC</a>
@@ -98,16 +98,57 @@
 								<a class="nav-link" href="#pj-heading-overview-pcb">Overview</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="#pj-heading-checkpoint2">Checkpoint 2</a>
+								<a class="nav-link" href="#pj-heading-terminology">Terminology</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="#pj-heading-checkpoint3">Checkpoint 3</a>
+								<a class="nav-link" href="#pj-heading-transfer-to-pcb">Transfer to PCB</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-track-and-via-sizes">Track & Via Sizes</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-board-outline">Board Outline</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-organizing-your-components">Organizing Your Components</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-routing">Routing</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-ground-fill-zone">Ground Fill Zone</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-silkscreen">Silkscreen</a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="#pj-heading-running-drc">Running DRC</a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="#pj-heading-manufacturing-files">Manufacturing Files</a>
+							</li>
+						</ul>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-micromouse-pcb-guidelines">Micromouse PCB Guidelines</a>
+						<ul class="nav">
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-guidelines-general">General</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-guidelines-power-supply">Power Supply</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-guidelines-motor-driver">Motor Driver</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-guidelines-motors">Motors</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-guidelines-ir-sensors-slash-analog">IR Sensors / Analog</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-guidelines-after-running-drc">After Running DRC</a>
 							</li>
 						</ul>
 					</li>
@@ -119,19 +160,17 @@
 		<main class="pj-main p-3" data-bs-spy="scroll" data-bs-target="#project-toc" data-bs-root-margin="0px 0px -40%"
 			data-bs-smooth-scroll="true" tabindex="0">
 			<div class="pj-content">
-
 				<div class="d-flex flex-sm-row flex-column justify-content-between mb-5">
 					<div class="mb-sm-0 mb-2">
 						<h1 class="fw-bold">KiCad Guide</h1>
 					</div>
 					<div class="alert alert-light" role="alert">
 						<i class="bi bi-calendar-event me-1"></i>
-						Updated 2025.07.24<br>
+						Updated 2025.07.26<br>
 						By Colton Kaneria
 					</div>
 					
 				</div>
-
 				
 				<p class="mb-3">
 					<div class="alert alert-info mt-2 mb-3" role="alert">
@@ -396,9 +435,7 @@
 						Open the <strong>Footprint Assignment<img class="img-fluid ms-1"
 								src=".\assets\images\project_8\ops_project_8_kicad_button_footprint_assignment.png"></strong>
 						tool. For each component symbol, assign a
-						footprint. The symbols' footprints (and their
-						footprint libraries) are defined in the <a class="link-primary"
-							href="#pj-heading-parts">Parts</a> section of the project specification.
+						footprint.
 						<br><br>
 						After assigning each component, select <strong>Apply, Save Schematic & Continue</strong> to save
 						your progress.
@@ -452,7 +489,7 @@
 					</li>
 				</ol>
 
-				<h3 class="mb-3" id="pj-heading-annotating-the-schematic">Annotating the Schematic</h3>
+				<h3 class="mb-3" id="pj-heading-annotate-schematic">Annotating the Schematic</h3>
 				<p class="mb-5">
 					Every component needs a unique name. Otherwise, the manufacturing files will have no way to distinguish between components of the same type.
 					Your schematic may have a bunch of components with "?" at the end, such as "R?" or "C?" This is because they haven't been numbered yet.
@@ -497,7 +534,7 @@
 
 				<h2 class="mb-3 fw-bold" id="pj-heading-pcb-layout">PCB Layout</h2>
 				<p class="mb-3">
-					Now that we've finished the schematic for the mouse, it's time to design the physical PCB.
+					Now that we've finished the schematic for the mouse, it's time to design the physical printed circuit board.
 				</p>
 				<br>
 				<h3 class="mb-3" id="pj-heading-overview-pcb">Overview of PCB Layout</h3>
@@ -521,8 +558,23 @@
 						View the PCB in the 3D viewer.
 					</li>
 				</ol>
+				<h3 class="mb-3" id="pj-heading-terminology">Terminology</h3>
+				<p class="mb-3">
+					<strong>Traces</strong> or <strong>tracks</strong> are the copper wires on the PCB. They connect components that are wired together on the schematic.
+					They are very thin strips of copper on top of the PCB, as seen in the cross section on the below.
+					<img class="pj-img-fluid mx-auto mb-4" src="./assets/images/mm_trace.png"
+						width="500">
+					<strong>Vias</strong> are holes in the PCB that connect traces from one layer to another. As the designer, you determine how deep each via is and which layers it connects together.
+					A few examples of vias are shown in the cross section below.
+					<img class="pj-img-fluid mx-auto mb-4" src="./assets/images/mm_board_cross_section_w_vias.png"
+						width="600">
+				</p>
 
-				<h3 class="mb-3" id="pj-heading-checkpoint3">Checkpoint 3</h3>
+				<h3 class="mb-3" id="pj-heading-transfer-to-pcb">Transfer Footprints to PCB</h3>
+				<p class="mb-3">
+					Initially, your PCB layout file will be blank. 
+					You will need to <strong>update</strong> this PCB layout file with your components and connections from the schematic.
+				</p>
 				<ol class="mb-5 list-group list-group-numbered" start="10">
 					<li class="list-group-item">
 						Return to the <strong>Project Manager</strong> window and open the <strong>PCB Editor</strong>
@@ -555,6 +607,9 @@
 								src=".\assets\images\project_8\ops_project_8_kicad_update_pcb.gif">
 						</div>
 					</li>
+				</ol>
+				<h3 class="mb-3" id="pj-heading-track-and-via-sizes">Setting Track and Via Sizes</h3>
+				<ol class="mb-5 list-group list-group-numbered" start="10">
 					<li class="list-group-item">
 						Now, you need to set the track and via sizes. Disable the <strong>Use Existing Track
 							Width..<img class="img-fluid ms-1"
@@ -564,7 +619,7 @@
 							netclass width</strong>
 						dropdown and select <strong>Edit Pre-defined Sizes</strong>
 						<br><br>
-						Add the following pre-defined sizes:
+						Here is an example of added pre-defined sizes:
 						<table class="table pj-part-table mb-3">
 							<thead>
 								<td>Tracks (Width)</td>
@@ -573,15 +628,15 @@
 							<tbody>
 								<tr>
 									<td>
-										40 mil
+										0.5 mm
 									</td>
 									<td>
-										30mil/20mil
+										1 mm / 0.6 mm
 									</td>
 								</tr>
 								<tr>
 									<td>
-										30 mil
+										0.3 mm
 									</td>
 									<td>
 
@@ -589,12 +644,11 @@
 								</tr>
 							</tbody>
 						</table>
-						Traces with <strong>40 mil width</strong> must be used for <strong>power and ground
-							lines</strong>.
+						In general, traces for power and ground lines should be thicker than traces for signal lines.
 						<br>
-						Traces with <strong>30 mil width</strong> must be used for <strong>signal lines</strong>
+						<strong>Please refer to the Micromouse PCB Guidelines at the end of this page for all specific trace widths.</strong>
 						<br><br>
-						Vist the <strong>Track use netclass width</strong> and <strong>Via use netclass
+						Click the <strong>Track use netclass width</strong> and <strong>Via use netclass
 							sizes</strong> dropdowns and select one of the newly populated options.
 						(Change between the options as necessary when you route the traces.)
 						<div>
@@ -602,15 +656,70 @@
 								src=".\assets\images\project_8\ops_project_8_kicad_track_via_size.gif">
 						</div>
 					</li>
+				</ol>
+				<h3 class="mb-3" id="pj-heading-board-outline">Board Outline</h3>
+				<p class="mb-3">
+					Your PCB board outline can be any size <strong>100mm x 100mm or less</strong>. 
+					Any odd shape within this 100mm square will suffice. 
+					Below are a few examples.
+					<img class="pj-img-fluid mx-auto mb-4" src="./assets/images/mm_example_mice.png"
+						width="900">
+				</p>
+				<ol class="mb-5 list-group list-group-numbered" start="10">
 					<li class="list-group-item">
 						Create the board outline. Select the <strong>Edge.Cuts</strong> layer then use one of the shapes
 						tools to create the outline. Remember to
-						return to the <strong>F.Cu</strong> (Front Copper) layer when done. A board shape of ~60x35mm is reasonable for this project.
+						return to the <strong>F.Cu</strong> (Front Copper) layer when done.
 						<div>
 							<img class="img-fluid my-4"
 								src=".\assets\images\project_8\ops_project_8_kicad_board_outline.gif">
 						</div>
 					</li>
+				</ol>
+				<h3 class="mb-3" id="pj-heading-organizing-your-components">Organizing Your Components</h3>
+				<p class="mb-3">
+					As you may have noticed from the schematic, your PCB will have a lot of components. 
+					It is best to organize your components into <strong>subcircuits</strong>. 
+					This makes your board <strong>easier to troubleshoot</strong> because you can easily locate components. 
+					Grouping related components together <strong>also makes your traces shorter</strong>, meaning they will have less impedance.
+					<br><br>
+					Below is an example of component grouping you many want to incorporate into your placement.
+					<br><br>
+					<img class="pj-img-fluid mx-auto mb-4" src="./assets/images/mm_circuitry_grouping.png"
+						width="600">
+					Here's an example of a Micromouse with its components organized into clear subcircuit areas. 
+					Your Micromouse does not have to match this design exactly, but it is recommended you place components in the same general areas. 
+					For example, the sensors should be placed in the front of the mouse to detect walls in front of and to the sides of the mouse.
+					<br><br>
+					<img class="pj-img-fluid mx-auto mb-4" src="./assets/images/mm_example_layout.png"
+						width="450">
+					<ul>
+						<li>
+							Blue: High voltage - hot!
+						</li>
+						<li>
+							Pink: Motor
+						</li>
+						<li>
+							Orange: Header pins/buttons/LEDs
+							<br>
+							(things you frequently interact with)
+						</li>
+						<li>
+							Green: Sensors (IRs)
+						</li>
+					</ul>
+					<div class="alert alert-info mt-2 mb-3" role="alert">
+						Tip: When you transfer your components to the PCB, there will be faint blue lines connecting pins together based on the schematic. 
+						This is called the <strong>ratsnest</strong> and is a good guideline for placing components so traces can be routed efficiently.
+						<br><br>
+						<img class="pj-img-fluid mx-auto mb-4" src="./assets/images/mm_ratsnest.png"
+							width="450">
+					</div>
+					<br>
+				</p>
+				<h3 class="mb-3" id="pj-heading-routing">Routing</h3>
+				<ol class="mb-5 list-group list-group-numbered" start="10">
 					<li class="list-group-item">
 						Space out your components a reasonable distance and create the traces. Select <strong>Route Tracks<img class="img-fluid ms-1"
 								src=".\assets\images\project_8\ops_project_8_kicad_button_route_tracks.png"></strong>
@@ -622,7 +731,7 @@
 								src=".\assets\images\project_8\ops_project_8_kicad_add_traces.gif">
 						</div>
 						<div class="alert alert-warning" role="alert">
-							Remember to change the trace width according its use case. Power/Ground lines should be
+							Remember to change the trace width according to the type of signal. Power/Ground lines should have
 							larger width than signal lines.
 						</div>
 						<div class="alert alert-warning" role="alert">
@@ -648,6 +757,77 @@
 								src=".\assets\images\project_8\ops_project_8_kicad_add_bottom_traces_vias.gif">
 						</div>
 					</li>
+				</ol>
+				<h4 class="mb-3 fw-light" id="pj-heading-routing-tips" style="display: inline;">Routing Tips</h4>
+				<p class="mb-3">
+					<br>
+					Traces act as wires between components. The wider they are, the greater the current that flows through. 
+					Hence, traces for components with higher current draw should be wider to support the higher current.
+					<br><br>
+					As a general rule of thumb ...
+					<ul>
+						<li>
+							<img class="img-fluid my-3 me-lg-5 me-3 float-end" style="max-width: 400px;"
+								src="./assets/images/mm_traces_worst_to_best.jpg">
+							All traces should:
+							<ul>
+								<li>
+									Be as short as possible
+								</li>
+								<li>
+									Have 135° bends
+									<ul>
+										<li>
+											The trace width throughout a turn is most homogeneous when the turn is not 
+											a jagged 90° angle. Ideally, it would be best to make all of these bends 
+											circular, but 135° bends are sufficient.
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+						<li>
+							Traces for <strong>differential pairs</strong> should be equal length.
+							<ul>
+								<li>
+									Differential pair signals are to be interpreted together, meaning they must 
+									leave one component and arrive at their destination component at the same time. 
+									This is only possible if the traces are equal length.
+								</li>
+							</ul>
+						</li>
+						<li>
+							Traces for <strong>high speed signals</strong> should be routed on the same layer.
+						</li>
+					</ul>
+					<br>
+					Lastly, for your design, it is best to space your traces 0.25 mm apart from each other. This prevents crosstalk, or signal interference from one trace to another.
+					<br><br>
+					<strong>Please refer to the PCB Guidelines at the end of this page for the specifications of how to make your PCB.</strong> 
+					This includes the exact widths for each of your traces and which components <italic>must</italic> be placed close to one another</strong>.
+					<br><br>
+				</p>
+				<h3 class="mb-3" id="pj-heading-ground-fill-zone">Ground Fill Zone</h3>
+				<p class="mb-3">
+					You're probably wondering what we're going to do about all the unconnected GND pads. We will connect them all together with a ground <strong>fill zone</strong>, or a ground plane. Any unconnected GND pads reached by this plane will all be connected together, allowing this plane to serve as the PCB's ground.
+					<br><br>
+					Here are a few benefits to using ground planes:
+					<ul>
+						<li>
+							Less EMI
+						</li>
+						<li>
+							Less thermal issues
+						</li>
+						<li>
+							Easier to ground components
+						</li>
+						<li>
+							Lower impedance
+						</li>
+					</ul>
+				</p>
+				<ol class="mb-5 list-group list-group-numbered" start="10">
 					<li class="list-group-item">
 						With all but the ground pads connected, you will create the ground fill. Select <strong>Add Fill
 							Zone</strong>
@@ -666,8 +846,19 @@
 								src=".\assets\images\project_8\ops_project_8_kicad_add_fill.gif">
 						</div>
 					</li>
+				</ol>
+				
+				<h3 class="mb-3" id="pj-heading-silkscreen">Silkscreen</h3>
+				<p class="mb-3">
+					Silkscreen is how PCB designers add text and component labels to a board. This is a <strong>required</strong> 
+					step for your Micromouse PCB design because when you troubleshoot the board, you should be able to easily 
+					locate each component on the PCB if needed.
+					<br><br>
+					You should also add the name of your Micromouse team to the PCB, along with your names.
+				</p>
+				<ol class="mb-5 list-group list-group-numbered" start="10">
 					<li class="list-group-item">
-						If you wish to add text to the PCB, select the <strong>F.Silkscreen</strong> layer. Then, use
+						To add text to the PCB, select the <strong>F.Silkscreen</strong> layer. Then, use
 						the <strong>Add Text Item</strong>
 						tool <img class="img-fluid mx-1"
 							src=".\assets\images\project_8\ops_project_8_kicad_button_add_text.png">(or press
@@ -684,7 +875,7 @@
 					</li>
 				</ol>
 
-				<h3 class="mb-3" id="pj-heading-checkpoint4">Checkpoint 4</h3>
+				<h3 class="mb-3" id="pj-heading-running-drc">Running DRC</h3>
 				<ol class="mb-5 list-group list-group-numbered" start="10">
 					<li class="list-group-item">
 						Now to verify the PCB layout. Open the <strong>Design Rules Checker (DRC)</strong> tool and
@@ -694,10 +885,25 @@
 							<img class="img-fluid my-4"
 								src=".\assets\images\project_8\ops_project_8_kicad_design_rules_check.gif">
 						</div>
-					</li>
+						The most common causes of DRC issues are
+						<ul>
+							<li>
+								Unconnected items
+							</li>
+							<li>
+								Courtyard overlap
+							</li>
+							<li>
+								Silkscreen overlap
+							</li>
+						</ul>
+						If you get any violations, just focus on fixing one error at a time. 
+						Your final PCB submission should have no errors, so please reach out accordingly with the 
+						Micromouse staff in the weeks leading up to the deadline.
+						</li>
 				</ol>
 
-				<h3 class="mb-3" id="pj-heading-checkpoint5">Checkpoint 5</h3>
+				<h3 class="mb-3" id="pj-heading-manufacturing-files">Generating Manufacturing Files</h3>
 				<ol class="mb-5 list-group list-group-numbered" start="10">
 					<li class="list-group-item">
 						As a final checkpoint, you will generate the manufacturing files for your project. Select the
@@ -718,6 +924,161 @@
 						</div>
 					</li>
 				</ol>
+
+				<h2 class="mb-3 fw-bold" id="#pj-heading-micromoues-pcb-guidelines">Micromouse PCB Guidelines</h2>
+				<h3 class="mb-3" id="pj-heading-guidelines-general">General</h3>
+				<ul>
+					<li>
+						2-layer board if ordering with the program
+					</li>
+					<li>
+						PCB must fit within 100x100mm square (would recommend drawing one before placing components and routing)
+					</li>
+					<li>
+						GND plane on front and back layer
+					</li>
+					<li>
+						Ensure GND plane fills most of the board (do not leave large unfilled zones)
+						<ul>
+							<li>
+								To fill unfilled zones, use floating vias
+							</li>
+						</ul>
+					</li>
+					<li>
+						All general traces should be at least 0.3mm in width (specific <strong>exclusions</strong> mentioned later)
+					</li>
+					<li>
+						Silkscreen labeling
+						<ul>
+							<li>
+								Label important pin headers (eg. RX, TX, SWDIO, SWDCLK)
+							</li>
+							<li>
+								Label all test points with corresponding name (eg. +3V3 or GND)
+							</li>
+							<li>
+								Label battery positive and negative terminals
+							</li>
+						</ul>
+					</li>
+					<li>
+						Place test points towards the edge of the PCB
+					</li>
+					<li>
+						No trace bends smaller than 135° (unless you have a three-way trace intersection, which should be a 90°/135°/135° split)
+						<ul>
+							<li>
+								The straighter the traces, the better.
+							</li>
+						</ul>
+					</li>
+					<li>
+						Try to connect all through hole GND pads to both GND planes
+					</li>
+					<li>
+						Mounting/skate holes should be 7.874mm center to center
+					</li>
+					<li>
+						Place team name on either front or back silkscreen of the PCB
+					</li>
+					<li>
+						Buttons should be pressable, it is advised to place them near the edge of the PCB
+					</li>
+					<li>
+						***For members using non-bluepill version: Place decoupling capacitors for STM32 chip near the chip
+						<ul>
+							<li>
+								Labeled C22-C28 (inclusive)
+							</li>
+						</ul>
+					</li>
+					<li>
+						PCB must fit within 100x100mm square (would recommend drawing one before placing components and routing)
+					</li>
+					<li>
+						GND plane on front and back layer
+					</li>
+					<li>
+						2-layer board if ordering with the program
+					</li>
+					<li>
+						PCB must fit within 100x100mm square (would recommend drawing one before placing components and routing)
+					</li>
+					<li>
+						GND plane on front and back layer
+					</li>
+				</ul>
+				<h3 class="mb-3" id="pj-heading-guidelines-power-supply">Power Supply</h3>
+				<ul>
+					<li>
+						Place decoupling capacitors for +5V and +3V3 Regs. near the components output
+					</li>
+					<li>
+						Trace widths for main power rails should be at least 1.25mm
+					</li>
+					<ul>
+						<li>
+							BT1-Net should be at least 2mm
+						</li>
+						<li>
+							Power traces that route to specific components should be at least 0.5mm (larger for specific ones)
+						</li>
+					</ul>
+				</ul>
+				<h3 class="mb-3" id="pj-heading-guidelines-motor-driver">Motor Driver</h3>
+				<ul>
+					<li>
+						Motor driver output pads/traces (eg. M1_OUT_1) should be at least 0.5mm in width
+					</li>
+					<li>
+						All motor driver pads, even if redundant, should be connected to their respective labelings
+					</li>
+				</ul>
+				<h3 class="mb-3" id="pj-heading-guidelines-motors">Motors</h3>
+				<ul>
+					<li>
+						Ensure mouse edge cut/outline does not overlap with motor footprint
+					</li>
+					<li>
+						Motor footprint may go outside of the 100x100mm limit (which is fine)
+					</li>
+				</ul>
+				<h3 class="mb-3" id="pj-heading-guidelines-ir-sensors-slash-analog">IR Sensors / Analog</h3>
+				<ul>
+					<li>
+						AGND traces should be at least 1mm in width
+					</li>
+					<li>
+						+3V3VA traces should be at least 0.5mm in width
+					</li>
+					<li>
+						Place IRs towards front of PCB with no blockage
+						<ul>
+							<li>
+								Ensure IR pairs are adjacent or stacked
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<h3 class="mb-3" id="pj-heading-guidelines-after-running-drc">After Running DRC</h3>
+				<ul>
+					<li>
+						Can ignore “Error: Clearance violation ...” for component JP4 (bridge from GND to AGND)
+					</li>
+					<li>
+						Can ignore “Footprint component type doesn’t match footprint pads…” for component U3, M1, and M2
+						<br>
+						<strong>If it appears for another component it is an error.</strong>
+					</li>
+					<li>
+						Resolve errors, if unsure try to look them up (if you can’t figure them out reach out to staff through Discord or during office hours/meetings)
+					</li>
+					<li>
+						Submit for review!
+					</li>
+				</ul>
+
 
 				<!--Colton removed the Deliverables section.-->
 
