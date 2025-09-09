@@ -12367,4 +12367,9 @@ body {
   margin: 0 2px;
 }
 
+/* Ensure inactive Bootstrap tab buttons are visible */
+.nav-tabs .nav-link {
+  color: #495057;
+}
+
 /*# sourceMappingURL=custom.css.map */
