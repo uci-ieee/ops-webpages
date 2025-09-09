@@ -39,6 +39,14 @@ document.write(`
                     <li class="nav-item">
                         <a class="nav-link" href="./esp32_guide.html">ESP32 Guide</a>
                     </li>
+                    <li class="nav-item dropdown ">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Website Archives
+                        </a>
+                        <ul class="dropdown-menu" data-bs-theme="light" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="https://archive.openprojectspace.org/"> 2023-2024</a></li>
+                        </ul>
+                    </li>
                 </ul>
                 <a class="bi bi-facebook link-light me-4 fs-5" target="_blank" href="https://www.facebook.com/IEEE.UCI/"></a>
                 <a class="bi bi-instagram link-light me-4 fs-5" target="_blank" href="https://www.instagram.com/ieee_uci/?hl=en"></a>
