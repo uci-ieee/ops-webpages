@@ -143,6 +143,8 @@
 				course.
 			</p>
 
+			<br>
+
 			<h2 class="mb-4 fw-bold" id="heading-intuition">Intuition</h2>
 
 			<div class="mb-5">
@@ -175,33 +177,84 @@
 			<p class="mb-2">
 				Now that we understand the intuition behind Floodfill, let’s look at a pseudocode
 				representation of the algorithm, then dive into each part.
-				<pre class="mb-5">
-					<code class="pj-code"
-					style="white-space: pre-wrap; height:45vh;">
-	def floodfill():
-		queue.append[goal_cell]
-		while not queue.is_empty:
-			for cell in get_neighbors(queue.head):
-					if cell is_not_blocked:
-						cell.distance = curr_distance
-						queue.append[cell]
-					queue.remove_cell(cell)
-				curr_distance++
-
-					</code>
-				</pre>
 			</p>
-				<p class="mb-2">
-					That’s it! At its core, floodfill is a very simple algorithm, and with only a few lines we can implement the behavior mentioned previously. Put into English, our approach will be to start at the goal cell and continuously iterate through all the neighboring cells that aren’t blocked by walls. These cells are assigned a distance, and then added to the end of the queue. We will keep a counter variable to keep track of the distance from the goal, and we will increment it by one each iteration of the loop. Then we simply repeat the process for every neighboring cell until there are no more cells in the maze. To implement this behavior we will need two modules: a queue and a get_neighbors() function.
-				</p>
+				
+			<pre class="text-start">
+				<code class="pj-code"
+					style="white-space: pre-wrap;">
+function floodfill(maze, goalCells):
+	Q = empty queue
+	distances = 2D array initialized to infinity
+	for cell in goalCells:
+		enqueue(Q, cell)
+		distances[cell] = 0	
+	while Q is not empty:
+		currentCell = dequeue(Q)
+		for each neighbor of currentCell that is not blocked:
+			if distance[neighbor] > distance[currentCell] + 1:
+				distance[neighbor] = distance[currentCell] + 1
+				enqueue(Q, neighbor)	
+			</code>
+			</pre>
 
+			<p>
+				That’s it! At its core, floodfill is a very simple algorithm, 
+				and with only a few lines we can implement the behavior mentioned previously.
 
-			<h3 class="mb-3" id="pj-heading-concepts-queue">Queue</h3>
-			<p class="mb-5">
-				The queue is a basic and very common data structure that every programmer should be familiar with. To visualize a queue, imagine a line for the grocery checkout. If there are many people waiting in line and the cashier becomes available, the person who has been waiting the longest at the front of the line will be the first to leave. This is exactly how a queue (which is just another word for line) works: elements are added to a list, and when we remove elements, the order is maintained and used such that the first-added item will be removed.
+				<br><br>
+
+				Put into English, our approach will be to start at the goal cell(s) and process them.
+				We continuously iterate through all the neighboring cells that aren’t blocked by walls.
+				These cells are assigned a distance one greater than the currently processed cell, and then added to the end of the queue. 
+				Then we simply repeat the process for every neighboring cell until there are no more paths left to explore in the maze.
+				To implement this behavior we will need two modules: a queue and a get_neighbors() function.
+				
+				<br><br>
+				For a more detailed explanation of the pseudocode, see below:
 			</p>
+			
+			<p>
+				We initialize the queue and the distances 2D array. 
+				The queue is the data structure we use to keep track of the cells we still need to process.
+				<code>distances(cell)</code> stores the distance from cell to any goal cell. We initialize every cell except the goal cells to be infinity, as we haven't processed them yet. The goal cells will instead be 0.
+				We push, or <i>enqueue</i> all of the goal cells into the queue. The idea is to expand from the goal cells outwards.
+				<br><br>
+
+				In the main while loop, we process the next cell <code>currentCell</code> in the queue. 
+				We find each of its adjacent cells, call it a neighbor, that are not blocked by walls, and check if the distance to that neighbor can be improved by going through a path with <code>currentCell</code>.
+				If we were to go through <code>currentCell</code>, the distance to the neighbor would be <code>distance[currentCell] + 1</code> as it is directly one step away.
+				Additionally, we enqueue the neighbor to the queue because we now know this neighbor contains a valid path to a goal cell. 
+				Eventually, if this maze has a solution, this path should extend back to the starting cell, while filling in the rest of the distances array through taking every path possible.
+			</p>  
+
+			<br>
+
+			<!-- <h2 class="mb-3" id="pj-heading-concepts-queue">Queue</h3> -->
+			<h2 class="mb-4 fw-bold" id="heading-intuition">Queue</h2>
 			<p class="mb-5">
-				In C, the most typical and straightforward implementation of a queue is through the use of an array along with a head and a tail pointer. The array will store the elements themselves, and because arrays are ordered, it is able to record the order in which we added them. The head pointer is simply an integer which holds the index of the current oldest/first added item in the queue, and the tail holds the last item. Whenever we add items, we append it to the array and increment the tail pointer. When we remove items, we copy the item at the index specified by the head pointer and then increment the pointer by one. Adding items to the end of the queue is called “pushing” while removing items from the front is called “popping”. When the head and tail pointers are equal, we know there are no items left in the queue. 
+				The queue is a basic and very common data structure with a lot of use cases. 
+				A good way to visualize a queue is to imagine a line for the grocery checkout. 
+				If there are many people waiting in line and the cashier becomes available, the person who has been waiting the longest at the front of the line will be the first to leave. 
+				This is exactly how a queue (which is just another word for line) works: 
+				elements are added to the end of a line, and when we remove elements, the front-most element will be removed.
+			</p>
+
+
+			<p class="mb-5">
+				In C, the most typical and straightforward implementation of a queue is through the use of an array along with two pointers to indicate where the head and tail are.
+				Don't worry, these aren't actual C pointers. They're just integers that indicate which index the head and tail are at.
+
+				<br><br>
+
+				The array will store the elements themselves, and because arrays are ordered, it is able to record the order in which we added them. 
+				The head pointer holds the index to the current oldest/first added/frontmost item in the queue, 
+				and the tail holds the last item. 
+				Whenever we add items, we append it to the array and increment the tail pointer. 
+				When we remove items, we copy the item at the index specified by the head pointer and then increment the pointer by one.
+				Adding items to the end of the queue is called “pushing” or "enqueuing" while removing items from the front is called “popping” or "dequeuing".
+				
+				<br><br>
+				Additionally to note, when the head and tail pointers are equal, we know there are no items left in the queue. 
 			</p>
 <!-- End Footer -->
 </body>
