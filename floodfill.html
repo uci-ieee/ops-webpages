@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-bs-theme="light">
+
+<head>
+	<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+	<!--Title-->
+	<title>Open Project Space</title>
+	<!--Favicon-->
+	<link rel="icon" href="./assets/images/ops_logo_favicon.png">
+	<!--Roboto Font CDN-->
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto" rel="stylesheet">
+	<!--Beckman Font CDN-->
+	<link href="https://fonts.cdnfonts.com/css/beckman" rel="stylesheet">
+	<!-- Custom Stylesheet "custom.css" used for Bootstrap 5.3.0 css-->
+	<link rel="stylesheet" href="./css/custom.css" type="text/css">
+	<!-- Popper JS v2.11.8 (Bootstrap Dependency) CDN -->
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+		integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+		crossorigin="anonymous"></script>
+	<!-- Bootstrap JS v5.3.0 CDN -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+		integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
+		crossorigin="anonymous"></script>
+	<!-- Bootstrap Icons CSS v1.10.0 CDN-->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+	<!-- Highlight JS v11.7.0-->
+	<link rel="stylesheet" href="./css/highlight.js/default.min.css" type="text/css">
+	<link rel="stylesheet" href="./css/highlight.js/arduino-light.min.css" type="text/css">
+	<script src="./js/highlight.min.js"></script>
+	<script>hljs.highlightAll();</script>
+</head>
+
+<body style="">
+	<!-- ======= Header ======= -->
+	<script src="./js/ops_header.js"></script>
+	<!-- End Header -->
+
+	<div class="container-xl pj-layout my-5">
+		<!-- ======= Sidebar ======= -->
+		<aside class="pj-sidebar ">
+			<nav id="project-toc" class="pj-toc d-flex flex-column px-2 pt-2 pb-4">
+				<ul class="nav flex-column">
+					<h5 class="mt-2 mb-2 mx-3">Contents</h5>
+					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-introduction">Overview</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-concepts">Concepts</a>
+						<ul class="nav">
+							<li class="nav-item">
+								<a class="nav-link"
+									href="#pj-heading-concepts-breadboards">Breadboard</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link"
+									href="#pj-heading-concepts-ohms-law">Ohm's
+									Law</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link"
+									href="#pj-heading-concepts-resistor">Resistor</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link"
+									href="#pj-heading-concepts-led">LED</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link"
+									href="#pj-heading-concepts-slide-switch">Slide
+									Switch</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link"
+									href="#pj-heading-concepts-soldering">Soldering</a>
+							</li>
+						</ul>
+					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-requirements">Requirements</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-parts">Parts</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-schematics">Schematics</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-instructions">Instructions</a>
+						<ul class="nav">
+							<li class="nav-item">
+								<a class="nav-link"
+									href="#pj-heading-checkpoint1">Checkpoint 1</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link"
+									href="#pj-heading-checkpoint2">Checkpoint 2</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link"
+									href="#pj-heading-checkpoint3">Checkpoint 3</a>
+							</li>
+						</ul>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-deliverables">Deliverables</a>
+					</li>
+				</ul>
+			</nav>
+		</aside>
+		<!-- End Sidebar -->
+
+		<main class="pj-main p-3" data-bs-spy="scroll" data-bs-target="#project-toc"
+			data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" tabindex="0">
+			<div class="d-flex flex-row justify-content-between mb-5">
+				<div class="">
+					<h4>Project 1</h4>
+					<h1 class="fw-bold">Floodfill</h1>
+				</div>
+				<div class="alert alert-light" role="alert">
+					<i class="bi bi-calendar-event me-1"></i>
+					Updated 2025.7.19 <br>
+					By Adam Wu
+				</div>
+			</div>
+
+
+			<h2 class="mb-3 fw-bold" id="pj-heading-introduction">Overview</h2>
+			<p class="mb-3">
+				To solve the maze, our mouse needs to be able to navigate to the center of a 16x16 maze.
+				We want to do this as efficiently as possible and achieve the best possible time, so we
+				need an algorithm to find the shortest path, given any maze with any configuration of
+				walls.
+			</p>
+			<p class="mb-3">
+				This may seem very difficult, but using an algorithm called floodfill we can
+				confidently chart out the shortest path from any given point to any other given point on
+				the maze. Floodfill is the most popular algorithm used in the Micromouse competition. If
+				the mouse knows where every single wall is, using floodfill it will always be able to
+				find the shortest path to the goal cell. You will find as you progress in micromouse
+				that the hard part isn’t finding the shortest path, but rather discovering enough of the
+				maze to create an accurate representation. We won’t cover that for now, but keep that in
+				mind as you think about how you wish to improve upon the guidelines we provide in this
+				course.
+			</p>
+
+			<br>
+
+			<h2 class="mb-4 fw-bold" id="heading-intuition">Intuition</h2>
+
+			<div class="mb-5">
+				<p class="mb-2">
+					Before we explore the specifics of the algorithm, it’s important to have a
+					high-level understanding of how it works. As indicated by its name, a good way
+					to visualize the Floodfill algorithm is by imagining a flood expanding out from
+					your goal position. Imagine a bucket of water being placed in the center cell of
+					a 16 x 16 maze. Immediately, it would spill out and expand to other cells.
+					However if there were a wall, it would stop the water from flowing, redirecting
+					it elsewhere. If there is enough water being added to the goal cell, eventually
+					the entire maze will be filled with water (unless there are closed areas).
+				</p>
+				<img class="img-fluid m-auto ms-lg-3 my-3 me-lg-5 me-lg-3 float-lg-end"
+					src="./assets/images/floodfill/minecraft_flood.gif">
+			</div>
+			<p class="mb-3">
+				So far, this scenario doesn’t seem to be very helpful for maze-solving but now imagine
+				that we have observers watching the maze, recording how long it takes for each cell to
+				get wet. By referencing these times, we now know the relative distance from any given
+				cell to our goal position. For example, a cell immediately adjacent to our goal position
+				would have gotten wet immediately, but it would take much longer for the water to travel
+				to a cell in the corner. This is the intuition behind Floodfill: starting at the goal
+				position and spreading out to adjacent non-blocked cells, assigning ever increasing
+				distances to each iteration of cells, until the entire maze is filled. The result should
+				be something like this:
+
+			</p>
+			<img class="pj-img-fluid mx-auto mb-5" src="./assets/images/floodfill/numbered_maze.png" width="500">
+			<p class="mb-2">
+				Now that we understand the intuition behind Floodfill, let’s look at a pseudocode
+				representation of the algorithm, then dive into each part.
+			</p>
+				
+			<pre class="text-start">
+				<code class="pj-code"
+					style="white-space: pre-wrap;">
+function floodfill(maze, goalCells):
+	Q = empty queue
+	distances = 2D array initialized to infinity
+	for cell in goalCells:
+		enqueue(Q, cell)
+		distances[cell] = 0	
+	while Q is not empty:
+		currentCell = dequeue(Q)
+		for each neighbor of currentCell that is not blocked:
+			if distance[neighbor] > distance[currentCell] + 1:
+				distance[neighbor] = distance[currentCell] + 1
+				enqueue(Q, neighbor)	
+			</code>
+			</pre>
+
+			<p>
+				That’s it! At its core, floodfill is a very simple algorithm, 
+				and with only a few lines we can implement the behavior mentioned previously.
+
+				<br><br>
+
+				Put into English, our approach will be to start at the goal cell(s) and process them.
+				We continuously iterate through all the neighboring cells that aren’t blocked by walls.
+				These cells are assigned a distance one greater than the currently processed cell, and then added to the end of the queue. 
+				Then we simply repeat the process for every neighboring cell until there are no more paths left to explore in the maze.
+				To implement this behavior we will need two modules: a queue and a get_neighbors() function.
+				
+				<br><br>
+				For a more detailed explanation of the pseudocode, see below:
+			</p>
+			
+			<p>
+				We initialize the queue and the distances 2D array. 
+				The queue is the data structure we use to keep track of the cells we still need to process.
+				<code>distances(cell)</code> stores the distance from cell to any goal cell. We initialize every cell except the goal cells to be infinity, as we haven't processed them yet. The goal cells will instead be 0.
+				We push, or <i>enqueue</i> all of the goal cells into the queue. The idea is to expand from the goal cells outwards.
+				<br><br>
+
+				In the main while loop, we process the next cell <code>currentCell</code> in the queue. 
+				We find each of its adjacent cells, call it a neighbor, that are not blocked by walls, and check if the distance to that neighbor can be improved by going through a path with <code>currentCell</code>.
+				If we were to go through <code>currentCell</code>, the distance to the neighbor would be <code>distance[currentCell] + 1</code> as it is directly one step away.
+				Additionally, we enqueue the neighbor to the queue because we now know this neighbor contains a valid path to a goal cell. 
+				Eventually, if this maze has a solution, this path should extend back to the starting cell, while filling in the rest of the distances array through taking every path possible.
+			</p>  
+
+			<br>
+
+			<!-- <h2 class="mb-3" id="pj-heading-concepts-queue">Queue</h3> -->
+			<h2 class="mb-4 fw-bold" id="heading-intuition">Queue</h2>
+			<p class="mb-5">
+				The queue is a basic and very common data structure with a lot of use cases. 
+				A good way to visualize a queue is to imagine a line for the grocery checkout. 
+				If there are many people waiting in line and the cashier becomes available, the person who has been waiting the longest at the front of the line will be the first to leave. 
+				This is exactly how a queue (which is just another word for line) works: 
+				elements are added to the end of a line, and when we remove elements, the front-most element will be removed.
+			</p>
+
+
+			<p class="mb-5">
+				In C, the most typical and straightforward implementation of a queue is through the use of an array along with two pointers to indicate where the head and tail are.
+				Don't worry, these aren't actual C pointers. They're just integers that indicate which index the head and tail are at.
+
+				<br><br>
+
+				The array will store the elements themselves, and because arrays are ordered, it is able to record the order in which we added them. 
+				The head pointer holds the index to the current oldest/first added/frontmost item in the queue, 
+				and the tail holds the last item. 
+				Whenever we add items, we append it to the array and increment the tail pointer. 
+				When we remove items, we copy the item at the index specified by the head pointer and then increment the pointer by one.
+				Adding items to the end of the queue is called “pushing” or "enqueuing" while removing items from the front is called “popping” or "dequeuing".
+				
+				<br><br>
+				Additionally to note, when the head and tail pointers are equal, we know there are no items left in the queue. 
+			</p>
+<!-- End Footer -->
+</body>
+
+</html>
