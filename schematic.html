@@ -33,7 +33,7 @@
 
 <body style="">
 	<!-- ======= Header ======= -->
-	<script src="./js/ops_header.js"></script>
+	<script src="./js/mm_header.js"></script>
 	<!-- End Header -->
 
 	<div class="container-xl pj-layout my-5">
@@ -107,7 +107,7 @@
 					</div>
 					<div class="alert alert-light" role="alert">
 						<i class="bi bi-calendar-event me-1"></i>
-						Updated 2025.07.09 <br>
+						Updated 2025.09.15 <br>
 						By Colton Kaneria
 					</div>
 				</div>
@@ -122,7 +122,7 @@
 				<br>
 				<p class="mb-5">
 					<img class="img-fluid my-3 me-lg-5 me-3 float-end" style="max-width: 200px;"
-						src="./assets/images/mm_bluepill.jpg">
+						src="./assets/images/schematic/mm_bluepill.jpg">
 					The microcontroller is the brain of your mouse. 
 					It communicates with the mouse's sensors to detect walls and direct the mouse's movements. 
 					And most importantly, the microcontroller runs the mouse's
@@ -133,7 +133,7 @@
 					Refer back to the Bluepill's schematic as you read this page, 
 					because it interfaces with all other parts of the schematic.
 					<div style="clear: both;"></div>
-					<img class="pj-img-fluid mx-auto mb-4" src="./assets/images/mm_bluepill_schematic.png"
+					<img class="pj-img-fluid mx-auto mb-4" src="./assets/images/schematic/mm_bluepill_schematic.png"
 						width="500">
 				</p>
 
@@ -144,7 +144,7 @@
 					Your micromouse will be powered by a battery and operate with three voltage domains: the battery's own voltage, 5V, and 3.3V. 
 					To accomplish this, your board will use <strong>voltage regulators</strong>, which convert an input voltage to a lower output voltage.
 					<br><br>
-					<img class="pj-img-fluid mx-auto mb-4" src="./assets/images/mm_power_supply_schematic.png"
+					<img class="pj-img-fluid mx-auto mb-4" src="./assets/images/schematic/mm_power_supply_schematic.png"
 						width="800">
 					In the bottom schematic, your battery is connected to a switch, which when ON, connects your battery to the 5V regulator (LM1085-5.0)
 					This regulator takes the battery's voltage at its VI pin and outputs 5V at its VO pin. 
@@ -167,7 +167,7 @@
 					This way, when both the battery and STLink are connected to the mouse, it will not get fried. 
 					Below is the schematic for the ORing circuit. U5 and U6 are ideal diode ICs, enabled by the *CE pin. 
 					<br><br>
-					<img class="pj-img-fluid mx-auto mb-4" src="./assets/images/mm_oring_schematic.png"
+					<img class="pj-img-fluid mx-auto mb-4" src="./assets/images/schematic/mm_oring_schematic.png"
 						width="800">
 					You may connect the STLink to either the J2 header or J5 header, but only J2 offers the ORing voltage protection mechanism with its +3V3_NET. 
 					Normally, when the voltage at *CE is low, current is conducted from VIN to VOUT, passing the voltage through. 
@@ -178,7 +178,7 @@
 				<h3 class="mb-3" id="pj-heading-v_meter">V_METER</h3>
 				<p class="mb-5">
 					<img class="img-fluid my-3 me-lg-5 me-3 float-end" style="max-width: 350px;"
-						src="./assets/images/mm_v_meter.png">
+						src="./assets/images/schematic/mm_v_meter.png">
 					You may have noticed a voltage divider in the power supply schematic. This is designed to measure the voltage of your battery. 
 					The V_METER net connects to one of the STM32's GPIO pins, allowing it to measure the voltage at the divider node. 
 					The voltage divider is necessary because the STM32 pins cannot handle high voltages, 
@@ -192,12 +192,12 @@
 				<h3 class="mb-3" id="pj-heading-dc_motors">DC Motors</h3>
 				<p class="mb-5">
 					<img class="img-fluid my-3 me-lg-5 me-3 float-end" style="max-width: 150px;"
-						src="assets/images/mm_motor.png">
+						src="assets/images/schematic/mm_motor.png">
 					A <strong>DC motor</strong> is a machine that converts electrical energy to mechanical rotation.
 					We will use DC motors to spin the mouse's wheels.
 					<br><br>
 					<img class="img-fluid my-3 me-lg-5 me-3 float-end" style="max-width: 150px;"
-						src="assets/images/mm_motor_mounts.jpg">
+						src="assets/images/schematic/mm_motor_mounts.jpg">
 					Our motors are Pololu Micro Metal Gearmotors, which are dual shaft and have a 30:1 gear ratio.
 					They will be installed and held in place by motor mounts screwed into the PCB.
 					(Note: The PCB will have drill holes for these mounts.)
@@ -208,13 +208,13 @@
 					A motor driver is an IC (integrated circuit) chip that controls how the motors spin.
 					We will use an L293D chip to drive the mouse's motors.
 					<br><br>
-					<img class="pj-img-fluid mx-auto mb-4" src="./assets/images/mm_l293d_infographic.jpg"
+					<img class="pj-img-fluid mx-auto mb-4" src="./assets/images/schematic/mm_l293d_infographic.jpg"
 						width="700">
-					<img class="pj-img-fluid mx-auto mb-4" src="./assets/images/mm_l293d_drawing.png"
+					<img class="pj-img-fluid mx-auto mb-4" src="./assets/images/schematic/mm_l293d_drawing.png"
 						width="700">
 					The inputs to control how fast each motor spins are <strong>PWM signals</strong>. (We will discuss this more in a bit.)
 					As seen in the schematic below, these signals are indicated by nets M1_SPD and M2_SPD, being inputted to pins PWMA and PWMB.
-					<img class="pj-img-fluid mx-auto mb-4" src="./assets/images/mm_l293d_schematic_annotated.png"
+					<img class="pj-img-fluid mx-auto mb-4" src="./assets/images/schematic/mm_l293d_schematic_annotated.png"
 						width="700">
 					The IN pins (1A, 2A, etc) determine the direction of rotation for each motor. 
 					For instance, inputting a HIGH signal to 1A and LOW to 2A may cause Motor 1 to rotate counterclockwise, 
@@ -232,7 +232,7 @@
 					In other words, its "pulse width" is being "modulated" or portioned.
 					<br>
 					<img class="img-fluid my-3 me-lg-5 me-3 float-end" style="max-width: 560px;"
-						src="assets/images/mm_three_pwm_math.png">
+						src="assets/images/schematic/mm_three_pwm_math.png">
 					<br>
 					This PWM signal can simulate a voltage, which is equal to the product of the amplitude and duty cycle.
 					To the right are a few examples of simulated voltages from a 10V amplitude PWM signal.
@@ -240,16 +240,16 @@
 				<h3 class="mb-3" id="pj-heading-encoders">Encoders</h3>
 				<p class="mb-5">
 					At the end of each motor, you will attach an <strong>encoder</strong> and a small magnetic disk which rotates with the motor. 
-					<img class="pj-img-fluid mx-auto mb-4" src="./assets/images/mm_encoder_and_magnet.png"
+					<img class="pj-img-fluid mx-auto mb-4" src="./assets/images/schematic/mm_encoder_and_magnet.png"
 						width="500">
 					The magnetic disks each have two magnetic poles that pass over the encoder's Hall effect sensors as the disks rotate.
 					These sensors detect changes in the magnetic field caused by the spinning disks.
 					This generates a pulse in each of the sensor's channels, alternating between HIGH and LOW corresponding to the positive/negative poles above the sensor. 
 					The STM32 microcontroller's "Encoder Mode" can then interpret these signals to determine the distance each motor spun.
-					<img class="pj-img-fluid mx-auto mb-4" src="./assets/images/mm_encoders_exp.png"
+					<img class="pj-img-fluid mx-auto mb-4" src="./assets/images/schematic/mm_encoders_exp.png"
 						width="800">
 					<img class="img-fluid my-3 me-lg-5 me-3 float-end" style="max-width: 475px;"
-						src="assets/images/mm_encoders_schematic.png">
+						src="assets/images/schematic/mm_encoders_schematic.png">
 					Within the Motor Driver section of the schematic, the encoders are represented by the connectors M1_Conn_Alt and M2_Conn_Alt. 
 					They interface your motors with both the motor driver and the STM32. 
 					The motors will spin according to the signals received at the OUT nets, and the STM32 can track the motor's movements 
@@ -261,7 +261,7 @@
 				<h2 class="mb-3 fw-bold" id="pj-heading-emitter_receiver_pairs">Emitter/Receiver Pairs</h2>
 				<p class="mb-5">
 					<img class="img-fluid my-3 me-lg-5 me-3 float-end" style="max-width: 350px;"
-						src="./assets/images/mm_ir_detection.png">
+						src="./assets/images/schematic/mm_ir_detection.png">
 					We will detect the wall surrounding the mouse using <strong>infrared light (IR)</strong>.
 					This is done by emitting light from an IR emitter onto the walls then measuring how much light is reflected back with an IR receiver.
 					The greater the amount of light received, the closer the wall is. This allows the mouse to detect whether there is a wall next to it and how close it is.
@@ -270,10 +270,10 @@
 				</p>
 				<h3 class="mb-3" id="pj-heading-ir-emitter-schematic">IR Emitter Schematic</h3>
 				<p class="mb-5">
-					<img class="pj-img-fluid mx-auto mb-4" src="./assets/images/mm_ir_emitter_schematic.png"
+					<img class="pj-img-fluid mx-auto mb-4" src="./assets/images/schematic/mm_ir_emitter_schematic.png"
 						width="830">
 					<img class="img-fluid my-3 me-lg-5 me-3 float-end" style="max-width: 200px;"
-						src="./assets/images/mm_ir_emitter.png">
+						src="./assets/images/schematic/mm_ir_emitter.png">
 					The diode at the top of each of the 4 "sub-circuits" is an IR emitter. It emits IR light when it experiences an electric current. 
 					IR emitters are often implemented using IR light-emitting diodes (LEDs). 
 					However, the pinout for our IR emitters is the opposite of a typical LED; <strong>the longer lead is negative (-) and the shorter lead is positive (+)</strong>.
@@ -286,24 +286,24 @@
 				<br><br>
 				<p class="mb-5">
 					<img class="img-fluid my-3 me-lg-5 me-3 float-end" style="max-width: 150px;"
-						src="./assets/images/mm_n-channel_mosfet.png">
+						src="./assets/images/schematic/mm_n-channel_mosfet.png">
 					To turn the IR emitters ON and OFF, we will use three-terminal N-Channel MOSFETs. These MOSFETs have three pins: Drain (D), Source (S) (connected to GND), and Gate (G).
 					Current flows from drain to source when a voltage is applied at the gate. This applied voltage causes a channel to form across the length of the MOSFET, allowing current to flow from drain to source.
 					However, the gate voltage must be greater than or equal to the threshold voltage to turn the MOSFET on (specified on the datasheet).
 					<br><br>
-					<img class="pj-img-fluid mx-auto mb-4" src="./assets/images/mm_mosfet_on.png"
+					<img class="pj-img-fluid mx-auto mb-4" src="./assets/images/schematic/mm_mosfet_on.png"
 						width="550">
 					When no voltage is applied to the gate, the MOSFET does not conduct any current. Hence, with a MOSFET connected in series with an IR emitter, 
 					we can turn the emitter ON and OFF by writing HIGH or LOW signals to the MOSFET gate from one of the STM32's GPIO pins (PB12 in the example above).
 				</p>
 				<h3 class="mb-3" id="pj-heading-ir-receiver-schematic">IR Receiver Schematic</h3>
 				<p class="mb-5">
-					<img class="pj-img-fluid mx-auto mb-4" src="./assets/images/mm_ir_receiver_schematic.png"
+					<img class="pj-img-fluid mx-auto mb-4" src="./assets/images/schematic/mm_ir_receiver_schematic.png"
 						width="830">
 					<img class="img-fluid my-3 me-lg-5 me-3 float-start" style="max-width: 110px;"
-						src="./assets/images/mm_ir_receiver.png">
+						src="./assets/images/schematic/mm_ir_receiver.png">
 					<img class="img-fluid my-3 me-lg-5 me-3 float-end" style="max-width: 175px;"
-						src="./assets/images/mm_phototransistor_pinout.png">
+						src="./assets/images/schematic/mm_phototransistor_pinout.png">
 					Each of the 4 "sub-circuits" of the IR receiver schematic consists of an IR receiver (also known as a phototransistor) in series with a 1.8k resistor.
 					The IR receivers have the same pinout as the IR emitters: <strong>the longer lead is negative (-) and the shorter lead is positive (+)</strong>.
 					<br><br>
