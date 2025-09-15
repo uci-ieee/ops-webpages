@@ -36,12 +36,6 @@ document.write(`
                     <li class="nav-item">
                         <a class="nav-link" href="./lectures.html">Lectures</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./workshops.html">Workshops</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./esp32_guide.html">ESP32 Guide</a>
-                    </li>
                 </ul>
                 <a class="bi bi-facebook link-light me-4 fs-5" target="_blank" href="https://www.facebook.com/IEEE.UCI/"></a>
                 <a class="bi bi-instagram link-light me-4 fs-5" target="_blank" href="https://www.instagram.com/ieee_uci/?hl=en"></a>
