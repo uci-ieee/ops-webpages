@@ -2,7 +2,7 @@ document.write(`
 <footer class ="py-4 mt-5 bg-body-tertiary">
 <div class="container py-5 px-5 my-5 text-body-secondary">
     <a class="d-inline-flex align-items-center text-decoration-none text-body-secondary mb-2">
-        <img class="img-fluid me-2 d-block" style="max-width: 30px;" src="./assets/images/ops_logo_gs_100ppi.png">
+        <img class="img-fluid me-2 d-block" style="max-width: 30px;" src="./assets/images/mm_general/mm_logo_transparent_gs.png">
         <span class="" style="font-size: 1.2rem;">Micromouse</span>
     </a>
     <ul class="list-unstyled small">
