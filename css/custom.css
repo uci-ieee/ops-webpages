@@ -11867,22 +11867,42 @@ textarea.form-control-lg {
   overflow: hidden !important;
 }
 
+.landing-title-box-mm {
+  position: relative;     /* contains the background div */
+  min-height: 100vh;      /* full screen height */
+  overflow: hidden;       /* prevents overflow */
+}
+
+.landing-title-box-mm .landing-title-box-background-mm {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;            /* fill parent */
+  height: 100%;           /* fill parent */
+  background-image: url("../assets/images/MM_Gallery_4.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: -1;
+  animation: blur 2s ease 1s 1 forwards;
+}
+
 .landing-title-box .landing-title-box-background {
   /* The image used */
-  background-image: url("../assets/images/MM_Gallery_4.jpg");
+  background-image: url("../assets/images/ops_gallery_1.jpg");
   /* Add the blur effect */
   animation: blur 2s ease 1s 1 normal forwards;
   -webkit-animation: blur 2s ease 1s 1 normal forwards;
   -moz-animation: blur 2s ease 1s 1 normal forwards;
   /* Full height */
-  height: 105%;
-  width: 105%;
+  height: 107%;
+  width: 107%;
   /* Center and scale the image nicely */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   position: absolute;
-  margin: -100px;
+  margin: -15px;
   z-index: -1;
 }
 
