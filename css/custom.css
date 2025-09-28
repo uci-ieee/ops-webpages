@@ -11869,20 +11869,20 @@ textarea.form-control-lg {
 
 .landing-title-box .landing-title-box-background {
   /* The image used */
-  background-image: url("../assets/images/ops_gallery_1.jpg");
+  background-image: url("../assets/images/MM_Gallery_4.jpg");
   /* Add the blur effect */
   animation: blur 2s ease 1s 1 normal forwards;
   -webkit-animation: blur 2s ease 1s 1 normal forwards;
   -moz-animation: blur 2s ease 1s 1 normal forwards;
   /* Full height */
-  height: 107%;
-  width: 107%;
+  height: 105%;
+  width: 105%;
   /* Center and scale the image nicely */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   position: absolute;
-  margin: -15px;
+  margin: -100px;
   z-index: -1;
 }
 
