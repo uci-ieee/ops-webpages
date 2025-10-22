@@ -45,6 +45,7 @@ document.write(`
                         </a>
                         <ul class="dropdown-menu" data-bs-theme="light" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="https://archive.openprojectspace.org/"> 2023-2024</a></li>
+                            <li><a class="dropdown-item" href="https://archive25.openprojectspace.org/"> 2024-2025</a></li>
                         </ul>
                     </li>
                 </ul>
