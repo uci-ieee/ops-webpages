@@ -1,7 +1,7 @@
 document.write(`
 <header id="ops-navbar" class="navbar navbar-expand-lg bg-primary sticky-top"  data-bs-theme="dark">
     <nav class="container-xl">
-            <a class="navbar-brand" href="./index.html">
+            <a class="navbar-brand" href="./mm_index.html">
                 <img src="./assets/images/mm_general/mm_logo_whitemaze.PNG" width="80px" alt="OPS Logo">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
