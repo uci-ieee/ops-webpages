@@ -11879,10 +11879,11 @@ textarea.form-control-lg {
   left: 0;
   width: 100%;            /* fill parent */
   height: 100%;           /* fill parent */
-  background-image: url("../assets/images/MM_Gallery_4.jpg");
+  background-image: url("../assets/images/MM_Gallery_5.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  position: absolute;
   z-index: -1;
   animation: blur 2s ease 1s 1 forwards;
 }
