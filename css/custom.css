@@ -11867,6 +11867,27 @@ textarea.form-control-lg {
   overflow: hidden !important;
 }
 
+.landing-title-box-mm {
+  position: relative;     /* contains the background div */
+  min-height: 100vh;      /* full screen height */
+  overflow: hidden;       /* prevents overflow */
+}
+
+.landing-title-box-mm .landing-title-box-background-mm {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;            /* fill parent */
+  height: 100%;           /* fill parent */
+  background-image: url("../assets/images/MM_Gallery_5.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: absolute;
+  z-index: -1;
+  animation: blur 2s ease 1s 1 forwards;
+}
+
 .landing-title-box .landing-title-box-background {
   /* The image used */
   background-image: url("../assets/images/ops_gallery_1.jpg");
@@ -12365,6 +12386,11 @@ body {
 .officers .member .social i {
   font-size: 18px;
   margin: 0 2px;
+}
+
+/* Ensure inactive Bootstrap tab buttons are visible */
+.nav-tabs .nav-link {
+  color: #495057;
 }
 
 /*# sourceMappingURL=custom.css.map */

@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-bs-theme="light">
+
+<head>
+	<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+	<!--Title-->
+	<title>Micromouse</title>
+	<!--Favicon-->
+	<link rel="icon" href="./assets/images/mm_general/mm_logo_whitemaze.PNG">
+	<!--Roboto Font CDN-->
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto" rel="stylesheet">
+	<!--Beckman Font CDN-->
+	<link href="https://fonts.cdnfonts.com/css/beckman" rel="stylesheet">
+	<!-- Custom Stylesheet "custom.css" used for Bootstrap 5.3.0 css-->
+	<link rel="stylesheet" href="./css/custom.css" type="text/css">
+	<!-- Popper JS v2.11.8 (Bootstrap Dependency) CDN -->
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+	integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+	crossorigin="anonymous"></script>
+	<!-- Bootstrap JS v5.3.0 CDN -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+	integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
+	crossorigin="anonymous"></script>
+	<!-- Bootstrap Icons CSS v1.10.0 CDN-->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+	<!-- Highlight JS v11.7.0-->
+	<link rel="stylesheet" href="./css/highlight.js/default.min.css" type="text/css">
+	<link rel="stylesheet" href="./css/highlight.js/arduino-light.min.css" type="text/css">
+	<script src="./js/highlight.min.js"></script>
+	<script>hljs.highlightAll();</script>
+</head>
+
+<body style="">
+	<!-- ======= Header ======= -->
+	<script src="./js/mm_header.js"></script>
+	<!-- End Header -->
+
+	<div class="container-xl pj-layout my-5">
+		<!-- ======= Sidebar ======= -->
+		<aside class="pj-sidebar ">
+			<nav id="project-toc" class="pj-toc d-flex flex-column px-2 pt-2 pb-4">
+				<ul class="nav flex-column">
+					<h5 class="mt-2 mb-2 mx-3">Contents</h5>
+					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-introduction">Overview</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-concepts">Concepts</a>
+						<ul class="nav">
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-concepts-git">Git</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-concepts-compilation">C/C++ Compilation</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-concepts-mms">mms</a>
+							</li>
+						</ul>
+					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-instructions">Installation Instructions</a>
+						<ul class="nav">
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-windows">Windows</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-mac">MacOS</a>
+							</li>
+						</ul>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-errors">Resolving Errors</a>
+						<ul class="nav">
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-errorWindows">Windows</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-errorMac">MacOS</a>
+							</li>
+						</ul>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-mazes">Additional Mazes</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-mmInteraction">Maze & Mouse Interaction</a>
+						<ul class="nav">
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-concepts-position">Position</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-concepts-direction">Direction</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-concepts-cellWall">Cell Walls</a>
+							</li>
+						</ul>	
+					</li>
+				</ul>
+			</nav>
+		</aside>
+		<!-- End Sidebar -->
+
+		<main class="pj-main p-3" data-bs-spy="scroll" data-bs-target="#project-toc" data-bs-root-margin="0px 0px -40%"
+			data-bs-smooth-scroll="true" tabindex="0">
+			<div class="d-flex flex-row justify-content-between mb-5">
+				<div class="">
+					<h4>Project 1</h4>
+					<h1 class="fw-bold">Micromouse Simulation Guide</h1>
+				</div>
+				<div class="alert alert-light" role="alert">
+					<i class="bi bi-calendar-event me-1"></i>
+					Updated 2025.08.31 <br>
+					By Jeremiah Yong
+				</div>
+			</div>
+
+
+			<h2 class="mb-3 fw-bold" id="pj-heading-introduction">Overview</h2>
+			<p class="mb-3">
+				I hope you're excited to start the software portion of Micromouse! In this lesson, you will learn how to install and configure the Micromouse maze simulation on your own computer. 
+				You’ll obtain the files with git, set up the simulation GUI, and compile all the necessary files to successfully run a mouse simulation.
+			</p>
+			<p class="mb-3">
+				We will also begin to cover the concepts that the mouse uses to traverse the maze, starting with three foundational variables 
+				the mouse must know upon entering a maze cell: <strong>position</strong>, <strong>direction</strong>, and <strong>wall location</strong>.
+			</p>
+			<div>
+				<img class="pj-img-fluid mx-auto mb-5" src="./assets/images/MM_simulation/mms.gif" alt="A GIF of the mms simulator running.">
+			</div>
+			<h2 class="mb-4 fw-bold" id="pj-heading-concepts">Concepts</h2>
+
+			<h3 class="mb-4" id="pj-heading-concepts-git">Git</h3>
+			<div class = "mb-5">
+				<p class="mb-4">
+					Git is a version control system that can be installed on any operating system. This should not be 
+					confused with GitHub, an online platform for hosting Git repositories. We will be using Git to save software
+					progress, revert to previous versions when necessary, and to share code with teammates.
+				</p>
+				<p class="mb-4">
+					When you add git to a project, this is called a git repository. Every git repository lives in two areas: 
+				</p>
+				<h4 class="mb-2">The Remote Repository</h4>
+				<p class="">
+					Simply put, the remote repository of any git project is hosted online and should contain the public, published code. This is what is displayed on the github, 
+					available for anybody to access (unless your repository is private).
+				</p>
+				<h4 class="mb-2">The Local Repository</h4>
+				<p class="">
+					The local repository is hosted locally on your own device, and is created when you clone or initialize your own repository for a project. When you clone 
+					a remote repository from github it is copied over to your local computer, and you can make changes, add, remove, and (hopefully not) break things. 
+				</p>
+				<p class = "mb-3">
+					When you have reached a milestone in  your code, it is always a good idea to push your local changes to the remote repository. This updates the remote 
+					repository with the code you just wrote.
+				</p>
+			</div>
+
+			<h3 class="mb-4" id="pj-heading-concepts-compilation">C/C++ Compilation</h3>
+			<div class="mb-5">
+				<p class="mb-2">
+					In order to use the simulator, we will need to <strong>compile</strong> and run the files we make. The job of a compiler is to take human-readable code and 
+					translate it to machine code so that the computer can process it. This involves a program called gcc (GNU Compiler Collection), which supports 
+					compilation for various languages, namely C and C++.
+				</p>
+				<p class="mb-2">
+					When we use build commands like <strong>‘gcc Main.cpp’</strong>, we are really using a compiler to translate our human-readable C++ code into a 
+					machine-readable executable. At the highest level, a compiler is simply a translator between human code (C/C++) and machine code (1’s and 0’s).
+				</p>
+				<p class="">
+					Running <strong>'gcc Main.cpp -o out'</strong> in the terminal will produce a .file called <strong>out.exe</strong>, which we can run by typing <strong>./out.exe</strong>. The simulation GUI 
+					takes care of this for us, by using the build and run configurations. 
+				</p>
+				<p class="">
+					Note: We will write the simulation code in C++, and then replace it with C when running it on the micro-controller. This is because the 
+					simulator API uses C++ to function, while getting data from IR sensors and motor encoders uses C. 
+
+				</p>
+			</div>
+			
+
+			<h3 class="mb-3" id="pj-heading-concepts-mms">mms</h3>
+			<div class="mb-5">
+				<p class = "mb-5">
+					mms is a Micromouse simulator that makes it easy to write and test maze-solving code without a physical robot and maze. 
+					It is legacy software that we will be using to design our floodfill and navigation algorithms. It comes with an API…
+				</p>
+				<h4 class="mb-4 fw-light">API.cpp</h4>
+					<p class="">
+						The API used is a legacy file that comes with the simulation. It provides useful abilities such as turnLeft, 
+						setWall, setText, and more. Later on, the API calls will be replaced with your own functions that will draw from hardware to run.
+					</p>
+			</div>
+		
+
+			<h2 class="mb-3 fw-bold" id="pj-heading-instructions">Installation Instructions</h2>
+			<ol class="mb-5 list-group list-group-numbered">
+				<li class="list-group-item">
+					Navigate to the Micromouse simulation github <a href="https://github.com/mackorone/mms" target="_blank" rel="noopener noreferrer">here</a>. 
+					<div>This is the Github repository containing all the files and information needed to set up a working Micromouse simulator.</div>
+				</li>
+				<li class="list-group-item">
+					Navigate to <strong>Download->Releases</strong>.
+					
+				</li>
+			</ol>
+
+			<div>
+				<img class="pj-img-fluid-end mb-4" src="./assets/images/MM_simulation/fileStruct.png">
+				<p class="mb-3"> 
+					Here, you must decide how to organize your code. Since the build and run commands use exact paths, we need to make sure that our files are organized well! 
+					We recommend making a specific folder that will contain all of your .cpp/.hpp files. Note that file structure can be changed later down the line, but
+					you will need to change all of your build/run commands as well.
+				</p>
+			</div>
+			
+
+
+			<div class="w-full">
+					<div class="relative right-0">
+						<ul class="nav nav-tabs" id="myTab" role="tablist">
+							<li class="nav-item" role="presentation">
+								<button class="nav-link active" id="windows-tab" data-bs-toggle="tab" data-bs-target="#windows" type="button" role="tab" aria-controls="windows" aria-selected="true">Windows</button>
+							</li>
+							<li class="nav-item" role="presentation">
+								<button class="nav-link" id="mac-tab" data-bs-toggle="tab" data-bs-target="#mac" type="button" role="tab" aria-controls="mac" aria-selected="false">MacOS</button>
+							</li>
+						</ul>
+						<div class="tab-content p-5" id="myTabContent">
+							<div class="tab-pane fade show active" id="windows" role="tabpanel" aria-labelledby="windows-tab">
+								<ol class="mb-5 list-group">
+									<li class="list-group-item">
+										1. From <strong>releases</strong>, download <strong>windows.zip</strong>
+									</li>
+									<li class="list-group-item">
+										2. Unzip and move the <strong>mms</strong> folder to your project folder (See example above).
+									</li>
+									<li class="list-group-item">
+										3. Run <strong>mms.exe</strong>.
+									</li>
+								</ol>
+							</div>
+							<div class="tab-pane fade" id="mac" role="tabpanel" aria-labelledby="mac-tab">
+								<ol class="mb-5 list-group">
+									<li class="list-group-item">
+										1. From <strong>releases</strong>, download the <strong>macos.zip</strong>.
+									</li>
+									<li class="list-group-item">
+										2. Double-click and unzip it, then move the unzipped folder to <strong>Application</strong>
+									</li>
+									<li class="list-group-item">
+										3. Go to <strong>Application</strong> and double-click <strong>mms</strong> to open the simulator
+										<div>If mms cannot be opened because "The developer cannot be verified” appears, <strong>Control+click</strong> the app, then select <strong>Open</strong> twice</div>
+									</li>
+								</ol>
+							</div>
+						</div>
+					</div>
+			</div>
+
+
+			<ol class="mb-5 list-group">
+				<li class="list-group-item">
+					4. Remaining in the project directory, use the following command to clone into the C++ mms simulator:
+					<div><strong>git clone <a href="https://github.com/mackorone/mms-cpp" target="_blank" rel="noopener noreferrer">this tutorial</a></strong></div>
+				</li>
+				<li class="list-group-item">
+					5. Move <strong>API.cpp</strong>,<strong>API.h</strong>, and <strong>Main.cpp</strong> into your new software folder. This will be your homebase. 
+				</li>
+				<li class="list-group-item">
+					6. Navigate back to the simulator and press the <strong>+</strong> button to configure a new algorithm.
+					<div>
+						<ul>
+							<li>Name: What you want the algorithm to be called. e.g. ‘test’ or ‘v1.0’ (can be changed later)</li>
+								<ul>
+									<li><strong>IMPORTANT</strong>: Don’t use spaces in your path names</li>
+									<li>Use front slashes</li>
+								</ul>
+							<li>Directory: The path to your software folder</li>
+								<ul>
+									<li>Make sure there are no stray spaces</li>
+								</ul>
+							<li>Build Command: g++ -std=c11 API.cpp Main.cpp</li>
+							<li>Run Command: Navigate to the same path used in step ‘b’ and add \a.exe at the end.</li>
+								<ul>
+									<li>If that doesn’t work, try \a.out</li>
+								</ul>
+						</ul>
+					</div>
+				</li>
+			</ol>
+
+			<h2 class="mb-3 fw-bold" id="pj-heading-errors">Resolving Errors</h2>
+
+			<div class="w-full">
+				<div class="relative right-0">
+					<ul class="nav nav-tabs" id="myTab" role="tablist">
+						<li class="nav-item" role="presentation">
+							<button class="nav-link active" id="errorW-tab" data-bs-toggle="tab" data-bs-target="#errorW" type="button" role="tab" aria-controls="errorW-tab" aria-selected="true">Windows</button>
+						</li>
+						<li class="nav-item" role="presentation">
+							<button class="nav-link" id="errorM-tab" data-bs-toggle="tab" data-bs-target="#errorM" type="button" role="tab" aria-controls="errorM-tab" aria-selected="false">MacOS</button>
+						</li>
+					</ul>
+					<div class="tab-content p-5" id="myTabContent">
+						<div class="tab-pane fade show active" id="errorW" role="tabpanel" aria-labelledby="errorW-tab">
+							“Process failed to start: The system cannot find the file specified.”
+							<ul>
+								<li>Check if your device has gcc/g++ or not by typing <strong>gcc --version</strong> and <strong>g++ --version</strong> in terminal</li>
+								<li>Follow <a href="https://code.visualstudio.com/docs/cpp/config-mingw" target="_blank" rel="noopener noreferrer">this tutorial</a> to install the g++/gcc compiler(s) </li>
+							</ul>
+						</div>
+						<div class="tab-pane fade" id="errorM" role="tabpanel" aria-labelledby="errorM-tab">
+							“execvp: No such file or directory”
+							<div>
+								<ul>
+									<li>Check if your device has gcc/g++ or not by typing <strong>gcc --version</strong> and <strong>g++ --version</strong> in terminal</li>
+									<ul>
+										<li>To install clang (recommended), type in terminal: <strong>xcode-select --install</strong></li>
+										<li>To install gcc, type in terminal: <strong>brew install gcc</strong></li>
+									</ul>
+								</ul>
+								<ul>
+									<li>To see where clang or gcc is installed, type in terminal:</li>
+									<ul>
+										<li>which clang</li>
+										<li>which gcc</li>
+									</ul>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<p class="mb-5">Double check for spaces/errors in build command and directory path! I first experienced an error because I had an extra space inside my build command.</p>
+
+			<h2 class="mb-3 fw-bold" id="pj-heading-mazes">Additional Mazes</h2>
+			<div class="mb-2">To install a couple test mazes with various different obstacles, do the following:</div>
+			<ol class="mb-5 list-group list-group-numbered">
+				<li class="list-group-item">
+					Navigate to the Micromouse simulation github <a href="https://github.com/mackorone/mms" target="_blank" rel="noopener noreferrer">here</a>. 
+				</li>
+				<li class="list-group-item">
+					Click on <strong>src -> resources</strong>, then download the <strong>mazes</strong> folder. Once it has finished, place it in your Micromouse folder.
+				</li>
+			</ol>
+
+			<div class="mb-2">If you would like additional mazes:</div>
+			<ol class="mb-5 list-group list-group-numbered">
+				<li class="list-group-item">
+					Find <strong>maze files</strong> in the github
+				</li>
+				<li class="list-group-item">
+					Choose any maze in the classic or training mazes
+				</li>
+				<li class="list-group-item">
+					Copy maze text into a .txt or .map file, and save it in your maze directory
+				</li>
+			</ol>
+
+
+			<h2 class="mb-3 fw-bold" id="pj-heading-mmInteraction">Maze & Mouse Interaction</h2>
+			<div class="mb-2">
+			<p class="mb-3">The first step to build a working navigation algorithm is to understand how the maze will be represented. From the mouse's perspective 
+				when it enters a cell, there are three big variables to keep track of: position, direction, and wall count. We need to be able to answer the 
+				following questions upon entering a new cell:</p>
+				<ol class="mb-5 list-group">
+					<li class="list-group-item">
+						Where are we in the maze?
+					</li>
+					<li class="list-group-item">
+						What direction are we facing?
+					</li>
+					<li class="list-group-item">
+						How many walls are in this cell?
+					</li>
+				</ol>
+			</div>
+
+			<h3 class="mb-4" id="pj-heading-concepts-position">Position: Where are we again?</h3>
+			<div class = "mb-5">
+				<p class="mb-4">
+					To begin calculating position, we first need to understand our constraints. The official Micromouse rules state that each maze is 16x16 cells, 
+					where the mouse must always start in the starting cell (one of the four corner cells, always bounded by 3 walls). The mouse will always start 
+					with the boundary of the maze behind it and to the left.
+				</p>
+				<p class="mb-4">
+					The position of our mouse can be understood as the X and Y coordinates of the mouse’s current cell. In simulation, this will be as simple as setting 
+					members for a mouse struct - in real life, not so much. But more on that later.
+				</p>
+			</div>	
+			<h3 class="mb-4" id="pj-heading-concepts-direction">Direction: Never Eat Shredded Worms</h3>
+			<div class = "mb-5">
+				<p class="mb-4">
+					Since the mouse will always start in the same scenario, we can always assume that the initial direction it faces is <strong>North</strong>. The other directions are set respectively. 
+				</p>
+			</div>
+			<h3 class="mb-4" id="pj-heading-concepts-cellWall">Cell Walls: Binary Representations</h3>
+			<div class = "mb-5">
+				<p class="mb-4">
+					In order to represent the walls, we will use a four bit binary value. The wall values are as follows:
+				</p>
+
+				<div class="alert alert-info mt-2" role="alert">
+					<div>
+						North = 1000
+					</div>
+					<div>
+						East = 0100
+					</div>
+					<div>
+						South = 0010
+					</div>
+					<div>
+						West = 0001
+					</div>
+				</div>
+				<div>
+					<p class="mb-4">
+						When a cell has multiple walls, these values are binary OR’ed together. For example, if the wall value is 1001, this means that the cell looks like this:
+					</p>
+					<img class="pj-img-fluid mx-auto" src="./assets/images/MM_simulation/1cellEX.png" width = "200">
+				</div>
+				<div class="alert alert-info mt-2" role="alert">
+					<div>
+						North + West walls
+					</div>
+				</div>
+				<div>
+					<p class="mb-4">
+						Let's do a practice problem: Where are the walls in the following maze?
+					</p>
+					<img class="pj-img-fluid mx-auto" src="./assets/images/MM_simulation/blank3x3.png" width = "400">
+
+
+				<div class="mb-3">
+					<!-- Question / Trigger -->
+					<button class="btn btn-outline-primary w-100 text-start" type="button" data-bs-toggle="collapse" data-bs-target="#answer1" aria-expanded="false" aria-controls="answer1">
+						Click to Reveal Answer
+					</button>
+
+					<!-- Answer / Collapse content -->
+					<div class="collapse mt-2" id="answer1">
+						<img class="pj-img-fluid mx-auto" src="./assets/images/MM_simulation/filled3x3.png" width = "400">
+					</div>
+				</div>
+
+				</div>
+			</div>
+			<h3 class="mb-4" id="pj-heading-concepts-mind">To Keep in Mind:</h3>
+			<ul class="list-disc pl-5">
+				<li>As the mouse changes direction, the north wall <strong>will not </strong>be in front of the mouse anymore. In other words, it will not be north of the mouse.</li>
+				<li>Each cell registers the same wall twice. For example, if cell 0110 is above cell 1001, the shared wall will be registered in both cells.</li>
+			</ul>
+		
+
+		</main>
+	</div>
+	<!-- ======= Footer ======= -->
+	<script src="./js/mm_footer.js"></script>
+	<!-- End Footer -->
+</body>
+</html>
