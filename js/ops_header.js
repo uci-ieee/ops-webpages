@@ -29,9 +29,9 @@ document.write(`
                         <ul class="dropdown-menu" data-bs-theme="light" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="./project_1.html"> Project 1: LED Circuit</a></li>
                             <li><a class="dropdown-item" href="./project_2.html">Project 2: 555 Piano</a></li>
-                            
-                            <!--
                             <li><a class="dropdown-item" href="./project_3.html">Project 3: RGB LED Wizard</a></li>
+
+                            <!--
                             <li><a class="dropdown-item" href="./project_4.html">Project 4: Sundial</a></li>
                             <li><a class="dropdown-item" href="./project_5.html">Project 5: iPoduino v2.0</a></li>
                             <li><a class="dropdown-item" href="./project_6.html">Project 6: Weather Station</a></li>
