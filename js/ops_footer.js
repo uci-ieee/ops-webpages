@@ -7,10 +7,10 @@ document.write(`
     </a>
     <ul class="list-unstyled small">
         <li>
-            Website designed by the 2024-2025 Open Project Space Committee
+            Website designed by the 2025-2026 Open Project Space Committee
         </li>
         <li>
-            CC BY-NC-SA 2024 Institute of Electrical and Electronics Engineers, UC Irvine Branch
+            CC BY-NC-SA 2025 Institute of Electrical and Electronics Engineers, UC Irvine Branch
         </li>
         <br>
         <li>
@@ -37,7 +37,7 @@ document.write(`
         Email | <a href="mailto:ieee@uci.edu">ieee@uci.edu<a>
     </li>
     <li>
-        Lead Instructor | Gavin Nguyen
+        Lead Instructors | Sahil Dhaktode, Timothy Yee
     </li>
 </ul>
 </div>

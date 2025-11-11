@@ -176,7 +176,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td>WifiConfig Library</td>
+						<td>WiFiConfig Library</td>
 						<td>
 							<a class="btn btn-outline-success mx-3"
 								href="assets/libraries/WiFiConfig.zip"
@@ -350,7 +350,7 @@
 				LCD.
 			</p>
 			<p class="mb-3">
-				<code class="pj-code language-arduino">LiquidCrystal_I2C lcd(int address, int columns, int rows);</code>
+				<code class="pj-code language-arduino">LiquidCrysal_I2C lcd(int address, int columns, int rows);</code>
 			</p>
 			<p class="mb-3">
 				You will call lcd’s <code class="pj-code language-arduino">init()</code> and <code
@@ -465,7 +465,7 @@ void loop()
 				Make sure to include the header file:
 			</p>
 			<p class="mb-3">
-				<code class="pj-code language-arduino">#include &lt;WifiConfig.h&gt;</code>
+				<code class="pj-code language-arduino">#include &lt;WiFiConfig.h&gt;</code>
 			</p>
 			<p class="mb-3">
 				You need to determine the <b>MAC address</b> of the receiver ESP32 board. Run this sketch 
@@ -578,7 +578,7 @@ void loop(){
 			<p class="alert alert-warning mt-2" role="alert">
 				Do not blindly copy-paste the sample code to your project deliverables. You will need to determine which functions to use in your individual transmitter and receiver sketches.
 			</p>
-			<pre class="mb-5"><code class="pj-code language-arduino" style="white-space: pre-wrap; height:60vh;">#include &lt;WifiConfig.h&gt;
+			<pre class="mb-5"><code class="pj-code language-arduino" style="white-space: pre-wrap; height:60vh;">#include &lt;WiFiConfig.h&gt;
 //Find the mac address of your receiver ESP32 first, then enter it in here:
 uint8_t receiverAddress[] = {0x34, 0xB7, 0xDA, 0xF6, 0x3E, 0x78};
 

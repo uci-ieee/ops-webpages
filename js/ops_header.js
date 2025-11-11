@@ -27,14 +27,18 @@ document.write(`
                             Projects
                         </a>
                         <ul class="dropdown-menu" data-bs-theme="light" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="./project_1.html"> Project 1: LED There Be Light</a></li>
+                            <li><a class="dropdown-item" href="./project_1.html"> Project 1: LED Circuit</a></li>
                             <li><a class="dropdown-item" href="./project_2.html">Project 2: 555 Piano</a></li>
+                            
+                            <!--
                             <li><a class="dropdown-item" href="./project_3.html">Project 3: RGB LED Wizard</a></li>
                             <li><a class="dropdown-item" href="./project_4.html">Project 4: Sundial</a></li>
                             <li><a class="dropdown-item" href="./project_5.html">Project 5: iPoduino v2.0</a></li>
                             <li><a class="dropdown-item" href="./project_6.html">Project 6: Weather Station</a></li>
                             <li><a class="dropdown-item" href="./project_7.html">Project 7: Digital Stopwatch</a></li>
                             <li><a class="dropdown-item" href="./project_8.html">Project 8: 555 Blinker PCB</a></li>
+                            <li><a class="dropdown-item" href="./project_capstone.html">Capstone Project</a></li>
+                            -->
                         </ul>
                     </li>
                     <li class="nav-item">
@@ -45,6 +49,15 @@ document.write(`
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="./esp32_guide.html">ESP32 Guide</a>
+                    </li>
+                    <li class="nav-item dropdown ">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Website Archives
+                        </a>
+                        <ul class="dropdown-menu" data-bs-theme="light" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="https://archive.openprojectspace.org/"> 2023-2024</a></li>
+                            <li><a class="dropdown-item" href="https://archive25.openprojectspace.org/"> 2024-2025</a></li>
+                        </ul>
                     </li>
                 </ul>
                 <a class="bi bi-facebook link-light me-4 fs-5" target="_blank" href="https://www.facebook.com/IEEE.UCI/"></a>
