@@ -46,7 +46,7 @@
 						<a class="nav-link" href="#pj-heading-overview">Overview</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#pj-heading-lets-start">Let's Start</a>
+						<a class="nav-link" href="#pj-heading-lets-start">Concepts</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="#pj-heading-basic-function-practice">Basic Function Practice</a>
@@ -60,7 +60,7 @@
 			<div class="pj-content">
 				<div class="d-flex flex-row justify-content-between mb-4">
 					<div class="">
-						<h1 class="mb-3">Project 3: C++ Programming</h1>
+						
 						<h1 class="fw-bold mb-3" id="pj-heading-overview">Overview</h1>
 						<div style="max-width: 700px; overflow-wrap: break-word;">
 							<p>
@@ -70,6 +70,11 @@
 							</p>
 						</div>
 					</div>
+						<div class="alert alert-light" role="alert">
+							<i class="bi bi-calendar-event me-1"></i>
+							Updated 2025.11.21<br>
+							By Lainey Tran<br>& Luke Phimpisane<br> & Sahil Dhaktode
+						</div>
 					</div>
 				</div>
 				<img class="img-fluid my-1 me-lg-5 me-5 float-end" style="max-width: 150px;"
@@ -100,24 +105,22 @@
 					The <b>assembler</b> converts the assembly language into machine code. We’re not done, though! One last program called a <b>linker</b>takes the machine code files and “links” them together into an <b>executable file</b>. You might recognize executables as files with the “.exe” extension on Windows. The executable is ultimately what the computer uses to <i>execute</i> your program.
 					<br>
 				</p>
-				<img class="img-fluid my-1 me-lg-5 me-5 float-end" style="max-width: 300px;"
+				<img 
+  					src="assets/images/ops_cpp_diagram.png"
+  					style="max-width: 300px; display: block; margin: 0 auto;"
 					src="assets/images/ops_cpp_diagram.png">
 				<br>
 
-				<h2 class="mb-3 fw-bold" id="pj-heading-lets-start">Let's Start</h2>
+				<h1 class="fw-bold mb-3" id="pj-heading-overview">Concepts</h1>
 				<p class="mb-5">
-					Before we get started, you will need to choose an IDE. For this programming guide, any online C++ IDE is fine. You can use this: <a href="https://www.online-ide.com/online_c++_ide">https://www.online-ide.com/online_c++_ide</a>
-					<br>
-					<h2 class="mb-3">Basics of C++</h2>
-					<br>
-					<h3 class="mb-3"><u>Built-in types</u></h3>
+					<h3 class="mb-3">Built-in types</h3>
 					<br>
 					<p class="mb-5">
 						We can represent integers with int, truth values with bool, and other types exist too.
 						<br><br><code>a = 5;</code> <br>
 						<br><code>bool k = true;</code> <br>
 						<br> “a” is an object/variable of type integer. k is an object/variable of type boolean.
-					<h3 class="mb-3"><u>Variables</u></h3>
+					<h3 class="mb-3">Variables</h3>
 					<br>
 					<p class="mb-5">
 						Variables point to values or point to other variables.
@@ -126,7 +129,7 @@
 						<br>  variable a holds the value 5. Note that because we declared a as an int, 5 is an int. b points to a, therefore, b points to 5. We can modify the value of a variable.
 						<br><br><code>a = 5 + 2;</code> <br>
 						<br> “a” now gets 7. Note that we did not add an int in front of “a” this time, because we already declared “a”.
-					<h3 class="mb-3"><u>Functions</u></h3>
+					<h3 class="mb-3">Functions</h3>
 					<br>
 					<p class="mb-5">
 						A function has a name and takes as inputs a number of values (could be zero). You define a function with the return type (output type), followed by the function name, followed by the parameters (inputs). After the header, you write the function logic. Ex:
@@ -146,7 +149,7 @@ int square(int val){
 						</pre> </code>
 						<br><br> The function takes as input an integer val, and returns (or outputs) the square of val.
 					<br><br>
-						<h3 class="mb-3"><u>Pass by Value vs Pass by Reference</u></h3>
+						<h3 class="mb-3">Pass by Value vs Pass by Reference</h3>
 					<br>
 					<p class="mb-5">
 						The variable whose value you pass in as the function’s parameter may be modified or not, depending on how you write your function. This can be a difficult idea to understand, so let's see an example.
@@ -165,31 +168,33 @@ int main(){
      squareModify(k);
      cout << k << endl; #k is now: 5
 }
+					
 					</pre></code>
+					<br>What happened? Initially, k is 5. Then you call square, which takes in a copy of k. So when you do val * val you are not squaring k itself, but a copy of it. This is called pass by copy. That’s why k is still 5. But when you call squareModify, its input is a reference to k as denoted by int & val. So, val in squareModify points to k in main. When you square val, you modify k. That's why k becomes 25. This is called pass by reference. <br> <br>
 					</p>
-					<h3 class="mb-3"><u>Conditional Logic</u></h3>
+					<h3 class="mb-3">Conditional Logic</h3>
 					<br>
 					<p class="mb-5">
 					Now, what if we wanted different outputs depending on our function's inputs? An if-else statement does this.
 <code class="pj-code language-arduino"> <pre>
 if (condition 1){ 
-execute if true
+	Execute if true
 }
 else
-Execute if condition 1 is false
+	Execute if condition 1 is false
 					</pre></code>
 					You can also have an if-else if-else if-...-else statement to check for multiple conditions.<br><br>
 <code class="pj-code language-arduino"> <pre>
 if (condition 1){ 
-	execute if true
+	//Execute if true
 }
 else if (condition 2) {
-	Execute if condition 2 is true and condition 1 is false
+	//Execute if condition 2 is true and condition 1 is false
 }
 else 
-	Execute if all is false
+	//Execute if all is false
 					</pre></code>
-					<br>
+					
 					Here's an example used in a function:
 					<br> <br>
 <code class="pj-code language-arduino"> <pre>
@@ -202,7 +207,7 @@ bool isNegative(int k){
 	}
 } </code>
 </pre> </p>
-					<h3 class="mb-3"><u>User-Defined Types</u></h3>
+					<h3 class="mb-3">User-Defined Types</h3>
 					<br><br>
 					<p class="mb-5">
 						Remember how we talked about built-in types? You can define your own types. EX:
@@ -231,11 +236,50 @@ int main() {
 				</p>
 
 				</p>
-				<h2 class="mb-3 fw-bold" id="pj-heading-basic-function-practice">Basic Function Practice</h2>
+				<h1 class="fw-bold mb-3" id="pj-heading-overview">Basic Function Practice</h1><br>
+				<p class="mb-5">
+				Before we get started, you will need to choose an IDE. For this programming guide, any online C++ IDE is fine. You can use this: <a href="https://www.online-ide.com/online_c++_ide">https://www.online-ide.com/online_c++_ide</a>
 				<p class="mb-3">
-					You will write five functions. The requirements for each function are listed below, along with the solutions. Though do your best to come up with the solutions yourself first.
+					You will write six functions. The requirements for each function are listed below, along with the solutions. Though do your best to come up with the solutions yourself first.
 
 				</p>
+				<p>Copy the following code to serve as a template for the first five practice functions:</p>
+
+<code class="pj-code language-arduino"><pre><br
+#include <iostream>
+#include <string>
+void echo() {
+	// Write code here
+	// Print something to the console
+}
+bool isEven(int num) {
+	// Write code here
+	return true; // Placeholder
+}
+unsigned pow(unsigned base, unsigned exp) {
+	// Write code here
+	return 0; // Placeholder
+}
+double avg(int arr[], int size) {
+	// Write code here
+	return 0; // Placeholder
+}
+void fib(unsignedint) {
+	// Write code here
+	return; // Placeholder
+}
+void swap(int& num1, int& num2) {
+	// Write code here
+	return; // Placeholder
+}
+int main() {
+	// You can test your functions here
+	return 0;
+}
+<br>
+</pre></code>
+<br><br>
+				<p>
 				<h3 class="mb-3">1. Echo</h3> 
 				<br>
 					<ul><li>Function Header: <code>void echo()</code></li>
@@ -459,32 +503,7 @@ void swap(int& a, int& b) {
 					</pre></code>
   					</details> <br>
 					<hr> <br>
-					<p>Copy the following code to serve as a template for the first five practice functions:</p>
-
-<code class="pj-code language-arduino"><pre>
-	#include <iostream>
-#include <string>
-void echo() {
-	// Write code here
-	// Print something to the console
-}
-bool isEven(int num) {
-	// Write code here
-	return true; // Placeholder
-}
-unsigned pow(unsigned base, unsigned exp) {
-	// Write code here
-	return 0; // Placeholder
-}
-double avg(int arr[], int size) {
-	// Write code here
-	return 0; // Placeholder
-}
-void fib(unsignedint) {
-	// Write code here
-	return; // Placeholder
-}
-</pre></code>
+					
 
 			</div>
 			</main>
