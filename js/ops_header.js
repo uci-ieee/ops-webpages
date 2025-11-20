@@ -39,6 +39,9 @@ document.write(`
                     <li class="nav-item">
                         <a class="nav-link" href="./esp32_guide.html">ESP32 Guide</a>
                     </li>
+                    <li class="nav-item"> 
+                        <a class="nav-link" href="./c_programming_practice.html">C++ Programming Practice</a>
+                    </li>
                     <li class="nav-item dropdown ">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Website Archives
