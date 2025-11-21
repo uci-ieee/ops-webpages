@@ -55,7 +55,7 @@
 								<a class="nav-link" href="#pj-heading-pinout">Pinout</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="#pj-heading-photoresistor">Photoresistor</a>
+								<a class="nav-link" href="#pj-heading-ultrasonic">Ultrasonic Sensor</a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="#pj-heading-servo">Servo</a>
@@ -75,7 +75,7 @@
 								<a class="nav-link" href="#pj-heading-poten-control-servo">Potentiometer-Controlled Servo</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="#pj-heading-sundial">Sundial</a>
+								<a class="nav-link" href="#pj-heading-trashcan">Ultrasonic Trashcan Project</a>
 							</li>
 						</ul>
 					</li>
@@ -111,12 +111,12 @@
 				<div class="d-flex flex-row justify-content-between mb-5">
 					<div class="">
 						<h4>Project 4</h4>
-						<h1 class="fw-bold">Sundial</h1>
+						<h1 class="fw-bold">Ultrasonic Trashcan Project</h1>
 					</div>
 					<div class="alert alert-light" role="alert">
 						<i class="bi bi-calendar-event me-1"></i>
-						Updated 2024.11.28 <br>
-						By Zicong Yu
+						Updated 2025.11.20 <br>
+						By Patrick Cabanban
 					</div>
 				</div>
 
@@ -155,39 +155,48 @@
 				</p>
 
 
-				<h3 class="mb-3" id="pj-heading-photoresistor">Photoresistor</h3>
+				<h3 class="mb-3" id="pj-heading-ultrasonic">Ultrasonic Sensor</h3>
 				<p>
-					A <strong>photoresistor</strong> is a type of resistor that changes its resistance based on the amount 
-					of light it is exposed to. This is possible because it is made of a semiconductor material 
-					that becomes more electrically conductive as it absorbs electromagnetic radiation such as 
-					visible light. It offers a simple and effective way to measure light levels and use that data in various projects.
+					The <strong>ultrasonic sensor module</strong> (commonly the <strong>HC-SR04 </strong>)is a distance-measuring device widely used in embedded systems. 
+					It works by emitting an ultrasonic sound wave (at around 40 kHz) from its <strong>trigger (TRIG) </strong>pin and then listening for the echo reflected 
+					off nearby objects using its <strong>echo (ECHO) </strong>pin. The time it takes for the sound wave to return is measured by the microcontroller, 
+					which is used to calculate the distance using the formula:
 				</p>
 				<img class="pj-img-fluid mx-auto mb-5" 
-					src="./assets/images/project_4_new/ops_project_4_photoresistor.png" width=450>
-				
-				
+					src="./assets/images/project_4_new/ops_project_4_ultrasonic_formula.png" width=450>
+				<img class="pj-img-fluid mx-auto mb-5" 
+					src="./assets/images/project_4_new/ops_project_4_ultrasonic_diagram.png" width=850>
+				<p>
+					A demo of using our provided ultrasonic sensor is found below:
+					<code class="pj-code language-arduino">Trig pin</code> is in charge of sending a signal to the ultrasonic sensor to emit a burst of ultrasonic sound waves
+					<code class="pj-code language-arduino">Echo pin</code> is in charge of being pulled to HIGH for the same duration equal to the time it takes the ultrasonic pulse to reach a surface and return to the sensor.
+					<code class="pj-code language-arduino">pulseIn</code> measures how long the ECHO pin was set high
+					<code class="pj-code language-arduino">Delay</code> ensures that the trig pulse is a burst
+				</p>
+				<img class="pj-img-fluid mx-auto mb-5" 
+					src="./assets/images/project_4_new/ops_project_4_ultrasonic_code_ex.png" width=700>
+				<p class>
+					Note that the <strong>material</strong> and the <strong>angle</strong> of the object the wave is bouncing off matter for how effectively the echo pin 
+					can receive the signal. Materials like sponges or even your hand aren’t great at reflecting the waves. 
+				</p>
 				<h3 class="mb-3 fw-light">Using it with ESP32</h3>
 				<div class="mb-3">
 				<p class>
-					Like a normal resistor, the photoresistor has no polarity and can be connected both ways. We can connect the photoresistor in series
-					with a normal resistor to create a <strong>voltage divider</strong> at the node between the photoresistor and the normal resistor. The voltage would vary based on the light level,
-					and by connecting that node to one of the ESP32’s <strong>analog-to-digital converters (ADC)</strong> with a jumper wire,
-					we can translate the analog signal into a discrete integer value in the range of <code class="pj-code language-arduino">0-4095</code> using <code class="pj-code language-arduino">analogRead()</code>.
+					The ultrasonic sensor is actually rated for <strong>5V</strong>, which means it is advised to use a <strong>voltage divider network</strong> on
+					 the GPIO pins that it connects to. This is because constant 5V exposure to the ESP32 <storng>GPIO</storng> pins, which are 
+					 rated for <strong>3.3V</strong>, will possibly damage the module. Below, you will find the schematic displaying the resistor 
+					 values and configuration you must implement to optimize the ultrasonic sensor’s usage.
 				</p>
 				<img class="pj-img-fluid mx-auto mb-5" 
 				src="./assets/images/project_4_new/ops_project__4_photoresistor_schem.png" width=550>
 				</div>
-
-
-
-
 
 				<h3 class="mb-3" id="pj-heading-servo">Servo</h3>
 				<p>
 					A <strong>servo motor</strong> is a type of motor that converts electrical energy into mechanical energy 
                     to achieve precise control. As seen in the image below, various arms can be attached to 
                     the splined gear on the top of the motor for different functions. In this project, you 
-                    will be controlling the position of the servo with a photoresistor to make a sundial.
+                    will be controlling the position of the servo with an ultrasonic sensor to make a trashcan.
 				</p>
 				<p>
 					The micro servo we will be using has a rating of “9g”. This represents the torque of the motor, 
@@ -294,7 +303,25 @@ void loop() {
 					a
 					discrete integer in the range <code class="pj-code language-arduino">0-4095</code>.
 				</p>
+				<h3 class="mb-3" id="pj-heading-servo">Box Assembly</h3>
+				<p>
+					To assemble the trashcan, you must attach the servo to the <strong>backside</strong> of the box, configuring the servo’s 
+					angle to optimally close and open the flap. To do this, set the servo’s angle to its most extended position, 
+					that being either <strong>0°</strong> or <strong>180°</strong>, depending on the side that the servo is oriented. 
+				</p>
+				<p>
+					Grab strong adhesive tape, which can be borrowed from the lab, and tape the servo down with both a horizontal strip of 
+					tape and a vertical strip. If you mess up, don’t worry! The box’s surface will not tear off with the tape if you want to reposition the tape. 
+				</p>
+				<img class="pj-img-fluid mx-auto mb-5" 
+				src="./assets/images/project_4_new/ops_project_4_box_example.png" width=550>
+				
+				<p>
+					Once the servo is taped down, you must handle the ultrasonic sensor. Using the mount found in
+					 your OPS kit, place the ultrasonic sensor with the pins pointing away from the mount’s base.
+					  Slide the base under the trash can, and the project is now ready for testing!
 
+				</p>
 				<img class="pj-img-fluid-end"
 					src="assets/images/project_4_new/ops_project_4_libraries.png" width="225">
 				<h2 class="mb-3 fw-bold" id="pj-heading-software-installations">Software Installations</h2>
@@ -318,13 +345,13 @@ void loop() {
 					<li class="list-group-item">When turning a potentiometer the other way,  the servo should approach 0°.</li>
 					<li class="list-group-item">The circuit must be built on a breadboard.</li>
 				</ul>
-				<h3 class="mb-3" id="pj-heading-sundial">Sundial</h3>
+				<h3 class="mb-3" id="pj-heading-trashcan">Ultrasonic Sensor Trashcan</h3>
 				<ul class="mb-5 list-group">
-					<li class="list-group-item">You must build a circuit with a photoresistor-controlled servo.</li>
-					<li class="list-group-item">The servo’s angle must adjust between 0-180° when the brightness of a room changes.</li>
-					<li class="list-group-item">When the brightness of a room gets darker, the servo should approach 0°.</li>
-					<li class="list-group-item">When the brightness of a room gets brighter, the servo should approach 180°.</li>
-					<li class="list-group-item">The circuit must be built on a breadboard, and the servo should be attached onto the sundial cutout provided in the OPS kit to display the brightness of the room.</li>
+					<li class="list-group-item">You must build a circuit with an ultrasonic-controlled servo.</li>
+					<li class="list-group-item">The servo’s angle must adjust between 0-120° when the detected distance threshold of the ultrasonic sensor changes.</li>
+					<li class="list-group-item">When an object is above the distance threshold, the angle should be 0°.</li>
+					<li class="list-group-item">When an object is below the distance threshold, the angle should be 90°.</li>
+					<li class="list-group-item">The circuit must be built on a breadboard, and the servo should be attached to the cardboard trashcan cutout provided in the OPS kit to autonomously open/close the trashcan.</li>
 				</ul>
 
 				<h2 class="mb-3 fw-bold" id="pj-heading-parts">Parts</h2>
@@ -340,7 +367,7 @@ void loop() {
 					<tbody>
 						<tr>
 							<td>Jumper Wire</td>
-							<td>X?</td>
+							<td>x?</td>
 						</tr>
 						<tr>
 							<td>Breadboard</td>
@@ -361,8 +388,14 @@ void loop() {
 								<a class="pj-part"
 									data-bs-content="<img src='assets/images/project_4_new/ops_project_4_servo.png' height='150px' width='auto'>"
 									data-bs-trigger="hover focus" data-bs-toggle="popover" tabindex="0">
-									Mirco Servo
+									Micro Servo
 								</a>
+							</td>
+							<td>1</td>
+						</tr>
+						<tr>
+							<td>
+								Ultrasonic Sensor
 							</td>
 							<td>1</td>
 						</tr>
@@ -380,16 +413,6 @@ void loop() {
 						</tr>
 						<tr>
 							<td>Resistor, 4.7KΩ</td>
-							<td>1</td>
-						</tr>
-						<tr>
-							<td>
-								<a class="pj-part"
-								data-bs-content="<img src='./assets/images/project_4_new/ops_project_4_sundial.png' height='100px' width='auto'>"
-								data-bs-trigger="hover focus" data-bs-toggle="popover" tabindex="0">
-								Sundial Diagram
-								</a>
-							</td>
 							<td>1</td>
 						</tr>
 						<tr>
@@ -424,13 +447,13 @@ void loop() {
 						<h2 class="accordion-header">
 							<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
 								data-bs-target="#schemCollapse2" aria-expanded="true" aria-controls="schemCollapse2">
-								Schematic B (Sundial)
+								Schematic B (Ultrasonic Sensor)
 							</button>
 						</h2>
 						<!--Pin to page?-->
 						<div id="schemCollapse2" class="accordion-collapse collapse" data-bs-parent="#schemAccordian">
 							<div class="accordion-body text-center">
-								<img src='assets/images/project_4_new/ops_project_4_schematic_B.svg' class="pj-schem"
+								<img src='assets/images/project_4_new/ops_project_4_schematicB_Ultrasonic.png' class="pj-schem"
 									style="max-height: 400px; max-width: 400px;">
 							</div>
 						</div>
@@ -481,21 +504,18 @@ void loop() {
 				<h3 class="mb-3" id="pj-heading-checkpoint2">Checkpoint 2</h3>
 				<ol class="mb-5 list-group list-group-numbered">
 					<li class="list-group-item">
-						Build the circuit from <strong>Schematic B (Sundial)</strong> on your breadboard. Your goal is to control 
-						the servo’s angle based on the brightness that the photoresistor detects, and display the 
-						brightness of the room on the Sundial cutout.
+						Build the circuit from <strong>Schematic B (Trashcan)</strong> on your breadboard. Your goal is to control the servo’s 
+						angle based on the distance that the ultrasonic sensor detects and opens or closes the lid of the trashcan.
 					</li>
 					<li class="list-group-item">
-						Cut out the rectangle in the middle of the Sundial cutout with scissors and insert the head of the 
-						servo through the rectangle. Use the one-sided arm attachment of the servo to display the brightness.
-						<img class="pj-img-fluid mx-auto mb-5"
-						src="assets/images/project_4_new/ops_project_4_sundial.png" width="300">
+						Tape the servo to the box as shown in the instructions above
 					</li>
 					<li class="list-group-item">
 						<div class="alert alert-info" role="alert">
 							Use the <strong>pseudo code below</strong> to program the circuit.
 						</div>
 						<div class="alert alert-info" role="alert">
+							Depending on your servo configuration, the values of your open and close angles may vary, however one should be high and one low.
 							These functions may be helpful: <code
 								class="pj-code language-arduino">Serial.begin()</code>,
 							<code class="pj-code language-arduino">pinMode()</code>,
@@ -505,26 +525,30 @@ void loop() {
 						</div>
 						<pre class="mt-3" style="white-space: pre-wrap;"><code class="pj-code language-arduino">#include &lt;ESP32Servo.h>&gt;
 							
-// Assign variable to pin number for Photoresistor
-// Assign variable to pin number of Servo’s PWM pin
+#include <ESP32Servo.h>
+
+// Assign variables to pin numbers  
+// Assign variable for open angle (ex. 160 may vary)
+// Assign variable for close angle (ex. 20 may vary)
 // Initialize servo object with your servo name
-							
+
 void setup() {
-	// Configure the Photoresistor's pin behavior to INPUT
-	// Attach object of your servo name to the physical servo
-	// Configure the Serial baud rate to 115200
+  // Setup Trig and Echo pins
+  // Attach object of your servo name to the physical servo
+  // Initialize servo to close angle
 }
-							
+
 void loop() {
-	// Read photoresistor pin value
-	// Set and map the servo angle to the photoresistor pin value
+    // Send pulses
+    // Calculate distance
+    // Write servo angle to open or close based on a distance threshold in cm (value may vary)
+     
 }
 </code></pre>
 					</li>
 					<li class="list-group-item">
 						Upload your sketch to the ESP32, and verify that the program executes as expected; 
-						the photoresistor should control the angle of the servo from 0°-180° and display the 
-						brightness of the room through the cutout.
+						the servo angle should change, such that the trashcan opens or closes
 					</li>
 				</ol>
 
@@ -548,7 +572,7 @@ void loop() {
 						</div>
 					<li class="list-group-item">
 						<i class="bi bi-check2-square me-2"></i>
-						Video of the Sundial (Schematic B) on a breadboard.
+						Video of the Trashcan (Schematic B) on a breadboard.
 						<div class="alert alert-info mt-2" role="alert">
 							In the video, showcase the 0–180° movement of the servo based on the light level sensed by the photoresistor.</div>
 					</li>
