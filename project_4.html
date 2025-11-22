@@ -168,13 +168,45 @@
 					src="./assets/images/project_4_new/ops_project_4_ultrasonic_diagram.png" width=850>
 				<p>
 					A demo of using our provided ultrasonic sensor is found below:
-					<code class="pj-code language-arduino">Trig pin</code> is in charge of sending a signal to the ultrasonic sensor to emit a burst of ultrasonic sound waves
-					<code class="pj-code language-arduino">Echo pin</code> is in charge of being pulled to HIGH for the same duration equal to the time it takes the ultrasonic pulse to reach a surface and return to the sensor.
-					<code class="pj-code language-arduino">pulseIn</code> measures how long the ECHO pin was set high
-					<code class="pj-code language-arduino">Delay</code> ensures that the trig pulse is a burst
 				</p>
-				<img class="pj-img-fluid mx-auto mb-5" 
-					src="./assets/images/project_4_new/ops_project_4_ultrasonic_code_ex.png" width=700>
+				<ul>
+					<li>
+						<code class="pj-code language-arduino">Trig pin</code> is in charge of sending a signal to the ultrasonic sensor to emit a burst of ultrasonic sound waves
+					</li>
+					<li>
+						<code class="pj-code language-arduino">Echo pin</code> is in charge of being pulled to HIGH for the same duration equal to the time it takes the ultrasonic pulse to reach a surface and return to the sensor.
+					</li>
+					<li>
+						<code class="pj-code language-arduino">pulseIn</code> measures how long the ECHO pin was set high 
+					</li>
+					<li>
+						<code class="pj-code language-arduino">Delay</code> ensures that the trig pulse is a burst
+					</li>
+				</ul>
+				<pre class="mb-5" style="white-space: pre-wrap; height:60vh;"><code class="pj-code language-arduino">const int trigPin = 3;
+const int echoPin = 4;
+
+void setup() { 
+  Serial.begin(115200);
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+}
+
+
+void loop() {
+	// Trigger pulse
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(100);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(100);
+  digitalWrite(trigPin, LOW);
+
+  long duration = pulseIn(echoPin, HIGH);  // Takes measurement of pulse in microseconds
+  long distance = duration / 58.0;         // conversion to cm
+  Serial.println(“Distance: “ + distance);
+  delay(1000);
+}		
+				</pre></code>
 				<p class>
 					Note that the <strong>material</strong> and the <strong>angle</strong> of the object the wave is bouncing off matter for how effectively the echo pin 
 					can receive the signal. Materials like sponges or even your hand aren’t great at reflecting the waves. 
@@ -187,8 +219,6 @@
 					 rated for <strong>3.3V</strong>, will possibly damage the module. Below, you will find the schematic displaying the resistor 
 					 values and configuration you must implement to optimize the ultrasonic sensor’s usage.
 				</p>
-				<img class="pj-img-fluid mx-auto mb-5" 
-				src="./assets/images/project_4_new/ops_project__4_photoresistor_schem.png" width=550>
 				</div>
 
 				<h3 class="mb-3" id="pj-heading-servo">Servo</h3>
@@ -348,7 +378,7 @@ void loop() {
 				<h3 class="mb-3" id="pj-heading-trashcan">Ultrasonic Sensor Trashcan</h3>
 				<ul class="mb-5 list-group">
 					<li class="list-group-item">You must build a circuit with an ultrasonic-controlled servo.</li>
-					<li class="list-group-item">The servo’s angle must adjust between 0-120° when the detected distance threshold of the ultrasonic sensor changes.</li>
+					<li class="list-group-item">The servo’s angle must adjust when the detected distance threshold of the ultrasonic sensor changes.</li>
 					<li class="list-group-item">When an object is above the distance threshold, the angle should be 0°.</li>
 					<li class="list-group-item">When an object is below the distance threshold, the angle should be 90°.</li>
 					<li class="list-group-item">The circuit must be built on a breadboard, and the servo should be attached to the cardboard trashcan cutout provided in the OPS kit to autonomously open/close the trashcan.</li>
@@ -374,6 +404,14 @@ void loop() {
 							<td>1</td>
 						</tr>
 						<tr>
+							<td>Cardboard Box</td>
+							<td>x1</td>
+						</tr>
+						<tr>
+							<td>Tape</td>
+							<td>x?</td>
+						</tr>
+						<tr>
 							<td>
 								<a class="pj-part"
 									data-bs-content="<img src='./assets/images/project_4/ops_blue_pot.jpg' height='150px' width='auto'>"
@@ -395,7 +433,11 @@ void loop() {
 						</tr>
 						<tr>
 							<td>
-								Ultrasonic Sensor
+								<a class="pj-part"
+									data-bs-content="<img src='assets/images/project_4_new/ops_project_4_ultrasonic_diagram.png' height='120px' width='auto'>"
+									data-bs-trigger="hover focus" data-bs-toggle="popover" tabindex="0">
+									Ultrasonic Sensor
+								</a>
 							</td>
 							<td>1</td>
 						</tr>
@@ -468,7 +510,7 @@ void loop() {
 						Build the circuit from <strong>Schematic A</strong> (Potentiometer-Controlled Servo) on your breadboard. 
 						Attach the one-sided arm attachment to the servo.
 						<div class="alert alert-info mt-2" role="alert">
-							Use the pseudo code below to program a potentiometer to control a servo.
+							Use the <strong>pseudo code</strong> below to program a potentiometer to control a servo.
 						</div>
 						<div class="alert alert-info mt-2" role="alert">
 							These functions may be helpful: <code
@@ -517,10 +559,10 @@ void loop() {
 						<div class="alert alert-info" role="alert">
 							Depending on your servo configuration, the values of your open and close angles may vary, however one should be high and one low.
 							These functions may be helpful: <code
-								class="pj-code language-arduino">Serial.begin()</code>,
-							<code class="pj-code language-arduino">pinMode()</code>,
-							<code class="pj-code language-arduino">analogRead()</code>, <code
-								class="pj-code language-arduino">analogWrite()</code>,
+								class="pj-code language-arduino">myServo.write()</code>,
+							<code class="pj-code language-arduino">digitalWrite()</code>,
+							<code class="pj-code language-arduino">pulseIn()</code>, <code
+								class="pj-code language-arduino">delay()</code>,
 								and the servo fuctions above.
 						</div>
 						<pre class="mt-3" style="white-space: pre-wrap;"><code class="pj-code language-arduino">#include &lt;ESP32Servo.h>&gt;
@@ -574,7 +616,7 @@ void loop() {
 						<i class="bi bi-check2-square me-2"></i>
 						Video of the Trashcan (Schematic B) on a breadboard.
 						<div class="alert alert-info mt-2" role="alert">
-							In the video, showcase the 0–180° movement of the servo based on the light level sensed by the photoresistor.</div>
+							In the video, showcase the trashcan lid opening (90°) when your hand is close to the ultrasonic sensor, and closing (0°) when your hand is.</div>
 					</li>
 				</ul>
 				<p><strong>Compress</strong> the folder to a <strong>zip</strong> file and rename the file using
