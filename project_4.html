@@ -111,7 +111,7 @@
 				<div class="d-flex flex-row justify-content-between mb-5">
 					<div class="">
 						<h4>Project 4</h4>
-						<h1 class="fw-bold">Ultrasonic Trashcan Project</h1>
+						<h1 class="fw-bold">Ultrasonic Trashcan</h1>
 					</div>
 					<div class="alert alert-light" role="alert">
 						<i class="bi bi-calendar-event me-1"></i>
@@ -123,7 +123,7 @@
 				<h2 class="mb-3 fw-bold" id="pj-heading-overview">Overview</h2>
 				<p class="mb-5">
 					You will program an ESP32 to control a servo with various sensors and inputs. 
-                    At each checkpoint, you will explore the core functions of servos and photoresistors. 
+                    At each checkpoint, you will explore the core functions of servos and ultrasonic distance sensors. 
                     You will also get more practice with microcontrollers (digital input/output, pulse width 
                     modulation, and analog-to-digital conversion) and potentiometers.
 				<h2 class="mb-3 fw-bold" id="pj-heading-concepts">Concepts</h2>
@@ -547,7 +547,7 @@ void loop() {
 				<ol class="mb-5 list-group list-group-numbered">
 					<li class="list-group-item">
 						Build the circuit from <strong>Schematic B (Trashcan)</strong> on your breadboard. Your goal is to control the servo’s 
-						angle based on the distance that the ultrasonic sensor detects and opens or closes the lid of the trashcan.
+						angle based on the distance that the ultrasonic sensor detects thereby opening or closing the trashcan's lid.
 					</li>
 					<li class="list-group-item">
 						Tape the servo to the box as shown in the instructions above
@@ -616,7 +616,7 @@ void loop() {
 						<i class="bi bi-check2-square me-2"></i>
 						Video of the Trashcan (Schematic B) on a breadboard.
 						<div class="alert alert-info mt-2" role="alert">
-							In the video, showcase the trashcan lid opening (90°) when your hand is close to the ultrasonic sensor, and closing (0°) when your hand is.</div>
+							In the video, showcase the trashcan lid opening (90°) when your hand is close to the ultrasonic sensor, and closing (0°) when your hand is far.</div>
 					</li>
 				</ul>
 				<p><strong>Compress</strong> the folder to a <strong>zip</strong> file and rename the file using
