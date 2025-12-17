@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-bs-theme="light">
+
+<head>
+	<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+	<!--Title-->
+	<title>Open Project Space</title>
+	<!--Favicon-->
+	<link rel="icon" href="./assets/images/ops_logo_favicon.png">
+	<!--Roboto Font CDN-->
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto" rel="stylesheet">
+	<!--Beckman Font CDN-->
+	<link href="https://fonts.cdnfonts.com/css/beckman" rel="stylesheet">
+	<!-- Custom Stylesheet "custom.css" used for Bootstrap 5.3.0 css-->
+	<link rel="stylesheet" href="./css/custom.css" type="text/css">
+	<!-- Popper JS v2.11.8 (Bootstrap Dependency) CDN -->
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+		integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+		crossorigin="anonymous"></script>
+	<!-- Bootstrap JS v5.3.0 CDN -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+		integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
+		crossorigin="anonymous"></script>
+	<!-- Bootstrap Icons CSS v1.10.0 CDN-->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+	<!-- Highlight JS v11.7.0-->
+	<link rel="stylesheet" href="./css/highlight.js/default.min.css" type="text/css">
+	<link rel="stylesheet" href="./css/highlight.js/arduino-light.min.css" type="text/css">
+	<script src="./js/highlight.min.js"></script>
+	<script>hljs.highlightAll();</script>
+</head>
+
+<body style="">
+    <!-- ======= Header ======= -->
+	<script src="./js/ops_header.js"></script>
+	<!-- End Header -->
+
+	<div class="container-xl pj-layout my-5">
+		<!-- ======= Sidebar ======= -->
+		<aside class="pj-sidebar ">
+			<nav id="project-toc" class="pj-toc d-flex flex-column px-2 pt-2 pb-4">
+				<ul class="nav flex-column">
+					<h5 class="mt-2 mb-2 mx-3">Contents</h5>
+					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-overview">Overview</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-lets-start">Concepts</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-basic-function-practice">Basic Function Practice</a>
+				</ul>
+			</nav>
+		</aside>
+		<!-- End Sidebar -->
+
+		<main class="pj-main p-3" data-bs-spy="scroll" data-bs-target="#project-toc" data-bs-root-margin="0px 0px -40%"
+			data-bs-smooth-scroll="true" tabindex="0">
+			<div class="pj-content">
+				<div class="d-flex flex-row justify-content-between mb-4">
+					<div class="">
+						
+						<h1 class="fw-bold mb-3" id="pj-heading-overview">Overview</h1>
+						<div style="max-width: 700px; overflow-wrap: break-word;">
+							<p>
+								Before diving into microcontrollers, you will explore basic computer programming topics. This will provide the necessary context for writing Arduino code.
+								<br> <br>
+								<h3 class="mb-3 fw-light" id="pj-heading-programming">C++ Programming Language</h3>
+							</p>
+						</div>
+					</div>
+						<div class="alert alert-light" role="alert">
+							<i class="bi bi-calendar-event me-1"></i>
+							Updated 2025.11.21<br>
+							By Lainey Tran<br>& Luke Phimpisane<br> & Sahil Dhaktode
+						</div>
+					</div>
+				</div>
+				<img class="img-fluid my-1 me-lg-5 me-5 float-end" style="max-width: 150px;"
+					src="assets/images/project_3/ops_cpp_logo.png">
+				<br>
+				<p> 
+					Nearly four decades old, C++ is one of the most widely used general-purpose programming languages. It is highly versatile, utilized in operating systems, video games, internet browsers, embedded software, and more!
+					<br><br>
+					C++ is frequently used in embedded systems programming, especially because it easily interfaces with hardware. You can create and delete data in memory. You also have great awareness and control over where and how the data is stored. This is particularly useful when memory, storage, and processing power are limited. C++ programs can be lightweight and incredibly efficient.
+					<br><br>
+				</p>
+				<h2 class="mb-3">Integrated Development Environment (IDE)</h2>
+				<p class="mb-5">
+					An <b>integrated development environment (IDE)</b> is a suite of applications used for programming. It includes a source-code editor, compiler, debugger, and build automation tools.
+					<br><br>
+					When you create a program, you will write and edit it in the <b>source code editor</b>. Then, you will employ the help of the <b>compiler</b> to convert the source code (C++ for example) to machine code, which is readable by the computer. You may also run a <b>debugger</b> to troubleshoot errors while the program is running. These are all a part of the IDE.
+					<br><br>
+					Popular IDEs include Microsoft Visual Studio, Eclipse, and IntelliJ IDEA. There are plenty more to choose from, some of which are customized to specific programming languages.
+				</p>
+				<h2 class="mb-3">Compilers, Assemblers, and Linkers. Oh My!</h2>
+				<p class="mb-5">
+					You write code in a programming language like C++, but that is not what the computer executes as instructions. The computer sees only 1s and 0s, or binary <b>machine code</b>. So how do we bridge the communication gap between you and the computer? We use a program called a <b>compiler</b> to translate your C++ code into machine language. 
+					<br><br>
+					We tend to use “compiler” as an umbrella term to describe what is actually several programs working together to create machine code. In reality, the <b>compiler</b> turns a high-level language like C++ into assembly code. 
+					<br><br>
+					<b>Assembly language</b> is a low-level programming language based on a computer’s processor. Each assembly statement corresponds directly with a machine instruction or set of instructions. There was a time when most programmers wrote code in assembly language; this is no longer the case.
+					<br><br>
+					The <b>assembler</b> converts the assembly language into machine code. We’re not done, though! One last program called a <b>linker</b>takes the machine code files and “links” them together into an <b>executable file</b>. You might recognize executables as files with the “.exe” extension on Windows. The executable is ultimately what the computer uses to <i>execute</i> your program.
+					<br>
+				</p>
+				<img 
+  					src="assets/images/ops_cpp_diagram.png"
+  					style="max-width: 300px; display: block; margin: 0 auto;"
+					src="assets/images/ops_cpp_diagram.png">
+				<br>
+
+				<h1 class="fw-bold mb-3" id="pj-heading-overview">Concepts</h1>
+				<p class="mb-5">
+					<h3 class="mb-3">Built-in types</h3>
+					<br>
+					<p class="mb-5">
+						We can represent integers with int, truth values with bool, and other types exist too.
+						<br><br><code class="pj-code language-arduino">int a = 5;</code> <br>
+						<br><code class="pj-code language-arduino">bool k = true;</code> <br>
+						<br> “a” is an object/variable of type integer. k is an object/variable of type boolean.
+					<h3 class="mb-3">Variables</h3>
+					<br>
+					<p class="mb-5">
+						Variables point to values or point to other variables.
+						<br><br><code class="pj-code language-arduino">int a = 5;</code> <br>
+						<br> <code class="pj-code language-arduino">int b = a;</code> <br>
+						<br>  variable a holds the value 5. Note that because we declared a as an int, 5 is an int. b points to a, therefore, b points to 5. We can modify the value of a variable.
+						<br><br><code class="pj-code language-arduino">a = 5 + 2;</code> <br>
+						<br> “a” now gets 7. Note that we did not add an int in front of “a” this time, because we already declared “a”.
+					<h3 class="mb-3">Functions</h3>
+					<br>
+					<p class="mb-5">
+						A function has a name and takes as inputs a number of values (could be zero). You define a function with the return type (output type), followed by the function name, followed by the parameters (inputs). After the header, you write the function logic. Ex:
+						<br><code class="pj-code language-arduino"><pre>
+void printName(string name){ #function header
+	cout << “hi ” << name; #print syntax to output console
+} </pre>
+						</code>
+						<br>You call the function like this: <br> <br>
+						<code class="pj-code language-arduino">printName(“bob”)</code>
+						<br>output: “hi bob” <br> <br>
+						Notice that there is no return statement and the return type is void. This is because the function does not output a value. It does print a statement, but that is internal to the function, which does not return anything. Below is an example of a function with a return statement.
+						<br><br><code class="pj-code language-arduino"><pre>
+int square(int val){
+	return val * val;
+}
+						</code></pre>
+						<br> The function takes as input an integer val, and returns (or outputs) the square of val.
+					<br><br>
+						<h3 class="mb-3">Pass by Value vs Pass by Reference</h3>
+					<br>
+					<p class="mb-5">
+						The variable whose value you pass in as the function’s parameter may be modified or not, depending on how you write your function. This can be a difficult idea to understand, so let's see an example.
+						<br><code class="pj-code language-arduino"><pre>
+int squareModify(int & val){
+	return val * val;
+}
+int square(int val){
+	return val * val;
+}
+int main(){
+     int k = 5;
+     cout << k << endl; #k is 5
+     square(k);
+     cout << k << endl; #k is still: 5
+     squareModify(k);
+     cout << k << endl; #k is now: 5
+}
+					
+					</pre></code>
+					<br>What happened? Initially, k is 5. Then you call square, which takes in a copy of k. So when you do val * val you are not squaring k itself, but a copy of it. This is called pass by copy. That’s why k is still 5. But when you call squareModify, its input is a reference to k as denoted by int & val. So, val in squareModify points to k in main. When you square val, you modify k. That's why k becomes 25. This is called pass by reference. <br> <br>
+					</p>
+					<h3 class="mb-3">Conditional Logic</h3>
+					<br>
+					<p class="mb-5">
+					Now, what if we wanted different outputs depending on our function's inputs? An if-else statement does this.
+<code class="pj-code language-arduino"><pre>
+if (condition 1){ 
+	Execute if true
+}
+else
+Execute if condition 1 is false
+				</code></pre>
+
+					You can also have an if-else if-else if-...-else statement to check for multiple conditions.<br><br>
+<code class="pj-code language-arduino"> <pre>
+if (condition 1){ 
+	//Execute if true
+}
+else if (condition 2) {
+	//Execute if condition 2 is true and condition 1 is false
+}
+else 
+	Execute if all is false
+					</code></pre>
+					<br>
+
+					Here's an example used in a function:
+					<br> <br>
+<code class="pj-code language-arduino"> <pre>
+bool isNegative(int k){
+	if (k < 0){
+		return true;
+	}
+	else{
+		return false;
+	}
+} </code>
+</pre> </p>
+					<h3 class="mb-3">User-Defined Types</h3>
+					<br><br>
+					<p class="mb-5">
+						Remember how we talked about built-in types? You can define your own types. EX:
+						<code class="pj-code language-arduino"><pre>
+struct Person {
+    string name;
+    int age;
+
+    // Method inside struct
+    void introduce() {
+        cout << "Hi, I'm " << name << " and I'm " << age << " years old." << endl;
+    }
+};
+
+int main() {
+    Person p1;
+    p1.name = "Alice";
+    p1.age = 25;
+
+    p1.introduce();  // Call the method
+
+    return 0;
+}
+						</pre></code>
+						<br>Variable p1 is of type Person. We also call p1 a Person object. When we define our own type/object, we often assign data fields and member functions to that object. Here, Person has a name and an age. We can access and modify these data fields, which are formally called attributes. p1.name returns the name of p1. A function that you call on an object is called a method. p1.introduce() calls this function. Note that no parameters are needed. name and age are already part of p1 so they are implicit inputs to the function.
+				</p>
+
+				</p>
+				<h1 class="fw-bold mb-3" id="pj-heading-overview">Basic Function Practice</h1><br>
+				<p class="mb-5">
+				Before we get started, you will need to choose an IDE. For this programming guide, any online C++ IDE is fine. You can use this: <a href="https://www.online-ide.com/online_c++_ide">https://www.online-ide.com/online_c++_ide</a>
+				<p class="mb-3">
+					You will write six functions. The requirements for each function are listed below, along with the solutions. Though do your best to come up with the solutions yourself first.
+
+				</p>
+				<p>Copy the following code to serve as a template for the first five practice functions:</p>
+
+<code class="pj-code language-arduino"><pre><br>
+#include <iostream>
+#include <string>
+void echo() {
+	// Write code here
+	// Print something to the console
+}
+bool isEven(int num) {
+	// Write code here
+	return true; // Placeholder
+}
+unsigned pow(unsigned base, unsigned exp) {
+	// Write code here
+	return 0; // Placeholder
+}
+double avg(int arr[], int size) {
+	// Write code here
+	return 0; // Placeholder
+}
+void fib(unsignedint) {
+	// Write code here
+	return; // Placeholder
+}
+void swap(int& num1, int& num2) {
+	// Write code here
+	return; // Placeholder
+}
+int main() {
+	// You can test your functions here
+	return 0;
+}
+<br></code>
+</pre>
+<br><br>
+				<p>
+				<h3 class="mb-3">1. Echo</h3> 
+				<br>
+					<ul><li>Function Header: <code class="pj-code language-arduino">void echo()</code></li>
+					<li>Parameters: None</li>
+					<li>Return: None</li>
+					<li>Description:  <code class="pj-code language-arduino">echo()</code> uses the standard input/output stream. When the function is called, the user types in one text string to the console. The function then prints that identical string back to the console.</li>
+				</p>	
+					</ul>
+                    <details>
+   					<summary>Hint</summary>
+   					<p>
+					<i>These objects may be helpful: cout, cin</i>
+					</p>
+					</details>
+					<br>
+					<details>
+  						<summary>Echo Solution</summary>
+						  <p>
+						<code class="pj-code language-arduino"><pre>
+#include <string>
+#include <iostream>
+using namespace std;
+
+void echo() {
+	string echo;
+	getline(cin, string);
+	cout << string;
+}
+						</pre></code>
+						  </p>
+						  </details>
+					<br>
+					<h3 class="mb-3">2. Even or Odd?</h3> 
+					<br>
+					<ul><li>Function Header: <code class="pj-code language-arduino">bool isEven(int num)	</code></li>
+						<li>Parameters: num (int)</li>
+						<li>Return: bool</li>
+						<li>Description:  isEven() returns true if the parameter num is an even number and false if otherwise. num can be any integer value, negative or positive.
+					</li>
+					<li>Examples:</li> <ul>
+						<li><code class="pj-code language-arduino">isEven(62) : true</code></li>
+						<li><code class="pj-code language-arduino">isEven(3) : false</code></li>
+						<li><code class="pj-code language-arduino">isEven(-2) : true</code></li>
+						<li><code class="pj-code language-arduino">isEven(0) : true</code></li>
+						</ul>
+					</ul>
+					<details>
+  						<summary>Hint 1</summary>
+						<i>When dividing an even number by 2, there is no remainder. However, dividing an odd number by 2 results in a remainder of 1
+						</i>
+					</details>
+					<br>
+					<details>
+  						<summary>Hint 2</summary>
+						<i>The modulus % operator returns the remainder of a division operation.</i>
+					</details>
+					<br>
+					<details>
+  						<summary>Even Odd Solution</summary>
+						<code class="pj-code language-arduino"><pre>
+bool isEven(int num) {
+	if (num % 2 == 0) {
+		return true;
+	} 
+      return false;
+}
+					</code></pre>
+  					</details>
+					</p>
+					<br>
+					<h3 class="mb-3">3. Number Power</h3> 
+					<br> 
+					<ul><li>Function Header: <code class="pj-code language-arduino">unsigned pow2(unsigned base, unsigned exp)</code></li>
+						<li>Parameters: base (unsigned int), exp (unsigned int)</li>
+						<li>Return: unsigned int</li>
+						<li>Description: <code class="pj-code language-arduino">pow2()</code> returns the calculated value of <code class="pj-code language-arduino">base</code> raised to the power of <code class="pj-code language-arduino">exp</code> (i.e. base <sup>exp</sup>). The parameters can only be positive integers.
+						<li>Examples:</li>
+						<ul>
+							<li><code class="pj-code language-arduino">pow2(6, 2) : 36</code></li>
+							<li><code class="pj-code language-arduino">pow2(1, 8) : 1</code></li>
+							<li><code class="pj-code language-arduino">pow2(9, 3) : 729</code></li>
+						</ul> </ul>
+						<br>
+						<details>
+  						<summary>Hint 1</summary>
+						<i>Remember that raising the base to the power of an exponent is the same as multiplying the base by itself the number of times equal to the exponent.
+						</i>
+					</details>
+					<br>
+					<details>
+					<summary>Hint 2</summary>
+					<i>Consider using a for loop.</i>
+					</details>
+					<br>
+					<details>
+  						<summary>Number Power Solution</summary>
+						<code class="pj-code language-arduino"><pre>
+unsigned pow2(unsigned base, unsigned exp) {
+	unsigned num = base;
+	for (int i = 1; i < exp; ++i) {
+		num = num * num;
+	}
+	return num;
+}
+					</code></pre>
+  					</details> <br>
+<h3 class="mb-3">4. Take the Average</h3>
+			<br>
+			<ul><li>Function Header:<code class="pj-code language-arduino">double avg(int arr[], int size)</code></li>
+				<li>Parameters: arr (int array), size (int)</li>
+				<li>Return: double</li>
+				<li>Description: <code class="pj-code language-arduino">avg()</code>returns the mean of the elements in the array <code class="pj-code language-arduino">arr</code>. The array must not be mutated by the function. Its elements may be positive or negative.</li>
+			</ul>
+			<br>
+						<details>
+  						<summary>Hint 1</summary>
+						<i>Recall the <u>formula</u> for calculating the mean of a number set.
+						</i>
+					</details>
+					<br>
+					<details>
+					<summary>Hint 2</summary>
+					<i>Consider using a for loop.</i>
+					</details>
+					<br>
+					<details>
+  						<summary>Take the Average Solution</summary>
+						<code class="pj-code language-arduino"><pre>
+double avg(int arr[], int size) {
+	double sum = 0;
+	for (int i = 0; i < size; ++i) {
+		sum = sum + arr[i];
+	}
+	double average = sum / size;
+	return average;
+}
+					</code></pre>
+  					</details> <br>
+		</p>
+						<h3 class="mb-3">5. Fibonacci Sequence</h3> 
+					<br> 
+					<ul><li>Function Header: <code class="pj-code language-arduino">void fib(unsigned n)</code></li>
+						<li>Parameters: n (unsigned int)</li>
+						<li>Return: None</li>
+						<li>Description: <code class="pj-code language-arduino">fib()</code> prints the first n elements of the Fibonacci sequence to the console. Each element should be separated by a comma and one space. The last element terminates the line without a space or comma. <code class="pj-code language-arduino">n > 0</code></li>
+						<li>Examples:</li>
+						<ul>
+							<li><code class="pj-code language-arduino">fib(1) : 1</code></li>
+							<li><code class="pj-code language-arduino">fib(4) : 1, 1, 2, 3</code></li>
+						</ul> </ul>
+						<br>
+						<details>
+  						<summary>Hint 1</summary>
+						<i>Recall the <u>pattern</u> of the Fibonacci Sequence.
+						</i>
+					</details>
+					<br>
+					<details>
+					<summary>Hint 2</summary>
+					<i>Consider using a for loop.</i>
+					</details>
+					<br>
+<details>
+  						<summary>Fibonacci Sequence Solution</summary>
+						<code class="pj-code language-arduino"><pre>
+void fib(unsigned n) {
+    int a = 0;
+    int b = 1;
+    if (n == 0) {
+        return;
+    } else if (n == 1) {
+        cout << a;
+    } else if (n == 2) {
+        cout << a << ", " << b;
+    } else {
+        cout << a << ", " << b << ", ";
+        for (int i = 2; i < n; ++i) {
+            int temp = b;
+            b = a + b;
+            a = temp;
+            cout << b;
+            if (i < n-1) {
+                cout << ", ";
+            }
+            
+        }
+    }
+}
+					</code></pre>
+  					</details>
+					<br>
+					<h3 class="mb-3">6. Swap Integers</h3> 
+					<br> 
+					<ul><li>Function Header: <code class="pj-code language-arduino">void swap(int& num1, int& num2)</code></li>
+						<li>Parameters: num1 (int&), num2 (int&)</li>
+						<li>Return: None</li>
+						<li>Description: <code class="pj-code language-arduino">swap()</code> switches the value of two variables. The parameters can only be references to integers.</li>
+						<li>Example:</li>
+						<ul>
+							<li><code class="pj-code language-arduino"> <pre>
+int x = 1;
+int y = 5;
+swap(x, y);
+// x should be 5
+// y should be 1
+</pre></code></li>
+						</ul> </ul>
+						<details>
+  						<summary>Hint 1</summary>
+						<i>Use int assignment operator =
+						</i>
+					</details>
+					<br> <details>
+					<summary>Swap Integers Solution</summary>
+					<code class="pj-code language-arduino"> <pre>
+void swap(int& a, int& b) {
+    int temp = a;
+    a = b;
+    b = temp;
+}
+
+</code></pre>
+
+					<hr> <br>
+					
+
+			</div>
+			</main>
+		</div>
+	<!-- ======= Footer ======= -->
+	<script src="./js/ops_footer.js"></script>
+	<!-- End Footer -->
+</body>
+
+</html>
