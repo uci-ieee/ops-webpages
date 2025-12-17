@@ -117,43 +117,43 @@
 					<br>
 					<p class="mb-5">
 						We can represent integers with int, truth values with bool, and other types exist too.
-						<br><br><code>a = 5;</code> <br>
-						<br><code>bool k = true;</code> <br>
+						<br><br><code class="pj-code language-arduino">a = 5;</code> <br>
+						<br><code class="pj-code language-arduino">bool k = true;</code> <br>
 						<br> “a” is an object/variable of type integer. k is an object/variable of type boolean.
 					<h3 class="mb-3">Variables</h3>
 					<br>
 					<p class="mb-5">
 						Variables point to values or point to other variables.
-						<br><br><code>int a = 5;</code> <br>
-						<br> <code>int b = a;</code> <br>
+						<br><br><code class="pj-code language-arduino">int a = 5;</code> <br>
+						<br> <code class="pj-code language-arduino">int b = a;</code> <br>
 						<br>  variable a holds the value 5. Note that because we declared a as an int, 5 is an int. b points to a, therefore, b points to 5. We can modify the value of a variable.
-						<br><br><code>a = 5 + 2;</code> <br>
+						<br><br><code class="pj-code language-arduino">a = 5 + 2;</code> <br>
 						<br> “a” now gets 7. Note that we did not add an int in front of “a” this time, because we already declared “a”.
 					<h3 class="mb-3">Functions</h3>
 					<br>
 					<p class="mb-5">
 						A function has a name and takes as inputs a number of values (could be zero). You define a function with the return type (output type), followed by the function name, followed by the parameters (inputs). After the header, you write the function logic. Ex:
-						<br><code><pre>
+						<br><code class="pj-code language-arduino"><pre>
 void printName(string name){ #function header
 	cout << “hi ” << name; #print syntax to output console
 } </pre>
 						</code>
 						<br>You call the function like this: <br> <br>
-						<code>printName(“bob”)</code>
+						<code class="pj-code language-arduino">printName(“bob”)</code>
 						<br>output: “hi bob” <br> <br>
 						Notice that there is no return statement and the return type is void. This is because the function does not output a value. It does print a statement, but that is internal to the function, which does not return anything. Below is an example of a function with a return statement.
-						<br><br><code><pre>
+						<br><br><code class="pj-code language-arduino"><pre>
 int square(int val){
 	return val * val;
 }
-						</pre> </code>
-						<br><br> The function takes as input an integer val, and returns (or outputs) the square of val.
+						</code></pre>
+						<br> The function takes as input an integer val, and returns (or outputs) the square of val.
 					<br><br>
 						<h3 class="mb-3">Pass by Value vs Pass by Reference</h3>
 					<br>
 					<p class="mb-5">
 						The variable whose value you pass in as the function’s parameter may be modified or not, depending on how you write your function. This can be a difficult idea to understand, so let's see an example.
-						<br><code><pre>
+						<br><code class="pj-code language-arduino"><pre>
 int squareModify(int & val){
 	return val * val;
 }
@@ -176,13 +176,14 @@ int main(){
 					<br>
 					<p class="mb-5">
 					Now, what if we wanted different outputs depending on our function's inputs? An if-else statement does this.
-<code class="pj-code language-arduino"> <pre>
+<code class="pj-code language-arduino"><pre>
 if (condition 1){ 
 	Execute if true
 }
 else
-	Execute if condition 1 is false
-					</pre></code>
+Execute if condition 1 is false
+				</code></pre>
+
 					You can also have an if-else if-else if-...-else statement to check for multiple conditions.<br><br>
 <code class="pj-code language-arduino"> <pre>
 if (condition 1){ 
@@ -192,9 +193,10 @@ else if (condition 2) {
 	//Execute if condition 2 is true and condition 1 is false
 }
 else 
-	//Execute if all is false
-					</pre></code>
-					
+	Execute if all is false
+					</code></pre>
+					<br>
+
 					Here's an example used in a function:
 					<br> <br>
 <code class="pj-code language-arduino"> <pre>
@@ -245,7 +247,7 @@ int main() {
 				</p>
 				<p>Copy the following code to serve as a template for the first five practice functions:</p>
 
-<code class="pj-code language-arduino"><pre><br
+<code class="pj-code language-arduino"><pre><br>
 #include <iostream>
 #include <string>
 void echo() {
@@ -276,16 +278,16 @@ int main() {
 	// You can test your functions here
 	return 0;
 }
-<br>
-</pre></code>
+<br></code>
+</pre>
 <br><br>
 				<p>
 				<h3 class="mb-3">1. Echo</h3> 
 				<br>
-					<ul><li>Function Header: <code>void echo()</code></li>
+					<ul><li>Function Header: <code class="pj-code language-arduino">void echo()</code></li>
 					<li>Parameters: None</li>
 					<li>Return: None</li>
-					<li>Description:  <code>echo()</code> uses the standard input/output stream. When the function is called, the user types in one text string to the console. The function then prints that identical string back to the console.</li>
+					<li>Description:  <code class="pj-code language-arduino">echo()</code> uses the standard input/output stream. When the function is called, the user types in one text string to the console. The function then prints that identical string back to the console.</li>
 				</p>	
 					</ul>
                     <details>
@@ -314,16 +316,16 @@ void echo() {
 					<br>
 					<h3 class="mb-3">2. Even or Odd?</h3> 
 					<br>
-					<ul><li>Function Header: <code>bool isEven(int num)	</code></li>
+					<ul><li>Function Header: <code class="pj-code language-arduino">bool isEven(int num)	</code></li>
 						<li>Parameters: num (int)</li>
 						<li>Return: bool</li>
 						<li>Description:  isEven() returns true if the parameter num is an even number and false if otherwise. num can be any integer value, negative or positive.
 					</li>
 					<li>Examples:</li> <ul>
-						<li><code>isEven(62) : true</code></li>
-						<li><code>isEven(3) : false</code></li>
-						<li><code>isEven(-2) : true</code></li>
-						<li><code>isEven(0) : true</code></li>
+						<li><code class="pj-code language-arduino">isEven(62) : true</code></li>
+						<li><code class="pj-code language-arduino">isEven(3) : false</code></li>
+						<li><code class="pj-code language-arduino">isEven(-2) : true</code></li>
+						<li><code class="pj-code language-arduino">isEven(0) : true</code></li>
 						</ul>
 					</ul>
 					<details>
@@ -346,21 +348,21 @@ bool isEven(int num) {
 	} 
       return false;
 }
-					</pre></code>
+					</code></pre>
   					</details>
 					</p>
 					<br>
 					<h3 class="mb-3">3. Number Power</h3> 
 					<br> 
-					<ul><li>Function Header: <code>unsigned pow2(unsigned base, unsigned exp)</code></li>
+					<ul><li>Function Header: <code class="pj-code language-arduino">unsigned pow2(unsigned base, unsigned exp)</code></li>
 						<li>Parameters: base (unsigned int), exp (unsigned int)</li>
 						<li>Return: unsigned int</li>
-						<li>Description: <code>pow2()</code> returns the calculated value of <code>base</code> raised to the power of <code>exp</code> (i.e. base <sup>exp</sup>). The parameters can only be positive integers.
+						<li>Description: <code class="pj-code language-arduino">pow2()</code> returns the calculated value of <code class="pj-code language-arduino">base</code> raised to the power of <code class="pj-code language-arduino">exp</code> (i.e. base <sup>exp</sup>). The parameters can only be positive integers.
 						<li>Examples:</li>
 						<ul>
-							<li><code>ppow2(6, 2) : 36</code></li>
-							<li><code>pow2(1, 8) : 1</code></li>
-							<li><code>pow2(9, 3) : 729</code></li>
+							<li><code class="pj-code language-arduino">pow2(6, 2) : 36</code></li>
+							<li><code class="pj-code language-arduino">pow2(1, 8) : 1</code></li>
+							<li><code class="pj-code language-arduino">pow2(9, 3) : 729</code></li>
 						</ul> </ul>
 						<br>
 						<details>
@@ -384,14 +386,14 @@ unsigned pow2(unsigned base, unsigned exp) {
 	}
 	return num;
 }
-					</pre></code>
+					</code></pre>
   					</details> <br>
 <h3 class="mb-3">4. Take the Average</h3>
 			<br>
-			<ul><li>Function Header:<code>double avg(int arr[], int size)</code></li>
+			<ul><li>Function Header:<code class="pj-code language-arduino">double avg(int arr[], int size)</code></li>
 				<li>Parameters: arr (int array), size (int)</li>
 				<li>Return: double</li>
-				<li>Description: <code>avg()</code>returns the mean of the elements in the array <code>arr</code>. The array must not be mutated by the function. Its elements may be positive or negative.</li>
+				<li>Description: <code class="pj-code language-arduino">avg()</code>returns the mean of the elements in the array <code class="pj-code language-arduino">arr</code>. The array must not be mutated by the function. Its elements may be positive or negative.</li>
 			</ul>
 			<br>
 						<details>
@@ -416,19 +418,19 @@ double avg(int arr[], int size) {
 	double average = sum / size;
 	return average;
 }
-					</pre></code>
+					</code></pre>
   					</details> <br>
 		</p>
 						<h3 class="mb-3">5. Fibonacci Sequence</h3> 
 					<br> 
-					<ul><li>Function Header: <code>void fib(unsigned n)</code></li>
+					<ul><li>Function Header: <code class="pj-code language-arduino">void fib(unsigned n)</code></li>
 						<li>Parameters: n (unsigned int)</li>
 						<li>Return: None</li>
-						<li>Description: <code>fib()</code> prints the first n elements of the Fibonacci sequence to the console. Each element should be separated by a comma and one space. The last element terminates the line without a space or comma. <code>n > 0</code></li>
+						<li>Description: <code class="pj-code language-arduino">fib()</code> prints the first n elements of the Fibonacci sequence to the console. Each element should be separated by a comma and one space. The last element terminates the line without a space or comma. <code class="pj-code language-arduino">n > 0</code></li>
 						<li>Examples:</li>
 						<ul>
-							<li><code>fib(1) : 1</code></li>
-							<li><code>fib(4) : 1, 1, 2, 3</code></li>
+							<li><code class="pj-code language-arduino">fib(1) : 1</code></li>
+							<li><code class="pj-code language-arduino">fib(4) : 1, 1, 2, 3</code></li>
 						</ul> </ul>
 						<br>
 						<details>
@@ -468,18 +470,18 @@ void fib(unsigned n) {
         }
     }
 }
-					</pre></code>
+					</code></pre>
   					</details>
 					<br>
 					<h3 class="mb-3">6. Swap Integers</h3> 
 					<br> 
-					<ul><li>Function Header: <code>void swap(int& num1, int& num2)</code></li>
+					<ul><li>Function Header: <code class="pj-code language-arduino">void swap(int& num1, int& num2)</code></li>
 						<li>Parameters: num1 (int&), num2 (int&)</li>
 						<li>Return: None</li>
-						<li>Description: <code>swap()</code> switches the value of two variables. The parameters can only be references to integers.</li>
+						<li>Description: <code class="pj-code language-arduino">swap()</code> switches the value of two variables. The parameters can only be references to integers.</li>
 						<li>Example:</li>
 						<ul>
-							<li><code> <pre>
+							<li><code class="pj-code language-arduino"> <pre>
 int x = 1;
 int y = 5;
 swap(x, y);
@@ -494,12 +496,42 @@ swap(x, y);
 					</details>
 					<br> <details>
 					<summary>Swap Integers Solution</summary>
-						<code class="pj-code language-arduino"><pre>
+					<code class="pj-code language-arduino"> <pre>
 void swap(int& a, int& b) {
     int temp = a;
     a = b;
     b = temp;
 }
+
+</code></pre>
+  					</details>
+					<hr>
+					<p>Copy the following code to serve as a template for the first six practice functions:</p>
+
+<code class="pj-code language-arduino"><pre>
+#include <iostream>
+#include <string>
+void echo() {
+	// Write code here
+	// Print something to the console
+}
+bool isEven(int num) {
+	// Write code here
+	return true; // Placeholder
+}
+unsigned pow(unsigned base, unsigned exp) {
+	// Write code here
+	return 0; // Placeholder
+}
+double avg(int arr[], int size) {
+	// Write code here
+	return 0; // Placeholder
+}
+void fib(unsignedint) {
+	// Write code here
+	return; // Placeholder
+}
+</code></pre>
 					</pre></code>
   					</details> <br>
 					<hr> <br>
