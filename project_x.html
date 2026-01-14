@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-bs-theme="light">
+
+<head>
+	<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+	<!--Title-->
+	<title>Open Project Space</title>
+	<!--Favicon-->
+	<link rel="icon" href="./assets/images/ops_logo_favicon.png">
+	<!--Roboto Font CDN-->
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto" rel="stylesheet">
+	<!--Beckman Font CDN-->
+	<link href="https://fonts.cdnfonts.com/css/beckman" rel="stylesheet">
+	<!-- Custom Stylesheet "custom.css" used for Bootstrap 5.3.0 css-->
+	<link rel="stylesheet" href="./css/custom.css" type="text/css">
+	<!-- Popper JS v2.11.8 (Bootstrap Dependency) CDN -->
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+	integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+	crossorigin="anonymous"></script>
+	<!-- Bootstrap JS v5.3.0 CDN -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+	integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
+	crossorigin="anonymous"></script>
+	<!-- Bootstrap Icons CSS v1.10.0 CDN-->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+	<!-- Highlight JS v11.7.0-->
+	<link rel="stylesheet" href="./css/highlight.js/default.min.css" type="text/css">
+	<link rel="stylesheet" href="./css/highlight.js/arduino-light.min.css" type="text/css">
+	<script src="./js/highlight.min.js"></script>
+	<script>hljs.highlightAll();</script>
+</head>
+
+
+<body style="">
+	<script src="./js/ops_header.js"></script>
+
+	<div class="container-xl pj-layout my-5">
+
+		<aside class="pj-sidebar ">
+			<nav id="project-toc" class="pj-toc d-flex flex-column px-2 pt-2 pb-4">
+					<ul class="nav flex-column">
+						<h5 class="mt-2 mb-2 mx-3">Contents</h5>
+						<li class="nav-item">
+							<a class="nav-link" href="#pj-heading-introduction">Overview</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#pj-heading-software">Software Installations</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#pj-heading-instructions">Instructions</a>
+						</li>
+					</ul>
+			</nav>
+		</aside>
+
+		<main class="pj-main p-3" data-bs-spy="scroll" data-bs-target="#project-toc" data-bs-root-margin="0px 0px -40%"
+			data-bs-smooth-scroll="true" tabindex="0">
+			<div class="pj-content">
+			<div class="d-flex flex-row justify-content-between mb-5">
+				<div class="">
+					<h4>Project X</h4>
+					<h1 class="fw-bold">Etch A Sketch</h1>
+				</div>
+				<div class="alert alert-light" role="alert">
+					<i class="bi bi-calendar-event me-1"></i>
+					Updated 2025.12.18 <br>
+					By Zicong Yu 
+				</div>
+			</div>
+
+			
+			<h2 class="mb-3 fw-bold" id="pj-heading-introduction">Overview</h2>
+			<p class="mb-3">
+				There always come a time in life where you choose to challange yourself and this is exactly how you can do so! This project is
+				completely optional, please don't feel that you have to complete this. For those who want a tough challange please attempt this!
+			</p>
+			<p class="mb-5">
+				<img class="img-fluid my-3 me-lg-5 me-3 float-end" style="max-width: 200px;"
+						src="assets\images\parts\ops_part_led_display.jpg"> 
+				This project utilizes a 128x64 LED display to display individual pixels much like your computer monitors. 
+				The idea of this project
+				is to utilize the parts we own and research how to complete such a project.
+				We want to be able to make a Etch A Sketch from scratch so when you
+				think about it, what parts do we need? There will be minimal guidance as engineering typically doesn't layout the pieces for you to 
+				build, you must also find those pieces too!
+			</p>
+
+			<br><br><br><br>
+
+			<img class="pj-img-fluid-end" src="assets\images\project_x_libraries.png" width="200">
+			<h2 class="mb-3 fw-bold" id="pj-heading-software">Software Installations</h2>
+			<h3 class="mb-3">Adafruit Libraries</h3>
+			<p>
+				These are the two libraries you need to make the LED display work correctly. Make sure to install the latest version.
+				The correct ones are the ones made by Adafruit and makes sure its LSM6DS and SSD1306. You can find these on the library 
+				manager tab and clicking install.
+			</p>
+
+
+			<br><br><br><br><br>
+			<br><br><br><br><br>
+
+			<img class="pj-img-fluid-end" src="assets\images\project_x_etch_a_sketch.gif" width="200">
+			<h2 class="mb-3 fw-bold" id="pj-heading-instructions">Instructions</h2>
+			<p class="mb-3">
+				What is an Etch A Sketch? Its a kids toy where you draw things using two dials that control a cursor of sorts where one dial 
+				changes the horizontal position while the other the vertical position. This should give you a strong hint on what tool should 
+				be used here. On top of the basic function of an Etch A Sketch, make a simple button to reset the sketch clearing the board. 
+			</p>
+			<p class="mb-2">
+				A much more difficult project which is also doable with the same LED display is making the google dinosaur game jumping over 
+				small obstacles and making a scoring system. You can think of another idea you can use the LED screen for and create that as well!
+				Challenge yourself beyond what's provided on the website and make your own cool ideas!
+			</p>
+			<br><br><br>
+			<div class="alert alert-info mt-2" role="alert">
+				Below are the library and functions that <strong>might</strong> be useful
+			</div>
+
+
+<pre class="mt-3" style="white-space: pre-wrap;"><code class="pj-code language-arduino">#include &lt;Wire.h&gt;
+#include &lt;Adafruit_GFX.h&gt;
+#include &lt;Adafruit_SSD1306.h&gt;
+
+#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 64
+#define OLED_RESET -1
+
+#define I2C_SDA 6  // Custom SDA pin (GPIO6 on ESP32)
+#define I2C_SCL 7  // Custom SCL pin (GPIO7 on ESP32)
+
+TwoWire myWire = TwoWire(0);  // Use hardware I2C bus 0
+
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &myWire, OLED_RESET);
+
+void setup() {
+	display.clearDisplay();
+	display.setTextColor(SSD1306_WHITE);
+	Serial.begin(115200);
+}
+						
+void loop() {
+	display.drawPixel(xVal, yVal, SSD1306_WHITE); //Draws a pixel at (xVal, yVal)
+	display.fillRect(xVal,yVal, width, height, color); //Draw a rectangle starting at the bottom left (xVal, yVal)
+  	display.display(); //Displays pixel
+}
+</code></pre>
+
+
+</div>
+</div>
+	<script src="./js/ops_footer.js"></script>
+</body>
+
+</html>
