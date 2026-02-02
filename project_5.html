@@ -135,8 +135,8 @@
 				</div>
 				<div class="alert alert-light" role="alert">
 					<i class="bi bi-calendar-event me-1"></i>
-					Updated 2025.01.10 <br>
-					By Zicong Yu
+					Updated 2026.01.12 <br>
+					By Patrick Cabanban
 				</div>
 			</div>
 
@@ -161,6 +161,60 @@
                 <strong>asynchronously</strong>, so there is no clock to time when packets are transmitted or received.
 			</p>
 			<img class="pj-img-fluid mx-auto mb-5" src="./assets/images/project_5/ops_project_5_uart_explanation.png" width = "500">
+
+			<h4 class="mb-3 fw-light" id="pj-heading-concepts">Quick Overview: What is UART, and How UART Works</h4>
+			<p class="mb-3">
+				UART is a hardware component (either a circuit on a microcontroller or an Integrated Circuit) that converts parallel data to serial data for transmission, 
+				and converts a received signal from serial data back to parallel data.  
+			</p>
+			<div style= "text-align: center;" class="mb-3">
+				<img class="img-fluid my-3 me-5"
+					src="assets/images/project_5/ops_project_5_UART_DataBus.png" width = "700">
+			</div>
+			<p class="mb-3">
+				Because Uart communication is asynchronous, the protocol for serial data communication is to transmit the data segments as packets. Each packet contains:
+			</p>
+			<ol class="mb-5 list-group list-group">
+				<li class="list-group-item"><strong>1 Start Bit</strong>: The data transmission line is typically held at a high voltage when no transmission is occuring. When the transmitting device is ready to send data, the start bit is pulled from high to low (1 to 0) for one clock cycle. The receiving UART device begins reading data when it detects the high to low voltage transition.</li>
+				<li class="list-group-item"><strong>The Data Frame</strong>: The actual data that’s transmitted! It is 5 to 9 bits of data, depending on whether or not the parity bit is used.</li>
+				<li class="list-group-item"><strong>The Parity Bit</strong> (0 or 1 bit used): The “error check” of the packet. The parity bit is used to describe the "evenness" of the data. In other words, the parity bit checks the total number of 1’s in the data frame. If the total number of 1’s in the data frame is even, the parity bit should be an even number (in case of bits, a zero [0]). If the total number of 1’s in the data frame is odd, the parity bit should be an odd number (a one [1]). If there is a mismatch between the parity bit and the total number of 1’s in the data frame, the UART can recognize that data as corrupted and discard the bad frame. If necessary, the parity bit can be used as a 9th bit for data transmission, at the expense of the error check.</li>
+				<li class="list-group-item"><strong>The Stop Bit</strong> (1 to 2 bits): The transmitting UART completes its data transmission by setting the transmission line from a low to high voltage for at least 1 to 2 clock cycles.</li>
+			</ol>
+			<div style= "text-align: center;" class="mb-3">
+				<img class="img-fluid my-3 me-5"
+					src="assets/images/project_5/ops_project_5_packet_diagram.png" width = "700">
+			</div>
+			<h4 class="mb-3 fw-light" id="pj-heading-concepts">Steps: How UART Transmits:</h4>
+			<ol class="mb-5 list-group list-group-numbered">
+				<li class="list-group-item">The transmitting UART receives data in parallel from the data bus: 
+					<div style= "text-align: center;" class="mb-3">
+						<img class="img-fluid my-3 me-5"
+							src="assets/images/project_5/ops_project_5_UART_DataBus2.png" width = "200">
+						</div></li>
+				<li class="list-group-item">The transmitting UART adds the start bit, parity bit, and the stop bit(s) to the data frame:
+					<div style= "text-align: center;" class="mb-3">
+						<img class="img-fluid my-3 me-5"
+							src="assets/images/project_5/ops_project_5_transmitting_UART.png" width = "350">
+						</div></li>
+				<li class="list-group-item">The entire packet is sent serially from the transmitting UART to the receiving UART. The receiving UART samples the data line at the pre-configured baud rate:
+					<div style= "text-align: center;" class="mb-3">
+						<img class="img-fluid my-3 me-5"
+							src="assets/images/project_5/ops_project_5_UART_DataBus3.png" width = "350">
+						</div></li>
+				<li class="list-group-item">The receiving UART discards the start bit, parity bit, and stop bit from the data frame:
+					<div style= "text-align: center;" class="mb-3">
+						<img class="img-fluid my-3 me-5"
+							src="assets/images/project_5/ops_project_5_receiving_UART.png" width = "350">
+						</div></li>
+				<li class="list-group-item">The receiving UART converts the serial data back into parallel and transfers it to the data bus on the receiving end:
+					<div style= "text-align: center;" class="mb-3">
+						<img class="img-fluid my-3 me-5"
+							src="assets/images/project_5/ops_project_5_UART_DataBus4.png" width = "200">
+						</div></li>
+			</ol>
+			<p class="mb-3">
+				Why do we care? Beyond our project, this is a fairly common protocol that is well documented, has a built-in error check, uses only two wires, needs no clock, and the structure of the packet can be changed to meet the project needs. This is still a commonly used protocol, and you may get interviewed on UART. While you don’t need to be an expert on this or future protocols we review, it is worthwhile familiarizing yourself with the protocol for possible internship and job opportunities!
+			</p><br>
 
 
 			<h4 class="mb-3 fw-light">Serial Communication with ESP32</h4>

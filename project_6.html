@@ -53,6 +53,9 @@
 
 						<ul class="nav">
 							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-photoresistor">Photoresistor</a>
+							</li>
+							<li class="nav-item">
 								<a class="nav-link" href="#pj-heading-aht20">AHT20 Sensor</a>
 							</li>
 							<li class="nav-item">
@@ -156,6 +159,30 @@
 				file so that your
 				code compiles correctly.
 			</p>
+
+			<h3 class="mb-3" id="pj-heading-photoresistor">Photoresistor</h3>
+				<p>
+					A <strong>photoresistor</strong> is a type of resistor that changes its resistance based on the amount 
+					of light it is exposed to. This is possible because it is made of a semiconductor material 
+					that becomes more electrically conductive as it absorbs electromagnetic radiation such as 
+					visible light. It offers a simple and effective way to measure light levels and use that data in various projects.
+				</p>
+				<img class="pj-img-fluid mx-auto mb-5" 
+					src="./assets/images/project_4_new/ops_project_4_photoresistor.png" width=450>
+				
+				
+				<h3 class="mb-3 fw-light">Using it with ESP32</h3>
+				<div class="mb-3">
+				<p class>
+					Like a normal resistor, the photoresistor has no polarity and can be connected both ways. We can connect the photoresistor in series
+					with a normal resistor to create a <strong>voltage divider</strong> at the node between the photoresistor and the normal resistor. The voltage would vary based on the light level,
+					and by connecting that node to one of the ESP32’s <strong>analog-to-digital converters (ADC)</strong> with a jumper wire,
+					we can translate the analog signal into a discrete integer value in the range of <code class="pj-code language-arduino">0-4095</code> using <code class="pj-code language-arduino">analogRead()</code>.
+				</p>
+				<img class="pj-img-fluid mx-auto mb-5" 
+				src="./assets/images/project_4_new/ops_project__4_photoresistor_schem.png" width=550>
+				</div>
+
 
 			<table class="table pj-download-table mb-5">
 				<tbody>
