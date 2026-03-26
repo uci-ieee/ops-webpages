@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-bs-theme="light">
+
+<head>
+	<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+	<!--Title-->
+	<title>Open Project Space</title>
+	<!--Favicon-->
+	<link rel="icon" href="./assets/images/ops_logo_favicon.png">
+	<!--Roboto Font CDN-->
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto" rel="stylesheet">
+	<!--Beckman Font CDN-->
+	<link href="https://fonts.cdnfonts.com/css/beckman" rel="stylesheet">
+	<!-- Custom Stylesheet "custom.css" used for Bootstrap 5.3.0 css-->
+	<link rel="stylesheet" href="./css/custom.css" type="text/css">
+	<!-- Popper JS v2.11.8 (Bootstrap Dependency) CDN -->
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+	integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+	crossorigin="anonymous"></script>
+	<!-- Bootstrap JS v5.3.0 CDN -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+	integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
+	crossorigin="anonymous"></script>
+	<!-- Bootstrap Icons CSS v1.10.0 CDN-->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+	<!-- Highlight JS v11.7.0-->
+	<link rel="stylesheet" href="./css/highlight.js/default.min.css" type="text/css">
+	<link rel="stylesheet" href="./css/highlight.js/arduino-light.min.css" type="text/css">
+	<script src="./js/highlight.min.js"></script>
+	<script>hljs.highlightAll();</script>
+</head>
+
+
+<body>
+	<script src="./js/ops_header.js"></script>
+
+	<div class="container-xl pj-layout my-5">
+
+		<aside class="pj-sidebar">
+			<nav id="project-toc" class="pj-toc d-flex flex-column px-2 pt-2 pb-4">
+				<ul class="nav flex-column">
+					<h5 class="mt-2 mb-2 mx-3">Contents</h5>
+					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-overview">Overview</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-parts">Parts</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-instructions">Instructions</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#pj-heading-code">Code Tips</a>
+					</li>
+				</ul>
+			</nav>
+		</aside>
+
+		<main class="pj-main p-3" data-bs-spy="scroll" data-bs-target="#project-toc" data-bs-root-margin="0px 0px -40%"
+			data-bs-smooth-scroll="true" tabindex="0">
+			<div class="pj-content">
+
+			<div class="d-flex flex-row justify-content-between mb-5">
+				<div>
+					<h4>Project Y</h4>
+					<h1 class="fw-bold">Pomodoro Timer</h1>
+				</div>
+				<div class="alert alert-light" role="alert">
+					<i class="bi bi-calendar-event me-1"></i>
+					Updated 2026.03.25 <br>
+					By Zicong Yu
+				</div>
+			</div>
+
+
+			<h2 class="mb-3 fw-bold" id="pj-heading-overview">Overview</h2>
+			<p class="mb-3">
+				The Pomodoro Technique is a popular time management method where you work in focused intervals 
+				(traditionally 25 minutes) separated by short breaks. In this project, you will build a physical
+				Pomodoro timer using an ESP32, a 7-segment display for the countdown, an OLED or LCD screen to
+				track completed intervals, a buzzer to signal when time is up, and two pushbuttons to control
+				the timer.
+			</p>
+			<p class="mb-5">
+				This project combines several skills: reading button input, managing timer state (running, paused,
+				reset), driving two different display types at the same time, and producing audio feedback with the
+				buzzer. Pay close attention to how the buttons behave differently depending on what the timer is
+				currently doing this kind of context-sensitive input logic is common in real embedded systems.
+			</p>
+
+
+			<h2 class="mb-3 fw-bold" id="pj-heading-parts">Parts</h2>
+
+			<!-- ======= Part Table ======= -->
+			<table class="table pj-part-table mb-5">
+				<thead>
+					<tr>
+						<th scope="col">Part Name</th>
+						<th scope="col">Qty</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							<a class="pj-part"
+								data-bs-content="<img src='assets/images/parts/ops_part_esp32c3fxh4.jpg' height='150px' width='auto'>"
+								data-bs-trigger="hover focus" data-bs-toggle="popover" tabindex="0">
+								ESP32
+							</a>
+						</td>
+						<td>1</td>
+					</tr>
+					<tr>
+						<td>Breadboard</td>
+						<td>1</td>
+					</tr>
+					<tr>
+						<td>
+							<a class="pj-part"
+								data-bs-content="<img src='assets/images/parts/ops_part_tactileSwitch.png' height='150px' width='auto'>"
+								data-bs-trigger="hover focus" data-bs-toggle="popover" tabindex="0">
+								Switch, Tactile
+							</a>
+						</td>
+						<td>2</td>
+					</tr>
+					<tr>
+						<td>
+							<a class="pj-part"
+								data-bs-content="<img src='assets/images/parts/ops_part_buzzer.webp' height='150px' width='auto'>"
+								data-bs-trigger="hover focus" data-bs-toggle="popover" tabindex="0">
+								Piezo Buzzer, 1.5V
+							</a>
+						</td>
+						<td>1</td>
+					</tr>
+					<tr>
+						<td>
+							<a class="pj-part"
+								data-bs-content="<img src='assets/images/project_7/ops_TM1637_physical.png' height='150px' width='auto'>"
+								data-bs-trigger="hover focus" data-bs-toggle="popover" tabindex="0">
+								TM1637, 7 Segment Display
+							</a>
+						</td>
+						<td>1</td>
+					</tr>
+					<tr>
+						<td>
+							<a class="pj-part"
+								data-bs-content="<img src='assets/images/parts/ops_part_lcd_i2c_backpack.png' height='150px' width='auto'>"
+								data-bs-trigger="hover focus" data-bs-toggle="popover" tabindex="0">
+								LCD with I2C Backpack <em>or</em> OLED Display
+							</a>
+						</td>
+						<td>1</td>
+					</tr>
+				</tbody>
+			</table>
+			<!-- End Part Table -->
+
+
+			<h2 class="mb-3 fw-bold" id="pj-heading-instructions">Instructions</h2>
+			<p class="mb-3">
+				Build a Pomodoro timer with two buttons and two displays according to the specifications below.
+			</p>
+
+			<h3 class="mb-2">Buttons</h3>
+			<ul class="list-group mb-4">
+				<li class="list-group-item">
+					<strong>Reset / Increment button —</strong> When the timer is at 0 and stopped, each press
+					increments the timer by 5 minutes. Use <strong>10 seconds</strong> for your submission video
+					so the recording isn't too long. When the timer is running <em>or</em> paused, pressing this
+					button immediately resets the timer back to 0 and stops it.
+				</li>
+				<li class="list-group-item">
+					<strong>Start / Pause button —</strong> Starts the countdown if there is time remaining.
+					If already counting down, pressing it pauses; pressing again resumes from where it left off.
+				</li>
+			</ul>
+
+			<h3 class="mb-2">Displays</h3>
+			<ul class="list-group mb-4">
+				<li class="list-group-item">
+					<strong>TM1637 7-Segment Display</strong> — Shows the remaining time in MM:SS format with
+					the colon separator lit.
+				</li>
+				<li class="list-group-item">
+					<strong>OLED / LCD</strong> — Shows how many Pomodoro intervals have been completed. This
+					number increases by 1 every time the countdown reaches 0.
+				</li>
+			</ul>
+
+			<h3 class="mb-2">Buzzer</h3>
+			<p class="mb-4">
+				When the countdown reaches 0, briefly sound the buzzer to alert the user that the interval is
+				complete.
+			</p>
+
+			<h3 class="mb-2">Deliverables</h3>
+			<div class="alert alert-warning" role="alert">
+				Record a single video demonstrating all three of the following in order:
+			</div>
+			<ol class="mb-5 list-group list-group-numbered">
+				<li class="list-group-item">
+					Press the <strong>reset/increment button</strong> to increment the timer by 10 seconds.
+				</li>
+				<li class="list-group-item">
+					Press the <strong>start/pause button</strong> to begin the countdown, then interrupt it by
+					pressing the <strong>reset/increment button</strong> to reset the timer to 0.
+				</li>
+				<li class="list-group-item">
+					Increment the timer again by 10 seconds, let it count all the way to 0, and show that the
+					<strong>interval counter on the second display has increased by 1</strong>.
+				</li>
+			</ol>
+
+
+			<h2 class="mb-3 fw-bold" id="pj-heading-code">Code Tips</h2>
+			<p class="mb-4">
+				Some parts of this project are less intuitive than others. The sections below provide relevant
+				functions and hints — figure out how to put the pieces together yourself!
+			</p>
+
+			<!-- ── Buttons ──────────────────────────────────────────────────── -->
+			<h3 class="mb-2">Buttons</h3>
+			<p class="mb-2">
+				Wire each button between a GPIO pin and GND, then enable the internal pull-up resistor so the
+				pin reads <code class="pj-code language-arduino">HIGH</code> at rest and
+				<code class="pj-code language-arduino">LOW</code> when pressed.
+			</p>
+			<p class="mb-2">
+				<code class="pj-code language-arduino">pinMode(pin, INPUT_PULLUP);</code>
+			</p>
+			<p class="mb-2">
+				<code class="pj-code language-arduino">digitalRead(pin);</code>
+			</p>
+			<p class="mb-4">
+				To detect a single press (not a hold), compare the current reading to the previous reading each
+				loop. A transition from <code class="pj-code language-arduino">HIGH</code> to
+				<code class="pj-code language-arduino">LOW</code> is a button press (falling edge).
+			</p>
+
+			<!-- ── Non-blocking timing ──────────────────────────────────────── -->
+			<h3 class="mb-2">Non-Blocking Timing</h3>
+			<p class="mb-2">
+				Avoid using <code class="pj-code language-arduino">delay()</code> — it freezes everything,
+				including button reads. Instead, track time with:
+			</p>
+			<p class="mb-2">
+				<code class="pj-code language-arduino">millis();</code> — returns milliseconds elapsed since
+				the board started.
+			</p>
+			<p class="mb-4">
+				Save the timestamp of the last countdown tick, and subtract it from the current
+				<code class="pj-code language-arduino">millis()</code> value each loop to know when a second
+				has passed.
+			</p>
+
+			<!-- ── TM1637 ───────────────────────────────────────────────────── -->
+			<h3 class="mb-2">TM1637 7-Segment Display</h3>
+			<p class="mb-2">
+				Install the <strong>TM1637Display</strong> library by Avishay Orpaz from the Library Manager,
+				then include it:
+			</p>
+			<p class="mb-2">
+				<code class="pj-code language-arduino">#include &lt;TM1637Display.h&gt;</code>
+			</p>
+			<p class="mb-3">
+				Useful functions once you have a <code class="pj-code language-arduino">TM1637Display</code>
+				object:
+			</p>
+			<table class="table mb-4">
+				<thead>
+					<tr>
+						<th>Function</th>
+						<th>Summary</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><code class="pj-code language-arduino">display.setBrightness(7);</code></td>
+						<td>Set brightness 0 (dim) – 7 (bright)</td>
+					</tr>
+					<tr>
+						<td><code class="pj-code language-arduino">display.clear();</code></td>
+						<td>Blank the display</td>
+					</tr>
+					<tr>
+						<td><code class="pj-code language-arduino">display.showNumberDecEx(num, 0x40, true);</code></td>
+						<td>
+							Show <code class="pj-code language-arduino">num</code> with the colon lit and leading
+							zeroes. To show MM:SS, pass <code class="pj-code language-arduino">minutes * 100 + seconds</code>
+							as <code class="pj-code language-arduino">num</code>.
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<!-- ── OLED ─────────────────────────────────────────────────────── -->
+			<h3 class="mb-2">OLED Display</h3>
+			<p class="mb-2">
+				Install <strong>Adafruit SSD1306</strong> and <strong>Adafruit GFX Library</strong> from the
+				Library Manager. The OLED uses I2C, but the ESP32's default I2C pins may conflict with other
+				devices — you can reassign them. Below is the setup needed to get the display running:
+			</p>
+
+			<pre class="mb-3" style="white-space: pre-wrap;"><code class="pj-code language-arduino">#include &lt;Wire.h&gt;
+#include &lt;Adafruit_GFX.h&gt;
+#include &lt;Adafruit_SSD1306.h&gt;
+
+#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 64
+#define OLED_RESET -1
+#define I2C_SDA 6   // GPIO6 on ESP32
+#define I2C_SCL 7   // GPIO7 on ESP32
+
+TwoWire myWire = TwoWire(0);  // Use hardware I2C bus 0
+Adafruit_SSD1306 oled(SCREEN_WIDTH, SCREEN_HEIGHT, &myWire, OLED_RESET);
+
+void setup() {
+    myWire.begin(I2C_SDA, I2C_SCL);
+    oled.begin(SSD1306_SWITCHCAPVCC, 0x3C);
+}</code></pre>
+
+			<p class="mb-3">
+				Useful functions for drawing to the OLED. Remember to call
+				<code class="pj-code language-arduino">oled.display()</code> after making changes, or nothing
+				will appear on screen.
+			</p>
+			<table class="table mb-5">
+				<thead>
+					<tr>
+						<th>Function</th>
+						<th>Summary</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><code class="pj-code language-arduino">oled.clearDisplay();</code></td>
+						<td>Wipe the display buffer</td>
+					</tr>
+					<tr>
+						<td><code class="pj-code language-arduino">oled.setTextSize(2);</code></td>
+						<td>Set text scale (1 = smallest)</td>
+					</tr>
+					<tr>
+						<td><code class="pj-code language-arduino">oled.setTextColor(SSD1306_WHITE);</code></td>
+						<td>Set text color to white (lit pixels)</td>
+					</tr>
+					<tr>
+						<td><code class="pj-code language-arduino">oled.setCursor(x, y);</code></td>
+						<td>Move the text cursor to pixel position (x, y)</td>
+					</tr>
+					<tr>
+						<td><code class="pj-code language-arduino">oled.print(value);</code></td>
+						<td>Write text or a number at the current cursor position</td>
+					</tr>
+					<tr>
+						<td><code class="pj-code language-arduino">oled.display();</code></td>
+						<td>Push the buffer to the screen — call this after every update</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<!-- ── Buzzer ───────────────────────────────────────────────────── -->
+			<h3 class="mb-2">Buzzer</h3>
+			<p class="mb-2">
+				Use the built-in <code class="pj-code language-arduino">tone()</code> function to drive the
+				piezo buzzer at a set frequency and duration:
+			</p>
+			<p class="mb-2">
+				<code class="pj-code language-arduino">tone(pin, frequency, duration);</code>
+			</p>
+			<p class="mb-4">
+				<code class="pj-code language-arduino">frequency</code> is in Hz and
+				<code class="pj-code language-arduino">duration</code> is in milliseconds.
+				For a simple beep, a frequency around 1000 Hz for 500 ms works well.
+			</p>
+
+			</div>
+		</main>
+	</div>
+	<script src="./js/ops_footer.js"></script>
+</body>
+
+</html>

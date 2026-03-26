@@ -50,6 +50,9 @@
 						<li class="nav-item">
 							<a class="nav-link" href="#pj-heading-instructions">Instructions</a>
 						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#pj-heading-rotary">Rotary Encoder</a>
+						</li>
 					</ul>
 			</nav>
 		</aside>
@@ -147,6 +150,63 @@ void loop() {
 }
 </code></pre>
 
+
+
+			<h2 class="mb-3 fw-bold" id="pj-heading-rotary">Rotary Encoder</h2>
+			<p class="mb-3">
+				A rotary encoder outputs two signals (<strong>CLK</strong> and <strong>DT</strong>) that together
+				tell you which direction the knob is turning. Most modules also include a built-in pushbutton on the
+				<strong>SW</strong> pin, which is perfect for the reset function.
+			</p>
+			<p class="mb-3">
+				The key idea: when the <strong>CLK</strong> pin transitions from HIGH to LOW (a falling edge), read the
+				state of <strong>DT</strong> at that exact moment. The relationship between them tells you direction:
+			</p>
+			<ul class="list-group mb-4">
+				<li class="list-group-item"><code class="pj-code language-arduino">DT == HIGH</code> → knob turned clockwise</li>
+				<li class="list-group-item"><code class="pj-code language-arduino">DT == LOW</code> → knob turned counter-clockwise</li>
+			</ul>
+
+			<div class="alert alert-info mt-2 mb-3" role="alert">
+				Below is starter code for reading one rotary encoder. You will need two, one for each axis.
+			</div>
+
+<pre style="white-space: pre-wrap;"><code class="pj-code language-arduino">#define CLK 4   // Clock pin
+#define DT  5   // Data pin
+#define SW  6   // Switch (built-in button) pin
+
+int xVal = 64;  // Start cursor in the center (screen is 128 wide)
+
+int lastCLK = HIGH;
+
+void setup() {
+    pinMode(CLK, INPUT);
+    pinMode(DT,  INPUT);
+    pinMode(SW,  INPUT_PULLUP);
+}
+
+void loop() {
+    int currentCLK = digitalRead(CLK);
+
+    // Detect falling edge on CLK
+    if (lastCLK == HIGH && currentCLK == LOW) {
+        if (digitalRead(DT) == HIGH) {
+            xVal++;  // Clockwise
+        } else {
+            xVal--;  // Counter-clockwise
+        }
+        // Clamp to screen bounds
+        xVal = constrain(xVal, 0, SCREEN_WIDTH - 1);
+    }
+
+    lastCLK = currentCLK;
+
+    // Reset on button press (SW pulled LOW when pressed)
+    if (digitalRead(SW) == LOW) {
+        // clear the display here
+    }
+}
+</code></pre>
 
 </div>
 </div>
