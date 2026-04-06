@@ -62,6 +62,9 @@
 									Half-H Driver</a>
 							</li>
 							<li class="nav-item">
+								<a class="nav-link" href="#pj-heading-ultrasonic-sensor">Ultrasonic Sensor</a>
+							</li>
+							<li class="nav-item">
 								<a class="nav-link" href="#pj-heading-wifi">WiFi</a>
 							</li>
 						</ul>
@@ -98,8 +101,8 @@
 					</div>
 					<div class="alert alert-light" role="alert">
 						<i class="bi bi-calendar-event me-1"></i>
-						Updated 2025.04.03 <br>
-						By Zicong Yu and Gavin Nguyen
+						Updated 2026.04.06 <br>
+						By Patrick Cabanban
 					</div>
 
 				</div>
@@ -193,7 +196,7 @@
 							<td>Windows</td>
 							<td>
 								<a class="btn btn-outline-success mx-3"
-									href="https://github.com/KiCad/kicad-source-mirror/releases/download/9.0.1/kicad-9.0.1-x86_64.exe"
+									href="https://downloads.kicad.org/kicad/windows/explore/stable/download/kicad-7.0.11-x86_64.exe"
 									role="button"><i class="bi bi-download"></i> Download</a>
 							</td>
 						</tr>
@@ -201,7 +204,7 @@
 							<td>Mac</td>
 							<td>
 								<a class="btn btn-outline-success mx-3"
-									href="https://github.com/KiCad/kicad-source-mirror/releases/download/9.0.1/kicad-unified-universal-9.0.1.dmg"
+									href="https://downloads.kicad.org/kicad/macos/explore/stable/download/kicad-unified-universal-7.0.11.dmg"
 									role="button"><i class="bi bi-download"></i> Download</a>
 							</td>
 						</tr>
@@ -415,9 +418,75 @@
 					<b>The motors need to be powered directly by the 9V battery</b>, which is capable of supplying more power than the ESP32
 					board. 
 				</div>
+			
+			<h2 class="mb-3 fw-bold" id="pj-heading-ultrasonic-sensor">Ultrasonic Sensor
+				</h2>
+				<p class="mb-3">
+					The ultrasonic sensor module (commonly the HC-SR04 )is a distance-measuring device widely used in embedded systems. It works by emitting an ultrasonic 
+					sound wave (at around 40 kHz) from its trigger (TRIG) pin and then listening for the echo reflected off nearby objects using its echo (ECHO) pin. The time 
+					it takes for the sound wave to return is measured by the microcontroller, which is used to calculate the distance using the formula:
+				</p>
+				<img class="pj-img-fluid mx-auto mb-4" src="./assets/images/capstone/ops_capstone_ultrasonic_formula.png"
+					width="500">
+				<p class="mb-5">
+				<img class="pj-img-fluid mx-auto mb-4" src="./assets/images/capstone/ops_capstone_ultrasonic_diagram.png"
+					width="900">
+				<p class="mb-5">
+					A demo of using our provided ultrasonic sensor is found below:
+				</p>
+				<ol class="mb-5 list-group list-group-numbered">
+					<li class="list-group-item">
+						<code class="pj-code language-arduino">Trig pin</code> is in charge of sending a signal to the ultrasonic sensor to emit a burst of ultrasonic sound waves
+					</li>
+					<li class="list-group-item">
+						<code class="pj-code language-arduino">Echo pin</code> is in charge of being pulled to HIGH for the same duration equal to the time it takes the ultrasonic pulse to reach a surface and return to the sensor.
+					</li>
+					<li class="list-group-item">
+						<code class="pj-code language-arduino">pulseIn</code> measures how long the ECHO pin was set high
+					</li>
+					<li class="list-group-item">
+						<code class="pj-code language-arduino">Delay</code> ensures that the trig pulse is a burst
+					</li>
+				</ol>
+
+				<pre class="mb-5"><code class="pj-code language-arduino" style="white-space: pre-wrap; height:60vh;">const int trigPin = 3;
+const int echoPin = 4;
+
+void setup() { 
+  Serial.begin(115200); 
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+}
 
 
-				<h3 class="mb-3" id="pj-heading-wifi">WiFi</h3>
+void loop() {
+	// Trigger pulse
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(100);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(100);
+  digitalWrite(trigPin, LOW);
+
+  long duration = pulseIn(echoPin, HIGH);  // Takes measurement of pulse in microseconds
+  long distance = duration / 58.0;         // conversion to cm
+  Serial.println(“Distance: “ + distance);
+  delay(1000);		
+}</code></pre>
+
+				<p class="mb-3">
+					Note that the material and the angle of the object the wave is bouncing off matter for how effectively the echo pin can receive the signal. 
+					Materials like sponges or even your hand aren’t great at reflecting the waves.
+				</p>
+
+				<h4 class="mb-3 fw-light">Using it with ESP32</h4>
+				<p class="mb-3">
+					The ultrasonic sensor is actually rated for 5V, which means it is advised to use a voltage divider network on the GPIO pins that it connects to. 
+					This is because constant 5V exposure to the ESP32 GPIO pins, which are rated for 3.3V, will possibly damage the module. Below, you will find the 
+					schematic displaying the resistor values and configuration you must implement to optimize the ultrasonic sensor’s usage.
+					
+				</p>
+
+				<h2 class="mb-3 fw-bold" id="pj-heading-wifi">WiFi</h2>
 			<p class="mb-3">
 				WiFi is the most popular choice for wireless communication between devices. It uses radio waves to “connect” devices, 
 				allowing them to communicate. While we won’t be using an actual WiFi network, we will use the ESP32’s communication protocol 
@@ -651,6 +720,13 @@ void loop()
 						</ul>
 					</li>
 					<li class="list-group-item">
+						When the joystick is clicked, the rover should switch between remote controlled mode and autonomous mode.
+					</li>
+					<li class="list-group-item">
+						In autonomous mode, the rover should be able to move without user input and navigate obstacles according to 
+						ultrasonic sensor readings.
+					</li>
+					<li class="list-group-item">
 						The rover must be able to move forward, backward, left, and right in response to commands
 						sent by the remote.
 					</li>
@@ -684,6 +760,14 @@ void loop()
 						</tr>
 						<tr>
 							<td>JST PH2.0 Snap 9V Battery Male Connector</td>
+							<td>1</td>
+						</tr>
+						<tr>
+							<td>Ultrasonic Sensor</td>
+							<td>1</td>
+						</tr>
+						<tr>
+							<td>Ultrasonic Sensor Mount</td>
 							<td>1</td>
 						</tr>
 						<tr>
@@ -826,6 +910,12 @@ void loop()
 							</li>
 							<li>
 								9V Battery Holder
+							</li>
+							<li>
+								Ultrasonic Sensor
+							</li>
+							<li>
+								Ultrasonic Sensor Mount
 							</li>
 							<li>
 								9V Battery
@@ -990,7 +1080,8 @@ void loop()
 						<b>Video of your rover and the remote control</b>
 						<div class="alert alert-info mt-2" role="alert">
 							The video should include a demonstration of the rover moving forward, backward, left,
-							and right. Make sure to show the remote as well.
+							and right. Make sure to show the remote as well. Then, switch to autonomous mode and show the 
+							rover moving, avoiding obstacles it encounters.
 						</div>
 					</li>
 					<li class="list-group-item">
