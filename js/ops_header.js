@@ -34,12 +34,12 @@ document.write(`
                             <li><a class="dropdown-item" href="./project_5.html">Project 5: iPoduino v2.0</a></li>
                             <li><a class="dropdown-item" href="./project_6.html">Project 6: Weather Station</a></li>
                             <li><a class="dropdown-item" href="./project_7.html">Project 7: Digital Stopwatch</a></li>
+                            <li><a class="dropdown-item" href="./project_8.html">Project 8: 555 Blinker PCB</a></li>
+                            <li><a class="dropdown-item" href="./project_capstone.html">Capstone Project</a></li>
                             <li><a class="dropdown-item" href="./project_x.html">Project X: Etch a Sketch </a></li>
                             <li><a class="dropdown-item" href="./project_y.html">Project Y: Pomodoro</a></li>
-                            <li><a class="dropdown-item" href="./project_8.html">Project 8: 555 Blinker PCB</a></li>
                             
                             <!--
-                            <li><a class="dropdown-item" href="./project_capstone.html">Capstone Project</a></li>
                             -->
                         </ul>
                     </li>
