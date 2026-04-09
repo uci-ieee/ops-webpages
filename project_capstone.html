@@ -723,7 +723,7 @@ void loop()
 						When the joystick is clicked, the rover should switch between remote controlled mode and autonomous mode.
 					</li>
 					<li class="list-group-item">
-						In autonomous mode, the rover should be able to move without user input and navigate obstacles according to 
+						In autonomous mode, the rover should be able to move without user input and navigate obstacles (avoid at least two obstacles) according to 
 						ultrasonic sensor readings.
 					</li>
 					<li class="list-group-item">
@@ -1016,11 +1016,15 @@ void loop()
 							src=".\assets\images\capstone\ops_capstone_battery_holder_and_rover.png" width="800">
 					</li>
 					<li class="list-group-item">
-						Attach the wheels to the gearbox motors, the metal ball to the caster, and the 9V battery to
-						the battery holder.
-						Note that the battery slides into the holder as shown below.<br>
+						Flip the wood plate over. Peel back the adhesive cover on the back of the breadboard and place the breadboard on the plate.<br>
 						<img class="pj-img-fluid mx-auto mb-5"
 							src=".\assets\images\capstone\ops_capstone_breadboard_and_rover.png" width="800">
+					</li>
+					<li class="list-group-item">
+						Attach the ultrasonic sensor mount to the top of the chassis grip using hot glue. 
+						Then, attach the ultrasonic sensor as shown. Wire it to the breadboard accordingly. <br>
+						<img class="pj-img-fluid mx-auto mb-5"
+							src=".\assets\images\capstone\ops_capstone_ultrasonic_sensor_mount.png" width="800">
 					</li>
 					<li class="list-group-item">
 						The final step is to place and wire the electrical components on the breadboard. Remember
@@ -1081,7 +1085,7 @@ void loop()
 						<div class="alert alert-info mt-2" role="alert">
 							The video should include a demonstration of the rover moving forward, backward, left,
 							and right. Make sure to show the remote as well. Then, switch to autonomous mode and show the 
-							rover moving, avoiding obstacles it encounters.
+							rover avoiding at least 2 obstacles (so it should make at least 2 turns)
 						</div>
 					</li>
 					<li class="list-group-item">
