@@ -37,7 +37,7 @@ document.write(`
         Email | <a href="mailto:ieee@uci.edu">ieee@uci.edu<a>
     </li>
     <li>
-        Lead Instructors | Sahil Dhaktode, Timothy Yee
+        Lead Instructors | Marvin Nguyen, Abishek Vinujudson
     </li>
 </ul>
 </div>

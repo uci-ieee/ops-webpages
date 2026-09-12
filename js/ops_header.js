@@ -27,15 +27,15 @@ document.write(`
                             Projects
                         </a>
                         <ul class="dropdown-menu" data-bs-theme="light" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="./project_1.html"> Project 1: LED Circuit</a></li>
+                            <li><a class="dropdown-item" href="./project_1.html"> Project 1: LED There Be Light</a></li>
                             <li><a class="dropdown-item" href="./project_2.html">Project 2: 555 Piano</a></li>
                             <li><a class="dropdown-item" href="./project_3.html">Project 3: RGB LED Wizard</a></li>
-                            <li><a class="dropdown-item" href="./project_4.html">Project 4: Ultrasonic Trashcan</a></li>
-                            <li><a class="dropdown-item" href="./project_5.html">Project 5: iPoduino v2.0</a></li>
-                            <li><a class="dropdown-item" href="./project_6.html">Project 6: Weather Station</a></li>
-                            <li><a class="dropdown-item" href="./project_7.html">Project 7: Digital Stopwatch</a></li>
-                            <li><a class="dropdown-item" href="./project_8.html">Project 8: 555 Blinker PCB</a></li>
-                            <li><a class="dropdown-item" href="./project_capstone.html">Capstone Project</a></li>
+                            <li><a class="dropdown-item" href="./project_4.html">Project 4: Arduino Radar</a></li>
+                            <li><a class="dropdown-item" href="./project_5.html">Project 5: iPoduino v2</a></li>
+                            <li><a class="dropdown-item" href="./project_6.html">Project 6: Wireless Weather Station</a></li>
+                            <li><a class="dropdown-item" href="./project_7.html">Project 7: Kitchen Timer</a></li>
+                            <li><a class="dropdown-item" href="./project_8.html">Project 8: Capstone PCB Design</a></li>
+                            <li><a class="dropdown-item" href="./project_capstone.html">Capstone: RC Rover</a></li>
                             <li><a class="dropdown-item" href="./project_x.html">Project X: Etch a Sketch </a></li>
                             <li><a class="dropdown-item" href="./project_y.html">Project Y: Pomodoro</a></li>
                             
@@ -74,7 +74,7 @@ document.write(`
                 <!-- Setup JS Script to auto-remove Application Button at end of season. Replace with -->
                 <a class="my-sm-0 my-2 btn btn-outline-info" hidden
                     target="_blank"
-                    href="https://forms.gle/72Utb9mtvfvz5Cob9">
+                    href="https://forms.gle/Vp2VHcbDJcoCRRgj9">
                     <i class="bi bi-pen me-1"></i>
                     Apply Now
                 </a>
