@@ -7,10 +7,10 @@ document.write(`
     </a>
     <ul class="list-unstyled small">
         <li>
-            Website designed by the 2025-2026 Open Project Space Committee
+            Website designed by the 2026-2027 Open Project Space Committee
         </li>
         <li>
-            CC BY-NC-SA 2025 Institute of Electrical and Electronics Engineers, UC Irvine Branch
+            CC BY-NC-SA 2026 Institute of Electrical and Electronics Engineers, UC Irvine Branch
         </li>
         <br>
         <li>
