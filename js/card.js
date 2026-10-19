@@ -18,9 +18,12 @@ function createCard() {
 
     const content = document.currentScript.getAttribute('content');
 
+    // optional object-fit override for the image (e.g. "contain" to avoid cropping)
+    const fit = document.currentScript.getAttribute('fit');
+
     document.write(`
         <div class="flex-card card p-3 shadow">
-            <img class="card-image card-img-top" src="${image}" alt="${title}">
+            <img class="card-image card-img-top" src="${image}" alt="${title}"${fit ? ` style="object-fit: ${fit};"` : ""}>
             <div class="card-body flex-card-body mt-1">
                 <h5 class="card-title">${title}</h5>
                 <p class="card-text">
