@@ -129,11 +129,18 @@ export default async function AdminHome() {
           </table>
         </div>
 
+        <h2>Manage</h2>
+        <div className="card">
+          <p style={{ margin: 0 }}>
+            <a href="/admin/roster">Import a roster</a> &mdash; paste students, instructors, and
+            section assignments in one go.
+          </p>
+        </div>
+
         <h2>Not built yet</h2>
         <div className="card empty">
-          Roster CSV import, role changes, and section assignment are read-only here for now &mdash;
-          seeding is done with <code>npm run db:seed</code>. Editing from this page is the next
-          increment.
+          Changing one person&rsquo;s role or section from this page, and file submissions. Roster
+          changes go through the import above for now.
         </div>
       </main>
     </>

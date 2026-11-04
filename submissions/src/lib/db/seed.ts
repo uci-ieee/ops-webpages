@@ -1,55 +1,23 @@
 /**
- * Loads a roster so every screen has something real to show.
+ * Loads a roster from the command line.
  *
  * Reads `submissions/roster.csv` if it exists, otherwise synthesizes a roster at
  * the size OPS actually runs at (135 students, 12 instructors, 3 admins,
  * 12 sections) so the dashboards can be judged at real scale.
  *
- * CSV columns (header row required, extra columns ignored):
- *   ucinetid,name,role,section_code,section_name
+ * Parsing and writing are shared with the admin import screen
+ * (`src/lib/roster.ts`) so the two paths cannot drift apart.
+ *
+ * CSV columns (header row required): ucinetid,name,role,section_code,section_name
  *
  * Safe to re-run: every write is an upsert.
  */
-
 import { config as loadEnv } from "dotenv";
-import { readFileSync, existsSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { getDb } from "./index";
-import { enrollments, sectionInstructors, sections, users } from "./schema";
-import type { Role } from "./schema";
+import { CURRENT_YEAR, applyRoster, parseRoster, type RosterRow } from "../roster";
 
 loadEnv({ path: resolve(process.cwd(), ".env.local"), override: true });
-
-const YEAR = "2026-2027";
-
-type RosterRow = {
-  ucinetid: string;
-  name: string;
-  role: Role;
-  sectionCode: string | null;
-  sectionName: string | null;
-};
-
-function parseCsv(path: string): RosterRow[] {
-  const lines = readFileSync(path, "utf8")
-    .split(/\r?\n/)
-    .map((l) => l.trim())
-    .filter(Boolean);
-  const header = lines[0]!.split(",").map((h) => h.trim().toLowerCase());
-  const idx = (name: string) => header.indexOf(name);
-
-  return lines.slice(1).map((line) => {
-    const cells = line.split(",").map((c) => c.trim());
-    const role = (cells[idx("role")] || "student").toLowerCase();
-    return {
-      ucinetid: cells[idx("ucinetid")]!.toLowerCase(),
-      name: cells[idx("name")] || cells[idx("ucinetid")]!,
-      role: (["student", "instructor", "admin"].includes(role) ? role : "student") as Role,
-      sectionCode: idx("section_code") >= 0 ? cells[idx("section_code")] || null : null,
-      sectionName: idx("section_name") >= 0 ? cells[idx("section_name")] || null : null,
-    };
-  });
-}
 
 function demoRoster(): RosterRow[] {
   const SECTION_COUNT = 12;
@@ -96,79 +64,28 @@ function demoRoster(): RosterRow[] {
 
 async function main() {
   const csvPath = resolve(process.cwd(), "roster.csv");
-  const fromCsv = existsSync(csvPath);
-  const roster = fromCsv ? parseCsv(csvPath) : demoRoster();
+  let roster: RosterRow[];
 
-  console.log(
-    fromCsv
-      ? `Seeding from roster.csv (${roster.length} rows)`
-      : `No roster.csv found -- seeding demo roster (${roster.length} rows)`,
-  );
-
-  const db = getDb();
-
-  // 1. Sections.
-  const sectionDefs = new Map<string, string>();
-  for (const row of roster) {
-    if (row.sectionCode) {
-      sectionDefs.set(row.sectionCode, row.sectionName ?? `Section ${row.sectionCode}`);
+  if (existsSync(csvPath)) {
+    const { rows, errors } = parseRoster(readFileSync(csvPath, "utf8"));
+    if (errors.length > 0) {
+      console.error(`roster.csv has ${errors.length} problem(s); nothing was written:`);
+      for (const e of errors) console.error("  " + e);
+      process.exit(1);
     }
+    console.log(`Seeding from roster.csv (${rows.length} rows)`);
+    roster = rows;
+  } else {
+    roster = demoRoster();
+    console.log(`No roster.csv found -- seeding demo roster (${roster.length} rows)`);
   }
 
-  const sectionIds = new Map<string, number>();
-  for (const [code, name] of sectionDefs) {
-    const [inserted] = await db
-      .insert(sections)
-      .values({ code, name, year: YEAR })
-      .onConflictDoUpdate({
-        target: [sections.code, sections.year],
-        set: { name },
-      })
-      .returning({ id: sections.id });
-    sectionIds.set(code, inserted!.id);
-  }
-  console.log(`  sections: ${sectionIds.size}`);
-
-  // 2. People. Status stays "invited" until they actually sign in with Google.
-  const userIds = new Map<string, string>();
-  for (const row of roster) {
-    const [inserted] = await db
-      .insert(users)
-      .values({ ucinetid: row.ucinetid, name: row.name, role: row.role })
-      .onConflictDoUpdate({
-        target: users.ucinetid,
-        set: { name: row.name, role: row.role },
-      })
-      .returning({ id: users.id });
-    userIds.set(row.ucinetid, inserted!.id);
-  }
-  console.log(`  users: ${userIds.size}`);
-
-  // 3. Section membership -- this is what the instructor scoping reads.
-  let enrolled = 0;
-  let assigned = 0;
-  for (const row of roster) {
-    if (!row.sectionCode) continue;
-    const sectionId = sectionIds.get(row.sectionCode);
-    const userId = userIds.get(row.ucinetid);
-    if (!sectionId || !userId) continue;
-
-    if (row.role === "student") {
-      await db
-        .insert(enrollments)
-        .values({ sectionId, studentId: userId })
-        .onConflictDoNothing();
-      enrolled++;
-    } else if (row.role === "instructor") {
-      await db
-        .insert(sectionInstructors)
-        .values({ sectionId, instructorId: userId })
-        .onConflictDoNothing();
-      assigned++;
-    }
-  }
-  console.log(`  enrollments: ${enrolled}`);
-  console.log(`  instructor assignments: ${assigned}`);
+  const result = await applyRoster(roster, CURRENT_YEAR);
+  console.log(`  sections touched:       ${result.sectionsTouched}`);
+  console.log(`  people added:           ${result.usersCreated}`);
+  console.log(`  people updated:         ${result.usersUpdated}`);
+  console.log(`  enrollments:            ${result.enrollments}`);
+  console.log(`  instructor assignments: ${result.instructorAssignments}`);
   console.log("Done.");
 }
 

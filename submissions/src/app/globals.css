@@ -140,3 +140,43 @@ tbody tr:last-child td { border-bottom: none; }
   font-size: 12px;
   word-break: break-all;
 }
+
+.field { display: block; margin-bottom: 14px; }
+.field > span { display: block; font-weight: 600; font-size: 13px; margin-bottom: 6px; }
+.field input,
+.field textarea {
+  font: inherit;
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+  background: var(--surface);
+  color: var(--ink);
+}
+.field textarea {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 13px;
+  line-height: 1.5;
+  resize: vertical;
+}
+.field input:focus,
+.field textarea:focus { outline: 2px solid var(--ops-blue); outline-offset: 1px; }
+
+.success {
+  background: #eef9f5;
+  border: 1px solid #bfe3d7;
+  color: #0f5f47;
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  font-size: 14px;
+}
+
+.danger-zone {
+  margin-top: 32px;
+  border: 1px solid #f0dcb4;
+  background: #fdf6e8;
+  border-radius: var(--radius);
+  padding: 16px 18px;
+}
+
+button[disabled] { opacity: 0.6; cursor: progress; }

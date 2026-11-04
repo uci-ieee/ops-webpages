@@ -152,10 +152,75 @@ Run from `submissions/` (or the `submissions:*` aliases from the repo root).
 | `npm run db:studio` | Browse the database in a GUI |
 | `npm run typecheck` | `tsc --noEmit` |
 
+## Adding people to the roster
+
+Nobody can sign in unless they are already on the roster, so this is how access
+is granted. Two routes, same code underneath (`src/lib/roster.ts`), so they
+cannot drift apart:
+
+**Admin screen** (normal route) — sign in as an admin, go to **Admin → Import a
+roster**, paste the list, submit. Accepts commas *or* tabs, so a block of cells
+copied straight out of Google Sheets or Excel works as-is.
+
+**Command line** — drop a `roster.csv` in `submissions/` and run
+`npm run db:seed`.
+
+Either way the columns are:
+
+```csv
+ucinetid,name,role,section_code,section_name
+pantera,Peter Anteater,student,S01,Monday 5pm
+mnguyen,"Nguyen, Marvin",instructor,S01,Monday 5pm
+opsadmin,OPS Admin,admin,,
+```
+
+Only `ucinetid` is required. A full `@uci.edu` address in that column is fine —
+the domain gets stripped. `role` defaults to `student`. Instructors must have a
+`section_code`; sections are created on demand. Quoted fields containing commas
+are handled.
+
+Behaviour worth knowing:
+
+- **Idempotent.** People are matched on UCInetID and updated in place, so
+  re-importing the same list changes nothing and never duplicates anyone.
+- **All-or-nothing.** If any line fails to parse, nothing is written and every
+  problem is listed with its line number. A half-imported roster is worse than a
+  rejected one.
+- **Never deletes.** Importing a shorter list does not remove the people missing
+  from it.
+- **Never resets a signed-in account.** `status` is left alone, so someone who
+  has already signed in stays `active`.
+
+### Clearing the demo roster
+
+The seed loads 150 synthetic accounts. **Admin → Import a roster → Remove demo
+accounts** deletes them and prunes any section left empty. It matches only the
+exact seed patterns (`student001…`, `instructor01…`, `admin1…3`) *and* only
+accounts that have never signed in, so it cannot take a real person with it.
+
+## Deploying to Vercel
+
+The app is not deployed yet. When you do it:
+
+1. Import the repo at vercel.com/new, signed in on the club account.
+2. **Set Root Directory to `submissions`.** This is the step people miss — the
+   repo root is the static GitHub Pages site, and the build will fail without it.
+3. Add environment variables (Settings → Environment Variables). `DATABASE_URL`
+   and `DATABASE_URL_UNPOOLED` come from `neon env pull`; reuse the same
+   `AUTH_SECRET`, `AUTH_GOOGLE_ID`, `AUTH_GOOGLE_SECRET`, and
+   `ALLOWED_EMAIL_DOMAIN`. **Do not set `DEV_LOGIN`** — it does nothing in a
+   production build, and setting it only invites confusion.
+4. Add the deployed callback URL as a second authorized redirect URI on the
+   Google OAuth client: `https://<your-vercel-host>/api/auth/callback/google`.
+   The localhost one stays, so local development keeps working.
+5. Link it from the static site once it is live.
+
+`trustHost: true` is already set in `src/lib/auth.ts`, which Auth.js requires in
+production; without it every auth endpoint returns `UntrustedHost`.
+
 ## Not built yet
 
 - File upload and the submissions tables. The student page has a placeholder.
-- Admin mutations: roster CSV import from the UI, role changes, section
-  assignment. All read-only for now; seeding is the CSV path.
-- Deployment. Nothing is wired to Vercel or to DNS, and the static site does not
-  link here yet.
+- Changing a single person's role or section from the admin UI. Roster changes go
+  through the import for now.
+- Deployment, and a link to this app from the static site.
