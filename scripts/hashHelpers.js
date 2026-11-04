@@ -105,6 +105,12 @@ function getHtmlFilePaths(directoryPath) {
     // list of files to ignore
     const filesToIgnore = [".git", ".vscode", ".node_modules"];
 
+    // directories to skip outright, matched by name rather than substring.
+    // "submissions" is the Next.js app: it has its own build pipeline and its
+    // source must never be rewritten by cache busting. "node_modules" is listed
+    // here because the entry above has a stray leading dot and never matched it.
+    const dirsToIgnore = ["node_modules", "submissions", ".next"];
+
     // read directory
     const files = fs.readdirSync(directoryPath);
 
@@ -119,6 +125,10 @@ function getHtmlFilePaths(directoryPath) {
             // ignore this file/directory
             // do nothing
         } else if (fs.statSync(filePath).isDirectory()) {
+            if (dirsToIgnore.includes(file)) {
+                // skip this directory entirely
+                continue;
+            }
             // if the current file is a directory
             // recursively call the function for that directory and add it to the current running array of html files
             htmlFiles = htmlFiles.concat(getHtmlFilePaths(filePath));

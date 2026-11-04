@@ -39,6 +39,9 @@ document.write(`
     <li>
         Lead Instructors | Marvin Nguyen, Abishek Vinujudson
     </li>
+    <li class="mt-2">
+        <a href="./privacy.html">Privacy Policy</a>
+    </li>
 </ul>
 </div>
 

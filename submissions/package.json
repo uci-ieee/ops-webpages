@@ -1,0 +1,35 @@
+{
+  "name": "ops-submissions",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "db:push": "drizzle-kit push",
+    "db:seed": "tsx src/lib/db/seed.ts",
+    "db:studio": "drizzle-kit studio",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@neon/config": "^1.10.2",
+    "@neon/env": "^1.6.10",
+    "@vercel/functions": "^3.10.6",
+    "drizzle-orm": "^0.44.6",
+    "next": "^15.5.4",
+    "next-auth": "^5.0.0-beta.29",
+    "pg": "^8.23.1",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24.6.2",
+    "@types/pg": "^8.23.1",
+    "@types/react": "^19.1.17",
+    "@types/react-dom": "^19.1.11",
+    "dotenv": "^18.0.9",
+    "drizzle-kit": "^0.31.5",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
+  }
+}
