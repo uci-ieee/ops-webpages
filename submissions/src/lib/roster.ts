@@ -125,11 +125,11 @@ export function parseRoster(text: string): ParseResult {
       return;
     }
 
+    // An instructor with no section_code is allowed: officers are usually added
+    // before sections exist, and the instructor dashboard already handles it
+    // ("No sections are assigned to you yet"). They simply see nobody until a
+    // later import gives them a section.
     const sectionCode = pick("section_code") || null;
-    if (!sectionCode && rawRole === "instructor") {
-      errors.push("Line " + lineNo + ": instructor " + ucinetid + " needs a section_code");
-      return;
-    }
 
     rows.push({
       ucinetid,
