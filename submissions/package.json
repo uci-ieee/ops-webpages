@@ -15,7 +15,7 @@
     "@neon/config": "^1.10.2",
     "@neon/env": "^1.6.10",
     "@vercel/functions": "^3.10.6",
-    "drizzle-orm": "^0.44.6",
+    "drizzle-orm": "^0.45.4",
     "next": "^15.5.4",
     "next-auth": "^5.0.0-beta.29",
     "pg": "^8.23.1",
