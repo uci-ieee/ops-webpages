@@ -1,11 +1,27 @@
 import { Topbar } from "@/components/Topbar";
 import { adminOverview, allUsers } from "@/lib/queries";
+import { formatGB, measuredUsage, quotaStatus } from "@/lib/quota";
 import { requireRole } from "@/lib/session";
 
 export default async function AdminHome() {
   const user = await requireRole("admin");
 
-  const [overview, roster] = await Promise.all([adminOverview(), allUsers()]);
+  const [overview, roster, quota] = await Promise.all([
+    adminOverview(),
+    allUsers(),
+    quotaStatus(),
+  ]);
+
+  // What storage really holds. Can exceed the recorded figure when a browser
+  // completed an upload but never confirmed it, leaving an object with no row.
+  let measured: { bytes: number; objects: number; truncated: boolean } | null = null;
+  let measureError: string | null = null;
+  try {
+    measured = await measuredUsage();
+  } catch (e) {
+    measureError = e instanceof Error ? e.message : "could not read storage";
+  }
+  const orphanBytes = measured ? Math.max(0, measured.bytes - quota.usedBytes) : 0;
   const instructors = roster.filter((u) => u.role === "instructor");
 
   return (
@@ -36,6 +52,47 @@ export default async function AdminHome() {
             <b>{roster.filter((u) => u.status === "active").length}</b>
             <span>have signed in</span>
           </div>
+        </div>
+
+        <h2>Storage</h2>
+        <div className={quota.blocked ? "error" : quota.warning ? "notice" : "card"}>
+          <strong>
+            {formatGB(quota.usedBytes)} of {formatGB(quota.quotaBytes)} used (
+            {quota.percent.toFixed(1)}%)
+          </strong>
+          <div className="progress" style={{ margin: "8px 0" }}>
+            <span style={{ width: `${Math.min(100, quota.percent)}%` }} />
+          </div>
+          {quota.blocked ? (
+            <p style={{ margin: 0 }}>
+              <strong>Student submissions are blocked.</strong> Nobody can upload until space is
+              freed. Existing submissions and feedback are unaffected.
+            </p>
+          ) : quota.warning ? (
+            <p style={{ margin: 0 }}>
+              Past 80%. Uploads stop automatically at the limit, so free up space before that
+              happens.
+            </p>
+          ) : (
+            <p className="sub" style={{ margin: 0, fontSize: 13 }}>
+              Uploads are refused automatically at the limit, so this can never run over into a
+              bill.
+            </p>
+          )}
+
+          <p className="sub" style={{ margin: "10px 0 0", fontSize: 13 }}>
+            {measured ? (
+              <>
+                Storage actually holds {formatGB(measured.bytes)} across {measured.objects}{" "}
+                object{measured.objects === 1 ? "" : "s"}
+                {orphanBytes > 1024
+                  ? ` — ${formatGB(orphanBytes)} of that is not attached to any submission (an upload that completed but was never confirmed) and is safe to delete.`
+                  : " — matching the recorded total."}
+              </>
+            ) : (
+              <>Could not read storage directly: {measureError}</>
+            )}
+          </p>
         </div>
 
         <h2>Sections</h2>

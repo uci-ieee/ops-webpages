@@ -6,6 +6,7 @@ import { requireViewContext } from "@/lib/preview";
 import { sectionsForStudent } from "@/lib/queries";
 import { homeFor } from "@/lib/session";
 import { getProgressFor, tally, type SubmissionView } from "@/lib/submissions";
+import { quotaStatus } from "@/lib/quota";
 import { formatBytes, presignDownload } from "@/lib/storage";
 
 const KIND_LABEL: Record<string, string> = {
@@ -31,9 +32,10 @@ export default async function StudentHome() {
   // An admin or instructor who is not previewing belongs on their own page.
   if (subject.role !== "student") redirect(homeFor(subject.role));
 
-  const [sections, progress] = await Promise.all([
+  const [sections, progress, quota] = await Promise.all([
     sectionsForStudent(subject.id),
     getProgressFor(subject.id),
+    quotaStatus(),
   ]);
   const counts = tally(progress);
 
@@ -57,7 +59,10 @@ export default async function StudentHome() {
     }
   }
 
-  const canUpload = !previewing;
+  const canUpload = !previewing && !quota.blocked;
+  const uploadDisabledReason = previewing
+    ? "Read-only preview — uploading is disabled."
+    : "Submissions are paused — OPS has hit its storage limit. Tell an officer.";
 
   return (
     <>
@@ -71,6 +76,14 @@ export default async function StudentHome() {
             ? ` · Section ${sections.map((s) => s.code).join(", ")}`
             : " · no section assigned yet"}
         </p>
+
+        {quota.blocked ? (
+          <div className="error">
+            <strong>Submissions are paused.</strong> OPS has reached its file storage limit, so
+            nobody can upload right now. This is not your fault, and nothing you have already
+            submitted is affected. Let an OPS officer know.
+          </div>
+        ) : null}
 
         <div className="tiles">
           <div className="tile">
@@ -196,7 +209,7 @@ export default async function StudentHome() {
                     allowedExtensions={d.allowedExtensions}
                     hasExisting={Boolean(d.latest)}
                     disabled={!canUpload}
-                    disabledReason="Read-only preview — uploading is disabled."
+                    disabledReason={uploadDisabledReason}
                   />
                 </div>
               ))}

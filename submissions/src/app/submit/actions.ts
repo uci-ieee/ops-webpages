@@ -5,6 +5,7 @@ import { and, eq, isNull } from "drizzle-orm";
 import { getDb } from "@/lib/db";
 import { submissions } from "@/lib/db/schema";
 import { requireActor } from "@/lib/preview";
+import { checkQuotaFor } from "@/lib/quota";
 import {
   RETENTION,
   daysFromNow,
@@ -80,6 +81,11 @@ export async function requestUpload(input: {
       };
     }
   }
+
+  // Hard ceiling on total stored bytes. Checked before a presigned URL exists,
+  // so a submission that would cross the line never gets a way to upload.
+  const quota = await checkQuotaFor(input.size);
+  if (!quota.ok) return { ok: false, error: quota.reason };
 
   const version = await nextVersion(input.deliverableId, actor.id);
   const key = objectKey({

@@ -14,18 +14,21 @@ import type { DeliverableKind } from "./db/schema";
 const MB = 1024 * 1024;
 
 /**
- * Caps are what keep storage inside the free tier. A 60-second clip at 720p
- * lands comfortably under 25 MB; phones default to 1080p/4K, which does not, so
- * students will sometimes have to lower resolution. That friction is the
- * trade-off for not paying for storage.
+ * Per-file caps. These are only half the protection: the other half is the
+ * account-wide ceiling in src/lib/quota.ts, which refuses every upload once
+ * total stored bytes reach the limit, so no combination of files can run the
+ * bill up.
+ *
+ * A 60-second clip at 720p is roughly 10-20 MB; phones default to 1080p or 4K,
+ * which is not, so students may still have to lower resolution occasionally.
  */
 export const KIND_RULES: Record<
   DeliverableKind,
   { maxBytes: number; maxSeconds: number | null; allowedExtensions: string[] }
 > = {
-  video: { maxBytes: 25 * MB, maxSeconds: 60, allowedExtensions: [".mp4", ".mov", ".webm"] },
+  video: { maxBytes: 50 * MB, maxSeconds: 60, allowedExtensions: [".mp4", ".mov", ".webm"] },
   photo: {
-    maxBytes: 10 * MB,
+    maxBytes: 15 * MB,
     maxSeconds: null,
     allowedExtensions: [".jpg", ".jpeg", ".png", ".webp", ".heic"],
   },
@@ -35,7 +38,7 @@ export const KIND_RULES: Record<
     maxSeconds: null,
     allowedExtensions: [".kicad_pro", ".kicad_pcb", ".kicad_sch"],
   },
-  archive: { maxBytes: 25 * MB, maxSeconds: null, allowedExtensions: [".zip"] },
+  archive: { maxBytes: 50 * MB, maxSeconds: null, allowedExtensions: [".zip"] },
 };
 
 export type SeedDeliverable = {
