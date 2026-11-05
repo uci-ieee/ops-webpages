@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { and, desc, eq, isNull } from "drizzle-orm";
 import { getDb } from "@/lib/db";
-import { submissions } from "@/lib/db/schema";
+import { reviews, submissions } from "@/lib/db/schema";
 import { requireActor } from "@/lib/preview";
 import { instructorCanSeeStudent } from "@/lib/queries";
 import { checkQuotaFor } from "@/lib/quota";
@@ -58,6 +58,28 @@ export async function deleteSubmission(input: { submissionId: string }): Promise
   if (actor.role === "student") {
     if (submission.studentId !== actor.id) {
       return { ok: false, error: "That is not your submission." };
+    }
+
+    /**
+     * A student may remove their own work, but not once it has been assessed.
+     * Otherwise a student could delete an approved submission and take the
+     * grade with it, which is exactly the kind of quiet data loss this is
+     * meant to prevent.
+     */
+    const reviewed = await db
+      .select({ id: reviews.id })
+      .from(reviews)
+      .where(eq(reviews.submissionId, submission.id))
+      .limit(1);
+
+    if (reviewed.length > 0) {
+      return {
+        ok: false,
+        error:
+          "An instructor has already reviewed this submission, so it cannot be deleted. " +
+          "Upload a new file instead -- that replaces it and keeps the record intact. " +
+          "If it genuinely needs removing, ask an instructor.",
+      };
     }
   } else if (actor.role === "instructor") {
     const allowed = await instructorCanSeeStudent(actor.id, submission.studentId);
@@ -139,6 +161,16 @@ export async function requestUpload(input: {
   const deliverable = await getDeliverable(input.deliverableId);
   if (!deliverable) return { ok: false, error: "That deliverable does not exist." };
 
+  // Hiding a project has to actually close it. The student page filters on
+  // published, but a stale tab or a guessed deliverable id would otherwise
+  // still reach this endpoint.
+  if (!deliverable.published) {
+    return {
+      ok: false,
+      error: `${deliverable.projectLabel} is not open for submissions yet.`,
+    };
+  }
+
   const ext = extensionOf(input.filename);
   if (!deliverable.allowedExtensions.includes(ext)) {
     return {
@@ -158,14 +190,14 @@ export async function requestUpload(input: {
     };
   }
 
-  if (deliverable.maxSeconds !== null) {
-    if (input.durationSeconds === null) {
-      return {
-        ok: false,
-        error: "We could not read the length of that video. Try re-exporting it as MP4.",
-      };
-    }
-    // Allow a little slack so a 60.4s clip is not rejected on a rounding error.
+  /**
+   * An unknown duration is accepted rather than refused. Chrome routinely
+   * fails to read metadata from iPhone .mov files, and rejecting those left
+   * students simply unable to submit. The size cap still bounds the upload, so
+   * the worst case is a slightly over-length clip rather than a blocked one.
+   */
+  if (deliverable.maxSeconds !== null && input.durationSeconds !== null) {
+    // A little slack so a 60.4s clip is not rejected on a rounding error.
     if (input.durationSeconds > deliverable.maxSeconds + 1) {
       return {
         ok: false,

@@ -52,7 +52,7 @@ export default async function StudentReviewPage({
 
   const [sections, progress] = await Promise.all([
     sectionsForStudent(student.id),
-    getProgressFor(student.id, { publishedOnly: true }),
+    getProgressFor(student.id, { publishedOnly: false }),
   ]);
   const counts = tally(progress);
 
@@ -94,6 +94,12 @@ export default async function StudentReviewPage({
 
         {progress.map((project) => {
           const submitted = project.deliverables.filter((d) => d.latest);
+
+          // Hidden projects are still shown when there is work to review --
+          // hiding a project must not hide submissions already made against
+          // it -- but a hidden project with nothing in it is just noise.
+          if (!project.published && submitted.length === 0) return null;
+
           if (submitted.length === 0) {
             return (
               <section key={project.id}>
@@ -112,6 +118,7 @@ export default async function StudentReviewPage({
                 <span className="pill">
                   {submitted.length}/{project.deliverables.length}
                 </span>
+                {!project.published ? <span className="pill">Hidden from students</span> : null}
               </h2>
 
               {project.deliverables.map((d) => (

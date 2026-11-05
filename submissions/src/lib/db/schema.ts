@@ -189,14 +189,28 @@ export const submissions = pgTable(
   ],
 );
 
-/** Instructor feedback. Kept indefinitely, including after the file is purged. */
+/**
+ * Instructor feedback. Outlives both the stored file and the submission row.
+ *
+ * studentId and deliverableId are carried here rather than reached through the
+ * submission, so a review still says who was assessed on what after its
+ * submission is deleted. submissionId is nullable and set to null on delete
+ * instead of cascading -- a grade must never disappear because someone removed
+ * the video it was about.
+ */
 export const reviews = pgTable(
   "reviews",
   {
     id: uuid("id").primaryKey().defaultRandom(),
-    submissionId: uuid("submission_id")
+    submissionId: uuid("submission_id").references(() => submissions.id, {
+      onDelete: "set null",
+    }),
+    studentId: uuid("student_id")
       .notNull()
-      .references(() => submissions.id, { onDelete: "cascade" }),
+      .references(() => users.id, { onDelete: "cascade" }),
+    deliverableId: integer("deliverable_id")
+      .notNull()
+      .references(() => deliverables.id, { onDelete: "cascade" }),
     reviewerId: uuid("reviewer_id")
       .notNull()
       .references(() => users.id, { onDelete: "cascade" }),
@@ -204,7 +218,10 @@ export const reviews = pgTable(
     comment: text("comment"),
     reviewedAt: timestamp("reviewed_at", { withTimezone: true }).notNull().defaultNow(),
   },
-  (t) => [index("reviews_submission_idx").on(t.submissionId)],
+  (t) => [
+    index("reviews_submission_idx").on(t.submissionId),
+    index("reviews_student_idx").on(t.studentId),
+  ],
 );
 
 export type User = typeof users.$inferSelect;

@@ -30,7 +30,10 @@ export const KIND_RULES: Record<
   photo: {
     maxBytes: 15 * MB,
     maxSeconds: null,
-    allowedExtensions: [".jpg", ".jpeg", ".png", ".webp", ".heic"],
+    // .heic is deliberately absent: iPhones shoot it by default, but Chrome and
+    // Firefox cannot render it in an <img>, so instructors would see a broken
+    // image for every iPhone photo. iOS can export JPEG from the share sheet.
+    allowedExtensions: [".jpg", ".jpeg", ".png", ".webp"],
   },
   sketch: { maxBytes: 1 * MB, maxSeconds: null, allowedExtensions: [".ino"] },
   kicad: {

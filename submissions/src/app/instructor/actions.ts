@@ -31,7 +31,11 @@ export async function reviewSubmission(
 
   const db = getDb();
   const rows = await db
-    .select({ id: submissions.id, studentId: submissions.studentId })
+    .select({
+      id: submissions.id,
+      studentId: submissions.studentId,
+      deliverableId: submissions.deliverableId,
+    })
     .from(submissions)
     .where(eq(submissions.id, submissionId))
     .limit(1);
@@ -50,6 +54,9 @@ export async function reviewSubmission(
   await db.delete(reviews).where(eq(reviews.submissionId, submission.id));
   await db.insert(reviews).values({
     submissionId: submission.id,
+    // Carried so the verdict still makes sense if the submission is deleted.
+    studentId: submission.studentId,
+    deliverableId: submission.deliverableId,
     reviewerId: actor.id,
     status: rawStatus,
     comment,

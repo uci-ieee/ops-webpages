@@ -65,6 +65,7 @@ export type ProjectView = {
   label: string;
   title: string;
   pageUrl: string | null;
+  published: boolean;
   deliverables: DeliverableView[];
 };
 
@@ -90,6 +91,7 @@ export async function getProgressFor(
         label: projects.label,
         title: projects.title,
         pageUrl: projects.pageUrl,
+        published: projects.published,
         projectPosition: projects.position,
         deliverableId: deliverables.id,
         position: deliverables.position,
@@ -172,6 +174,7 @@ export async function getProgressFor(
         label: row.label,
         title: row.title,
         pageUrl: row.pageUrl,
+        published: row.published,
         deliverables: [],
       };
       out.push(project);
@@ -274,6 +277,8 @@ export async function getDeliverable(deliverableId: number) {
       allowedExtensions: deliverables.allowedExtensions,
       projectSlug: projects.slug,
       year: projects.year,
+      projectLabel: projects.label,
+      published: projects.published,
     })
     .from(deliverables)
     .innerJoin(projects, eq(projects.id, deliverables.projectId))
