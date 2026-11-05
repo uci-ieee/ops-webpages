@@ -135,6 +135,14 @@ export default async function AdminHome() {
             <a href="/admin/roster">Import a roster</a> &mdash; paste students, instructors, and
             section assignments in one go.
           </p>
+          <p style={{ margin: "8px 0 0" }}>
+            <a href="/admin/sections">Sections</a> &mdash; create sections, move students between
+            them, and choose who runs each one.
+          </p>
+          <p style={{ margin: "8px 0 0" }}>
+            <a href="/admin/view-as">View as someone else</a> &mdash; see the student or instructor
+            screens exactly as they do, read-only.
+          </p>
         </div>
 
         <h2>Not built yet</h2>

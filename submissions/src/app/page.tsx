@@ -1,46 +1,208 @@
 import { redirect } from "next/navigation";
+import { PreviewBanner } from "@/components/PreviewBanner";
 import { Topbar } from "@/components/Topbar";
+import { UploadField } from "@/components/UploadField";
+import { requireViewContext } from "@/lib/preview";
 import { sectionsForStudent } from "@/lib/queries";
-import { homeFor, requireUser } from "@/lib/session";
+import { homeFor } from "@/lib/session";
+import { getProgressFor, tally, type SubmissionView } from "@/lib/submissions";
+import { formatBytes, presignDownload } from "@/lib/storage";
+
+const KIND_LABEL: Record<string, string> = {
+  video: "Video",
+  photo: "Photo",
+  sketch: "Sketch",
+  kicad: "KiCad",
+  archive: "Zip",
+};
+
+function when(d: Date): string {
+  return new Date(d).toLocaleDateString(undefined, {
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+  });
+}
 
 export default async function StudentHome() {
-  const user = await requireUser();
-  if (user.role !== "student") redirect(homeFor(user.role));
+  const { actor, subject, previewing } = await requireViewContext();
 
-  const sections = await sectionsForStudent(user.id);
+  // An admin or instructor who is not previewing belongs on their own page.
+  if (subject.role !== "student") redirect(homeFor(subject.role));
+
+  const [sections, progress] = await Promise.all([
+    sectionsForStudent(subject.id),
+    getProgressFor(subject.id),
+  ]);
+  const counts = tally(progress);
+
+  // Presign only what exists. Signing is local (no network), but there is no
+  // reason to mint URLs for files that were never uploaded.
+  const urls = new Map<string, string>();
+  for (const p of progress) {
+    for (const d of p.deliverables) {
+      const sign = async (s: SubmissionView, forceDownload: boolean) => {
+        if (s.fileDeletedAt) return;
+        urls.set(
+          s.id,
+          await presignDownload({
+            key: s.storageKey,
+            downloadAs: forceDownload ? s.filename : undefined,
+          }),
+        );
+      };
+      if (d.latest) await sign(d.latest, false);
+      for (const h of d.history) await sign(h, true);
+    }
+  }
+
+  const canUpload = !previewing;
 
   return (
     <>
-      <Topbar user={user} />
+      <Topbar user={subject} />
+      {previewing ? <PreviewBanner actor={actor} subject={subject} /> : null}
       <main className="wrap">
-        <h1>Welcome, {user.name ?? user.ucinetid}</h1>
-        <p className="sub">UCInetID: {user.ucinetid}</p>
+        <h1>{subject.name ?? subject.ucinetid}</h1>
+        <p className="sub">
+          UCInetID {subject.ucinetid}
+          {sections.length > 0
+            ? ` · Section ${sections.map((s) => s.code).join(", ")}`
+            : " · no section assigned yet"}
+        </p>
 
-        <h2>Your section</h2>
-        {sections.length === 0 ? (
-          <div className="card empty">
-            You are on the roster but not assigned to a section yet. An officer needs to add you
-            to one.
+        <div className="tiles">
+          <div className="tile">
+            <b>
+              {counts.submitted}/{counts.required}
+            </b>
+            <span>deliverables submitted</span>
           </div>
-        ) : (
-          sections.map((s) => (
-            <div className="card" key={s.id}>
-              <strong>
-                Section {s.code} &mdash; {s.name}
-              </strong>
-              <p className="sub" style={{ margin: "6px 0 0" }}>
-                {s.year}
-                {s.instructors.length > 0 ? ` · Instructor: ${s.instructors.join(", ")}` : ""}
-              </p>
-            </div>
-          ))
-        )}
-
-        <h2>Your submissions</h2>
-        <div className="card empty">
-          Nothing to submit here yet. Project uploads land in this spot next &mdash; for now, keep
-          turning deliverables in through Canvas.
+          <div className="tile">
+            <b>{counts.needsWork}</b>
+            <span>need rework</span>
+          </div>
         </div>
+
+        {progress.length === 0 ? (
+          <div className="card empty">No projects have been set up for this year yet.</div>
+        ) : null}
+
+        {progress.map((project) => {
+          const done = project.deliverables.filter((d) => d.latest).length;
+          return (
+            <section key={project.id}>
+              <h2>
+                {project.label}: {project.title}{" "}
+                <span className="pill">
+                  {done}/{project.deliverables.length}
+                </span>
+              </h2>
+              {project.pageUrl ? (
+                <p className="sub" style={{ marginTop: -4 }}>
+                  <a href={project.pageUrl} target="_blank" rel="noopener noreferrer">
+                    Project instructions
+                  </a>
+                </p>
+              ) : null}
+
+              {project.deliverables.map((d) => (
+                <div className="card" key={d.id}>
+                  <div className="deliverable-head">
+                    <span className={`kind kind-${d.kind}`}>{KIND_LABEL[d.kind] ?? d.kind}</span>
+                    <strong>{d.label}</strong>
+                    {d.latest?.review ? (
+                      <span
+                        className={`pill ${d.latest.review.status === "approved" ? "active" : "invited"}`}
+                      >
+                        {d.latest.review.status === "approved" ? "Approved" : "Needs work"}
+                      </span>
+                    ) : d.latest ? (
+                      <span className="pill">Submitted</span>
+                    ) : (
+                      <span className="pill">Not submitted</span>
+                    )}
+                  </div>
+
+                  {d.instructions ? (
+                    <p className="sub" style={{ margin: "8px 0 0" }}>
+                      {d.instructions}
+                    </p>
+                  ) : null}
+
+                  {d.latest ? (
+                    <div className="submission">
+                      <p className="sub" style={{ margin: "0 0 6px", fontSize: 13 }}>
+                        {d.latest.filename} &middot; {formatBytes(d.latest.bytes)}
+                        {d.latest.durationSeconds
+                          ? ` · ${Math.round(d.latest.durationSeconds)}s`
+                          : ""}{" "}
+                        &middot; submitted {when(d.latest.submittedAt)}
+                        {d.latest.version > 1 ? ` · attempt ${d.latest.version}` : ""}
+                      </p>
+
+                      {d.latest.fileDeletedAt ? (
+                        <p className="empty" style={{ margin: 0 }}>
+                          The file has been removed to save storage. Your submission and any
+                          feedback are still on record.
+                        </p>
+                      ) : d.kind === "video" ? (
+                        <video controls preload="metadata" src={urls.get(d.latest.id)} />
+                      ) : d.kind === "photo" ? (
+                        /* eslint-disable-next-line @next/next/no-img-element */
+                        <img src={urls.get(d.latest.id)} alt={d.label} />
+                      ) : (
+                        <a href={urls.get(d.latest.id)}>Download {d.latest.filename}</a>
+                      )}
+
+                      {d.latest.review?.comment ? (
+                        <div className="feedback">
+                          <strong>Feedback</strong>
+                          <p style={{ margin: "4px 0 0" }}>{d.latest.review.comment}</p>
+                          <p className="sub" style={{ margin: "4px 0 0", fontSize: 12 }}>
+                            {d.latest.review.reviewer} &middot; {when(d.latest.review.reviewedAt)}
+                          </p>
+                        </div>
+                      ) : null}
+                    </div>
+                  ) : null}
+
+                  {d.history.length > 0 ? (
+                    <details style={{ marginTop: 10 }}>
+                      <summary className="sub" style={{ fontSize: 13, cursor: "pointer" }}>
+                        {d.history.length} earlier attempt{d.history.length === 1 ? "" : "s"}
+                      </summary>
+                      <ul className="history">
+                        {d.history.map((h) => (
+                          <li key={h.id}>
+                            Attempt {h.version} &middot; {when(h.submittedAt)} &middot;{" "}
+                            {h.fileDeletedAt ? (
+                              <span className="empty">file removed</span>
+                            ) : (
+                              <a href={urls.get(h.id)}>download</a>
+                            )}
+                          </li>
+                        ))}
+                      </ul>
+                    </details>
+                  ) : null}
+
+                  <UploadField
+                    deliverableId={d.id}
+                    kind={d.kind}
+                    maxBytes={d.maxBytes}
+                    maxSeconds={d.maxSeconds}
+                    allowedExtensions={d.allowedExtensions}
+                    hasExisting={Boolean(d.latest)}
+                    disabled={!canUpload}
+                    disabledReason="Read-only preview — uploading is disabled."
+                  />
+                </div>
+              ))}
+            </section>
+          );
+        })}
       </main>
     </>
   );

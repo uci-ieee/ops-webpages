@@ -1,15 +1,23 @@
+import { redirect } from "next/navigation";
+import { PreviewBanner } from "@/components/PreviewBanner";
 import { Topbar } from "@/components/Topbar";
+import { requireViewContext } from "@/lib/preview";
 import { sectionsForInstructor, studentsForInstructor } from "@/lib/queries";
-import { requireRole } from "@/lib/session";
+import { homeFor } from "@/lib/session";
+import { deliverableCount, submissionCountsByStudent } from "@/lib/submissions";
 
 export default async function InstructorHome() {
-  // Admins can look at this view too; students cannot reach it at all.
-  const user = await requireRole("instructor", "admin");
+  const { actor, subject, previewing } = await requireViewContext();
 
-  const [sections, students] = await Promise.all([
-    sectionsForInstructor(user.id),
-    studentsForInstructor(user.id),
+  if (subject.role === "student") redirect(homeFor(subject.role));
+
+  const [sections, students, total] = await Promise.all([
+    sectionsForInstructor(subject.id),
+    studentsForInstructor(subject.id),
+    deliverableCount(),
   ]);
+
+  const counts = await submissionCountsByStudent(students.map((s) => s.id));
 
   const bySection = new Map<number, typeof students>();
   for (const s of students) {
@@ -18,14 +26,19 @@ export default async function InstructorHome() {
     bySection.set(s.sectionId, list);
   }
 
+  const awaiting = students.reduce((n, s) => n + (counts.get(s.id)?.awaiting ?? 0), 0);
+
   return (
     <>
-      <Topbar user={user} />
+      <Topbar user={subject} />
+      {previewing ? <PreviewBanner actor={actor} subject={subject} /> : null}
       <main className="wrap">
         <h1>Your sections</h1>
         <p className="sub">
-          You see only the students enrolled in sections assigned to you.
-          {user.role === "admin" ? " (As an admin, assign yourself sections to see them here.)" : ""}
+          You see only students enrolled in sections assigned to you.
+          {subject.role === "admin"
+            ? " As an admin, assign yourself a section to see students here."
+            : ""}
         </p>
 
         <div className="tiles">
@@ -38,14 +51,14 @@ export default async function InstructorHome() {
             <span>students</span>
           </div>
           <div className="tile">
-            <b>{students.filter((s) => s.status === "active").length}</b>
-            <span>signed in at least once</span>
+            <b>{awaiting}</b>
+            <span>submissions to review</span>
           </div>
         </div>
 
         {sections.length === 0 ? (
           <div className="card empty">
-            No sections are assigned to you yet. An admin assigns sections on the Admin page.
+            No sections are assigned to you yet. An admin assigns sections from the roster import.
           </div>
         ) : (
           sections.map((section) => {
@@ -65,25 +78,36 @@ export default async function InstructorHome() {
                         <tr>
                           <th>UCInetID</th>
                           <th>Name</th>
-                          <th>Status</th>
-                          <th>Last sign-in</th>
+                          <th>Submitted</th>
+                          <th>To review</th>
+                          <th>Needs work</th>
+                          <th />
                         </tr>
                       </thead>
                       <tbody>
-                        {roster.map((s) => (
-                          <tr key={s.id}>
-                            <td>{s.ucinetid}</td>
-                            <td>{s.name ?? "—"}</td>
-                            <td>
-                              <span className={`pill ${s.status}`}>{s.status}</span>
-                            </td>
-                            <td>
-                              {s.lastLoginAt
-                                ? new Date(s.lastLoginAt).toLocaleDateString()
-                                : "never"}
-                            </td>
-                          </tr>
-                        ))}
+                        {roster.map((s) => {
+                          const c = counts.get(s.id);
+                          return (
+                            <tr key={s.id}>
+                              <td>{s.ucinetid}</td>
+                              <td>{s.name ?? "—"}</td>
+                              <td>
+                                {c?.submitted ?? 0}/{total}
+                              </td>
+                              <td>
+                                {c?.awaiting ? (
+                                  <span className="pill invited">{c.awaiting}</span>
+                                ) : (
+                                  "—"
+                                )}
+                              </td>
+                              <td>{c?.needsWork ? c.needsWork : "—"}</td>
+                              <td>
+                                <a href={`/instructor/student/${s.id}`}>Open</a>
+                              </td>
+                            </tr>
+                          );
+                        })}
                       </tbody>
                     </table>
                   </div>

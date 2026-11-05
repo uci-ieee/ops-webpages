@@ -13,6 +13,8 @@
     "db:deliverables": "tsx src/lib/db/seed-deliverables.ts"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.1162.0",
+    "@aws-sdk/s3-request-presigner": "^3.1162.0",
     "@neon/config": "^1.10.2",
     "@neon/env": "^1.6.10",
     "@vercel/functions": "^3.10.6",
