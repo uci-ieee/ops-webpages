@@ -75,14 +75,33 @@ export function parseRoster(text: string): ParseResult {
   if (lines.length === 0) return { rows: [], errors: ["Nothing pasted."] };
 
   const delimiter = lines[0]!.includes("\t") ? "\t" : ",";
-  const header = splitLine(lines[0]!, delimiter).map((h) => h.toLowerCase().replace(/\s+/g, "_"));
+  const firstCells = splitLine(lines[0]!, delimiter).map((h) =>
+    h.toLowerCase().replace(/\s+/g, "_"),
+  );
+
+  const KNOWN = ["ucinetid", "name", "role", "section_code", "section_name", "email"];
+  const looksLikeHeader = firstCells.some((cell) => KNOWN.includes(cell));
+
+  /**
+   * A header row is optional. Requiring one meant that pasting a single person
+   * -- the most obvious thing to try -- was read as a header, matched nothing,
+   * and rejected the whole import. Without a header the columns are assumed to
+   * be in this order, which is the order the instructions show.
+   */
+  const DEFAULT_ORDER = ["ucinetid", "name", "role", "section_code", "section_name"];
+  const header = looksLikeHeader ? firstCells : DEFAULT_ORDER;
+  const dataLines = looksLikeHeader ? lines.slice(1) : lines;
+  const lineOffset = looksLikeHeader ? 2 : 1;
   const col = (name: string) => header.indexOf(name);
 
-  if (col("ucinetid") === -1) {
+  // A row that clearly meant to be a header but has no ucinetid column is a
+  // mistake worth naming, rather than silently treating "Name" as a UCInetID.
+  if (looksLikeHeader && col("ucinetid") === -1) {
     return {
       rows: [],
       errors: [
-        "First line must be a header row containing \"ucinetid\". Got: " + lines[0]!.slice(0, 80),
+        'That looks like a header row but has no "ucinetid" column. Got: ' +
+          lines[0]!.slice(0, 80),
       ],
     };
   }
@@ -90,8 +109,8 @@ export function parseRoster(text: string): ParseResult {
   const seen = new Map<string, number>();
   const rows: RosterRow[] = [];
 
-  lines.slice(1).forEach((line, i) => {
-    const lineNo = i + 2; // 1-indexed, and the header is line 1
+  dataLines.forEach((line, i) => {
+    const lineNo = i + lineOffset;
     const cells = splitLine(line, delimiter);
     const pick = (name: string) => {
       const idx = col(name);

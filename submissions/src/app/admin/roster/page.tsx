@@ -95,6 +95,10 @@ export default async function RosterPage() {
             </tbody>
           </table>
           <p className="sub" style={{ margin: "12px 0 0", fontSize: 13 }}>
+            The header row is optional. Without one, columns are read in the order above, so
+            pasting a single line like <code>pantera,Peter Anteater,student,S01</code> works.
+          </p>
+          <p className="sub" style={{ margin: "8px 0 0", fontSize: 13 }}>
             Re-importing the same list is safe — everyone is matched on UCInetID and updated in
             place, never duplicated. Importing never removes anyone, and never resets someone who
             has already signed in.
