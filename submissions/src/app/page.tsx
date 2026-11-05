@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { PreviewBanner } from "@/components/PreviewBanner";
 import { Topbar } from "@/components/Topbar";
+import { DeleteSubmissionButton } from "@/components/DeleteSubmissionButton";
 import { UploadField } from "@/components/UploadField";
 import { requireViewContext } from "@/lib/preview";
 import { sectionsForStudent } from "@/lib/queries";
@@ -34,7 +35,7 @@ export default async function StudentHome() {
 
   const [sections, progress, quota] = await Promise.all([
     sectionsForStudent(subject.id),
-    getProgressFor(subject.id),
+    getProgressFor(subject.id, { publishedOnly: true }),
     quotaStatus(),
   ]);
   const counts = tally(progress);
@@ -178,6 +179,15 @@ export default async function StudentHome() {
                           </p>
                         </div>
                       ) : null}
+
+                      <div className="submission-actions">
+                        <DeleteSubmissionButton
+                          submissionId={d.latest.id}
+                          label="Delete this submission"
+                          what={`your submission for "${d.label}"`}
+                          disabled={previewing}
+                        />
+                      </div>
                     </div>
                   ) : null}
 
@@ -195,6 +205,13 @@ export default async function StudentHome() {
                             ) : (
                               <a href={urls.get(h.id)}>download</a>
                             )}
+                            {" · "}
+                            <DeleteSubmissionButton
+                              submissionId={h.id}
+                              label="delete"
+                              what={`attempt ${h.version}`}
+                              disabled={previewing}
+                            />
                           </li>
                         ))}
                       </ul>

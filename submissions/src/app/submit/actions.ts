@@ -1,10 +1,11 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { and, eq, isNull } from "drizzle-orm";
+import { and, desc, eq, isNull } from "drizzle-orm";
 import { getDb } from "@/lib/db";
 import { submissions } from "@/lib/db/schema";
 import { requireActor } from "@/lib/preview";
+import { instructorCanSeeStudent } from "@/lib/queries";
 import { checkQuotaFor } from "@/lib/quota";
 import {
   RETENTION,
@@ -20,6 +21,87 @@ import {
   presignUpload,
   verifyUploadedObject,
 } from "@/lib/storage";
+
+export type DeleteResult = { ok: true } | { ok: false; error: string };
+
+/**
+ * Delete a submission outright -- the stored file and the row.
+ *
+ * Who may delete what:
+ *   student    their own submissions only
+ *   instructor submissions by students in sections assigned to them
+ *   admin      anything
+ *
+ * The file is removed first and a failure there is tolerated, because the
+ * object may already be gone (purged, or deleted directly in Cloudflare). A
+ * missing file must not strand the row that points at it.
+ */
+export async function deleteSubmission(input: { submissionId: string }): Promise<DeleteResult> {
+  const actor = await requireActor();
+  const db = getDb();
+
+  const rows = await db
+    .select({
+      id: submissions.id,
+      studentId: submissions.studentId,
+      deliverableId: submissions.deliverableId,
+      storageKey: submissions.storageKey,
+      supersededAt: submissions.supersededAt,
+    })
+    .from(submissions)
+    .where(eq(submissions.id, input.submissionId))
+    .limit(1);
+
+  const submission = rows[0];
+  if (!submission) return { ok: false, error: "That submission no longer exists." };
+
+  if (actor.role === "student") {
+    if (submission.studentId !== actor.id) {
+      return { ok: false, error: "That is not your submission." };
+    }
+  } else if (actor.role === "instructor") {
+    const allowed = await instructorCanSeeStudent(actor.id, submission.studentId);
+    if (!allowed) return { ok: false, error: "That student is not in one of your sections." };
+  }
+
+  await deleteObject(submission.storageKey).catch(() => {
+    /* already gone; the row still needs clearing */
+  });
+
+  const wasCurrent = submission.supersededAt === null;
+  // reviews cascade from submissions.
+  await db.delete(submissions).where(eq(submissions.id, submission.id));
+
+  // If the current attempt was the one removed, promote the newest remaining
+  // version back to current. Otherwise the deliverable would read "not
+  // submitted" while earlier attempts still existed.
+  if (wasCurrent) {
+    const remaining = await db
+      .select({ id: submissions.id })
+      .from(submissions)
+      .where(
+        and(
+          eq(submissions.deliverableId, submission.deliverableId),
+          eq(submissions.studentId, submission.studentId),
+        ),
+      )
+      .orderBy(desc(submissions.version))
+      .limit(1);
+
+    if (remaining[0]) {
+      await db
+        .update(submissions)
+        .set({ supersededAt: null, purgeAfter: daysFromNow(RETENTION.backstopDays) })
+        .where(eq(submissions.id, remaining[0].id));
+    }
+  }
+
+  revalidatePath("/");
+  revalidatePath("/instructor");
+  revalidatePath(`/instructor/student/${submission.studentId}`);
+  revalidatePath("/admin");
+  return { ok: true };
+}
 
 /**
  * Durations arrive as floats from the browser (HTMLMediaElement.duration), and

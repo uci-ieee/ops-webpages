@@ -1,15 +1,24 @@
 import { Topbar } from "@/components/Topbar";
 import { adminOverview, allUsers } from "@/lib/queries";
+import { listProjectsForAdmin } from "@/lib/projects";
 import { formatGB, measuredUsage, quotaStatus } from "@/lib/quota";
+import { studentSectionMap } from "@/lib/sections";
 import { requireRole } from "@/lib/session";
+
+function when(d: Date | null): string {
+  if (!d) return "never";
+  return new Date(d).toLocaleDateString(undefined, { month: "short", day: "numeric" });
+}
 
 export default async function AdminHome() {
   const user = await requireRole("admin");
 
-  const [overview, roster, quota] = await Promise.all([
+  const [overview, roster, quota, projects, studentMap] = await Promise.all([
     adminOverview(),
     allUsers(),
     quotaStatus(),
+    listProjectsForAdmin(),
+    studentSectionMap(),
   ]);
 
   // What storage really holds. Can exceed the recorded figure when a browser
@@ -22,14 +31,16 @@ export default async function AdminHome() {
     measureError = e instanceof Error ? e.message : "could not read storage";
   }
   const orphanBytes = measured ? Math.max(0, measured.bytes - quota.usedBytes) : 0;
-  const instructors = roster.filter((u) => u.role === "instructor");
+
+  const students = roster.filter((u) => u.role === "student");
+  const visibleProjects = projects.filter((p) => p.published);
 
   return (
     <>
       <Topbar user={user} />
       <main className="wrap">
         <h1>Admin</h1>
-        <p className="sub">Everything, across every section and instructor.</p>
+        <p className="sub">Everything, across every section and project.</p>
 
         <div className="tiles">
           <div className="tile">
@@ -49,9 +60,50 @@ export default async function AdminHome() {
             <span>sections</span>
           </div>
           <div className="tile">
+            <b>
+              {visibleProjects.length}
+              <span className="of">/{projects.length}</span>
+            </b>
+            <span>projects visible</span>
+          </div>
+          <div className="tile">
             <b>{roster.filter((u) => u.status === "active").length}</b>
             <span>have signed in</span>
           </div>
+        </div>
+
+        <h2>Manage</h2>
+        <div className="link-grid">
+          <a className="link-card" href="/admin/projects">
+            <strong>Projects</strong>
+            <span>
+              Publish or hide projects. Students currently see{" "}
+              {visibleProjects.length === 0
+                ? "nothing"
+                : visibleProjects.map((p) => p.label).join(", ")}
+              .
+            </span>
+          </a>
+          <a className="link-card" href="/admin/people">
+            <strong>People</strong>
+            <span>Change one person&rsquo;s role or section.</span>
+          </a>
+          <a className="link-card" href="/admin/sections">
+            <strong>Sections</strong>
+            <span>Create sections and assign students and staff in bulk.</span>
+          </a>
+          <a className="link-card" href="/admin/roster">
+            <strong>Roster import</strong>
+            <span>Paste a whole roster at once, from a spreadsheet or CSV.</span>
+          </a>
+          <a className="link-card" href="/admin/view-as">
+            <strong>View as</strong>
+            <span>See the student or instructor screens exactly as they do.</span>
+          </a>
+          <a className="link-card" href="/instructor">
+            <strong>Review work</strong>
+            <span>Your own sections, if any are assigned to you.</span>
+          </a>
         </div>
 
         <h2>Storage</h2>
@@ -86,7 +138,7 @@ export default async function AdminHome() {
                 Storage actually holds {formatGB(measured.bytes)} across {measured.objects}{" "}
                 object{measured.objects === 1 ? "" : "s"}
                 {orphanBytes > 1024
-                  ? ` — ${formatGB(orphanBytes)} of that is not attached to any submission (an upload that completed but was never confirmed) and is safe to delete.`
+                  ? ` — ${formatGB(orphanBytes)} of that is not attached to any submission and is safe to delete.`
                   : " — matching the recorded total."}
               </>
             ) : (
@@ -97,27 +149,39 @@ export default async function AdminHome() {
 
         <h2>Sections</h2>
         {overview.sections.length === 0 ? (
-          <div className="card empty">No sections yet. Run `npm run db:seed` to load a roster.</div>
+          <div className="card empty">
+            No sections yet. <a href="/admin/sections">Create one</a>.
+          </div>
         ) : (
-          <div className="card scroll-x" style={{ padding: 0 }}>
+          <div className="card table-card">
             <table>
               <thead>
                 <tr>
                   <th>Code</th>
                   <th>Name</th>
-                  <th>Year</th>
-                  <th>Instructor(s)</th>
+                  <th>Runs it</th>
                   <th>Students</th>
+                  <th />
                 </tr>
               </thead>
               <tbody>
                 {overview.sections.map((s) => (
                   <tr key={s.id}>
-                    <td>{s.code}</td>
+                    <td>
+                      <strong>{s.code}</strong>
+                    </td>
                     <td>{s.name}</td>
-                    <td>{s.year}</td>
-                    <td>{s.instructors.length ? s.instructors.join(", ") : "— unassigned —"}</td>
+                    <td>
+                      {s.instructors.length ? (
+                        s.instructors.join(", ")
+                      ) : (
+                        <span className="empty">nobody</span>
+                      )}
+                    </td>
                     <td>{s.students}</td>
+                    <td>
+                      <a href={`/admin/sections/${s.id}`}>Manage</a>
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -125,88 +189,51 @@ export default async function AdminHome() {
           </div>
         )}
 
-        <h2>Instructors</h2>
-        <div className="card scroll-x" style={{ padding: 0 }}>
-          <table>
-            <thead>
-              <tr>
-                <th>UCInetID</th>
-                <th>Name</th>
-                <th>Status</th>
-                <th>Sections</th>
-              </tr>
-            </thead>
-            <tbody>
-              {instructors.map((i) => (
-                <tr key={i.id}>
-                  <td>{i.ucinetid}</td>
-                  <td>{i.name ?? "—"}</td>
-                  <td>
-                    <span className={`pill ${i.status}`}>{i.status}</span>
-                  </td>
-                  <td>
-                    {overview.sections
-                      .filter((s) => s.instructors.includes(i.name ?? i.ucinetid))
-                      .map((s) => s.code)
-                      .join(", ") || "— none —"}
-                  </td>
+        <h2>
+          Students <span className="pill">{students.length}</span>
+        </h2>
+        {students.length === 0 ? (
+          <div className="card empty">
+            No students yet. <a href="/admin/roster">Import a roster</a>.
+          </div>
+        ) : (
+          <div className="card table-card">
+            <table>
+              <thead>
+                <tr>
+                  <th>UCInetID</th>
+                  <th>Name</th>
+                  <th>Section</th>
+                  <th>Status</th>
+                  <th>Last sign-in</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-
-        <h2>Full roster ({roster.length})</h2>
-        <div className="card scroll-x" style={{ padding: 0 }}>
-          <table>
-            <thead>
-              <tr>
-                <th>UCInetID</th>
-                <th>Name</th>
-                <th>Role</th>
-                <th>Status</th>
-                <th>Email</th>
-                <th>Last sign-in</th>
-              </tr>
-            </thead>
-            <tbody>
-              {roster.map((u) => (
-                <tr key={u.id}>
-                  <td>{u.ucinetid}</td>
-                  <td>{u.name ?? "—"}</td>
-                  <td>{u.role}</td>
-                  <td>
-                    <span className={`pill ${u.status}`}>{u.status}</span>
-                  </td>
-                  <td>{u.email ?? "—"}</td>
-                  <td>{u.lastLoginAt ? new Date(u.lastLoginAt).toLocaleDateString() : "never"}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-
-        <h2>Manage</h2>
-        <div className="card">
-          <p style={{ margin: 0 }}>
-            <a href="/admin/roster">Import a roster</a> &mdash; paste students, instructors, and
-            section assignments in one go.
-          </p>
-          <p style={{ margin: "8px 0 0" }}>
-            <a href="/admin/sections">Sections</a> &mdash; create sections, move students between
-            them, and choose who runs each one.
-          </p>
-          <p style={{ margin: "8px 0 0" }}>
-            <a href="/admin/view-as">View as someone else</a> &mdash; see the student or instructor
-            screens exactly as they do, read-only.
-          </p>
-        </div>
-
-        <h2>Not built yet</h2>
-        <div className="card empty">
-          Changing one person&rsquo;s role or section from this page, and file submissions. Roster
-          changes go through the import above for now.
-        </div>
+              </thead>
+              <tbody>
+                {students.map((u) => {
+                  const section = studentMap.get(u.id);
+                  return (
+                    <tr key={u.id}>
+                      <td>
+                        <code>{u.ucinetid}</code>
+                      </td>
+                      <td>{u.name ?? "—"}</td>
+                      <td>
+                        {section ? section.code : <span className="empty">unassigned</span>}
+                      </td>
+                      <td>
+                        <span className={`pill ${u.status}`}>{u.status}</span>
+                      </td>
+                      <td>{when(u.lastLoginAt)}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        )}
+        <p className="sub" style={{ fontSize: 13 }}>
+          Instructors and admins are managed on the <a href="/admin/people">People</a> page.
+        </p>
       </main>
     </>
   );

@@ -1,5 +1,6 @@
 import { notFound, redirect } from "next/navigation";
 import { eq } from "drizzle-orm";
+import { DeleteSubmissionButton } from "@/components/DeleteSubmissionButton";
 import { PreviewBanner } from "@/components/PreviewBanner";
 import { ReviewForm } from "@/components/ReviewForm";
 import { Topbar } from "@/components/Topbar";
@@ -51,7 +52,7 @@ export default async function StudentReviewPage({
 
   const [sections, progress] = await Promise.all([
     sectionsForStudent(student.id),
-    getProgressFor(student.id),
+    getProgressFor(student.id, { publishedOnly: true }),
   ]);
   const counts = tally(progress);
 
@@ -175,11 +176,27 @@ export default async function StudentReviewPage({
                                 ) : (
                                   <a href={urls.get(h.id)}>download</a>
                                 )}
+                                {" · "}
+                                <DeleteSubmissionButton
+                                  submissionId={h.id}
+                                  label="delete"
+                                  what={`attempt ${h.version}`}
+                                  disabled={previewing}
+                                />
                               </li>
                             ))}
                           </ul>
                         </details>
                       ) : null}
+
+                      <div className="submission-actions">
+                        <DeleteSubmissionButton
+                          submissionId={d.latest.id}
+                          label="Delete this submission"
+                          what={`${student.ucinetid}’s submission for "${d.label}"`}
+                          disabled={previewing}
+                        />
+                      </div>
 
                       <ReviewForm
                         submissionId={d.latest.id}

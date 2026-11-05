@@ -76,8 +76,10 @@ export type ProjectView = {
  */
 export async function getProgressFor(
   studentId: string,
-  year: string = CURRENT_YEAR,
+  opts: { year?: string; publishedOnly?: boolean } = {},
 ): Promise<ProjectView[]> {
+  const year = opts.year ?? CURRENT_YEAR;
+  const publishedOnly = opts.publishedOnly ?? false;
   const db = getDb();
 
   const [definition, handedIn] = await Promise.all([
@@ -100,7 +102,11 @@ export async function getProgressFor(
       })
       .from(projects)
       .innerJoin(deliverables, eq(deliverables.projectId, projects.id))
-      .where(eq(projects.year, year))
+      .where(
+        publishedOnly
+          ? and(eq(projects.year, year), eq(projects.published, true))
+          : eq(projects.year, year),
+      )
       .orderBy(asc(projects.position), asc(deliverables.position)),
 
     db
@@ -240,12 +246,19 @@ export async function submissionCountsByStudent(
 }
 
 /** Total deliverables defined for a year -- the denominator on progress. */
-export async function deliverableCount(year: string = CURRENT_YEAR): Promise<number> {
+export async function deliverableCount(
+  year: string = CURRENT_YEAR,
+  publishedOnly = true,
+): Promise<number> {
   const rows = await getDb()
     .select({ id: deliverables.id })
     .from(deliverables)
     .innerJoin(projects, eq(projects.id, deliverables.projectId))
-    .where(eq(projects.year, year));
+    .where(
+      publishedOnly
+        ? and(eq(projects.year, year), eq(projects.published, true))
+        : eq(projects.year, year),
+    );
   return rows.length;
 }
 

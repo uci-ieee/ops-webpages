@@ -113,8 +113,16 @@ export const projects = pgTable(
     position: integer("position").notNull(),
     year: text("year").notNull(),
     dueAt: timestamp("due_at", { withTimezone: true }),
+    /**
+     * Students see only published projects. Defaults to false so a newly
+     * seeded project is never exposed before an officer is ready for it.
+     */
+    published: boolean("published").notNull().default(false),
   },
-  (t) => [uniqueIndex("projects_slug_year_key").on(t.slug, t.year)],
+  (t) => [
+    uniqueIndex("projects_slug_year_key").on(t.slug, t.year),
+    index("projects_published_idx").on(t.published),
+  ],
 );
 
 /**
