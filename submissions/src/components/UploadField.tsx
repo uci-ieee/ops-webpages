@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { confirmUpload, requestUpload } from "@/app/submit/actions";
+import { compressVideo } from "@/lib/compress-video";
 
 type Props = {
   deliverableId: number;
@@ -22,8 +23,8 @@ function fmt(bytes: number): string {
 }
 
 /**
- * Reads the duration without uploading anything. Saves a student from waiting
- * out a 25 MB transfer only to be told the clip is too long.
+ * Reads the duration without uploading anything, so an over-long clip is
+ * rejected before either compression or a 50 MB transfer.
  */
 function readDuration(file: File): Promise<number | null> {
   return new Promise((resolve) => {
@@ -40,9 +41,8 @@ function readDuration(file: File): Promise<number | null> {
     };
     el.onerror = () => done(null);
     el.src = url;
-    // Some containers (notably .mov from iPhones) never fire metadata in
-    // Chrome; don't hang the form waiting for them.
-    setTimeout(() => done(null), 5000);
+    // Some containers never fire metadata in some browsers; don't hang.
+    setTimeout(() => done(null), 8000);
   });
 }
 
@@ -71,24 +71,17 @@ export function UploadField(props: Props) {
   const [busy, setBusy] = useState(false);
   const [pct, setPct] = useState(0);
   const [error, setError] = useState<string | null>(null);
-  const [stage, setStage] = useState<string>("");
+  const [stage, setStage] = useState("");
+  const [note, setNote] = useState<string | null>(null);
 
   async function handle(file: File) {
     setError(null);
+    setNote(null);
     setBusy(true);
     setPct(0);
 
     try {
-      if (file.size > props.maxBytes) {
-        setError(
-          `That file is ${fmt(file.size)}, over the ${fmt(props.maxBytes)} limit.` +
-            (props.kind === "video"
-              ? " Record at 720p instead of 1080p/4K, or trim the clip."
-              : ""),
-        );
-        return;
-      }
-
+      // An over-long clip is rejected first: no point compressing it.
       let duration: number | null = null;
       if (props.maxSeconds !== null) {
         setStage("Checking length…");
@@ -101,12 +94,49 @@ export function UploadField(props: Props) {
         }
       }
 
+      // Sanity bound so a pathological file is not fed to the encoder.
+      if (file.size > props.maxBytes * 8) {
+        setError(
+          `That file is ${fmt(file.size)}, far past the ${fmt(props.maxBytes)} limit. ` +
+            `Re-record at a lower resolution (720p) and try again.`,
+        );
+        return;
+      }
+
+      // Compression is best-effort: any failure falls back to the original.
+      let working = file;
+      if (props.kind === "video") {
+        setStage("Compressing to 720p…");
+        setPct(0);
+        const result = await compressVideo(file, setPct);
+        working = result.file;
+        if (result.skippedReason) {
+          // Not an error -- just explains why the file was left alone.
+          setNote(`Uploaded as-is (${result.skippedReason}).`);
+        } else {
+          setNote(
+            `Compressed ${fmt(result.originalBytes)} → ${fmt(result.compressedBytes)} at 720p.`,
+          );
+        }
+      }
+
+      // Checked after compression, so a big 4K clip gets rescued rather than
+      // rejected outright.
+      if (working.size > props.maxBytes) {
+        setError(
+          `Even after compressing, that file is ${fmt(working.size)}, over the ${fmt(props.maxBytes)} limit. ` +
+            `Try a shorter clip, or re-record at 720p.`,
+        );
+        return;
+      }
+
       setStage("Preparing…");
+      setPct(0);
       const ticket = await requestUpload({
         deliverableId: props.deliverableId,
-        filename: file.name,
-        contentType: file.type || "application/octet-stream",
-        size: file.size,
+        filename: working.name,
+        contentType: working.type || "application/octet-stream",
+        size: working.size,
         durationSeconds: duration,
       });
       if (!ticket.ok) {
@@ -115,11 +145,11 @@ export function UploadField(props: Props) {
       }
 
       setStage("Uploading…");
-      const put = await putWithProgress(ticket.url, file, setPct);
+      const put = await putWithProgress(ticket.url, working, setPct);
       if (!put.ok) {
         setError(
           put.status === 0
-            ? "The upload was interrupted. Check your connection and try again."
+            ? "The upload was blocked before it left your browser. If this keeps happening, tell an OPS officer -- the storage bucket may be missing its CORS policy."
             : `The upload was rejected (HTTP ${put.status}). Try again.`,
         );
         return;
@@ -129,8 +159,8 @@ export function UploadField(props: Props) {
       const confirmed = await confirmUpload({
         deliverableId: props.deliverableId,
         version: ticket.version,
-        filename: file.name,
-        contentType: file.type || "application/octet-stream",
+        filename: working.name,
+        contentType: working.type || "application/octet-stream",
         durationSeconds: duration,
       });
       if (!confirmed.ok) {
@@ -176,6 +206,9 @@ export function UploadField(props: Props) {
           </div>
           <p className="sub" style={{ margin: "6px 0 0", fontSize: 13 }}>
             {stage} {pct > 0 && pct < 100 ? `${pct}%` : ""}
+            {stage.startsWith("Compressing")
+              ? " — this runs in real time, so roughly the length of the clip."
+              : ""}
           </p>
         </div>
       ) : null}
@@ -184,10 +217,16 @@ export function UploadField(props: Props) {
           {error}
         </div>
       ) : null}
+      {note && !error ? (
+        <p className="sub" style={{ margin: "6px 0 0", fontSize: 12 }}>
+          {note}
+        </p>
+      ) : null}
       {!busy && !error ? (
         <p className="sub" style={{ margin: "6px 0 0", fontSize: 12 }}>
           {props.allowedExtensions.join(", ")} &middot; up to {fmt(props.maxBytes)}
           {props.maxSeconds !== null ? ` · max ${props.maxSeconds}s` : ""}
+          {props.kind === "video" ? " · compressed to 720p automatically" : ""}
           {props.hasExisting ? " · uploading replaces your current file" : ""}
         </p>
       ) : null}
