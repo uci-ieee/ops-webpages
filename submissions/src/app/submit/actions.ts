@@ -21,6 +21,16 @@ import {
   verifyUploadedObject,
 } from "@/lib/storage";
 
+/**
+ * Durations arrive as floats from the browser (HTMLMediaElement.duration), and
+ * the column is an integer. Also guards NaN and Infinity, which some containers
+ * report for streams whose length the browser cannot determine.
+ */
+function toWholeSeconds(value: number | null): number | null {
+  if (value === null || !Number.isFinite(value) || value <= 0) return null;
+  return Math.round(value);
+}
+
 export type UploadTicket =
   | { ok: true; url: string; version: number; maxBytes: number }
   | { ok: false; error: string };
@@ -161,18 +171,34 @@ export async function confirmUpload(input: {
       filename: input.filename,
       bytes: check.facts.bytes,
       contentType: check.facts.contentType ?? input.contentType,
-      durationSeconds: input.durationSeconds,
+      // duration_seconds is an integer column and HTMLMediaElement.duration is
+      // fractional, so an unrounded value is rejected outright by Postgres
+      // ("invalid input syntax for type integer").
+      durationSeconds: toWholeSeconds(input.durationSeconds),
       // Backstop until an instructor reviews it, which reschedules the purge.
       purgeAfter: daysFromNow(RETENTION.backstopDays),
     });
   } catch (e) {
-    // The unique (deliverable, student, version) index catches a double submit.
+    // The object is already in storage at this point, so drop it rather than
+    // leaving an orphan that counts against the storage quota forever.
     await deleteObject(key).catch(() => {});
+
     const msg = e instanceof Error ? e.message : String(e);
+    // Surface the real cause in the server log; the student gets plain English.
+    console.error("[confirmUpload] insert failed", {
+      deliverableId: input.deliverableId,
+      version: input.version,
+      error: msg,
+    });
+
+    // The unique (deliverable, student, version) index catches a double submit.
     if (msg.includes("submissions_deliverable_student_version_key")) {
       return { ok: false, error: "That upload was already recorded. Reload the page." };
     }
-    return { ok: false, error: "Could not record that submission. Try again." };
+    return {
+      ok: false,
+      error: "Your file uploaded but could not be recorded, so it was discarded. Try again.",
+    };
   }
 
   revalidatePath("/");
