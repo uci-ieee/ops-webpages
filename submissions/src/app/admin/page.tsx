@@ -2,8 +2,10 @@ import { Topbar } from "@/components/Topbar";
 import { adminOverview, allUsers } from "@/lib/queries";
 import { listProjectsForAdmin } from "@/lib/projects";
 import { formatGB, measuredUsage, quotaStatus } from "@/lib/quota";
+import { pendingPurgeCount } from "@/lib/purge";
 import { studentSectionMap } from "@/lib/sections";
 import { requireRole } from "@/lib/session";
+import { runPurgeNow } from "./storage-actions";
 
 function when(d: Date | null): string {
   if (!d) return "never";
@@ -13,12 +15,13 @@ function when(d: Date | null): string {
 export default async function AdminHome() {
   const user = await requireRole("admin");
 
-  const [overview, roster, quota, projects, studentMap] = await Promise.all([
+  const [overview, roster, quota, projects, studentMap, pending] = await Promise.all([
     adminOverview(),
     allUsers(),
     quotaStatus(),
     listProjectsForAdmin(),
     studentSectionMap(),
+    pendingPurgeCount(),
   ]);
 
   // What storage really holds. Can exceed the recorded figure when a browser
@@ -145,6 +148,24 @@ export default async function AdminHome() {
               <>Could not read storage directly: {measureError}</>
             )}
           </p>
+
+          <div className="retention">
+            <span>
+              {pending.files === 0 ? (
+                <>Nothing is due for deletion. The sweep runs daily at 09:00 UTC.</>
+              ) : (
+                <>
+                  <strong>
+                    {pending.files} file{pending.files === 1 ? "" : "s"} ({formatGB(pending.bytes)})
+                  </strong>{" "}
+                  past their retention date, waiting for the next daily sweep.
+                </>
+              )}
+            </span>
+            <form action={runPurgeNow}>
+              <button className="btn-quiet">Run the sweep now</button>
+            </form>
+          </div>
         </div>
 
         <h2>Sections</h2>

@@ -213,6 +213,7 @@ S3_SECRET_ACCESS_KEY 64 hex chars
 S3_BUCKET            ops-submission
 S3_REGION            auto
 STORAGE_QUOTA_BYTES  optional; defaults to 9 GB
+CRON_SECRET          required for the retention sweep; see below
 ```
 
 Neon Object Storage would have been the natural choice, but it only exists in
@@ -261,6 +262,36 @@ curl -s -D - -o /dev/null -X OPTIONS \
 
 Headers back means it works. `CORS not configured for this bucket` means it does
 not.
+
+### Retention sweep
+
+`purge_after` on each submission is only a date until something acts on it.
+`/api/cron/purge` is that something: it deletes files past their retention date
+and sweeps objects that no submission points at.
+
+Scheduled daily at 09:00 UTC by `vercel.json`. Vercel Cron sends
+`Authorization: Bearer $CRON_SECRET`, and the endpoint **refuses to run at all**
+without `CRON_SECRET` set, rather than deleting files unauthenticated. Set the
+same value in Vercel, or the sweep silently never happens.
+
+It deletes the file, never the row: `file_deleted_at` is stamped so the
+submission and its review stay on record. A failed delete is left unmarked and
+retried on the next run, rather than being recorded as freed while still costing
+money.
+
+Orphan sweep: a browser can finish a presigned PUT and then never confirm (tab
+closed, connection dropped), leaving an object with no row. Those are invisible
+to the quota, which counts rows, so nothing else would ever find them. Orphans
+newer than 24 hours are left alone in case an upload is still in flight.
+
+Check what it would do, without deleting anything:
+
+```bash
+curl -H "Authorization: Bearer $CRON_SECRET" \
+  "https://ops-submissions.vercel.app/api/cron/purge?dry=1"
+```
+
+Admins can also trigger it from the Storage panel on `/admin`.
 
 ### Storage ceiling
 
