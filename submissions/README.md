@@ -198,6 +198,83 @@ accounts** deletes them and prunes any section left empty. It matches only the
 exact seed patterns (`student001…`, `instructor01…`, `admin1…3`) *and* only
 accounts that have never signed in, so it cannot take a real person with it.
 
+## File storage (Cloudflare R2)
+
+Uploads go straight from the browser to R2 with a presigned PUT, so files never
+pass through the server. Vercel's serverless request body limit is 4.5 MB, so
+proxying a 50 MB video through it is not an option anyway.
+
+Env vars (provider-neutral names, so this can be swapped):
+
+```
+S3_ENDPOINT          https://<account-id>.r2.cloudflarestorage.com
+S3_ACCESS_KEY_ID     32 hex chars
+S3_SECRET_ACCESS_KEY 64 hex chars
+S3_BUCKET            ops-submission
+S3_REGION            auto
+STORAGE_QUOTA_BYTES  optional; defaults to 9 GB
+```
+
+Neon Object Storage would have been the natural choice, but it only exists in
+us-east-1/us-east-2/eu-central-1/ap-southeast-1 and this project's database is
+in us-west-2.
+
+### The bucket needs a CORS policy
+
+**This is the one that will waste your afternoon.** A presigned PUT from the
+browser is a cross-origin request. Without a CORS policy the browser refuses to
+send it and `XMLHttpRequest` reports status `0`, which is indistinguishable from
+a dropped connection — the app says "the upload was interrupted".
+
+It cannot be set with an Object Read & Write token (403), and it cannot be
+caught by a server-side test, because Node does not enforce CORS. Set it in the
+dashboard: **R2 → the bucket → Settings → CORS Policy**:
+
+```json
+[
+  {
+    "AllowedOrigins": [
+      "https://ops-submissions.vercel.app",
+      "http://localhost:3000"
+    ],
+    "AllowedMethods": ["PUT", "GET", "HEAD"],
+    "AllowedHeaders": ["content-type"],
+    "ExposeHeaders": ["etag"],
+    "MaxAgeSeconds": 3600
+  }
+]
+```
+
+`content-type` must be allowed because it is signed into the presigned URL. Add
+any new deployment origin here too — Vercel preview deployments get unique
+hostnames and will not be able to upload.
+
+Verify without a browser:
+
+```bash
+curl -s -D - -o /dev/null -X OPTIONS \
+  "$S3_ENDPOINT/$S3_BUCKET/probe" \
+  -H "Origin: https://ops-submissions.vercel.app" \
+  -H "Access-Control-Request-Method: PUT" \
+  -H "Access-Control-Request-Headers: content-type" | grep -i access-control
+```
+
+Headers back means it works. `CORS not configured for this bucket` means it does
+not.
+
+### Storage ceiling
+
+Per-file caps cannot bound the bill on their own, so `src/lib/quota.ts` enforces
+an account-wide ceiling (default 9 GB, under R2's 10 GB free allowance) before
+any presigned URL is issued. Past the limit, students get a clear "submissions
+are paused, not your fault" message and admins see it on the admin page.
+
+Rough sizing, 135 students: one 50 MB video each is 6.8 GB. Project 2 asks for
+three videos. R2 beyond the free tier is about $0.015/GB/month with no egress
+fees, so ~60 GB — the whole year with nothing ever deleted — runs about $11/year.
+Raising `STORAGE_QUOTA_BYTES` is usually the better trade than making students
+fight video compression.
+
 ## Deploying to Vercel
 
 The app is not deployed yet. When you do it:
