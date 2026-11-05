@@ -207,9 +207,14 @@ export default async function StudentReviewPage({
 
                       <ReviewForm
                         submissionId={d.latest.id}
+                        pointsPossible={d.pointsPossible}
                         current={
                           d.latest.review
-                            ? { status: d.latest.review.status, comment: d.latest.review.comment }
+                            ? {
+                                status: d.latest.review.status,
+                                score: d.latest.review.score,
+                                comment: d.latest.review.comment,
+                              }
                             : null
                         }
                         disabled={previewing}

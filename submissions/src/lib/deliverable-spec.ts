@@ -44,12 +44,21 @@ export const KIND_RULES: Record<
   archive: { maxBytes: 50 * MB, maxSeconds: null, allowedExtensions: [".zip"] },
 };
 
+/**
+ * Points each deliverable is worth unless it overrides this. A project grade
+ * is the sum of its deliverables, which is what gets pushed to the Canvas
+ * assignment -- Canvas holds one grade per assignment, not one per file.
+ */
+export const DEFAULT_POINTS = 10;
+
 export type SeedDeliverable = {
   kind: DeliverableKind;
   label: string;
   instructions?: string;
   /** Narrow the allowed extensions below the kind default, e.g. one KiCad file. */
   only?: string[];
+  /** Override the default points for this deliverable. */
+  points?: number;
 };
 
 export type SeedProject = {
@@ -261,5 +270,6 @@ export function resolveRules(d: SeedDeliverable) {
     maxBytes: base.maxBytes,
     maxSeconds: base.maxSeconds,
     allowedExtensions: d.only ?? base.allowedExtensions,
+    pointsPossible: d.points ?? DEFAULT_POINTS,
   };
 }

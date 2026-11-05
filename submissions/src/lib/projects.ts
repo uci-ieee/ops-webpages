@@ -17,6 +17,8 @@ export type ProjectAdminRow = {
   pageUrl: string | null;
   position: number;
   published: boolean;
+  canvasAssignmentId: number | null;
+  pointsPossible: number;
   deliverableCount: number;
   submissionCount: number;
 };
@@ -38,7 +40,11 @@ export async function listProjectsForAdmin(
 
   const [delCounts, subCounts] = await Promise.all([
     db
-      .select({ projectId: deliverables.projectId, n: sql<string>`count(*)` })
+      .select({
+        projectId: deliverables.projectId,
+        n: sql<string>`count(*)`,
+        points: sql<string>`coalesce(sum(${deliverables.pointsPossible}), 0)`,
+      })
       .from(deliverables)
       .where(inArray(deliverables.projectId, ids))
       .groupBy(deliverables.projectId),
@@ -51,6 +57,7 @@ export async function listProjectsForAdmin(
   ]);
 
   const byDel = new Map(delCounts.map((c) => [c.projectId, Number(c.n)]));
+  const byPoints = new Map(delCounts.map((c) => [c.projectId, Number(c.points)]));
   const bySub = new Map(subCounts.map((c) => [c.projectId, Number(c.n)]));
 
   return rows.map((r) => ({
@@ -61,6 +68,8 @@ export async function listProjectsForAdmin(
     pageUrl: r.pageUrl,
     position: r.position,
     published: r.published,
+    canvasAssignmentId: r.canvasAssignmentId,
+    pointsPossible: byPoints.get(r.id) ?? 0,
     deliverableCount: byDel.get(r.id) ?? 0,
     submissionCount: bySub.get(r.id) ?? 0,
   }));

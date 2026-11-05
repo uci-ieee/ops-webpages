@@ -2,7 +2,7 @@ import { Topbar } from "@/components/Topbar";
 import { listProjectsForAdmin } from "@/lib/projects";
 import { CURRENT_YEAR } from "@/lib/roster";
 import { requireRole } from "@/lib/session";
-import { publishThrough, setProjectPublished } from "./actions";
+import { publishThrough, setCanvasAssignment, setProjectPublished } from "./actions";
 
 export default async function AdminProjectsPage() {
   const user = await requireRole("admin");
@@ -71,6 +71,8 @@ export default async function AdminProjectsPage() {
                 <th>Project</th>
                 <th>Title</th>
                 <th>Deliverables</th>
+                <th>Points</th>
+                <th>Canvas assignment</th>
                 <th>Submissions</th>
                 <th>Students see it</th>
                 <th />
@@ -92,6 +94,22 @@ export default async function AdminProjectsPage() {
                     )}
                   </td>
                   <td>{r.deliverableCount}</td>
+                  <td>{r.pointsPossible}</td>
+                  <td>
+                    <form action={setCanvasAssignment} className="cell-form">
+                      <input type="hidden" name="projectId" value={r.id} />
+                      <input
+                        name="canvasAssignmentId"
+                        type="number"
+                        min={1}
+                        step={1}
+                        placeholder="not mapped"
+                        defaultValue={r.canvasAssignmentId ?? ""}
+                        style={{ width: 118 }}
+                      />
+                      <button className="btn-quiet">Save</button>
+                    </form>
+                  </td>
                   <td>{r.submissionCount || "—"}</td>
                   <td>
                     {r.published ? (
@@ -112,6 +130,12 @@ export default async function AdminProjectsPage() {
             </tbody>
           </table>
         </div>
+        <p className="sub" style={{ fontSize: 13 }}>
+          The Canvas assignment id is the number in the assignment’s URL. A project’s grade is
+          the sum of its deliverable scores, so set the Canvas assignment to the same total points
+          shown here. Leave it blank to keep a project out of Canvas entirely. Sync status is on the{" "}
+          <a href="/admin/canvas">Canvas page</a>.
+        </p>
         <p className="sub" style={{ fontSize: 13 }}>
           Hiding a project with submissions does not delete anything &mdash; instructors keep
           seeing the work, and students stop seeing the project.

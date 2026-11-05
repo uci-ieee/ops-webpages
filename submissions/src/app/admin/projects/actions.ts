@@ -49,3 +49,26 @@ export async function publishThrough(formData: FormData) {
   }
   refresh();
 }
+
+/**
+ * Map a project to its Canvas assignment. Blank clears the mapping, which
+ * leaves the project un-synced rather than failing.
+ */
+export async function setCanvasAssignment(formData: FormData) {
+  await requireActorRole("admin");
+
+  const projectId = Number(formData.get("projectId"));
+  const raw = String(formData.get("canvasAssignmentId") ?? "").trim();
+  if (!Number.isFinite(projectId)) return;
+
+  const parsed = raw === "" ? null : Number(raw);
+  if (parsed !== null && (!Number.isInteger(parsed) || parsed <= 0)) return;
+
+  await getDb()
+    .update(projects)
+    .set({ canvasAssignmentId: parsed })
+    .where(eq(projects.id, projectId));
+
+  revalidatePath("/admin/projects");
+  revalidatePath("/admin/canvas");
+}

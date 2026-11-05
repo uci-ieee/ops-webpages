@@ -70,6 +70,7 @@ async function main() {
           maxBytes: rules.maxBytes,
           maxSeconds: rules.maxSeconds,
           allowedExtensions: rules.allowedExtensions,
+          pointsPossible: rules.pointsPossible,
         })
         .onConflictDoUpdate({
           target: [deliverables.projectId, deliverables.position],
@@ -80,6 +81,7 @@ async function main() {
             maxBytes: rules.maxBytes,
             maxSeconds: rules.maxSeconds,
             allowedExtensions: rules.allowedExtensions,
+            pointsPossible: rules.pointsPossible,
           },
         });
       deliverableCount++;

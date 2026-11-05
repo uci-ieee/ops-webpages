@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { runPurge } from "@/lib/purge";
+import { drainCanvasSync } from "@/lib/canvas-sync";
 
 /**
  * Scheduled retention sweep. Vercel Cron calls this with
@@ -27,10 +28,15 @@ export async function GET(request: Request) {
 
   try {
     const report = await runPurge({ dryRun });
+    // The same sweep retries any Canvas push that failed. Grades are normally
+    // pushed moments after a review; this is the safety net for when Canvas
+    // was down at that moment.
+    const canvas = dryRun ? null : await drainCanvasSync();
     // Logged so a scheduled run leaves a trace in the Vercel logs even though
     // nobody sees the response.
     console.log("[purge]", JSON.stringify(report));
-    return NextResponse.json(report);
+    if (canvas) console.log("[canvas-sync]", JSON.stringify(canvas));
+    return NextResponse.json({ ...report, canvas });
   } catch (e) {
     const message = e instanceof Error ? e.message : "purge failed";
     console.error("[purge] failed", message);

@@ -87,6 +87,10 @@ export default async function AdminHome() {
               .
             </span>
           </a>
+          <a className="link-card" href="/admin/canvas">
+            <strong>Canvas</strong>
+            <span>Grade sync status, and which project maps to which assignment.</span>
+          </a>
           <a className="link-card" href="/admin/people">
             <strong>People</strong>
             <span>Change one person&rsquo;s role or section.</span>

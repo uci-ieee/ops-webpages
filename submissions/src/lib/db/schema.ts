@@ -113,6 +113,8 @@ export const projects = pgTable(
     position: integer("position").notNull(),
     year: text("year").notNull(),
     dueAt: timestamp("due_at", { withTimezone: true }),
+    /** The Canvas assignment this project maps to, if grades are pushed. */
+    canvasAssignmentId: integer("canvas_assignment_id"),
     /**
      * Students see only published projects. Defaults to false so a newly
      * seeded project is never exposed before an officer is ready for it.
@@ -145,6 +147,12 @@ export const deliverables = pgTable(
     maxBytes: integer("max_bytes").notNull(),
     maxSeconds: integer("max_seconds"),
     allowedExtensions: text("allowed_extensions").array().notNull(),
+    /**
+     * Points this deliverable is worth. A project's Canvas grade is the sum of
+     * these, since Canvas holds one grade per assignment rather than one per
+     * file. Managed from deliverable-spec.ts like the other rules.
+     */
+    pointsPossible: integer("points_possible").notNull().default(10),
   },
   (t) => [uniqueIndex("deliverables_project_position_key").on(t.projectId, t.position)],
 );
@@ -215,12 +223,56 @@ export const reviews = pgTable(
       .notNull()
       .references(() => users.id, { onDelete: "cascade" }),
     status: reviewStatusEnum("status").notNull(),
+    /** Points awarded. Null for verdicts recorded before scoring existed. */
+    score: integer("score"),
     comment: text("comment"),
     reviewedAt: timestamp("reviewed_at", { withTimezone: true }).notNull().defaultNow(),
   },
   (t) => [
     index("reviews_submission_idx").on(t.submissionId),
     index("reviews_student_idx").on(t.studentId),
+  ],
+);
+
+export const canvasSyncStatusEnum = pgEnum("canvas_sync_status", [
+  "pending",
+  "synced",
+  "failed",
+  "skipped",
+]);
+
+/**
+ * The grade Canvas should hold for one student on one project.
+ *
+ * A queue rather than a direct call: an instructor clicking Approve must not
+ * fail or hang because Canvas is slow. The cron sweep drains it and retries,
+ * and anything stuck shows up on the admin page rather than vanishing.
+ *
+ * Unique on (student, project) so re-reviewing updates the pending grade
+ * instead of stacking duplicate pushes.
+ */
+export const canvasSync = pgTable(
+  "canvas_sync",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    studentId: uuid("student_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    projectId: integer("project_id")
+      .notNull()
+      .references(() => projects.id, { onDelete: "cascade" }),
+    score: integer("score").notNull(),
+    pointsPossible: integer("points_possible").notNull(),
+    comment: text("comment"),
+    status: canvasSyncStatusEnum("status").notNull().default("pending"),
+    attempts: integer("attempts").notNull().default(0),
+    lastError: text("last_error"),
+    queuedAt: timestamp("queued_at", { withTimezone: true }).notNull().defaultNow(),
+    syncedAt: timestamp("synced_at", { withTimezone: true }),
+  },
+  (t) => [
+    uniqueIndex("canvas_sync_student_project_key").on(t.studentId, t.projectId),
+    index("canvas_sync_status_idx").on(t.status),
   ],
 );
 

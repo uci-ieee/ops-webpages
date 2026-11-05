@@ -131,6 +131,9 @@ export default async function StudentHome() {
                         className={`pill ${d.latest.review.status === "approved" ? "active" : "invited"}`}
                       >
                         {d.latest.review.status === "approved" ? "Approved" : "Needs work"}
+                        {d.latest.review.score !== null
+                          ? " " + d.latest.review.score + "/" + d.pointsPossible
+                          : ""}
                       </span>
                     ) : d.latest ? (
                       <span className="pill">Submitted</span>

@@ -26,6 +26,7 @@ export function daysFromNow(days: number): Date {
 
 export type ReviewView = {
   status: "approved" | "needs_work";
+  score: number | null;
   comment: string | null;
   reviewedAt: Date;
   reviewer: string | null;
@@ -54,6 +55,7 @@ export type DeliverableView = {
   maxBytes: number;
   maxSeconds: number | null;
   allowedExtensions: string[];
+  pointsPossible: number;
   latest: SubmissionView | null;
   /** Superseded versions, newest first. Download-only by design. */
   history: SubmissionView[];
@@ -101,6 +103,7 @@ export async function getProgressFor(
         maxBytes: deliverables.maxBytes,
         maxSeconds: deliverables.maxSeconds,
         allowedExtensions: deliverables.allowedExtensions,
+        pointsPossible: deliverables.pointsPossible,
       })
       .from(projects)
       .innerJoin(deliverables, eq(deliverables.projectId, projects.id))
@@ -125,6 +128,7 @@ export async function getProgressFor(
         fileDeletedAt: submissions.fileDeletedAt,
         storageKey: submissions.storageKey,
         reviewStatus: reviews.status,
+        reviewScore: reviews.score,
         reviewComment: reviews.comment,
         reviewedAt: reviews.reviewedAt,
         reviewerName: users.name,
@@ -153,6 +157,7 @@ export async function getProgressFor(
       review: row.reviewStatus
         ? {
             status: row.reviewStatus,
+            score: row.reviewScore,
             comment: row.reviewComment,
             reviewedAt: row.reviewedAt!,
             reviewer: row.reviewerName ?? row.reviewerUcinetid ?? null,
@@ -193,6 +198,7 @@ export async function getProgressFor(
       maxBytes: row.maxBytes,
       maxSeconds: row.maxSeconds,
       allowedExtensions: row.allowedExtensions,
+      pointsPossible: row.pointsPossible,
       latest,
       history,
     });
@@ -275,6 +281,7 @@ export async function getDeliverable(deliverableId: number) {
       maxBytes: deliverables.maxBytes,
       maxSeconds: deliverables.maxSeconds,
       allowedExtensions: deliverables.allowedExtensions,
+      pointsPossible: deliverables.pointsPossible,
       projectSlug: projects.slug,
       year: projects.year,
       projectLabel: projects.label,
